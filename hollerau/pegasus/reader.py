@@ -212,6 +212,32 @@ def keyword_signals(text):
     return out
 
 
+# What a supplier may take back, in so many words. `keyword_signals` already refuses to read these
+# sentences as the signal; `denied` reports them, so a state can withdraw what was said earlier.
+DENIALS = {
+    "wants_faster_payment": (r"(?:faster|shorter) payment.{0,15}(?:does not|would not|won't) help|"
+                             r"(?:do not|don't) (?:need|want) faster payment"),
+    "requires_index_clause": (r"(?:index|preisgleitklausel|clause).{0,40}"
+                              r"(?:not required|not mandatory|no longer (?:required|needed))|"
+                              r"(?:do not|don't|no longer) require.{0,30}(?:index|clause)|need not (?:include|apply)|"
+                              r"can (?:now )?(?:offer|fix|hold) (?:you )?(?:a |the )?fix(?:ed)? price"),
+    "price_frozen": r"(?:not|no longer) frozen|no (?:price )?freeze|freeze (?:has been|is|was) lifted",
+    "cost_floor": r"no absolute (?:limit|bottom)|not (?:our |the )?(?:bottom line|absolute limit)",
+    "wants_longer_contract": (r"(?:do not|don't) (?:need|want) a longer contract|"
+                              r"longer contract.{0,20}(?:would not|does not) help"),
+    "chargeback_too_high": r"(?:chargeback|penalty).{0,30}(?:is|are) (?:acceptable|fine|agreed)|not too (?:high|much)",
+    "lead_time_firm": r"lead time.{0,30}(?:is|are|can be) (?:flexible|negotiable)|(?:no|without) overtime",
+    "free_capacity": r"(?:no|not|without) free capacity",
+    "capacity_tight": r"(?:not|no longer) (?:fully booked|tight capacity)",
+}
+
+
+def denied(text):
+    """Signal types the e-mail explicitly takes back or denies ("our prices are no longer frozen")."""
+    phrases = re.split(r"(?<=[.!?])\s+|\n+", (text or "").lower())
+    return {kind for kind, rx in DENIALS.items() if any(re.search(rx, phrase) for phrase in phrases)}
+
+
 def _llm(lines):
     base = os.environ.get("LLM_BASE_URL", "https://api.openai.com/v1").rstrip("/")
     body = {"model": os.environ["LLM_MODEL"], "temperature": 0, "max_tokens": 4000,
