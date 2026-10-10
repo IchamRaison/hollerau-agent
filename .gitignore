@@ -2,3 +2,5 @@ data/
 .env
 eval/out/
 *.log
+*.pyc
+__pycache__/
