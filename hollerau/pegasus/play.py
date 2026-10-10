@@ -57,7 +57,12 @@ def play_case(table, case_id, agent, deadline=None):
                 if cap and time.time() > cap - max(CLOSE_BEFORE_CAP_S, slowest[0] + ROUND_MARGIN_S):
                     decision = closing_move(case, threads)
                 else:
-                    decision = agent.decide(case, threads, sid, busy=inflight - {sid})
+                    try:
+                        decision = agent.decide(case, threads, sid, busy=inflight - {sid})
+                    except Exception:
+                        # a bug in the agent must not leave the session open (an open case scores 0)
+                        log.exception("%s %s: decide failed, closing move", case_id, sid)
+                        decision = closing_move(case, threads)
                 if decision is None:
                     return
                 waiting = bool(decision.get("wait"))
@@ -103,8 +108,17 @@ def play_case(table, case_id, agent, deadline=None):
                 slowest[0] = max(slowest[0], time.monotonic() - t0)
                 log.info("%s %s %s %s", case_id, dsid, reply.get("status"), standing(threads[dsid])[1])
 
-    with ThreadPoolExecutor(max_workers=len(threads)) as pool:
-        list(pool.map(worker, list(threads)))
+    try:
+        with ThreadPoolExecutor(max_workers=len(threads)) as pool:
+            list(pool.map(worker, list(threads)))
+    except Exception:
+        # a worker died (e.g. a send failed): the other threads have ended; close what is still open
+        if done.is_set() or table.client.session(table.session_id).get("status") == "ended":
+            raise
+        log.exception("%s: a worker failed, closing move", case_id)
+        move = closing_move(case, threads)
+        if not finish(move["supplier_id"], move["message"]):
+            raise
     return box.get("result") or table.result()
 
 
