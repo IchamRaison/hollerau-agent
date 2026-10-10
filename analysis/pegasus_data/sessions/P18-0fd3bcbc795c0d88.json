@@ -1,0 +1,526 @@
+{
+ "summary": {
+  "session_id": "0fd3bcbc795c0d88",
+  "case_id": "case:P18",
+  "status": "ended",
+  "end_reason": "accepted",
+  "deal": 1,
+  "score": 0.2651526516933624,
+  "rounds": 3,
+  "created_at": 1791644505.6943882
+ },
+ "session": {
+  "session_id": "0fd3bcbc795c0d88",
+  "case_id": "case:P18",
+  "status": "ended",
+  "end_reason": "accepted",
+  "rounds": 3,
+  "set": "practice",
+  "opening": {
+   "sup:70740": {
+    "offer_id": "offer:70740-0",
+    "round": 0,
+    "status": "open",
+    "terms": {
+     "unit_price": 6.1,
+     "payment_days": 30,
+     "index_clause": null,
+     "contract_months": 12
+    },
+    "alternatives": [],
+    "missing_fields": [],
+    "claims": [
+     {
+      "type": "index_change",
+      "refs": [
+       "idx:AS-14404@2025-09",
+       "idx:AS-14404@2026-09"
+      ],
+      "asserted": {
+       "change_pct": 5.9
+      }
+     },
+     {
+      "type": "index_change",
+      "refs": [
+       "idx:LCI-C@2025-06",
+       "idx:LCI-C@2026-06"
+      ],
+      "asserted": {
+       "change_pct": 2.7
+      }
+     },
+     {
+      "type": "index_change",
+      "refs": [
+       "idx:PPI-C2431@2025-08",
+       "idx:PPI-C2431@2026-08"
+      ],
+      "asserted": {
+       "change_pct": 12.3
+      }
+     }
+    ],
+    "claim_results": [],
+    "signals": {
+     "reply_delay_days": 2,
+     "validity_days": 30
+    },
+    "text": "Dear customer,\n\nThank you for your enquiry. Please find our Angebot below. We are pleased to present our pricing and standard terms for your requirements.\n\nFor this item, we can offer a price of €6.10 per unit, with a Zahlungsziel 30 days net, a contract term of 12 months, and no Preisgleitklausel. Please note that this offer remains valid for 30 days.\n\nTo give you some background on our current cost structure, AS-14404 rose 5.9 % in twelve months and is 45 % of our cost. Furthermore, LCI-C rose 2.7 % in twelve months and is 5 % of our cost, while PPI-C2431 rose 12.3 % in twelve months and is 38 % of our cost.\n\nWe value our business relationship and look forward to serving you from our extensive product range.\n\nMit freundlichen Grüßen\nFranz Seidl\nInside Sales, Blankstahl Werdenfels GmbH"
+   }
+  },
+  "threads": {
+   "sup:70740": {
+    "offer_id": "offer:70740-2",
+    "status": "agreed",
+    "offers": 3,
+    "closed": null,
+    "seconds_left": null
+   }
+  },
+  "moves": [],
+  "result": {
+   "ended": true,
+   "deal": true,
+   "supplier_id": "sup:70740",
+   "offer_id": "offer:70740-2",
+   "terms": {
+    "payment_days": 45,
+    "lead_time_days": 14,
+    "volume_per_year": 23700,
+    "contract_months": 24,
+    "effective_date": "2027-01-01",
+    "index_clause": {
+     "series": "AS-14404",
+     "material_share": 0.45,
+     "deadband_pct": 3.0,
+     "base_month": "2026-08"
+    },
+    "incoterm": "DAP",
+    "tooling_eur": 0.0,
+    "ppm_commitment": 70,
+    "chargeback_eur_per_complaint": 0.0,
+    "unit_price": 5.7
+   },
+   "c_open": 295173.23,
+   "c_deal": 275943.84,
+   "c_alt": 301087.96,
+   "c_best": 222651.27,
+   "score": 0.2651526516933624,
+   "must_haves_ok": true,
+   "cost_breakdown": {
+    "price": 270180.0,
+    "uncovered_need": 0.0,
+    "fallback_risk": 0.0,
+    "payment_terms": 900.6,
+    "freight": 0.0,
+    "late_delivery": 0.0,
+    "quality": 0.0,
+    "tooling": 0.0,
+    "index_clause": 3647.43,
+    "index_risk": 1215.81,
+    "relationship": 0.0
+   },
+   "trace": [
+    {
+     "round": 0,
+     "actor": "sup:70740",
+     "move": {
+      "offer_id": "offer:70740-0",
+      "round": 0,
+      "status": "open",
+      "terms": {
+       "unit_price": 6.1,
+       "payment_days": 30,
+       "index_clause": null,
+       "contract_months": 12
+      },
+      "alternatives": [],
+      "missing_fields": [],
+      "claims": [
+       {
+        "type": "index_change",
+        "refs": [
+         "idx:AS-14404@2025-09",
+         "idx:AS-14404@2026-09"
+        ],
+        "asserted": {
+         "change_pct": 5.9
+        }
+       },
+       {
+        "type": "index_change",
+        "refs": [
+         "idx:LCI-C@2025-06",
+         "idx:LCI-C@2026-06"
+        ],
+        "asserted": {
+         "change_pct": 2.7
+        }
+       },
+       {
+        "type": "index_change",
+        "refs": [
+         "idx:PPI-C2431@2025-08",
+         "idx:PPI-C2431@2026-08"
+        ],
+        "asserted": {
+         "change_pct": 12.3
+        }
+       }
+      ],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 2,
+       "validity_days": 30
+      },
+      "text": "Dear customer,\n\nThank you for your enquiry. Please find our Angebot below. We are pleased to present our pricing and standard terms for your requirements.\n\nFor this item, we can offer a price of €6.10 per unit, with a Zahlungsziel 30 days net, a contract term of 12 months, and no Preisgleitklausel. Please note that this offer remains valid for 30 days.\n\nTo give you some background on our current cost structure, AS-14404 rose 5.9 % in twelve months and is 45 % of our cost. Furthermore, LCI-C rose 2.7 % in twelve months and is 5 % of our cost, while PPI-C2431 rose 12.3 % in twelve months and is 38 % of our cost.\n\nWe value our business relationship and look forward to serving you from our extensive product range.\n\nMit freundlichen Grüßen\nFranz Seidl\nInside Sales, Blankstahl Werdenfels GmbH"
+     },
+     "reasons": [
+      "AS-14404 rose … in twelve months and is … of our cost.",
+      "LCI-C rose … in twelve months and is … of our cost.",
+      "PPI-C2431 rose … in twelve months and is … of our cost."
+     ]
+    },
+    {
+     "round": 1,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Re: Price basis and alloy surcharge 1.4404 bar – counter-proposal",
+      "body": "Dear Mr Seidl,\n\nThank you for offer:70740-0. Our existing contract ctr:4600070740 runs on 60-day payment terms, so we would prefer to keep that basis rather than move to 30 days.\n\nFor part:370010 we currently hold a 20% quota, and at 23,700 kg a year we can consolidate further volume onto a single source.\n\nCould you send a cost breakdown separating the base price from the AS-14404 alloy component, and indicate the earliest lead time you can confirm under a 24-month commitment?\n\nOur packages are below.\n\nMit freundlichen Grüßen",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 5.85,
+         "index_clause": null,
+         "payment_days": 60,
+         "contract_months": 24
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 5.95,
+         "index_clause": null,
+         "payment_days": 45,
+         "contract_months": 24
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 6.0,
+         "index_clause": null,
+         "payment_days": 30,
+         "contract_months": 36
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": [
+        {
+         "type": "rival_quote",
+         "refs": [
+          "offer:70740-0"
+         ],
+         "asserted": {
+          "unit_price": 6.1
+         }
+        }
+       ]
+      },
+      "supplier_id": "sup:70740"
+     },
+     "reasons": []
+    },
+    {
+     "round": 1,
+     "actor": "sup:70740",
+     "move": {
+      "offer_id": "offer:70740-1",
+      "round": 1,
+      "status": "open",
+      "terms": {
+       "unit_price": 5.6,
+       "payment_days": 30,
+       "index_clause": {
+        "series": "AS-14404",
+        "material_share": 0.45,
+        "deadband_pct": 0.0,
+        "base_month": "2026-08"
+       },
+       "contract_months": 36
+      },
+      "alternatives": [
+       {
+        "offer_id": "offer:70740-1-a",
+        "terms": {
+         "unit_price": 5.8,
+         "payment_days": 60,
+         "index_clause": {
+          "series": "AS-14404",
+          "material_share": 0.45,
+          "deadband_pct": 5.0,
+          "base_month": "2026-08"
+         },
+         "contract_months": 24
+        }
+       }
+      ],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [
+       {
+        "index": 0,
+        "result": "irrelevant"
+       }
+      ],
+      "signals": {
+       "reply_delay_days": 2,
+       "validity_days": 30
+      },
+      "text": "Dear customer,\n\nWe have reviewed your offer and can adjust our Angebot as follows. Our main offer provides a price of €5.60 per unit, Zahlungsziel 30 days net, a contract term of 36 months, a Preisgleitklausel on AS-14404. \n\nThe rival quote data you cite does not concern this part or our company. Material accounts for about 45 % of our cost; more detail we do not share. For a 24-month commitment, we cannot maintain a fixed price and must apply the AS-14404 index clause to separate the alloy component. Regarding your mention of consolidating volume, please provide concrete data on the expected quantities so we can factor this into our planning. Which volume can you commit to?\n\nAlternatively, with Zahlungsziel 60 days net, a contract term of 24 months and a Preisgleitklausel on AS-14404: €5.80 per unit. \n\nPlease note that our offer stays valid for 30 days.\n\nMit freundlichen Grüßen\nFranz Seidl\nInside Sales, Blankstahl Werdenfels GmbH"
+     },
+     "reasons": [
+      "The rival quote data you cite does not concern this part or our company.",
+      "For a 24-month commitment, we cannot maintain a fixed price and must apply the AS-14404 index clause to separate the alloy component.",
+      "Regarding your mention of consolidating volume, please provide concrete data on the expected quantities so we can factor this into our planning.",
+      "Alternatively, with Zahlungsziel … days net, a contract term of … months and a Preisgleitklausel on AS-14404: €… per unit.",
+      "Which volume can you commit to?",
+      "Material accounts for about … of our cost; more detail we do not share."
+     ]
+    },
+    {
+     "round": 2,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Angebot offer:70740-1 – Basispunkt und Gleitklausel für part:370010",
+      "body": "Dear Mr Seidl,\n\nThank you for offer:70740-1. Our existing contract ctr:4600070740 runs on 60-day terms, so we would keep that basis rather than revert to 30 days.\n\nYour own performance data sc:70740@2026Q3 shows an OTD of 81.0%, so a 36-month lock-in needs a stronger concession on the base price.\n\nFor part:370010 we hold a 20% quota and can consolidate further volume with you.\n\nOur packages are below. Please also separate the base price from the AS-14404 alloy component.\n\nMit freundlichen Grüßen",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 5.35,
+         "index_clause": {
+          "series": "AS-14404",
+          "material_share": 0.45,
+          "deadband_pct": 5,
+          "base_month": "2026-08"
+         },
+         "payment_days": 60,
+         "contract_months": 36
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 5.55,
+         "index_clause": null,
+         "payment_days": 60,
+         "contract_months": 24
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 5.45,
+         "index_clause": {
+          "series": "AS-14404",
+          "material_share": 0.45,
+          "deadband_pct": 3,
+          "base_month": "2026-08"
+         },
+         "payment_days": 45,
+         "contract_months": 24
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": [
+        {
+         "type": "rival_quote",
+         "refs": [
+          "offer:70740-1"
+         ],
+         "asserted": {
+          "unit_price": 5.6
+         }
+        },
+        {
+         "type": "delivery_record",
+         "refs": [
+          "sc:70740@2026Q3"
+         ],
+         "asserted": {
+          "otd_pct": 81.0
+         }
+        }
+       ]
+      },
+      "supplier_id": "sup:70740"
+     },
+     "reasons": []
+    },
+    {
+     "round": 2,
+     "actor": "sup:70740",
+     "move": {
+      "offer_id": "offer:70740-2",
+      "round": 2,
+      "status": "final_offer",
+      "terms": {
+       "unit_price": 5.7,
+       "payment_days": 45,
+       "index_clause": {
+        "series": "AS-14404",
+        "material_share": 0.45,
+        "deadband_pct": 3.0,
+        "base_month": "2026-08"
+       },
+       "contract_months": 24
+      },
+      "alternatives": [
+       {
+        "offer_id": "offer:70740-2-a",
+        "terms": {
+         "unit_price": 5.7,
+         "payment_days": 60,
+         "index_clause": {
+          "series": "AS-14404",
+          "material_share": 0.45,
+          "deadband_pct": 5.0,
+          "base_month": "2026-08"
+         },
+         "contract_months": 36
+        }
+       }
+      ],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [
+       {
+        "index": 0,
+        "result": "irrelevant"
+       },
+       {
+        "index": 1,
+        "result": "verified"
+       }
+      ],
+      "signals": {
+       "reply_delay_days": 3,
+       "validity_days": 7
+      },
+      "text": "Dear customer,\n\nWe received a lot of material; we looked at what bears on this part. The rival quote data you cite does not concern this part or our company. We checked the delivery record data you cited; it holds, but it does not change our calculation.\n\nAs previously stated, we do not share further cost breakdowns; please provide concrete volume figures regarding your proposed consolidation. Material accounts for about 45 % of our cost; more detail we do not share. Our current defect rate for you is about 70 ppm. Our standard Zahlungsziel is 30 days net. We can offer a Preisgleitklausel on AS-14404, AS-14404, AS-14404. Which volume can you commit to? A binding higher volume would help us and can improve the price.\n\nThis is our final offer (letztes Angebot). Please decide. Our offer is a price of €5.70 per unit, Zahlungsziel 45 days net, a contract term of 24 months, a Preisgleitklausel on AS-14404. This offer remains valid for 7 days.\n\nTo meet your request for 60-day payment terms on a 36-month contract, we propose €5.70 per unit with the AS-14404 index clause. Alternatively, with Zahlungsziel 60 days net, a contract term of 36 months and a Preisgleitklausel on AS-14404: €5.70 per unit.\n\nMit freundlichen Grüßen\nFranz Seidl\nInside Sales, Blankstahl Werdenfels GmbH"
+     },
+     "reasons": [
+      "We received a lot of material; we looked at what bears on this part.",
+      "The rival quote data you cite does not concern this part or our company.",
+      "We checked the delivery record data you cited; it holds, but it does not change our calculation.",
+      "To meet your request for 60-day payment terms on a 36-month contract, we propose €… per unit with the AS-14404 index clause.",
+      "As previously stated, we do not share further cost breakdowns; please provide concrete volume figures regarding your proposed consolidation.",
+      "Alternatively, with Zahlungsziel … days net, a contract term of … months and a Preisgleitklausel on AS-14404: €… per unit.",
+      "Which volume can you commit to?",
+      "Material accounts for about … of our cost; more detail we do not share.",
+      "Our current defect rate for you is about … ppm.",
+      "Our standard Zahlungsziel is … days net.",
+      "We can offer a Preisgleitklausel on AS-14404, AS-14404, AS-14404.",
+      "A binding higher volume would help us and can improve the price."
+     ]
+    },
+    {
+     "round": 2,
+     "actor": "buyer",
+     "move": {
+      "type": "accept",
+      "offer_id": "offer:70740-2",
+      "supplier_id": "sup:70740"
+     },
+     "reasons": []
+    }
+   ]
+  },
+  "replay_url": "/replay/0fd3bcbc795c0d88"
+ },
+ "backoffice": [
+  {
+   "round": 0,
+   "supplier_id": "sup:70740",
+   "supplier": "Blankstahl Werdenfels GmbH",
+   "from": "Inside Sales",
+   "to": "team",
+   "text": "quote attached (quote-offer-70740-0.pdf)"
+  },
+  {
+   "round": 1,
+   "supplier_id": "sup:70740",
+   "supplier": "Blankstahl Werdenfels GmbH",
+   "from": "Inside Sales",
+   "to": "team",
+   "text": "My call: counter."
+  },
+  {
+   "round": 1,
+   "supplier_id": "sup:70740",
+   "supplier": "Blankstahl Werdenfels GmbH",
+   "from": "Inside Sales",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheets and … cited fact to check; we answer with our offer."
+  },
+  {
+   "round": 1,
+   "supplier_id": "sup:70740",
+   "supplier": "Blankstahl Werdenfels GmbH",
+   "from": "Inside Sales",
+   "to": "Logistics",
+   "text": "The buyer asks something for Logistics; please answer."
+  },
+  {
+   "round": 1,
+   "supplier_id": "sup:70740",
+   "supplier": "Blankstahl Werdenfels GmbH",
+   "from": "Inside Sales",
+   "to": "team",
+   "text": "delivery schedule attached (delivery-schedule.xlsx)"
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:70740",
+   "supplier": "Blankstahl Werdenfels GmbH",
+   "from": "Inside Sales",
+   "to": "team",
+   "text": "My call: counter."
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:70740",
+   "supplier": "Blankstahl Werdenfels GmbH",
+   "from": "Inside Sales",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheets and … cited facts to check; we answer with our final offer."
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:70740",
+   "supplier": "Blankstahl Werdenfels GmbH",
+   "from": "Inside Sales",
+   "to": "team",
+   "text": "quote attached (quote-offer-70740-2.pdf)"
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:70740",
+   "supplier": "Blankstahl Werdenfels GmbH",
+   "from": "Inside Sales",
+   "to": "team",
+   "text": "order confirmation attached (order-confirmation-offer-70740-2.pdf)"
+  }
+ ]
+}

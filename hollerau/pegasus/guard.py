@@ -26,7 +26,11 @@ def _known(ref, facts, case, offers):
 def _figure_ok(sentence, refs, facts):
     """The figure written next to the IDs matches the facts (arena tolerance: ±0.5 pt for %, else ±0.5 %)."""
     vals = [facts.get(r) or {} for r in refs]
-    nums = [float(x) for x in NUM_RE.findall(ID_RE.sub("", sentence))]
+    words = re.sub(r"\b[a-z]+:[\w.:@#/-]+", "", sentence)  # any ID-like token (part:, sup:, ...)
+    words = re.sub(r"\b\d{4}-\d{2}-\d{2}\b", "", words)      # dates, months and quarters are wording,
+    words = re.sub(r"\b\d{4}-\d{2}\b", "", words)            # not figures
+    words = re.sub(r"\b\d{4}Q[1-4]\b", "", words)
+    nums = [float(x) for x in NUM_RE.findall(words)]
     if not nums:
         return True
     if len(refs) == 2 and all("value" in v for v in vals):  # an index change in %
@@ -82,17 +86,3 @@ def check(case, message, facts, offers=(), ask=None, alt_price=None):
     if message.get("refs"):
         out["refs"] = [r for r in message["refs"] if r not in dropped_refs]
     return out, problems
-
-
-def guard_move(move, case, threads, facts):
-    """`contracts.guard` for the team's `Move`: the same checks on the message the move would send."""
-    if move.intent in ("accept", "walk_away"):
-        return move
-    offers = {ts["term_sheet_id"] for ev in threads.values() for m in ev
-              for ts in (m.get("term_sheets") or []) if ts.get("term_sheet_id")}
-    msg, problems = check(case, move.to_message(), facts, offers)
-    if problems:
-        move.body = msg.get("body", "")
-        move.term_sheets = [ts["terms"] for ts in msg.get("term_sheets") or []]
-        move.intent = move.intent if move.term_sheets else "hold"
-    return move
