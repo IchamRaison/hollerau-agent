@@ -123,8 +123,9 @@ def supplier_reference(case, events):
 
 
 class PegasusAgent:
-    def __init__(self, package=None, playbook=None, push_after_final=False):
+    def __init__(self, package=None, playbook=None, push_after_final=False, journal=None):
         self.pkg, self.playbook, self.push_after_final = package, playbook or {}, push_after_final
+        self.journal = journal  # runconfig.Journal: one line per decision, None = no trace
         self.refused, self.mirrored = set(), set()  # sheet IDs the arena refused / we sent back
         self._observed = {}  # (supplier, text) -> signals read before the decision lock
         self.case_id, self.claims, self.state = None, None, {}

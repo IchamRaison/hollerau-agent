@@ -1,7 +1,9 @@
-"""uv run python -m hollerau.pegasus.cli practice [P01 P04 ...] | sandbox D01 | final
+"""uv run pegasus practice [P01 P04 ...] | sandbox D01 | final        (the official command)
 
 Plays with the pegasus agent and prints one line per case (score, C) plus the replay links.
 `--playbook file.json`: per case {"target_c": ...} learnt from practice results.
+Before any session opens, the resolved configuration is written under data/runs/ (`runconfig`):
+code commit, settings, data, initial memory, reader cache. Decisions and results go next to it.
 """
 
 import argparse
@@ -16,6 +18,7 @@ from arena_kit.data import DataPackage
 from arena_kit.play import hosted
 
 from ..sessions import require_validation
+from . import runconfig
 from .agent import PegasusAgent
 from .play import play_cases, play_waves
 
@@ -46,9 +49,12 @@ def main(argv=None):
         p.__dict__["_ids"] = index  # a cached_property lives in the instance's __dict__
         return p
 
-    new_agent = lambda: PegasusAgent(package(), playbook, a.push_after_final)  # noqa: E731
     n = len(a.cases) or 10
     require_validation(f"pegasus {a.set} {' '.join(a.cases)}".strip(), n, quota=a.set == "practice")
+    run_dir, cfg = runconfig.record(a.set, a.cases, a.parallel, a.playbook, data_dir)
+    print(f"[{runconfig.describe(cfg)}] -> {run_dir or 'not written'}", file=sys.stderr)
+    journal = runconfig.Journal(run_dir)
+    new_agent = lambda: PegasusAgent(package(), playbook, a.push_after_final, journal=journal)  # noqa: E731
     client = ArenaClient()
     if a.set == "final":
         results = play_waves(client, new_agent, parallel=a.parallel)
@@ -67,6 +73,8 @@ def main(argv=None):
               f"c_open={r.get('c_open')} c_best={r.get('c_best')} terms={json.dumps(r.get('terms'))}")
     if scores:
         print(f"mean score: {100 * sum(scores) / len(scores):.1f}")
+    runconfig.save(run_dir, "results.json", {cid: (str(r) if isinstance(r, Exception) else r)
+                                             for cid, r in results.items()})
     try:
         print("practice left:", client.me()["practice"]["left"])
     except Exception:
