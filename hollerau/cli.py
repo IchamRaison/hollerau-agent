@@ -11,6 +11,8 @@ import sys
 
 from arena_kit import cli as kit_cli
 
+from .sessions import require_validation
+
 _kit_agent_factory = kit_cli.agent_factory
 
 
@@ -31,6 +33,13 @@ def agent_factory(name, data):
 
 def main(argv=None):
     argv = list(sys.argv[1:] if argv is None else argv)
+    kit_cli.load_env()
+    if argv and argv[0] == "play":
+        case = next((a for a in argv[1:] if a.startswith("case:")), "")
+        require_validation(f"play {case}", 1, quota=case.startswith("case:P"))
+    elif argv and argv[0] == "run":
+        final = "final" in argv
+        require_validation("run " + " ".join(argv[1:]), "up to 10 per pass", quota=not final and "sandbox" not in argv)
     orig = argparse.ArgumentParser.add_argument
 
     def add_argument(self, *a, **kw):  # let the kit's parser accept "ours"

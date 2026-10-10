@@ -31,6 +31,13 @@ Offline plumbing without a key: `uv run arena-sim serve --no-clock`, then
 
 Environment variables: see `.env.example` (never commit `.env`).
 
+## Rule: no session without validation
+
+Practice sessions are limited (200 per team per 24 h). Nothing in this repo opens a session on the hosted
+arena unless the launch was validated by the team lead: `hollerau`, `lab.experiments` and `lab.send` refuse to
+run without `HOLLERAU_VALIDATED="<who validated, for what>"`. The local simulator is free.
+Do not call `uv run arena play|run` directly against arena.tacto.ai: it bypasses this check.
+
 ## Approach
 
 `docs/approach.md` (the short description for the submission) and the team vault design doc.

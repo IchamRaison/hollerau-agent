@@ -32,3 +32,6 @@ select = ["E", "F", "I", "B", "UP"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["arena_kit", "hollerau"]
+
+[tool.ruff.lint.per-file-ignores]
+"lab/*" = ["E501"]
