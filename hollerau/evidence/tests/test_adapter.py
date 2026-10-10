@@ -6,7 +6,8 @@ from pathlib import Path
 
 import pytest
 
-from hollerau.evidence.adapter import pegasus_claims, planner_hints
+from hollerau.contracts import Claim
+from hollerau.evidence.adapter import EFFECT, effect_rank, pegasus_claims, planner_hints
 from hollerau.evidence.economics import lever_price
 from hollerau.evidence.facts import check, facts_of, load_package
 from hollerau.pegasus.claims import Claims
@@ -41,7 +42,7 @@ def test_union_is_checked_unique_and_ranked(data, case_id):
     facts = facts_of(case, data)
     assert all(check(c, facts) for c in out)
     assert len(ids(out)) == len(set(ids(out)))
-    ranks = [["notice", "quote", "scorecard", "index", "orders", "forecast_cost_news"].index(c.family) for c in out]
+    ranks = [effect_rank(c) for c in out]
     assert ranks == sorted(ranks)
 
 
@@ -68,13 +69,17 @@ def test_scorecards_only_past_our_thresholds(data):
     assert "sc:70110@2026Q3" in ids(p01)  # amber, weak on both counts: ours cites it too
 
 
-def test_rival_offer_passes_through_and_ranks_high(data):
+def test_rival_offer_passes_through_and_ranks_by_effect(data):
+    """A rival's offer (14/21 in X9) comes after the index (7/7) and before the volume forecast and the rest."""
     case = CASES["case:P05"]
     rival = Claims(case, data).rival_claim("offer:70250-1", 33.1)[0]
     out = pegasus_claims(case, data, [rival, *raw(case, data)])
     quote = next(c for c in out if c.ids == ["offer:70250-1"])
     assert quote.family == "quote" and quote.figure == 33.1
-    assert out.index(quote) < min(out.index(c) for c in out if c.family in {"index", "forecast_cost_news"})
+    before = [c for c in out if effect_rank(c) < EFFECT.index("rival")]
+    after = [c for c in out if effect_rank(c) > EFFECT.index("rival")]
+    assert all(out.index(c) < out.index(quote) for c in before)
+    assert all(out.index(c) > out.index(quote) for c in after)
 
 
 def test_used_ids_are_left_out(data):
@@ -264,3 +269,79 @@ def test_rival_quote_once_per_supplier_never_to_its_own(data):
     assert "quote:HIDDEN-Q" in ids(pegasus_claims(case, data, cand, used=used, supplier="sup:70240"))
     assert "quote:HIDDEN-Q" not in ids(pegasus_claims(case, data, cand, used=used, supplier="sup:70210"))
     assert "quote:HIDDEN-Q" not in ids(pegasus_claims(case, data, cand, supplier="sup:70250"))
+
+
+# --- X9: the argument of the first e-mail, by the effect measured on 202 practice sessions
+
+
+def every_message(case, data):
+    """pegasus_claims for each supplier of the case, with Pegasus' candidates: what each first e-mail could carry."""
+    cands = raw(case, data)
+    return {s: pegasus_claims(case, data, cands, supplier=s) for s in case["suppliers"]}
+
+
+@pytest.mark.parametrize(("case_id", "low", "high"), [("case:P08", 5.17, 5.45), ("case:P18", 5.26, 5.84)])
+def test_rising_price_history_leads_the_first_email(data, case_id, low, high):
+    case, facts = CASES[case_id], facts_of(CASES[case_id], data)
+    for out in every_message(case, data).values():
+        first = out[0]
+        assert first.family == "orders"
+        assert [facts[i]["unit_price"] for i in first.ids] == [low, high]
+
+
+@pytest.mark.parametrize("case_id", sorted(CASES))
+def test_never_an_order_history_at_the_same_price(data, case_id):
+    """0 effect out of 24 in X9 (P09, P10, P11, P12 and P16 used to get one)."""
+    case, facts = CASES[case_id], facts_of(CASES[case_id], data)
+    for out in every_message(case, data).values():
+        for c in out:
+            if c.family == "orders":
+                prices = [facts[i]["unit_price"] for i in c.ids]
+                assert prices[-1] > prices[0], (c.ids, prices)
+
+
+@pytest.mark.parametrize("case_id", sorted(CASES))
+def test_otd_never_leads_and_comes_last(data, case_id):
+    for out in every_message(CASES[case_id], data).values():
+        otd = [c for c in out if effect_rank(c) == EFFECT.index("otd")]
+        assert not out or effect_rank(out[0]) != EFFECT.index("otd") or len(out) == len(otd)
+        assert out[len(out) - len(otd) :] == otd  # all OTD claims at the end
+
+
+def test_effect_order_on_every_kind():
+    """rising history > should-cost > ppm > index > rival quote > volume forecast > the rest > OTD."""
+    kinds = [
+        Claim("scorecard", ["sc:1@2026Q3"], 78.0, "%", "OTD", "other"),
+        Claim("notice", ["doc:1"], 30.0, "days", "notice", "effective_date"),
+        Claim("forecast_cost_news", ["fc:1@2027"], 8.0, "%", "volume", "volume"),
+        Claim("quote", ["quote:1"], 9.0, "EUR", "rival", "price"),
+        Claim("index", ["idx:A@2026-01", "idx:A@2026-09"], -3.0, "%", "index", "price"),
+        Claim("scorecard", ["sc:1@2026Q2"], 1500.0, "ppm", "ppm", "quality"),
+        Claim("forecast_cost_news", ["cost:1"], 5.0, "EUR", "should-cost", "price"),
+        Claim("orders", ["po:1", "po:2"], None, "", "history", "price"),
+    ]
+    assert [effect_rank(c) for c in kinds] == [7, 6, 5, 4, 3, 2, 1, 0]
+    assert [c.sentence for c in sorted(kinds, key=effect_rank)] == [
+        "history",
+        "should-cost",
+        "ppm",
+        "index",
+        "rival",
+        "volume",
+        "notice",
+        "OTD",
+    ]
+
+
+def test_a_same_price_history_from_pegasus_is_dropped(data):
+    """Whoever builds it (intel's dossier cited six orders at one price): never sent."""
+    case = CASES["case:P09"]
+    facts = facts_of(case, data)
+    same = sorted(
+        i
+        for i, f in facts.items()
+        if i.startswith("po:") and f.get("part") == case["parts"][0] and f.get("unit_price") == 16.02
+    )[:2]
+    assert len(same) == 2
+    cand = {"refs": same, "sentence": f"Our orders were placed at 16.02 EUR ({same[0]}, {same[1]})."}
+    assert not set(same) & set(ids(pegasus_claims(case, data, [cand])))

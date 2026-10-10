@@ -256,13 +256,20 @@ def test_supplier_letter_check():
     assert not check(Claim("forecast_cost_news", ["doc:2"], None, "", "", "other"), facts)
 
 
-@pytest.mark.parametrize("case_id", ["case:P03", "case:P04", "case:P09", "case:P11", "case:P16", "case:P18"])
+@pytest.mark.parametrize("case_id", ["case:P03", "case:P04", "case:P18"])
 def test_orders_without_a_price_letter_stay_at_or_below_today(data, case_id):
     case = CASES[case_id]
     facts = facts_of(case, data)
     [orders] = [c for c in compile_evidence(case, data) if c.family == "orders"]
     assert len({facts[i]["part"] for i in orders.ids}) == 1
     assert all(facts[i]["unit_price"] <= case["buyer"]["current_unit_price"] for i in orders.ids)
+    assert facts[orders.ids[-1]]["unit_price"] > facts[orders.ids[0]]["unit_price"]  # the price rose
+
+
+@pytest.mark.parametrize("case_id", ["case:P09", "case:P10", "case:P11", "case:P12", "case:P16"])
+def test_no_orders_claim_when_the_price_did_not_rise(data, case_id):
+    """Their lowest recent order is at today's price: two orders at one price, 0 effect out of 24 (X9)."""
+    assert [c for c in compile_evidence(CASES[case_id], data) if c.family == "orders"] == []
 
 
 def test_no_orders_claim_in_a_bundle(data):
