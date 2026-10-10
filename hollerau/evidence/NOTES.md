@@ -20,11 +20,11 @@ Nevil (avec Claude), samedi 10/10/2026. Branche locale `nevil/evidence` de `holl
 | `scorecard.py` | `scorecard` : dernière ligne `sc` (déjà glissante sur 12 mois), carte rouge ou orange, ppm > 1 000 ou OTD < 80 % | fait |
 | `index.py` | `index` : fenêtre de 12 mois, une série par claim ; hausse justifiée si pondéré ≥ demande − 1 point | fait |
 | `orders.py` | `orders` : première et dernière commande des 24 derniers mois si le prix a déjà monté de 3 % ou plus ; sinon, sans lettre de prix, la commande la moins chère et la dernière, toutes deux au prix courant ou en dessous ; jamais dans un kit ; sans les lignes `stale_condition` | fait |
-| `forecast_cost_news.py` | `forecast_cost_news` : should-cost (marge > 15 %), lettre du fournisseur « matière couverte » (`doc:`, sans lettre de prix, sans chiffre, `supports=other`), prévision en hausse ≥ 5 %, news qui affaiblissent le fournisseur | fait |
+| `forecast_cost_news.py` | `forecast_cost_news` : should-cost (marge > 15 %), lettre du fournisseur « matière couverte » (`doc:`, sans lettre de prix, sans chiffre, `supports=price`), prévision en hausse ≥ 5 %, news qui affaiblissent le fournisseur | fait |
 | `compile.py` | `compile_evidence(case, data)` : notice, quote, scorecard, index, orders, forecast_cost_news, chaque claim vérifié, chaque ID une seule fois | fait |
 | `economics.py` | `compile_case(case, standard=None, data=None)`, `lever_price`, `estimate_supplier`, `relationship_risk` | fait, D3 appliquée |
 | `signals.py` | `signals(case, data)` pour le planificateur, jamais envoyé comme claim ; `price_floor_hint` (plafonné), `price_floor_confidence` = `low` et `price_floor_reason` en `stabilise` / `secure_supply` | fait |
-| `tests/` | `test_evidence.py` (17), `test_compile_case.py` (61), `test_families.py` (56), `test_hardening.py` (22) | **156 verts** |
+| `tests/` | `test_evidence.py` (17), `test_compile_case.py` (61), `test_families.py` (72), `test_hardening.py` (22) | **172 verts** |
 | `PLAN-compile_case.md` | Plan de `compile_case` + rapport `/plan-eng-review` (D1, D2) | revu, codé |
 
 `Claim` et `Economics` viennent de `hollerau.contracts` (non modifié).
@@ -33,7 +33,7 @@ Nevil (avec Claude), samedi 10/10/2026. Branche locale `nevil/evidence` de `holl
 
 ```bash
 cd ~/Projets/hollerau-agent
-PYTHONDONTWRITEBYTECODE=1 uv run --offline pytest -p no:cacheprovider hollerau/evidence/tests -q   # 156 passed
+PYTHONDONTWRITEBYTECODE=1 uv run --offline pytest -p no:cacheprovider hollerau/evidence/tests -q   # 172 passed
 uv run --offline ruff check hollerau/evidence && uv run --offline ruff format --check hollerau/evidence   # propres
 ```
 
@@ -112,10 +112,24 @@ Restent ouverts, hors de la liste demandée :
 
   | Cas | P01 | P02 | P03 | P06 | P09 | P10 | P14 | P17 |
   |---|---|---|---|---|---|---|---|---|
-  | Plancher (€) | 137,42 | 366,87 | 412,74 (plafond ; 424,75 sans) | 202,36 | 15,74 | 26,31 | 308,83 | 36,43 |
+  | Plancher (€) | 137,42 | 366,87 | 412,74 (plafond ; 424,75 sans) | 196,31 (202,36 avant : c'était le bord de grille) | 15,74 | 26,31 | 308,83 | 36,43 |
 
   **Attention** : il hérite de l'estimation du fournisseur. Sur P01, il sort à 137,42 €, presque le prix demandé (138,55 €), alors que l'arène a facturé 0 € de relation pour le deal à 135,40 €. C'est une indication, pas une limite.
 - **Correction du chiffre de D1.** Avec l'estimation actuelle, la relation du deal P01 coûte **1 430,46 €**, et non 4 055 €. Les 4 055 € (4 055,21) supposent un délai de paiement standard du fournisseur à 30 jours ; notre estimation prend les 60 jours du plan acheteur. Les deux sont vérifiés par `test_price_floor_reason_figures_are_reproduced`. La conclusion de D1 ne change pas : l'arène a facturé 0 €.
+
+## Corrections après la deuxième `/review` (choix de Nevil)
+
+Chaque correctif a son test, dans `tests/test_families.py`, section « fixes after the second /review ». Contrôle par mutation : en réintroduisant l'ancien comportement (bord de grille, `asked_pct`, appel d'offres), 4 tests échouent.
+
+1. **Plancher sans coût calculable** : `price_floor_hint` vaut `None` si C n'est pas fini au prix courant. Ce contrôle passe par le kit **avant** de compiler le cas, ce qui supprime les 501 traces d'erreur (moins de 10 désormais). `price_floor_reason` commence alors par « cost: ».
+2. **Plancher au bord de la grille** : la borne basse descend de 0,8 à 0,5 puis 0,2 × le prix courant tant que le minimum reste au bord. S'il y est encore à 0,2 : `None`, avec une raison qui commence par « edge: ». La recherche au centime ne descend jamais sous la borne basse. **P06 passe de 202,36 € (faux plancher sous le bord à 202,55 €) à 196,31 €.** Les autres cas ne changent pas.
+3. **Lettre de couverture** : `supports="price"` : tant que les coûts sont figés, aucune hausse n'est justifiée (plus de `other` ni de lien avec la clause). Elle n'est citée que si la couverture court au-delà de la date d'effet (`arena_kit.cost.horizon_start`, sinon le début du cas), et jamais si l'`index_path` d'une série de la clause d'index du cas baisse (n'importe quelle série si le cas n'en nomme aucune).
+4. **« Pas de lettre de hausse »** = ni `asked_price` ni `asked_pct` (`facts.price_letter`). Concerne la lettre de couverture et les commandes « au prix actuel ».
+5. **`orders`** : jamais dans un appel d'offres (`type == "rfq"`). Nos prix ne doivent pas arriver chez les concurrents.
+6. **`orders` sans `buyer`** : le claim « le prix a déjà monté » est gardé ; seul celui « au prix actuel » a besoin du prix courant.
+7. **`forecast_cost_news`** : un `try` par sous-famille (should-cost, lettre, forecast, news). Une sous-famille en échec est journalisée, les autres comptent.
+
+Non traité, par choix : la recherche au centime reste proportionnelle au prix (1,3 s vers 500 000 €, 10 ms pour les prix réels).
 
 ## À voir avec Icham
 

@@ -11,9 +11,10 @@ from datetime import date
 
 from hollerau.contracts import Claim
 
-from .facts import asked_price, is_bundle, package, release_rows
+from .facts import is_bundle, package, price_letter, release_rows
 
 WINDOW_DAYS = 730
+SILENT_TYPES = {"rfq"}  # an RFQ: our order prices would tell the rival bidders what we pay
 RAISED_PCT = 3.0
 COLUMNS = "id, order_date, price, price_unit, price_note, part_id, supplier_id"
 
@@ -95,11 +96,11 @@ def _held_claim(part: str, lines: list[dict], current: float) -> Claim | None:
 
 def orders_claims(case: dict, data, facts: dict) -> list[Claim]:
     """Per part (one argument each): the price already rose; else, without a price letter, what we pay today.
-    Never in a bundle: the case price is the kit's, not one part's."""
-    if is_bundle(case):
+    Never in a bundle (the case price is the kit's, not one part's), never in an RFQ (it reveals our price)."""
+    if is_bundle(case) or case.get("type") in SILENT_TYPES:
         return []
-    current = case["buyer"].get("current_unit_price")
-    held = asked_price(case, facts) is None and current is not None
+    current = (case.get("buyer") or {}).get("current_unit_price")  # without it, only the rise claim
+    held = not price_letter(case, facts) and current is not None
     claims = []
     for supplier in case["suppliers"]:
         for part in case["parts"]:

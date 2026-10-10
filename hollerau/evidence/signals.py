@@ -13,8 +13,11 @@ a note later than the supplier's letter but known before the case is still ours 
                               over a price grid (best package, our estimate of the supplier), capped at the asked price
                               (else the current price without a price letter). Below it, squeezing the supplier costs
                               more in relationship than it saves (P02: 366.87). None in other goals
+                              None also when C cannot be computed at the current price, or when the minimum stays on
+                              the low edge of the price grid even after widening it (no floor inside: not a floor)
   price_floor_confidence      "low" with the hint (None without): our supplier estimate is not calibrated on the arena
-  price_floor_reason          why, in one sentence, with the P01 counter-example
+  price_floor_reason          why the confidence is low (P01 counter-example); without a hint, why there is none
+                              ("cost: ..." or "edge: ...")
   suppliers[sup]              per supplier:
     committee_above_pct       price changes above this % need its pricing committee
     material_hedged_until     "Month YYYY" its material or energy is bought forward to (P08, P14)
@@ -28,10 +31,11 @@ Never raises: a section that fails is logged and left at its empty value.
 """
 
 import logging
+import math
 import re
 from datetime import date, timedelta
 
-from arena_kit.cost import RELATIONSHIP_GOALS
+from arena_kit.cost import RELATIONSHIP_GOALS, total_cost
 
 from .economics import compile_case, estimate_supplier, relationship_risk
 from .facts import _day, asked_price, case_start, facts_of, package, release_rows
@@ -41,6 +45,9 @@ log = logging.getLogger(__name__)
 
 NOTE_DAYS = 548  # notes of the last 18 months
 FLOOR_STEPS = 400  # coarse price grid, then refined to the cent around its best point
+FLOOR_LOWS = (0.8, 0.5, 0.2)  # low end of the grid, in current prices: widened while the minimum sits on it
+NO_COST = "cost: C cannot be computed at the current price, so no floor"
+ON_EDGE = "edge: the minimum stays on the low end of the price grid (down to 0.2 x current), so no floor inside it"
 FLOOR_REASON = (
     "Not calibrated on the arena: the supplier's full cost is our should-cost estimate. Counter-example P01: the "
     "arena charged no relationship cost for the deal at 135.40, while this estimate charges 1,430 EUR (4,055 EUR "
@@ -200,15 +207,21 @@ def saturated(case: dict, data, facts: dict, supplier: str) -> bool:
     return bool(out["full_order_book"])
 
 
-def price_floor_hint(case: dict, data) -> float | None:
-    """The price that minimises cost + relationship_risk, stabilise / secure_supply only (None otherwise). Never above
-    the asked price, nor above the current price without a price letter: the hint must not concede more than that."""
+def price_floor(case: dict, data) -> tuple[float | None, str | None]:
+    """(floor, None), or (None, why not). The price that minimises cost + relationship_risk, stabilise /
+    secure_supply only; never above the asked price, nor above the current price without a price letter."""
     b = case["buyer"]
     if b.get("category_goal") not in RELATIONSHIP_GOALS:
-        return None
+        return None, None
+    current = b.get("current_unit_price") or b.get("fallback_unit_price")
+    try:  # before compiling: a case whose C cannot be computed would log one error per term sheet tried
+        computable = bool(current) and math.isfinite(total_cost(case, {"unit_price": current}))
+    except Exception:
+        computable = False
+    if not computable:
+        return None, NO_COST
     econ = compile_case(case, data=data)
     supplier = estimate_supplier(case, data=data)
-    current = b.get("current_unit_price") or b["fallback_unit_price"]
     asked = asked_price(case, facts_of(case, data))
     cap = asked or current
     top = max(p for p in (current, asked, b.get("fallback_unit_price")) if p)
@@ -217,11 +230,25 @@ def price_floor_hint(case: dict, data) -> float | None:
         t = {**econ.best_package, "unit_price": round(price, 2)}
         return econ.cost(t) + relationship_risk(case, t, supplier=supplier)
 
-    lo, hi = 0.8 * current, 1.1 * top
-    step = (hi - lo) / FLOOR_STEPS
-    coarse = min((lo + i * step for i in range(FLOOR_STEPS + 1)), key=total)
-    cents = range(round((coarse - step) * 100), round((coarse + step) * 100) + 1)
-    return min(min((c / 100 for c in cents), key=total), cap)
+    if not math.isfinite(total(current)):
+        return None, NO_COST
+    hi = 1.1 * top
+    for low in FLOOR_LOWS:
+        lo = low * current
+        step = (hi - lo) / FLOOR_STEPS
+        i = min(range(FLOOR_STEPS + 1), key=lambda k: total(lo + k * step))
+        if i == 0:
+            continue  # on the low edge: the minimum may lie below, widen the grid
+        coarse = lo + i * step
+        cents = range(max(round(lo * 100), round((coarse - step) * 100)), round((coarse + step) * 100) + 1)
+        best = min((c / 100 for c in cents), key=total)
+        return (min(best, cap), None) if math.isfinite(total(best)) else (None, NO_COST)
+    return None, ON_EDGE
+
+
+def price_floor_hint(case: dict, data) -> float | None:
+    """The floor alone (see `price_floor`)."""
+    return price_floor(case, data)[0]
 
 
 def signals(case: dict, data) -> dict:
@@ -247,9 +274,12 @@ def signals(case: dict, data) -> dict:
     except Exception:
         log.exception("%s: index signals failed", case.get("case_id"))
     try:
-        out["price_floor_hint"] = price_floor_hint(case, data)
-        if out["price_floor_hint"] is not None:
+        floor, why_not = price_floor(case, data)
+        out["price_floor_hint"] = floor
+        if floor is not None:
             out["price_floor_confidence"], out["price_floor_reason"] = "low", FLOOR_REASON
+        else:
+            out["price_floor_reason"] = why_not
     except Exception:
         log.exception("%s: price floor hint failed", case.get("case_id"))
     for s in case.get("suppliers") or []:

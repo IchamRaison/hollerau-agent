@@ -71,6 +71,12 @@ def asked_price(case: dict, facts: dict) -> float | None:
     return doc.get("asked_price") if isinstance(doc, dict) else None
 
 
+def price_letter(case: dict, facts: dict) -> bool:
+    """The supplier's letter asks for a price change: an `asked_price` or an `asked_pct` (either is enough)."""
+    doc = facts.get(case.get("trigger_doc") or "")
+    return isinstance(doc, dict) and (doc.get("asked_price") is not None or doc.get("asked_pct") is not None)
+
+
 def stake_price(case: dict, facts: dict) -> float | None:
     """The price a rival quote or our should-cost must beat to be worth citing: the lower of the current price and
     the asked price. A rival above today's price would anchor the supplier there."""

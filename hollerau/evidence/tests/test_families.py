@@ -2,6 +2,7 @@
 
 import copy
 import json
+import logging
 from pathlib import Path
 
 import pytest
@@ -229,7 +230,7 @@ def test_p08_raw_material_gets_letter_and_orders(data):
     claims = compile_evidence(case, data)
     assert len(claims) >= 2
     [letter] = hedge_letters(claims)
-    assert letter.ids == ["doc:20260706-70710-M1"] and letter.figure is None and letter.supports == "other"
+    assert letter.ids == ["doc:20260706-70710-M1"] and letter.figure is None and letter.supports == "price"
     assert "March 2027" in letter.sentence
     [orders] = [c for c in claims if c.family == "orders"]
     facts = facts_of(case, data)
@@ -237,14 +238,11 @@ def test_p08_raw_material_gets_letter_and_orders(data):
     assert orders.supports == "price"
 
 
-def test_letter_needs_no_price_letter_and_a_running_cover(data):
+def test_hedge_letter_needs_no_price_letter(data):
     case = copy.deepcopy(CASES["case:P08"])
     case["trigger_doc"] = "doc:HIDDEN-P08"
     case["facts"] = {"doc:HIDDEN-P08": {"supplier": "sup:70710", "date": "2026-09-12", "asked_price": 5.9}}
     assert hedge_letters(compile_evidence(case, data)) == []  # a price letter: not this case
-    case = copy.deepcopy(CASES["case:P08"])
-    case["start_date"] = "2027-05-01"  # cover ran out in March 2027
-    assert hedge_letters(compile_evidence(case, data)) == []
 
 
 def test_call_notes_are_never_cited_as_letters(data):
@@ -318,3 +316,99 @@ def test_price_floor_reason_figures_are_reproduced(data):
 def test_price_floor_only_for_relationship_goals(data):
     assert signals(CASES["case:P04"], data)["price_floor_hint"] is None  # routine
     assert signals(CASES["case:P08"], data)["price_floor_hint"] is None  # leverage
+
+
+# --- fixes after the second /review
+
+
+def test_floor_none_when_cost_cannot_be_computed(data, caplog):
+    from hollerau.evidence.signals import NO_COST
+
+    case = copy.deepcopy(CASES["case:P02"])
+    case["buyer"].pop("fallback_unit_price")  # every C is infinite
+    with caplog.at_level(logging.ERROR):
+        s = signals(case, data)
+    assert s["price_floor_hint"] is None and s["price_floor_confidence"] is None
+    assert s["price_floor_reason"] == NO_COST
+    assert len(caplog.records) < 10  # no longer one traceback per grid point (501 before)
+
+
+def test_floor_none_when_the_minimum_stays_on_the_edge(data):
+    case = copy.deepcopy(CASES["case:P02"])
+    case["buyer"]["relationship_eur_per_point"] = 1  # the relationship hardly costs: the minimum is the lowest price
+    s = signals(case, data)
+    assert s["price_floor_hint"] is None and s["price_floor_reason"].startswith("edge")
+
+
+@pytest.mark.parametrize(
+    "case_id", ["case:P01", "case:P02", "case:P03", "case:P06", "case:P09", "case:P10", "case:P14", "case:P17"]
+)
+def test_floor_is_never_the_grid_edge(data, case_id):
+    """P06 used to report 202.36, below the 0.8 x current edge (202.55): widening finds 196.31 inside the grid."""
+    from hollerau.evidence.signals import FLOOR_LOWS
+
+    case = CASES[case_id]
+    floor = signals(case, data)["price_floor_hint"]
+    assert floor is not None and floor > FLOOR_LOWS[-1] * case["buyer"]["current_unit_price"]
+    econ, supplier = compile_case(case, data=data), estimate_supplier(case, data=data)
+
+    def total(p):
+        t = {**econ.best_package, "unit_price": p}
+        return econ.cost(t) + relationship_risk(case, t, supplier=supplier)
+
+    cap = signals(case, data)["asked_price"] or case["buyer"]["current_unit_price"]
+    if floor < cap:  # an interior minimum, not the cap
+        assert total(floor) <= min(total(round(floor - 0.01, 2)), total(round(floor + 0.01, 2)))
+
+
+def test_hedge_letter_needs_cover_beyond_the_effective_date(data):
+    case = copy.deepcopy(CASES["case:P08"])
+    case["fixed_terms"]["effective_date"] = "2027-04-01"  # the cover ends in March 2027
+    assert hedge_letters(compile_evidence(case, data)) == []
+
+
+def test_hedge_letter_not_when_the_index_falls(data):
+    case = copy.deepcopy(CASES["case:P08"])
+    case["buyer"]["index_paths"] = {"AS-14404": -0.10}
+    assert hedge_letters(compile_evidence(case, data)) == []
+
+
+def test_asked_pct_alone_is_a_price_letter(data):
+    """A letter with an asked % but no asked price: no hedge letter, no held-price orders."""
+    case = copy.deepcopy(CASES["case:P08"])
+    case["trigger_doc"] = "doc:HIDDEN-P08"
+    case["facts"] = {
+        "doc:HIDDEN-P08": {"supplier": "sup:70710", "date": "2026-09-12", "asked_pct": 8.0, "asked_price": None}
+    }
+    claims = compile_evidence(case, data)
+    assert hedge_letters(claims) == [] and [c for c in claims if c.family == "orders"] == []
+
+
+def test_no_orders_in_an_rfq(data):
+    case = copy.deepcopy(CASES["case:P04"])  # has orders normally
+    assert orders_claims(case, data, facts_of(case, data))
+    case["type"] = "rfq"
+    assert orders_claims(case, data, facts_of(case, data)) == []
+
+
+def test_orders_without_buyer_keep_the_rise_claim(data):
+    case = copy.deepcopy(CASES["case:P14"])
+    del case["buyer"]
+    [c] = orders_claims(case, data, facts_of(case, data))
+    assert "already went from" in c.sentence
+
+
+def test_one_failing_sub_family_keeps_the_others(data, monkeypatch):
+    from hollerau.evidence import forecast_cost_news as fcn
+
+    def boom(*args):
+        raise RuntimeError("letter broken")
+
+    monkeypatch.setattr(fcn, "letter_claims", boom)
+    case = CASES["case:P01"]
+    claims = fcn.forecast_cost_news_claims(case, data, facts_of(case, data))
+    assert ids_of_prefix(claims, "fc:") == ["fc:310010@2026-09"]
+
+
+def ids_of_prefix(claims, prefix):
+    return [c.ids[0] for c in claims if c.ids[0].startswith(prefix)]

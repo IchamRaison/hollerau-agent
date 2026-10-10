@@ -9,16 +9,23 @@ item is about this supplier (brief/api.md). Guards:
   with a supplier whose order book is full or that allocates: there, more volume is the supplier's leverage.
 - `news`: only topics that weaken the supplier's position (free capacity, a new plant), from the 12 months before
   the case starts (Sunday release included, even after the supplier's letter).
-- `doc` (material covered, signal material_hedged): only without a price letter, only the supplier's own letters
-  and e-mails (our call and meeting notes are context, not checks), only while the cover still runs. The arena has
-  no row for a letter cited alone: its result is not known yet (no figure, so at worst `irrelevant`).
+- `doc` (material covered, signal material_hedged): supports `price` - while its costs are fixed, no increase is
+  justified. Only without a price letter (neither asked price nor asked %), only the supplier's own letters and
+  e-mails (our call and meeting notes are context, not checks), only if the cover runs beyond the effective date,
+  and never if the index path of the case's index series falls (then "market moves reach us only later" is the
+  supplier's argument against a decrease). The arena has no row for a letter cited alone: its result is not known
+  yet (no figure, so at worst `irrelevant`).
+
+Each sub-family runs on its own: one that fails is logged and the others still count.
 """
 
+import logging
 from datetime import date, datetime, timedelta
 
+from arena_kit.cost import horizon_start
 from hollerau.contracts import Claim
 
-from .facts import _day, asked_price, case_start, comparable, has, package, stake_price
+from .facts import _day, case_start, comparable, has, package, price_letter, stake_price
 from .signals import HEDGED, saturated
 
 COST_ERROR = 0.15
@@ -26,6 +33,8 @@ FC_GROWTH_PCT = 5.0
 NEWS_TOPICS = {"free_capacity", "new_plant"}
 NEWS_DAYS = 365
 CAPACITY_TYPES = {"capacity"}
+
+log = logging.getLogger(__name__)
 
 
 def _number(ref: str) -> str:
@@ -116,14 +125,27 @@ def _until(text: str) -> tuple[str, date] | None:
         return None
 
 
+def _index_falls(case: dict) -> bool:
+    """The case's index path falls for a series of its index clause (any series when the case names none)."""
+    paths = (case.get("buyer") or {}).get("index_paths") or {}
+    clauses = [
+        *(case.get("term_options", {}).get("index_clause") or []),
+        case.get("fixed_terms", {}).get("index_clause"),
+    ]
+    series = {c["series"] for c in clauses if isinstance(c, dict) and c.get("series")}
+    moves = [paths[s] for s in series if paths.get(s) is not None] if series else list(paths.values())
+    return any(m is not None and m < 0 for m in moves)
+
+
 def letter_claims(case: dict, data, facts: dict) -> list[Claim]:
-    """The supplier's own letter or e-mail saying its material is covered until a date still to come, without a
-    price letter (raw material, renewal). No figure, supports `other` (the index clause)."""
-    if asked_price(case, facts) is not None:
+    """The supplier's own letter or e-mail saying its material is covered beyond the effective date, without a price
+    letter (raw material, renewal). No figure, supports `price`: while its costs are fixed, no increase is justified."""
+    if price_letter(case, facts) or _index_falls(case):
         return []
     p, start = package(data), case_start(case, facts)
     if p is None:
         return []
+    effective = horizon_start(case) or start  # when the new price takes effect, else the case start
     claims = []
     for doc_id in sorted(i for i in facts if i.startswith("doc:")):
         doc = facts[doc_id]
@@ -136,8 +158,8 @@ def letter_claims(case: dict, data, facts: dict) -> list[Claim]:
             hedge = _until(" ".join(p.document(doc_id).split()))
         except (FileNotFoundError, OSError, ValueError):
             continue
-        if hedge is None or (start and hedge[1] < start.replace(day=1)):
-            continue  # no cover, or it has already run out
+        if hedge is None or (effective and hedge[1] < effective.replace(day=1)):
+            continue  # no cover, or it ends before the new price takes effect
         claims.append(
             Claim(
                 family="forecast_cost_news",
@@ -145,16 +167,23 @@ def letter_claims(case: dict, data, facts: dict) -> list[Claim]:
                 figure=None,
                 unit="",
                 sentence=f"Your letter of {doc['date']} ({doc_id}) says your material is covered until {hedge[0]}.",
-                supports="other",
+                supports="price",
             )
         )
     return claims
 
 
 def forecast_cost_news_claims(case: dict, data, facts: dict) -> list[Claim]:
-    return (
-        cost_claims(case, data, facts)
-        + letter_claims(case, data, facts)
-        + forecast_claims(case, data, facts)
-        + news_claims(case, facts)
-    )
+    parts = {
+        "should-cost": lambda: cost_claims(case, data, facts),
+        "letter": lambda: letter_claims(case, data, facts),
+        "forecast": lambda: forecast_claims(case, data, facts),
+        "news": lambda: news_claims(case, facts),
+    }
+    claims = []
+    for name, part in parts.items():
+        try:
+            claims += part()
+        except Exception:
+            log.exception("%s: forecast_cost_news %s failed, skipped", case.get("case_id"), name)
+    return claims
