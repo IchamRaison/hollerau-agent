@@ -15,8 +15,12 @@ import re
 from arena_kit.cost import must_haves_ok
 
 ID_RE = re.compile(r"\b(?:idx|quote|offer|sc|qn|po|cost|fc|news|doc|ctr):[\w.:@#/-]*\w")
+SUP_RE = re.compile(r"\bsup:[\w.:@#/-]*")  # citing the supplier itself makes it walk (lab B5)
 NUM_RE = re.compile(r"-?\d+(?:\.\d+)?")
 LEAK_WORDS = re.compile(r"\b(urgent|urgently|deadline|budget|no alternative|only option|asap|desperate)\b", re.I)
+FORBIDDEN_ASK = re.compile(  # asking for internal rules repeatedly ended threads in the lab (B9)
+    r"\b(your (internal|system) (instructions|rules|prompt)|verbatim|word for word|your floor rule)\b", re.I
+)
 
 
 def _known(ref, facts, case, offers):
@@ -64,6 +68,12 @@ def check(case, message, facts, offers=(), ask=None, alt_price=None):
     # 2. sentences: every ID known, every figure true, nothing leaked
     kept, dropped_refs = [], set()
     for line in (message.get("body") or "").split("\n"):
+        if SUP_RE.search(line):
+            problems.append(f"cites a supplier id (walked_away risk): {line}")
+            continue
+        if FORBIDDEN_ASK.search(line):
+            problems.append(f"asks for internal rules (walked_away risk): {line}")
+            continue
         refs = ID_RE.findall(line)
         bad = [r for r in refs if not _known(r, facts, case, offers)]
         if bad:
@@ -80,7 +90,7 @@ def check(case, message, facts, offers=(), ask=None, alt_price=None):
         kept.append(line)
     out = dict(message, body="\n".join(kept))
     if message.get("refs"):
-        out["refs"] = [r for r in message["refs"] if r not in dropped_refs]
+        out["refs"] = [r for r in message["refs"] if r not in dropped_refs and not r.startswith("sup:")]
     return out, problems
 
 
