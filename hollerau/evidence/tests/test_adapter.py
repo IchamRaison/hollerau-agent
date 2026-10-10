@@ -128,3 +128,139 @@ def test_compare_pegasus_runs(data):
     rows = [compare_case(CASES[c], data) for c in ("case:P01", "case:P10")]
     assert rows[0]["c_ours"] == rows[0]["c_peg"]
     assert "## Résumé" in report(rows)
+
+
+# --- memory: an offer counts once per supplier, every other ID once per case
+
+
+def test_p05_same_rival_offer_for_two_suppliers(data):
+    from hollerau.evidence.adapter import remember
+
+    case = CASES["case:P05"]  # RFQ with sup:70210, sup:70240, sup:70250
+    rival = Claims(case, data).rival_claim("offer:70250-1", 33.1)[0]
+    used, by_sup = set(), {}
+    first = pegasus_claims(
+        case, data, [rival, *raw(case, data)], used=used, supplier="sup:70210", used_by_supplier=by_sup
+    )
+    assert "offer:70250-1" in ids(first)
+    remember(first[:3], "sup:70210", used, by_sup)
+    second = pegasus_claims(case, data, [rival], used=used, supplier="sup:70240", used_by_supplier=by_sup)
+    assert "offer:70250-1" in ids(second)  # another supplier: cited again
+    assert not set(ids(second)) & {i for i in ids(first[:3]) if not i.startswith("offer:")}  # others: once per case
+    remember(second[:3], "sup:70240", used, by_sup)
+    again = pegasus_claims(case, data, [rival], used=used, supplier="sup:70210", used_by_supplier=by_sup)
+    assert "offer:70250-1" not in ids(again)  # already sent to sup:70210
+    own = pegasus_claims(case, data, [rival], supplier="sup:70250")
+    assert "offer:70250-1" not in ids(own)  # never its own offer
+
+
+def test_pick_memory_format_is_understood(data):
+    """Pegasus `pick` stores a rival offer as (supplier, refs) in Claims.used: passing that set works as is."""
+    case = CASES["case:P05"]
+    rival = Claims(case, data).rival_claim("offer:70250-1", 33.1)[0]
+    used = {("sup:70210", ("offer:70250-1",))}
+    assert "offer:70250-1" not in ids(pegasus_claims(case, data, [rival], used=used, supplier="sup:70210"))
+    assert "offer:70250-1" in ids(pegasus_claims(case, data, [rival], used=used, supplier="sup:70240"))
+
+
+# --- second /review of the adapter
+
+
+@pytest.mark.parametrize("case_id", ["case:P05", "case:P06"])
+def test_never_a_competitors_card_or_news(data, case_id):
+    case = CASES[case_id]
+    facts = facts_of(case, data)
+    for supplier in case["suppliers"]:
+        out = pegasus_claims(case, data, raw(case, data), supplier=supplier)
+        for i in ids(out):
+            if i.startswith(("sc:", "news:", "doc:", "ctr:")):
+                assert facts[i].get("supplier") in (None, supplier), (supplier, i)
+    p05 = pegasus_claims(CASES["case:P05"], data, [], supplier="sup:70210")
+    assert "sc:70210@2026Q3" in ids(p05) and "sc:70240@2026Q3" not in ids(p05)
+
+
+def test_rival_flag_does_not_skip_check_for_other_ids(data):
+    case = CASES["case:P01"]
+    fake = [
+        {"refs": ["cost:310010"], "sentence": "Our should-cost estimate is 1.00 EUR (cost:310010).", "rival": True},
+        {"refs": ["idx:NOPE@2026-01"], "sentence": "NOPE changed -9.0% (idx:NOPE@2026-01).", "rival": True},
+    ]
+    out = ids(pegasus_claims(case, data, fake))
+    assert "cost:310010" not in out and "idx:NOPE@2026-01" not in out
+
+
+def test_refs_must_be_a_list_of_strings(data):
+    case = CASES["case:P05"]
+    bad = [
+        {
+            "refs": "offer:70999-1",
+            "sentence": "We hold a competing offer at 1.00 EUR per unit (offer:70999-1).",
+            "rival": True,
+        },
+        {"refs": ["offer:x", 5], "sentence": "x", "rival": True},
+    ]
+    out = ids(pegasus_claims(case, data, bad, supplier="sup:70210"))
+    assert "offer:70999-1" not in out and not [i for i in out if len(i) == 1]
+
+
+@pytest.mark.parametrize(
+    ("kwargs", "case_id"),
+    [
+        ({"used": 5}, "case:P01"),
+        ({"used": [["a"]]}, "case:P01"),
+        ({"used": {("s", 5)}}, "case:P01"),
+        ({"used_by_supplier": [1], "supplier": "sup:70110"}, "case:P01"),
+        ({"used_by_supplier": {"sup:70110": 5}, "supplier": "sup:70110"}, "case:P01"),
+        ({"supplier": ["unhashable"]}, "case:P01"),
+        ({}, None),
+    ],
+)
+def test_pegasus_claims_never_raises(data, kwargs, case_id):
+    case = CASES[case_id] if case_id else None
+    out = pegasus_claims(case, data, [{"refs": ["offer:x", None], "sentence": "x", "rival": True}], **kwargs)
+    assert isinstance(out, list)
+
+
+@pytest.mark.parametrize(
+    ("claims", "used"),
+    [
+        ([{"sentence": "no refs"}], set()),
+        ([{"refs": [5]}], set()),
+        ([{"refs": ["a"]}], None),
+        ([{"refs": ["a"]}], frozenset()),
+        (None, set()),
+        ([object()], set()),
+    ],
+)
+def test_remember_never_raises(claims, used):
+    from hollerau.evidence.adapter import remember
+
+    remember(claims, "sup:70110", used)
+
+
+def test_rival_offer_survives_a_failing_filter(data, monkeypatch):
+    from hollerau.evidence import adapter
+
+    def boom(*args):
+        raise RuntimeError("index check broken")
+
+    monkeypatch.setattr(adapter, "_justified", boom)
+    case = CASES["case:P05"]
+    rival = Claims(case, data).rival_claim("offer:70250-1", 33.1)[0]
+    out = ids(adapter.pegasus_claims(case, data, [rival, *raw(case, data)], supplier="sup:70210"))
+    assert "offer:70250-1" in out
+
+
+def test_rival_quote_once_per_supplier_never_to_its_own(data):
+    from hollerau.evidence.adapter import remember
+
+    case = copy.deepcopy(CASES["case:P05"])
+    case["facts"] = {"quote:HIDDEN-Q": {"part": "part:320070", "supplier": "sup:70250", "unit_price": 30.0}}
+    cand = [{"refs": ["quote:HIDDEN-Q"], "sentence": "We hold a quote at 30.00 EUR (quote:HIDDEN-Q)."}]
+    used = set()
+    first = pegasus_claims(case, data, cand, used=used, supplier="sup:70210")
+    assert "quote:HIDDEN-Q" in ids(first)
+    remember(first[:3], "sup:70210", used)
+    assert "quote:HIDDEN-Q" in ids(pegasus_claims(case, data, cand, used=used, supplier="sup:70240"))
+    assert "quote:HIDDEN-Q" not in ids(pegasus_claims(case, data, cand, used=used, supplier="sup:70210"))
+    assert "quote:HIDDEN-Q" not in ids(pegasus_claims(case, data, cand, supplier="sup:70250"))
