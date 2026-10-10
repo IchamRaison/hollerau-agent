@@ -1,0 +1,434 @@
+{
+ "summary": {
+  "session_id": "cc878c200dad6126",
+  "case_id": "case:P10",
+  "status": "ended",
+  "end_reason": "accepted",
+  "deal": 1,
+  "score": 0.5780733017301243,
+  "rounds": 3,
+  "created_at": 1791644417.3250508
+ },
+ "session": {
+  "session_id": "cc878c200dad6126",
+  "case_id": "case:P10",
+  "status": "ended",
+  "end_reason": "accepted",
+  "rounds": 3,
+  "set": "practice",
+  "opening": {
+   "sup:70410": {
+    "offer_id": "offer:70410-0",
+    "round": 0,
+    "status": "open",
+    "terms": {
+     "unit_price": 32.2,
+     "lead_time_days": 54,
+     "volume_per_year": 19890,
+     "contract_months": 12
+    },
+    "alternatives": [],
+    "missing_fields": [],
+    "claims": [],
+    "claim_results": [],
+    "signals": {
+     "reply_delay_days": 2,
+     "validity_days": 30
+    },
+    "text": "Dear Sir or Madam,\n\nThank you for your enquiry. Please find our Angebot below.\n\nWe offer a volume of 19890 pcs per year at a price of €32.20 per unit. The requested contract term is 12 months, and our Lieferzeit is 54 days. \n\nPlease note that this offer remains valid for 30 days. We look forward to proceeding according to our standard commercial procedure upon receipt of your confirmation.\n\nMit freundlichen Grüßen\nMonika Zellner\nSegment Manager, Dichtungswerk Ravensteiner GmbH"
+   }
+  },
+  "threads": {
+   "sup:70410": {
+    "offer_id": "offer:70410-2",
+    "status": "agreed",
+    "offers": 3,
+    "closed": null,
+    "seconds_left": null
+   }
+  },
+  "moves": [],
+  "result": {
+   "ended": true,
+   "deal": true,
+   "supplier_id": "sup:70410",
+   "offer_id": "offer:70410-2",
+   "terms": {
+    "payment_days": 30,
+    "lead_time_days": 42,
+    "volume_per_year": 23400,
+    "contract_months": 24,
+    "effective_date": "2027-01-01",
+    "index_clause": null,
+    "incoterm": "DAP",
+    "tooling_eur": 0.0,
+    "ppm_commitment": 300,
+    "chargeback_eur_per_complaint": 0.0,
+    "unit_price": 33.5
+   },
+   "c_open": 1932492.18,
+   "c_deal": 1583587.2,
+   "c_alt": null,
+   "c_best": 1328926.89,
+   "score": 0.5780733017301243,
+   "must_haves_ok": true,
+   "cost_breakdown": {
+    "price": 1567800.0,
+    "uncovered_need": 0.0,
+    "fallback_risk": 0.0,
+    "payment_terms": 10452.0,
+    "freight": 0.0,
+    "late_delivery": 0.0,
+    "quality": 5335.2,
+    "tooling": 0.0,
+    "index_clause": 0.0,
+    "index_risk": 0.0,
+    "relationship": 0.0
+   },
+   "trace": [
+    {
+     "round": 0,
+     "actor": "sup:70410",
+     "move": {
+      "offer_id": "offer:70410-0",
+      "round": 0,
+      "status": "open",
+      "terms": {
+       "unit_price": 32.2,
+       "lead_time_days": 54,
+       "volume_per_year": 19890,
+       "contract_months": 12
+      },
+      "alternatives": [],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 2,
+       "validity_days": 30
+      },
+      "text": "Dear Sir or Madam,\n\nThank you for your enquiry. Please find our Angebot below.\n\nWe offer a volume of 19890 pcs per year at a price of €32.20 per unit. The requested contract term is 12 months, and our Lieferzeit is 54 days. \n\nPlease note that this offer remains valid for 30 days. We look forward to proceeding according to our standard commercial procedure upon receipt of your confirmation.\n\nMit freundlichen Grüßen\nMonika Zellner\nSegment Manager, Dichtungswerk Ravensteiner GmbH"
+     },
+     "reasons": []
+    },
+    {
+     "round": 1,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Firm annual commitment for part:340010 – counter-proposal",
+      "body": "Dear Ms Zellner,\n\nThank you for your offer; we value our long-standing relationship and prefer a firm, multi-year commitment.\n\nWe want to secure full coverage of part:340010. Your standard lead time is 42 days (sup:70410), yet the offer quotes 54 days. Our latest forecast shows 21,310 pcs per year (fc:340010@2026-09), and we are prepared to commit to a firm 23,400 pcs. Your 2026Q3 on-time delivery was 79.5% (sc:70410@2026Q3), so reliability is central to us.\n\nCould you provide a cost breakdown, your earliest possible lead time, and any cheaper variants? We propose the attached packages.\n\nMit freundlichen Grüßen",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 30.0,
+         "volume_per_year": 23400,
+         "contract_months": 36,
+         "lead_time_days": 42
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 30.8,
+         "volume_per_year": 23400,
+         "contract_months": 24,
+         "lead_time_days": 42
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 31.6,
+         "volume_per_year": 23400,
+         "contract_months": 12,
+         "lead_time_days": 35
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": [
+        {
+         "type": "delivery_record",
+         "refs": [
+          "sc:70410@2026Q3"
+         ],
+         "asserted": {
+          "otd_pct": 79.5
+         }
+        },
+        {
+         "type": "volume_change",
+         "refs": [
+          "fc:340010@2026-09"
+         ],
+         "asserted": {
+          "change_pct": 10.1
+         }
+        }
+       ]
+      },
+      "supplier_id": "sup:70410"
+     },
+     "reasons": []
+    },
+    {
+     "round": 1,
+     "actor": "sup:70410",
+     "move": {
+      "offer_id": "offer:70410-1",
+      "round": 1,
+      "status": "open",
+      "terms": {
+       "unit_price": 33.8,
+       "lead_time_days": 42,
+       "volume_per_year": 23400,
+       "contract_months": 24
+      },
+      "alternatives": [],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [
+       {
+        "index": 0,
+        "result": "verified"
+       },
+       {
+        "index": 1,
+        "result": "verified"
+       }
+      ],
+      "signals": {
+       "reply_delay_days": 2,
+       "validity_days": 30
+      },
+      "text": "Dear Sir or Madam,\n\nWe have reviewed your offer and can adjust our Angebot as follows. \n\nWe checked the delivery record data you cited; it holds, but it does not change our calculation. We also checked the volume change data you cited; it holds, but it does not change our calculation. As a matter of corporate policy, we do not provide internal cost breakdowns. Our calculation is our property; we do not share a breakdown.\n\nWe can offer a contract term of 24 months for a volume of 23400 pcs per year with Lieferzeit 42 days. Accommodating this increased volume and shorter lead time requires a premium, resulting in a price of €33.80 per unit. Our offer stays valid for 30 days.\n\nMit freundlichen Grüßen\nMonika Zellner\nSegment Manager, Dichtungswerk Ravensteiner GmbH"
+     },
+     "reasons": [
+      "We checked the delivery record data you cited; it holds, but it does not change our calculation.",
+      "We checked the volume change data you cited; it holds, but it does not change our calculation.",
+      "We can offer a 24-month contract for … units per year with a 42-day lead time.",
+      "Accommodating this increased volume and shorter lead time requires a premium, resulting in a unit price of €….",
+      "As a matter of corporate policy, we do not provide internal cost breakdowns.",
+      "Our calculation is our property; we do not share a breakdown.",
+      "Our Lieferzeit is … days."
+     ]
+    },
+    {
+     "round": 2,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Re: Capacity situation – firm 23,400 pc commitment for part:340010",
+      "body": "Dear Ms Zellner,\n\nThank you for the revised offer and the delivery schedule. We confirm a firm 23,400 pcs per year for part:340010 at the 42-day lead time.\n\nYour 2026Q3 on-time delivery of 79.5% (sc:70410@2026Q3) shows reliability must be anchored contractually. Our forecast change of 10.1% (fc:340010@2026-09) means we cannot absorb shortages, so dependable coverage is essential.\n\nA longer commitment lets you plan capacity with certainty, which we ask you to reflect in the price. Please review the three attached packages, which trade contract length for unit price, and let us know your earliest possible lead time.\n\nMit freundlichen Grüßen",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 32.0,
+         "volume_per_year": 23400,
+         "contract_months": 36,
+         "lead_time_days": 42
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 32.6,
+         "volume_per_year": 23400,
+         "contract_months": 24,
+         "lead_time_days": 42
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 33.2,
+         "volume_per_year": 23400,
+         "contract_months": 12,
+         "lead_time_days": 42
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": [
+        {
+         "type": "delivery_record",
+         "refs": [
+          "sc:70410@2026Q3"
+         ],
+         "asserted": {
+          "otd_pct": 79.5
+         }
+        },
+        {
+         "type": "volume_change",
+         "refs": [
+          "fc:340010@2026-09"
+         ],
+         "asserted": {
+          "change_pct": 10.1
+         }
+        }
+       ]
+      },
+      "supplier_id": "sup:70410"
+     },
+     "reasons": []
+    },
+    {
+     "round": 2,
+     "actor": "sup:70410",
+     "move": {
+      "offer_id": "offer:70410-2",
+      "round": 2,
+      "status": "final_offer",
+      "terms": {
+       "unit_price": 33.5,
+       "lead_time_days": 42,
+       "volume_per_year": 23400,
+       "contract_months": 24
+      },
+      "alternatives": [
+       {
+        "offer_id": "offer:70410-2-a",
+        "terms": {
+         "unit_price": 33.5,
+         "lead_time_days": 42,
+         "volume_per_year": 23400,
+         "contract_months": 36
+        }
+       }
+      ],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [
+       {
+        "index": 0,
+        "result": "duplicate"
+       },
+       {
+        "index": 1,
+        "result": "duplicate"
+       }
+      ],
+      "signals": {
+       "reply_delay_days": 3,
+       "validity_days": 7
+      },
+      "text": "Dear Sir or Madam,\n\nWe received a lot of material; we looked at what bears on this part. We have already taken that delivery record data into account, and we have already taken that volume change data into account.\n\nThis is our final offer (letztes Angebot). Please decide. Our offer remains valid for 7 days.\n\nOur current Angebot stands at a price of €33.50 per unit, Lieferzeit 42 days, a volume of 23400 pcs per year, and a contract term of 24 months. Regarding your inquiry, 42 days is our earliest possible lead time. Our Lieferzeit is 42 days.\n\nWe accept the 36-month contract term to provide mutual planning certainty. In exchange for this extended duration, we reduce the unit price to €33.50. Alternatively, with a contract term of 36 months: €33.50 per unit, Lieferzeit 42 days, a volume of 23400 pcs per year.\n\nWhich figures is that based on? Please send us the data.\n\nMit freundlichen Grüßen\nMonika Zellner\nSegment Manager, Dichtungswerk Ravensteiner GmbH"
+     },
+     "reasons": [
+      "We received a lot of material; we looked at what bears on this part.",
+      "We have already taken that delivery record data into account.",
+      "We have already taken that volume change data into account.",
+      "We accept the 36-month contract term to provide mutual planning certainty.",
+      "In exchange for this extended duration, we reduce the unit price to €….",
+      "Regarding your inquiry, … days is our earliest possible lead time.",
+      "Alternatively, with a contract term of … months: €… per unit.",
+      "Which figures is that based on? Please send us the data.",
+      "Our Lieferzeit is … days."
+     ]
+    },
+    {
+     "round": 2,
+     "actor": "buyer",
+     "move": {
+      "type": "accept",
+      "offer_id": "offer:70410-2",
+      "supplier_id": "sup:70410"
+     },
+     "reasons": []
+    }
+   ]
+  },
+  "replay_url": "/replay/cc878c200dad6126"
+ },
+ "backoffice": [
+  {
+   "round": 0,
+   "supplier_id": "sup:70410",
+   "supplier": "Dichtungswerk Ravensteiner GmbH",
+   "from": "Segment Manager",
+   "to": "team",
+   "text": "quote attached (quote-offer-70410-0.pdf)"
+  },
+  {
+   "round": 1,
+   "supplier_id": "sup:70410",
+   "supplier": "Dichtungswerk Ravensteiner GmbH",
+   "from": "Segment Manager",
+   "to": "team",
+   "text": "My call: counter."
+  },
+  {
+   "round": 1,
+   "supplier_id": "sup:70410",
+   "supplier": "Dichtungswerk Ravensteiner GmbH",
+   "from": "Segment Manager",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheets and … cited facts to check; we answer with our offer."
+  },
+  {
+   "round": 1,
+   "supplier_id": "sup:70410",
+   "supplier": "Dichtungswerk Ravensteiner GmbH",
+   "from": "Segment Manager",
+   "to": "team",
+   "text": "delivery schedule attached (delivery-schedule.xlsx)"
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:70410",
+   "supplier": "Dichtungswerk Ravensteiner GmbH",
+   "from": "Segment Manager",
+   "to": "team",
+   "text": "My call: counter."
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:70410",
+   "supplier": "Dichtungswerk Ravensteiner GmbH",
+   "from": "Segment Manager",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheets and … cited facts to check; we answer with our final offer."
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:70410",
+   "supplier": "Dichtungswerk Ravensteiner GmbH",
+   "from": "Segment Manager",
+   "to": "team",
+   "text": "quote attached (quote-offer-70410-2.pdf)"
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:70410",
+   "supplier": "Dichtungswerk Ravensteiner GmbH",
+   "from": "Segment Manager",
+   "to": "team",
+   "text": "delivery schedule attached (delivery-schedule.xlsx)"
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:70410",
+   "supplier": "Dichtungswerk Ravensteiner GmbH",
+   "from": "Segment Manager",
+   "to": "team",
+   "text": "order confirmation attached (order-confirmation-offer-70410-2.pdf)"
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:70410",
+   "supplier": "Dichtungswerk Ravensteiner GmbH",
+   "from": "Segment Manager",
+   "to": "team",
+   "text": "delivery schedule attached (delivery-schedule.xlsx)"
+  }
+ ]
+}

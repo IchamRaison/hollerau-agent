@@ -1,0 +1,324 @@
+{
+ "summary": {
+  "session_id": "57afc7b5ec72652d",
+  "case_id": "case:P10",
+  "status": "ended",
+  "end_reason": "timeout",
+  "deal": 0,
+  "score": 0.0,
+  "rounds": 2,
+  "created_at": 1791653137.872639
+ },
+ "session": {
+  "session_id": "57afc7b5ec72652d",
+  "case_id": "case:P10",
+  "status": "ended",
+  "end_reason": "timeout",
+  "rounds": 2,
+  "set": "practice",
+  "opening": {
+   "sup:70410": {
+    "offer_id": "offer:70410-0",
+    "round": 0,
+    "status": "open",
+    "terms": {
+     "unit_price": 32.2,
+     "lead_time_days": 54,
+     "volume_per_year": 19890,
+     "contract_months": 12
+    },
+    "alternatives": [],
+    "missing_fields": [],
+    "claims": [],
+    "claim_results": [],
+    "signals": {
+     "reply_delay_days": 2,
+     "validity_days": 30
+    },
+    "text": "Dear Sir or Madam,\n\nThank you for your enquiry. Please find our Angebot below.\n\nWe offer a volume of 19890 pcs per year at a price of €32.20 per unit. The requested contract term is 12 months, and our Lieferzeit is 54 days. \n\nPlease note that this offer remains valid for 30 days. We look forward to proceeding according to our standard commercial procedure upon receipt of your confirmation.\n\nMit freundlichen Grüßen\nMonika Zellner\nSegment Manager, Dichtungswerk Ravensteiner GmbH"
+   }
+  },
+  "threads": {
+   "sup:70410": {
+    "offer_id": null,
+    "status": "walked_away",
+    "offers": 1,
+    "closed": "walked_away",
+    "seconds_left": null
+   }
+  },
+  "moves": [
+   {
+    "supplier_id": "sup:70410",
+    "move": {
+     "type": "timeout"
+    },
+    "reply": {
+     "offer_id": null,
+     "round": 2,
+     "status": "walked_away",
+     "terms": {},
+     "alternatives": [],
+     "missing_fields": [],
+     "claims": [],
+     "claim_results": [],
+     "signals": {
+      "reply_delay_days": 3,
+      "validity_days": 14
+     },
+     "text": "Dear Sir or Madam,\n\nAs we have not received a response to our final offer, we are withdrawing our proposal. We consider this negotiation closed.\n\nMit freundlichen Grüßen\nMonika Zellner\nSegment Manager, Dichtungswerk Ravensteiner GmbH"
+    }
+   }
+  ],
+  "result": {
+   "ended": true,
+   "deal": false,
+   "supplier_id": null,
+   "offer_id": null,
+   "terms": null,
+   "c_open": 1932492.18,
+   "c_deal": null,
+   "c_alt": null,
+   "c_best": 1328926.89,
+   "score": 0.0,
+   "must_haves_ok": null,
+   "cost_breakdown": null,
+   "trace": [
+    {
+     "round": 0,
+     "actor": "sup:70410",
+     "move": {
+      "offer_id": "offer:70410-0",
+      "round": 0,
+      "status": "open",
+      "terms": {
+       "unit_price": 32.2,
+       "lead_time_days": 54,
+       "volume_per_year": 19890,
+       "contract_months": 12
+      },
+      "alternatives": [],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 2,
+       "validity_days": 30
+      },
+      "text": "Dear Sir or Madam,\nThank you for your enquiry. Please find our Angebot below.\nOur terms: a price of €32.20 per unit, Lieferzeit 54 days, a volume of 19890 pcs per year, a contract term of 12 months.\nWe will process your next message according to our standard procedure.\nMit freundlichen Grüßen\nMonika Zellner\nSegment Manager, Dichtungswerk Ravensteiner GmbH"
+     },
+     "reasons": []
+    },
+    {
+     "round": 1,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Re: Ravensteiner cuts the seal allocation",
+      "body": "Dear Sir or Madam,\n\nthank you for your offer regarding ravensteiner cuts the seal allocation.\nThe recorded demand forecast for part:340010 changed by +10.1% (fc:340010@2026-09).\nOur should-cost estimate for part:340010 is EUR 24.31 per price unit (cost:340010).\nYour recorded on-time delivery rate is 79.5 % (sc:70410@2026Q3).\nEach of the attached packages works for us; please choose the one that suits you best.\nWe commit to a binding volume of 23,400 pcs per year over 24 months.\nCould you send us a cost breakdown for this part?\nWe value our cooperation.\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing",
+      "refs": [
+       "fc:340010@2026-09",
+       "cost:340010",
+       "sc:70410@2026Q3"
+      ],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 25.76,
+         "volume_per_year": 23400,
+         "contract_months": 24,
+         "lead_time_days": 35
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 25.76,
+         "volume_per_year": 23400,
+         "contract_months": 24,
+         "lead_time_days": 42
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 25.76,
+         "volume_per_year": 23400,
+         "contract_months": 36,
+         "lead_time_days": 35
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": [
+        {
+         "type": "delivery_record",
+         "refs": [
+          "sc:70410@2026Q3"
+         ],
+         "asserted": {
+          "otd_pct": 79.5
+         }
+        },
+        {
+         "type": "volume_change",
+         "refs": [
+          "fc:340010@2026-09"
+         ],
+         "asserted": {
+          "change_pct": 10.1
+         }
+        },
+        {
+         "type": "should_cost",
+         "refs": [
+          "cost:340010"
+         ],
+         "asserted": {
+          "unit_cost": 24.31
+         }
+        }
+       ]
+      },
+      "supplier_id": "sup:70410"
+     },
+     "reasons": []
+    },
+    {
+     "round": 1,
+     "actor": "sup:70410",
+     "move": {
+      "offer_id": "offer:70410-1",
+      "round": 1,
+      "status": "final_offer",
+      "terms": {
+       "unit_price": 33.8,
+       "lead_time_days": 42,
+       "volume_per_year": 23400,
+       "contract_months": 24
+      },
+      "alternatives": [
+       {
+        "offer_id": "offer:70410-1-a",
+        "terms": {
+         "unit_price": 31.9,
+         "lead_time_days": 54,
+         "volume_per_year": 23400,
+         "contract_months": 24
+        }
+       }
+      ],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [
+       {
+        "index": 0,
+        "result": "verified"
+       },
+       {
+        "index": 1,
+        "result": "verified"
+       },
+       {
+        "index": 2,
+        "result": "verified"
+       }
+      ],
+      "signals": {
+       "reply_delay_days": 3,
+       "validity_days": 7
+      },
+      "text": "Dear Sir or Madam,\nWe acknowledge receipt of your message.\nThis is our final offer (letztes Angebot). Please decide.\nOur terms: a price of €33.80 per unit, Lieferzeit 42 days, a volume of 23400 pcs per year, a contract term of 24 months.\nPlease note:\nWe checked the delivery record data you cited; it holds, but it does not change our calculation.\nWe checked the volume change data you cited; it holds, but it does not change our calculation.\nWe checked the should cost data you cited; it holds and we took it into account.\nWe have incorporated your requested volume of 23,400 pieces and the 24-month contract duration into our revised proposal.\nWe must maintain a lead time of 54 days, as the expedited schedules you proposed carry substantial premiums.\nAs a matter of corporate policy, we do not disclose internal cost breakdowns.\nAlternatively, with Lieferzeit 54 days: €31.90 per unit.\nOur calculation is our property; we do not share a breakdown.\nThese are our standard conditions for this product.\nWe will process your next message according to our standard procedure.\nMit freundlichen Grüßen\nMonika Zellner\nSegment Manager, Dichtungswerk Ravensteiner GmbH"
+     },
+     "reasons": [
+      "We checked the delivery record data you cited; it holds, but it does not change our calculation.",
+      "We checked the volume change data you cited; it holds, but it does not change our calculation.",
+      "We checked the should cost data you cited; it holds and we took it into account.",
+      "We have incorporated your requested volume of … pieces and the 24-month contract duration into our revised proposal.",
+      "We must maintain a lead time of … days, as the expedited schedules you proposed carry substantial premiums.",
+      "As a matter of corporate policy, we do not disclose internal cost breakdowns.",
+      "Alternatively, with Lieferzeit … days: €… per unit.",
+      "Our calculation is our property; we do not share a breakdown."
+     ]
+    },
+    {
+     "round": 2,
+     "actor": "buyer",
+     "move": {
+      "type": "timeout",
+      "supplier_id": "sup:70410"
+     },
+     "reasons": []
+    },
+    {
+     "round": 2,
+     "actor": "sup:70410",
+     "move": {
+      "offer_id": null,
+      "round": 2,
+      "status": "walked_away",
+      "terms": {},
+      "alternatives": [],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 3,
+       "validity_days": 14
+      },
+      "text": "Dear Sir or Madam,\n\nAs we have not received a response to our final offer, we are withdrawing our proposal. We consider this negotiation closed.\n\nMit freundlichen Grüßen\nMonika Zellner\nSegment Manager, Dichtungswerk Ravensteiner GmbH"
+     },
+     "reasons": [
+      "As we have not received a response to our final offer, we are withdrawing our proposal.",
+      "We consider this negotiation closed."
+     ]
+    }
+   ]
+  },
+  "replay_url": "/replay/57afc7b5ec72652d"
+ },
+ "backoffice": [
+  {
+   "round": 0,
+   "supplier_id": "sup:70410",
+   "supplier": "Dichtungswerk Ravensteiner GmbH",
+   "from": "Segment Manager",
+   "to": "team",
+   "text": "quote attached (quote-offer-70410-0.pdf)"
+  },
+  {
+   "round": 1,
+   "supplier_id": "sup:70410",
+   "supplier": "Dichtungswerk Ravensteiner GmbH",
+   "from": "Segment Manager",
+   "to": "team",
+   "text": "My call: counter."
+  },
+  {
+   "round": 1,
+   "supplier_id": "sup:70410",
+   "supplier": "Dichtungswerk Ravensteiner GmbH",
+   "from": "Segment Manager",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheets and … cited facts to check; we answer with our final offer."
+  },
+  {
+   "round": 1,
+   "supplier_id": "sup:70410",
+   "supplier": "Dichtungswerk Ravensteiner GmbH",
+   "from": "Segment Manager",
+   "to": "team",
+   "text": "quote attached (quote-offer-70410-1.pdf)"
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:70410",
+   "supplier": "Dichtungswerk Ravensteiner GmbH",
+   "from": "Segment Manager",
+   "to": "team",
+   "text": "My call: walk_away."
+  }
+ ]
+}

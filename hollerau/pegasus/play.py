@@ -32,6 +32,10 @@ def play_case(table, case_id, agent, deadline=None):
     for events in threads.values():
         for m in events:
             fetch_documents(table, m)
+    if hasattr(agent, "observe"):
+        for s_id, events in threads.items():
+            for m in events:
+                agent.observe(s_id, m)
     lock, done = threading.Lock(), threading.Event()
     box, slowest, inflight = {}, [0.0], set()
 
@@ -55,7 +59,8 @@ def play_case(table, case_id, agent, deadline=None):
                     return
                 cap = deadline() if callable(deadline) else deadline
                 if cap and time.time() > cap - max(CLOSE_BEFORE_CAP_S, slowest[0] + ROUND_MARGIN_S):
-                    decision = closing_move(case, threads)
+                    log.info("%s: the wave's cap is near - closing", case_id)
+                    decision = agent.closing(case, threads) if hasattr(agent, "closing") else closing_move(case, threads)
                 else:
                     decision = agent.decide(case, threads, sid, busy=inflight - {sid})
                 if decision is None:
@@ -72,6 +77,8 @@ def play_case(table, case_id, agent, deadline=None):
                     log.info("%s %s %s", case_id, dsid, msg["action"])
                     if finish(dsid, msg):
                         return
+                    if hasattr(agent, "refuse") and msg["action"].get("term_sheet_id"):
+                        agent.refuse(msg["action"]["term_sheet_id"])
                     # refused (e.g. the sheet went stale): resync that thread from the arena
                     try:
                         fresh = table.client.thread(table.session_id, dsid)["messages"]
@@ -84,28 +91,32 @@ def play_case(table, case_id, agent, deadline=None):
             try:
                 reply = table.send(dsid, msg)
             except ArenaError as e:
-                with lock:
-                    inflight.discard(dsid)
                 if e.status != 409:
+                    with lock:
+                        inflight.discard(dsid)
                     log.warning("%s %s: %s", case_id, dsid, e.detail)
                     if e.status == 422:  # an invalid message uses no round: log and stop this thread
                         return
                     raise
                 reply = table.missed(dsid, e)
-            with lock:
-                inflight.discard(dsid)
             if "result" in reply:
                 box["result"] = reply["result"]
                 done.set()
                 return
+            if hasattr(agent, "observe"):
+                agent.observe(dsid, reply)  # the reader's LLM call runs outside the decision lock
             with lock:
                 threads[dsid] += [{**msg, "from": "buyer"}, fetch_documents(table, reply)]
+                inflight.discard(dsid)  # only now may other threads act on this supplier's sheets
                 slowest[0] = max(slowest[0], time.monotonic() - t0)
                 log.info("%s %s %s %s", case_id, dsid, reply.get("status"), standing(threads[dsid])[1])
 
     with ThreadPoolExecutor(max_workers=len(threads)) as pool:
         list(pool.map(worker, list(threads)))
-    return box.get("result") or table.result()
+    result = box.get("result") or table.result()
+    if hasattr(agent, "finish"):
+        agent.finish(case, threads, result)
+    return result
 
 
 def play_cases(client, case_ids, new_agent, parallel=5):

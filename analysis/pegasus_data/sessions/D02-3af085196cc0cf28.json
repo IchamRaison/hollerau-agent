@@ -1,0 +1,448 @@
+{
+ "summary": {
+  "session_id": "3af085196cc0cf28",
+  "case_id": "case:D02",
+  "status": "ended",
+  "end_reason": "walked_away",
+  "deal": 0,
+  "score": 0.0,
+  "rounds": 3,
+  "created_at": 1791655935.0067918
+ },
+ "session": {
+  "session_id": "3af085196cc0cf28",
+  "case_id": "case:D02",
+  "status": "ended",
+  "end_reason": "walked_away",
+  "rounds": 3,
+  "set": "sandbox",
+  "opening": {
+   "sup:DEMO-J1": {
+    "offer_id": "offer:DEMO-J1-0",
+    "round": 0,
+    "status": "open",
+    "terms": {
+     "unit_price": 17.1,
+     "payment_days": 30,
+     "lead_time_days": 28
+    },
+    "alternatives": [],
+    "missing_fields": [
+     "incoterm"
+    ],
+    "claims": [],
+    "claim_results": [],
+    "signals": {
+     "reply_delay_days": 4,
+     "validity_days": null
+    },
+    "text": "Hallo,\nhere is our price.\nOur terms: a price of €17.10 per unit, Zahlungsziel 30 days net, Lieferzeit 28 days.\nBack to the machines now.\nGruß\nClaudia Aigner\nOwner, Demo Drehteile GmbH"
+   },
+   "sup:DEMO-C1": {
+    "offer_id": "offer:DEMO-C1-0",
+    "round": 0,
+    "status": "open",
+    "terms": {
+     "unit_price": 16.0,
+     "payment_days": 45,
+     "incoterm": "EXW"
+    },
+    "alternatives": [],
+    "missing_fields": [
+     "lead_time_days"
+    ],
+    "claims": [],
+    "claim_results": [],
+    "signals": {
+     "reply_delay_days": 2,
+     "validity_days": 30
+    },
+    "text": "Dear partner,\n\nThank you for your enquiry. Please find our Angebot below.\n\nWe are delighted to submit our proposal for your consideration. We offer a price of €16.00 per unit, with a Zahlungsziel 45 days net, and delivery EXW.\n\nAs a growing supplier, we are very eager to build a strong partnership with your company and to prove ourselves as a reliable, long-term partner for your manufacturing needs. \n\nPlease note that this offer remains valid for 30 days. We remain at your full disposal should you have any questions or require any further information, and we look forward to the prospect of working together.\n\nBest regards\nJoanna Kaczmarek\nExport Manager, Demo Machining Sp. z o.o."
+   }
+  },
+  "threads": {
+   "sup:DEMO-J1": {
+    "offer_id": "offer:DEMO-J1-3",
+    "status": "final_offer",
+    "offers": 3,
+    "closed": null,
+    "seconds_left": null
+   },
+   "sup:DEMO-C1": {
+    "offer_id": "offer:DEMO-C1-0",
+    "status": "open",
+    "offers": 0,
+    "closed": null,
+    "seconds_left": null
+   }
+  },
+  "moves": [],
+  "result": {
+   "ended": true,
+   "deal": false,
+   "supplier_id": null,
+   "offer_id": null,
+   "terms": null,
+   "c_open": 214296.0,
+   "c_deal": null,
+   "c_alt": 238800.0,
+   "c_best": 156738.78,
+   "score": 0.0,
+   "must_haves_ok": null,
+   "cost_breakdown": null,
+   "trace": [
+    {
+     "round": 0,
+     "actor": "sup:DEMO-J1",
+     "move": {
+      "offer_id": "offer:DEMO-J1-0",
+      "round": 0,
+      "status": "open",
+      "terms": {
+       "unit_price": 17.1,
+       "payment_days": 30,
+       "lead_time_days": 28
+      },
+      "alternatives": [],
+      "missing_fields": [
+       "incoterm"
+      ],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 4,
+       "validity_days": null
+      },
+      "text": "Hallo,\nhere is our price.\nOur terms: a price of €17.10 per unit, Zahlungsziel 30 days net, Lieferzeit 28 days.\nBack to the machines now.\nGruß\nClaudia Aigner\nOwner, Demo Drehteile GmbH"
+     },
+     "reasons": []
+    },
+    {
+     "round": 0,
+     "actor": "sup:DEMO-C1",
+     "move": {
+      "offer_id": "offer:DEMO-C1-0",
+      "round": 0,
+      "status": "open",
+      "terms": {
+       "unit_price": 16.0,
+       "payment_days": 45,
+       "incoterm": "EXW"
+      },
+      "alternatives": [],
+      "missing_fields": [
+       "lead_time_days"
+      ],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 2,
+       "validity_days": 30
+      },
+      "text": "Dear partner,\nThank you for your enquiry. Please find our Angebot below.\nOur terms: a price of €16.00 per unit, Zahlungsziel 45 days net, delivery EXW.\nWe are fully committed to winning your business and to becoming a long-term partner for your team.\nBest regards\nJoanna Kaczmarek\nExport Manager, Demo Machining Sp. z o.o."
+     },
+     "reasons": []
+    },
+    {
+     "round": 1,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Package options",
+      "body": "Please review these three options.",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 16.59,
+         "payment_days": 60,
+         "lead_time_days": 35,
+         "incoterm": "DAP"
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 16.59,
+         "payment_days": 60,
+         "lead_time_days": 21,
+         "incoterm": "DAP"
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 16.59,
+         "payment_days": 60,
+         "lead_time_days": 35,
+         "incoterm": "DAP"
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": []
+      },
+      "supplier_id": "sup:DEMO-J1"
+     },
+     "reasons": []
+    },
+    {
+     "round": 1,
+     "actor": "sup:DEMO-J1",
+     "move": {
+      "offer_id": "offer:DEMO-J1-1",
+      "round": 1,
+      "status": "open",
+      "terms": {
+       "unit_price": 16.7,
+       "payment_days": 30,
+       "lead_time_days": 35,
+       "incoterm": "DAP"
+      },
+      "alternatives": [],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 4,
+       "validity_days": null
+      },
+      "text": "Hallo,\ngot your mail, thanks.\nwe can move a bit:\nOur terms: a price of €16.70 per unit, Zahlungsziel 30 days net, Lieferzeit 35 days, delivery DAP.\nHere is how it is:\nI can do DAP and 35 days lead time, but we must stick to 30 days payment.\nFor this, I can offer €16.70 per piece.\nJust write if something is unclear.\nGruß\nClaudia Aigner\nOwner, Demo Drehteile GmbH"
+     },
+     "reasons": [
+      "I can do DAP and … days lead time, but we must stick to … days payment.",
+      "For this, I can offer €… per piece."
+     ]
+    },
+    {
+     "round": 2,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Combined package",
+      "body": "Combined proposal.",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 16.59,
+         "payment_days": 60,
+         "lead_time_days": 21,
+         "incoterm": "DAP"
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": []
+      },
+      "supplier_id": "sup:DEMO-J1"
+     },
+     "reasons": []
+    },
+    {
+     "round": 2,
+     "actor": "sup:DEMO-J1",
+     "move": {
+      "offer_id": "offer:DEMO-J1-2",
+      "round": 2,
+      "status": "open",
+      "terms": {
+       "unit_price": 16.7,
+       "payment_days": 30,
+       "lead_time_days": 35,
+       "incoterm": "DAP"
+      },
+      "alternatives": [],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 4,
+       "validity_days": null
+      },
+      "text": "Hallo,\nthanks for the mail.\nprice stays as it is.\nOur terms: a price of €16.70 per unit, Zahlungsziel 30 days net, Lieferzeit 35 days, delivery DAP.\nHere is how it is:\nI'm keeping my offer at €16.70 for 30 days payment and 35 days lead time.\nOur standard Zahlungsziel is 30 days net.\nFaster payment is welcome; we can reflect it in the price.\nOur Lieferzeit is 35 days.\nWith overtime we can deliver in 21 days, at a premium.\nWe have free capacity for your parts.\nWe calculate tight, there is not much air in our prices.\nJust write if something is unclear.\nGruß\nClaudia Aigner\nOwner, Demo Drehteile GmbH"
+     },
+     "reasons": [
+      "I'm keeping my offer at €… for … days payment and … days lead time.",
+      "Our standard Zahlungsziel is … days net.",
+      "Faster payment is welcome; we can reflect it in the price.",
+      "Our Lieferzeit is … days.",
+      "With overtime we can deliver in … days, at a premium.",
+      "We have free capacity for your parts."
+     ]
+    },
+    {
+     "round": 3,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Package options",
+      "body": "Please review these three options.",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 16.25,
+         "payment_days": 60,
+         "lead_time_days": 35,
+         "incoterm": "DAP"
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 16.25,
+         "payment_days": 60,
+         "lead_time_days": 21,
+         "incoterm": "DAP"
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 16.25,
+         "payment_days": 60,
+         "lead_time_days": 35,
+         "incoterm": "DAP"
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": []
+      },
+      "supplier_id": "sup:DEMO-J1"
+     },
+     "reasons": []
+    },
+    {
+     "round": 3,
+     "actor": "sup:DEMO-J1",
+     "move": {
+      "offer_id": "offer:DEMO-J1-3",
+      "round": 3,
+      "status": "final_offer",
+      "terms": {
+       "unit_price": 16.7,
+       "payment_days": 30,
+       "lead_time_days": 35,
+       "incoterm": "DAP"
+      },
+      "alternatives": [],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 5,
+       "validity_days": null
+      },
+      "text": "Hallo,\ngot your mail, thanks.\nthis is our last price, take it or leave it.\nOur terms: a price of €16.70 per unit, Zahlungsziel 30 days net, Lieferzeit 35 days, delivery DAP.\nStraight answer:\nWe are a small shop and need the cash flowing, so 30 days payment is an absolute must for us.\nMy offer stays at €16.70 for 35 days lead time and 30 days payment.\nOur standard Zahlungsziel is 30 days net.\nFaster payment is welcome; we can reflect it in the price.\nOur price follows our main cost drivers: BAR-14021, WAGES-METAL.\nWe calculate tight, there is not much air in our prices.\nBack to the machines now.\nGruß\nClaudia Aigner\nOwner, Demo Drehteile GmbH"
+     },
+     "reasons": [
+      "We are a small shop and need the cash flowing, so … days payment is an absolute must for us.",
+      "My offer stays at €… for … days lead time and … days payment.",
+      "Our standard Zahlungsziel is … days net.",
+      "Faster payment is welcome; we can reflect it in the price.",
+      "Our price follows our main cost drivers: BAR-14021, WAGES-METAL."
+     ]
+    },
+    {
+     "round": 3,
+     "actor": "buyer",
+     "move": {
+      "type": "walk_away"
+     },
+     "reasons": []
+    }
+   ]
+  },
+  "replay_url": "/replay/3af085196cc0cf28"
+ },
+ "backoffice": [
+  {
+   "round": 0,
+   "supplier_id": "sup:DEMO-J1",
+   "supplier": "Demo Drehteile GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "quote attached (quote-offer-DEMO-J1-0.pdf)"
+  },
+  {
+   "round": 0,
+   "supplier_id": "sup:DEMO-C1",
+   "supplier": "Demo Machining Sp. z o.o.",
+   "from": "Export Manager",
+   "to": "team",
+   "text": "quote attached (quote-offer-DEMO-C1-0.pdf)"
+  },
+  {
+   "round": 1,
+   "supplier_id": "sup:DEMO-J1",
+   "supplier": "Demo Drehteile GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "My call: counter."
+  },
+  {
+   "round": 1,
+   "supplier_id": "sup:DEMO-J1",
+   "supplier": "Demo Drehteile GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheets; we answer with our offer."
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:DEMO-J1",
+   "supplier": "Demo Drehteile GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "My call: hold."
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:DEMO-J1",
+   "supplier": "Demo Drehteile GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheet; we answer with our offer."
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:DEMO-J1",
+   "supplier": "Demo Drehteile GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "delivery schedule attached (delivery-schedule.xlsx)"
+  },
+  {
+   "round": 3,
+   "supplier_id": "sup:DEMO-J1",
+   "supplier": "Demo Drehteile GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "My call: hold."
+  },
+  {
+   "round": 3,
+   "supplier_id": "sup:DEMO-J1",
+   "supplier": "Demo Drehteile GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheets; we answer with our final offer."
+  },
+  {
+   "round": 3,
+   "supplier_id": "sup:DEMO-J1",
+   "supplier": "Demo Drehteile GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "quote attached (quote-offer-DEMO-J1-3.pdf)"
+  }
+ ]
+}
