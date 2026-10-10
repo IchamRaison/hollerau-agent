@@ -1,0 +1,471 @@
+{
+ "summary": {
+  "session_id": "a5f7478910f2598a",
+  "case_id": "case:P01",
+  "status": "ended",
+  "end_reason": "accepted",
+  "deal": 1,
+  "score": 0.5828313200135649,
+  "rounds": 5,
+  "created_at": 1791641612.0727062
+ },
+ "session": {
+  "session_id": "a5f7478910f2598a",
+  "case_id": "case:P01",
+  "status": "ended",
+  "end_reason": "accepted",
+  "rounds": 5,
+  "set": "practice",
+  "opening": {
+   "sup:70110": {
+    "offer_id": "offer:70110-0",
+    "round": 0,
+    "status": "open",
+    "terms": {
+     "unit_price": 138.55,
+     "effective_date": "2026-11-01"
+    },
+    "alternatives": [],
+    "missing_fields": [
+     "payment_days"
+    ],
+    "claims": [
+     {
+      "type": "index_change",
+      "refs": [
+       "idx:LCI-C@2025-06",
+       "idx:LCI-C@2026-06"
+      ],
+      "asserted": {
+       "change_pct": 2.7
+      }
+     },
+     {
+      "type": "index_change",
+      "refs": [
+       "idx:PPI-C241@2025-08",
+       "idx:PPI-C241@2026-08"
+      ],
+      "asserted": {
+       "change_pct": 6.5
+      }
+     }
+    ],
+    "claim_results": [],
+    "signals": {
+     "reply_delay_days": 2,
+     "validity_days": 30
+    },
+    "text": "Guten Tag,\n\nThank you for your enquiry. Please find our Angebot below.\n\nFor generations, our foundry has taken great pride in supplying our regional partners with the utmost care and quality. To continue serving you with the craftsmanship you expect from us, we must account for our rising expenses. Over the past twelve months, LCI-C rose 2.7 % in twelve months and is 30 % of our cost. Furthermore, PPI-C241 rose 6.5 % in twelve months and is 24 % of our cost.\n\nTaking these developments into consideration, we are pleased to present our offer for a price of €138.55 per unit, valid from 1 November 2026. This offer remains valid for 30 days.\n\nWe value our long-standing relationship deeply and look forward to continuing our successful cooperation.\n\nViele Grüße aus der Gießerei\nThomas Brandlhuber\nOwner, Gießerei Brandlhuber GmbH & Co. KG"
+   }
+  },
+  "threads": {
+   "sup:70110": {
+    "offer_id": "offer:70110-4",
+    "status": "agreed",
+    "offers": 5,
+    "closed": null,
+    "seconds_left": null
+   }
+  },
+  "moves": [],
+  "result": {
+   "ended": true,
+   "deal": true,
+   "supplier_id": "sup:70110",
+   "offer_id": "offer:70110-4",
+   "terms": {
+    "payment_days": 60,
+    "lead_time_days": 42,
+    "volume_per_year": 8150,
+    "contract_months": 12,
+    "effective_date": "2026-11-01",
+    "index_clause": null,
+    "incoterm": "FCA",
+    "tooling_eur": 0.0,
+    "ppm_commitment": 900,
+    "chargeback_eur_per_complaint": 0.0,
+    "unit_price": 135.4
+   },
+   "c_open": 1153779.74,
+   "c_deal": 1120579.36,
+   "c_alt": 1176178.02,
+   "c_best": 1096815.78,
+   "score": 0.5828313200135649,
+   "must_haves_ok": true,
+   "cost_breakdown": {
+    "price": 1103510.0,
+    "uncovered_need": 0.0,
+    "fallback_risk": 0.0,
+    "payment_terms": 0.0,
+    "freight": 15485.0,
+    "late_delivery": 0.0,
+    "quality": 1584.36,
+    "tooling": 0.0,
+    "index_clause": 0.0,
+    "index_risk": 0.0,
+    "relationship": 0.0
+   },
+   "trace": [
+    {
+     "round": 0,
+     "actor": "sup:70110",
+     "move": {
+      "offer_id": "offer:70110-0",
+      "round": 0,
+      "status": "open",
+      "terms": {
+       "unit_price": 138.55,
+       "effective_date": "2026-11-01"
+      },
+      "alternatives": [],
+      "missing_fields": [
+       "payment_days"
+      ],
+      "claims": [
+       {
+        "type": "index_change",
+        "refs": [
+         "idx:LCI-C@2025-06",
+         "idx:LCI-C@2026-06"
+        ],
+        "asserted": {
+         "change_pct": 2.7
+        }
+       },
+       {
+        "type": "index_change",
+        "refs": [
+         "idx:PPI-C241@2025-08",
+         "idx:PPI-C241@2026-08"
+        ],
+        "asserted": {
+         "change_pct": 6.5
+        }
+       }
+      ],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 2,
+       "validity_days": 30
+      },
+      "text": "Guten Tag,\n\nThank you for your enquiry. Please find our Angebot below.\n\nFor generations, our foundry has taken great pride in supplying our regional partners with the utmost care and quality. To continue serving you with the craftsmanship you expect from us, we must account for our rising expenses. Over the past twelve months, LCI-C rose 2.7 % in twelve months and is 30 % of our cost. Furthermore, PPI-C241 rose 6.5 % in twelve months and is 24 % of our cost.\n\nTaking these developments into consideration, we are pleased to present our offer for a price of €138.55 per unit, valid from 1 November 2026. This offer remains valid for 30 days.\n\nWe value our long-standing relationship deeply and look forward to continuing our successful cooperation.\n\nViele Grüße aus der Gießerei\nThomas Brandlhuber\nOwner, Gießerei Brandlhuber GmbH & Co. KG"
+     },
+     "reasons": [
+      "LCI-C rose … in twelve months and is … of our cost.",
+      "PPI-C241 rose … in twelve months and is … of our cost."
+     ]
+    },
+    {
+     "round": 1,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Brandlhuber announces +9.5 % on HN volute casings",
+      "body": "Thank you for your offer. We need a better price to go ahead.",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 124.7,
+         "effective_date": "2026-11-01",
+         "payment_days": 60
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": []
+      },
+      "supplier_id": "sup:70110"
+     },
+     "reasons": []
+    },
+    {
+     "round": 1,
+     "actor": "sup:70110",
+     "move": {
+      "offer_id": "offer:70110-1",
+      "round": 1,
+      "status": "open",
+      "terms": {
+       "unit_price": 137.3,
+       "payment_days": 60,
+       "effective_date": "2026-11-01"
+      },
+      "alternatives": [],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 2,
+       "validity_days": 30
+      },
+      "text": "Guten Tag,\n\nWe have reviewed your offer and can adjust our Angebot as follows. We note your request for a lower price and extended payment terms of 60 days. Our initial calculation strictly reflects the verified increases in our material and labour costs, which are necessary to uphold our standard of craftsmanship. However, we deeply value our long relationship and the shared heritage of our region. To support our continued cooperation, we are willing to accept the 60-day payment terms, and we offer a revised price of €137.30 per unit. \n\nThus, our current Angebot stands at a price of €137.30 per unit, Zahlungsziel 60 days net, valid from 1 November 2026. This offer remains valid for 30 days. We take immense pride in the work our people produce for you, and we trust this step forward reflects our commitment to a successful future together.\n\nViele Grüße aus der Gießerei\nThomas Brandlhuber\nOwner, Gießerei Brandlhuber GmbH & Co. KG"
+     },
+     "reasons": [
+      "We note your request for a lower price and extended payment terms of … days.",
+      "Our initial calculation strictly reflects the verified increases in our material and labour costs, which are necessary to uphold our standard of craftsmanship.",
+      "We are willing to accept the 60-day payment terms and, to support our continued cooperation, we offer a revised price of €… per unit."
+     ]
+    },
+    {
+     "round": 2,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Brandlhuber announces +9.5 % on HN volute casings",
+      "body": "Thank you for your offer. We need a better price to go ahead.",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 131.0,
+         "effective_date": "2026-11-01",
+         "payment_days": 60
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": []
+      },
+      "supplier_id": "sup:70110"
+     },
+     "reasons": []
+    },
+    {
+     "round": 2,
+     "actor": "sup:70110",
+     "move": {
+      "offer_id": "offer:70110-2",
+      "round": 2,
+      "status": "open",
+      "terms": {
+       "unit_price": 136.5,
+       "payment_days": 60,
+       "effective_date": "2026-11-01"
+      },
+      "alternatives": [],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 2,
+       "validity_days": 30
+      },
+      "text": "Guten Tag,\n\nWe have reviewed your offer and can adjust our Angebot as follows. We acknowledge your revised offer and appreciate the step towards our position. However, our initial calculation was based on verified cost increases that we cannot simply absorb while maintaining our standard of craftsmanship. \n\nIn the spirit of our long-standing partnership, we can make a further concession to €136.50 per unit. Our offer stands at a price of €136.50 per unit, Zahlungsziel 60 days net, valid from 1 November 2026. Please note that this offer remains valid for 30 days.\n\nIt is always a pleasure working with your respected house, and we trust this proposal reflects both our deep relationship and the enduring quality of our foundry work.\n\nViele Grüße aus der Gießerei\nThomas Brandlhuber\nOwner, Gießerei Brandlhuber GmbH & Co. KG"
+     },
+     "reasons": [
+      "We acknowledge your revised offer and appreciate the step towards our position.",
+      "However, our initial calculation was based on verified cost increases that we cannot simply absorb while maintaining our standard of craftsmanship.",
+      "In the spirit of our long-standing partnership, we can make a further concession to €… per unit."
+     ]
+    },
+    {
+     "round": 3,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Brandlhuber announces +9.5 % on HN volute casings",
+      "body": "Thank you for your offer. We need a better price to go ahead.",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 133.75,
+         "effective_date": "2026-11-01",
+         "payment_days": 60
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": []
+      },
+      "supplier_id": "sup:70110"
+     },
+     "reasons": []
+    },
+    {
+     "round": 3,
+     "actor": "sup:70110",
+     "move": {
+      "offer_id": "offer:70110-3",
+      "round": 3,
+      "status": "open",
+      "terms": {
+       "unit_price": 135.9,
+       "payment_days": 60,
+       "effective_date": "2026-11-01"
+      },
+      "alternatives": [],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 2,
+       "validity_days": 30
+      },
+      "text": "Guten Tag,\n\nWe have reviewed your offer and can adjust our Angebot as follows. We appreciate your revised offer and the movement towards our position. It is always a pleasure to work with Hollerau Pumpenwerke GmbH, a valued partner connected to our region and our family-run business for so many years. \n\nTo reach an agreement, we are prepared to make a further concession to a price of €135.90 per unit. Our offer comes with a Zahlungsziel 60 days net, valid from 1 November 2026. Please note that this offer stays valid for 30 days.\n\nWe trust this demonstrates our commitment to our long-standing partnership and the quality of our foundry work, which our dedicated people take immense pride in every single day. \n\nViele Grüße aus der Gießerei\nThomas Brandlhuber\nOwner, Gießerei Brandlhuber GmbH & Co. KG"
+     },
+     "reasons": [
+      "We appreciate your revised offer and the movement towards our position.",
+      "To reach an agreement, we are prepared to make a further concession to €… per unit.",
+      "We trust this demonstrates our commitment to our long-standing partnership and the quality of our foundry work."
+     ]
+    },
+    {
+     "round": 4,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Brandlhuber announces +9.5 % on HN volute casings",
+      "body": "Thank you for your offer. We need a better price to go ahead.",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 134.82,
+         "effective_date": "2026-11-01",
+         "payment_days": 60
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": []
+      },
+      "supplier_id": "sup:70110"
+     },
+     "reasons": []
+    },
+    {
+     "round": 4,
+     "actor": "sup:70110",
+     "move": {
+      "offer_id": "offer:70110-4",
+      "round": 4,
+      "status": "open",
+      "terms": {
+       "unit_price": 135.4,
+       "payment_days": 60,
+       "effective_date": "2026-11-01"
+      },
+      "alternatives": [],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 2,
+       "validity_days": 30
+      },
+      "text": "Guten Tag,\n\nWe have reviewed your offer and can adjust our Angebot as follows. We appreciate your continued movement and the respectful dialogue between our houses. \n\nTo bridge the remaining gap, we are prepared to lower our price to €135.40 per unit. Under these adjusted terms, our Angebot stands at a price of €135.40 per unit, with a Zahlungsziel 60 days net, valid from 1 November 2026. Please note that this offer remains valid for 30 days.\n\nWe trust this further step brings us to a mutually agreeable conclusion and allows us to continue the long-standing, valued cooperation between our traditions.\n\nViele Grüße aus der Gießerei\nThomas Brandlhuber\nOwner, Gießerei Brandlhuber GmbH & Co. KG"
+     },
+     "reasons": [
+      "We appreciate your continued movement and the respectful dialogue between our houses.",
+      "To bridge the remaining gap, we are prepared to lower our price to €… per unit.",
+      "We trust this further step brings us to a mutually agreeable conclusion."
+     ]
+    },
+    {
+     "round": 4,
+     "actor": "buyer",
+     "move": {
+      "type": "accept",
+      "offer_id": "offer:70110-4",
+      "supplier_id": "sup:70110"
+     },
+     "reasons": []
+    }
+   ]
+  },
+  "replay_url": "/replay/a5f7478910f2598a"
+ },
+ "backoffice": [
+  {
+   "round": 0,
+   "supplier_id": "sup:70110",
+   "supplier": "Gießerei Brandlhuber GmbH & Co. KG",
+   "from": "Owner",
+   "to": "team",
+   "text": "quote attached (quote-offer-70110-0.pdf)"
+  },
+  {
+   "round": 1,
+   "supplier_id": "sup:70110",
+   "supplier": "Gießerei Brandlhuber GmbH & Co. KG",
+   "from": "Owner",
+   "to": "team",
+   "text": "My call: counter."
+  },
+  {
+   "round": 1,
+   "supplier_id": "sup:70110",
+   "supplier": "Gießerei Brandlhuber GmbH & Co. KG",
+   "from": "Owner",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheet; we answer with our offer."
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:70110",
+   "supplier": "Gießerei Brandlhuber GmbH & Co. KG",
+   "from": "Owner",
+   "to": "team",
+   "text": "My call: counter."
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:70110",
+   "supplier": "Gießerei Brandlhuber GmbH & Co. KG",
+   "from": "Owner",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheet; we answer with our offer."
+  },
+  {
+   "round": 3,
+   "supplier_id": "sup:70110",
+   "supplier": "Gießerei Brandlhuber GmbH & Co. KG",
+   "from": "Owner",
+   "to": "team",
+   "text": "My call: counter."
+  },
+  {
+   "round": 3,
+   "supplier_id": "sup:70110",
+   "supplier": "Gießerei Brandlhuber GmbH & Co. KG",
+   "from": "Owner",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheet; we answer with our offer."
+  },
+  {
+   "round": 4,
+   "supplier_id": "sup:70110",
+   "supplier": "Gießerei Brandlhuber GmbH & Co. KG",
+   "from": "Owner",
+   "to": "team",
+   "text": "My call: counter."
+  },
+  {
+   "round": 4,
+   "supplier_id": "sup:70110",
+   "supplier": "Gießerei Brandlhuber GmbH & Co. KG",
+   "from": "Owner",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheet; we answer with our offer."
+  },
+  {
+   "round": 4,
+   "supplier_id": "sup:70110",
+   "supplier": "Gießerei Brandlhuber GmbH & Co. KG",
+   "from": "Owner",
+   "to": "team",
+   "text": "order confirmation attached (order-confirmation-offer-70110-4.pdf)"
+  }
+ ]
+}

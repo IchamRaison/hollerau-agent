@@ -1,0 +1,764 @@
+{
+ "summary": {
+  "session_id": "a5f8f95f46c63c99",
+  "case_id": "case:D01",
+  "status": "ended",
+  "end_reason": "accepted",
+  "deal": 1,
+  "score": 0.9472479438460706,
+  "rounds": 7,
+  "created_at": 1791657950.9736886
+ },
+ "session": {
+  "session_id": "a5f8f95f46c63c99",
+  "case_id": "case:D01",
+  "status": "ended",
+  "end_reason": "accepted",
+  "rounds": 7,
+  "set": "sandbox",
+  "opening": {
+   "sup:DEMO-F1": {
+    "offer_id": "offer:DEMO-F1-0",
+    "round": 0,
+    "status": "open",
+    "terms": {
+     "unit_price": 52.9,
+     "payment_days": 30,
+     "contract_months": 12,
+     "effective_date": "2026-12-01"
+    },
+    "alternatives": [],
+    "missing_fields": [],
+    "claims": [
+     {
+      "type": "index_change",
+      "refs": [
+       "idx:WAGES-METAL@2025-09",
+       "idx:WAGES-METAL@2026-09"
+      ],
+      "asserted": {
+       "change_pct": 3.1
+      }
+     }
+    ],
+    "claim_results": [],
+    "signals": {
+     "reply_delay_days": 2,
+     "validity_days": 30
+    },
+    "text": "Guten Tag,\n\nThank you for your enquiry. Please find our Angebot below. \n\nAs a family-run foundry, we deeply value our long relationship and take great pride in the dedication of our skilled team. In light of current market conditions, WAGES-METAL rose 3.1 % in twelve months and is 28 % of our cost. \n\nWe are pleased to submit our offer at a price of €52.90 per unit, with a Zahlungsziel 30 days net, a contract term of 12 months, valid from 1 December 2026. Please note that this offer remains valid for 30 days.\n\nWe look forward to continuing our trustful cooperation and working together with you.\n\nViele Grüße aus der Gießerei\nAndreas Moser\nOwner, Demo Gießerei GmbH"
+   }
+  },
+  "threads": {
+   "sup:DEMO-F1": {
+    "offer_id": "offer:DEMO-F1-6",
+    "status": "agreed",
+    "offers": 7,
+    "closed": null,
+    "seconds_left": null
+   }
+  },
+  "moves": [],
+  "result": {
+   "ended": true,
+   "deal": true,
+   "supplier_id": "sup:DEMO-F1",
+   "offer_id": "offer:DEMO-F1-6",
+   "terms": {
+    "payment_days": 30,
+    "lead_time_days": 35,
+    "volume_per_year": 4000,
+    "contract_months": 24,
+    "effective_date": "2027-04-01",
+    "index_clause": null,
+    "incoterm": "FCA",
+    "tooling_eur": 0.0,
+    "ppm_commitment": 650,
+    "chargeback_eur_per_complaint": 0.0,
+    "unit_price": 50.0
+   },
+   "c_open": 448810.67,
+   "c_deal": 410743.92,
+   "c_alt": null,
+   "c_best": 408623.99,
+   "score": 0.9472479438460706,
+   "must_haves_ok": true,
+   "cost_breakdown": {
+    "price": 398143.56,
+    "uncovered_need": 0.0,
+    "fallback_risk": 0.0,
+    "payment_terms": 2654.29,
+    "freight": 9600.0,
+    "late_delivery": 0.0,
+    "quality": 0.0,
+    "tooling": 0.0,
+    "index_clause": 0.0,
+    "index_risk": 0.0,
+    "relationship": 346.07
+   },
+   "trace": [
+    {
+     "round": 0,
+     "actor": "sup:DEMO-F1",
+     "move": {
+      "offer_id": "offer:DEMO-F1-0",
+      "round": 0,
+      "status": "open",
+      "terms": {
+       "unit_price": 52.9,
+       "payment_days": 30,
+       "contract_months": 12,
+       "effective_date": "2026-12-01"
+      },
+      "alternatives": [],
+      "missing_fields": [],
+      "claims": [
+       {
+        "type": "index_change",
+        "refs": [
+         "idx:WAGES-METAL@2025-09",
+         "idx:WAGES-METAL@2026-09"
+        ],
+        "asserted": {
+         "change_pct": 3.1
+        }
+       }
+      ],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 2,
+       "validity_days": 30
+      },
+      "text": "Guten Tag,\nThank you for your enquiry. Please find our Angebot below.\nOur terms: a price of €52.90 per unit, Zahlungsziel 30 days net, a contract term of 12 months, valid from 1 December 2026.\nA few words from the foundry on this.\nWAGES-METAL rose 3.1 % in twelve months and is 28 % of our cost.\nPlease give my regards to your colleagues - a good relationship has always mattered more to us than a single order, and I hope it stays that way.\nViele Grüße aus der Gießerei\nAndreas Moser\nOwner, Demo Gießerei GmbH"
+     },
+     "reasons": [
+      "WAGES-METAL rose … in twelve months and is … of our cost."
+     ]
+    },
+    {
+     "round": 1,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Re: Pump housing PH-100: the foundry wants +8.8 %",
+      "body": "Dear Sir or Madam,\n\nthank you for your offer regarding pump housing ph-100: the foundry wants +8.8 %.\nWe are happy to pay faster if that helps your cash flow, in exchange for a better price.\nEach of the attached packages works for us; please choose the one that suits you best.\nWe commit to a binding volume of 4,000 pcs per year over 24 months.\nCould you send us a cost breakdown for this part?\nWe value our cooperation.\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 45.68,
+         "payment_days": 60,
+         "contract_months": 24,
+         "effective_date": "2026-12-01"
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 45.55,
+         "payment_days": 60,
+         "contract_months": 24,
+         "effective_date": "2027-01-01"
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 45.21,
+         "payment_days": 30,
+         "contract_months": 24,
+         "effective_date": "2026-12-01"
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": []
+      },
+      "supplier_id": "sup:DEMO-F1"
+     },
+     "reasons": []
+    },
+    {
+     "round": 1,
+     "actor": "sup:DEMO-F1",
+     "move": {
+      "offer_id": "offer:DEMO-F1-1",
+      "round": 1,
+      "status": "open",
+      "terms": {
+       "unit_price": 51.6,
+       "payment_days": 60,
+       "contract_months": 24,
+       "effective_date": "2026-12-01"
+      },
+      "alternatives": [
+       {
+        "offer_id": "offer:DEMO-F1-1-a",
+        "terms": {
+         "unit_price": 51.3,
+         "payment_days": 30,
+         "contract_months": 24,
+         "effective_date": "2026-12-01"
+        }
+       }
+      ],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 2,
+       "validity_days": 30
+      },
+      "text": "Guten Tag,\nThank you for your letter - it is always good to hear from you, and I answer it myself, as I do for all the customers we have known for a long time.\nWe have reviewed your offer and can adjust our Angebot as follows.\nOur terms: a price of €51.60 per unit, Zahlungsziel 60 days net, a contract term of 24 months, valid from 1 December 2026.\nLet me tell you how we see it from our side.\nWe appreciate your counter-offer and the prospect of a 24-month contract, but we kindly request formal confirmation of the 4,000 pieces per year to fully factor this volume into our calculation.\nBuilding on your preferred 30-day payment terms and the extended contract duration, we are prepared to offer a revised price of €51.30.\nOur colleagues will address your request for a cost breakdown separately, as we maintain a strict policy regarding our internal calculations.\nWhich figures is that based on? Please send us the data.\nWhich volume can you commit to?\nOur costs move with SCRAP-E3, WAGES-METAL, GAS-TTF; the figures stay with us.\nWe have worked together for many years, and I am confident that we will find a fair way forward, as we always have between our two houses.\nViele Grüße aus der Gießerei\nAndreas Moser\nOwner, Demo Gießerei GmbH"
+     },
+     "reasons": [
+      "We appreciate your counter-offer and the prospect of a 24-month contract, but we kindly request formal confirmation of the … pieces per year to fully factor this volume into our calculation.",
+      "Building on your preferred 30-day payment terms and the extended contract duration, we are prepared to offer a revised price of €….",
+      "Our colleagues will address your request for a cost breakdown separately, as we maintain a strict policy regarding our internal calculations.",
+      "Which figures is that based on? Please send us the data.",
+      "Which volume can you commit to?",
+      "Our costs move with SCRAP-E3, WAGES-METAL, GAS-TTF; the figures stay with us."
+     ]
+    },
+    {
+     "round": 2,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Re: Pump housing PH-100: the foundry wants +8.8 %",
+      "body": "Dear Sir or Madam,\n\nthank you for your offer regarding pump housing ph-100: the foundry wants +8.8 %.\nWe are happy to pay faster if that helps your cash flow, in exchange for a better price.\nEach of the attached packages works for us; please choose the one that suits you best.\nWe commit to a binding volume of 4,000 pcs per year over 24 months.\nWe value our cooperation.\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 46.98,
+         "payment_days": 60,
+         "contract_months": 24,
+         "effective_date": "2026-12-01"
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 46.91,
+         "payment_days": 60,
+         "contract_months": 24,
+         "effective_date": "2027-01-01"
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 46.52,
+         "payment_days": 30,
+         "contract_months": 24,
+         "effective_date": "2026-12-01"
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": []
+      },
+      "supplier_id": "sup:DEMO-F1"
+     },
+     "reasons": []
+    },
+    {
+     "round": 2,
+     "actor": "sup:DEMO-F1",
+     "move": {
+      "offer_id": "offer:DEMO-F1-2",
+      "round": 2,
+      "status": "open",
+      "terms": {
+       "unit_price": 51.3,
+       "payment_days": 60,
+       "contract_months": 24,
+       "effective_date": "2027-01-01"
+      },
+      "alternatives": [
+       {
+        "offer_id": "offer:DEMO-F1-2-a",
+        "terms": {
+         "unit_price": 50.8,
+         "payment_days": 30,
+         "contract_months": 24,
+         "effective_date": "2026-12-01"
+        }
+       }
+      ],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 2,
+       "validity_days": 30
+      },
+      "text": "Guten Tag,\nMany thanks for your message; I have read it carefully together with my people here at the foundry, and we have given it the attention it deserves.\nWe have reviewed your offer and can adjust our Angebot as follows.\nOur terms: a price of €51.30 per unit, Zahlungsziel 60 days net, a contract term of 24 months, valid from 1 January 2027.\nA few words from the foundry on this.\nWe acknowledge your revised offer and the stated commitment to a volume of 4,000 pieces per year over 24 months.\nAs a family-run business, we value our long-standing relationship and are prepared to make a further concession.\nBuilding on your preferred 30-day payment terms, we can offer a revised price of €50.80 per unit.\nAlternatively, with Zahlungsziel 30 days net and valid from 1 December 2026: €50.80 per unit.\nWe have worked together for many years, and I am confident that we will find a fair way forward, as we always have between our two houses.\nViele Grüße aus der Gießerei\nAndreas Moser\nOwner, Demo Gießerei GmbH"
+     },
+     "reasons": [
+      "We acknowledge your revised offer and the stated commitment to a volume of … pieces per year over … months.",
+      "As a family-run business, we value our long-standing relationship and are prepared to make a further concession.",
+      "Building on your preferred 30-day payment terms, we can offer a revised price of €… per unit.",
+      "Alternatively, with Zahlungsziel … days net and valid from … December …: €… per unit."
+     ]
+    },
+    {
+     "round": 3,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Re: Pump housing PH-100: the foundry wants +8.8 %",
+      "body": "Dear Sir or Madam,\n\nthank you for your offer regarding pump housing ph-100: the foundry wants +8.8 %.\nWe are happy to pay faster if that helps your cash flow, in exchange for a better price.\nEach of the attached packages works for us; please choose the one that suits you best.\nWe commit to a binding volume of 4,000 pcs per year over 24 months.\nWe value our cooperation.\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 47.75,
+         "payment_days": 60,
+         "contract_months": 24,
+         "effective_date": "2026-12-01"
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 47.71,
+         "payment_days": 60,
+         "contract_months": 24,
+         "effective_date": "2027-01-01"
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 47.27,
+         "payment_days": 30,
+         "contract_months": 24,
+         "effective_date": "2026-12-01"
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": []
+      },
+      "supplier_id": "sup:DEMO-F1"
+     },
+     "reasons": []
+    },
+    {
+     "round": 3,
+     "actor": "sup:DEMO-F1",
+     "move": {
+      "offer_id": "offer:DEMO-F1-3",
+      "round": 3,
+      "status": "open",
+      "terms": {
+       "unit_price": 50.8,
+       "payment_days": 60,
+       "contract_months": 24,
+       "effective_date": "2026-12-01"
+      },
+      "alternatives": [
+       {
+        "offer_id": "offer:DEMO-F1-3-a",
+        "terms": {
+         "unit_price": 50.4,
+         "payment_days": 30,
+         "contract_months": 24,
+         "effective_date": "2026-12-01"
+        }
+       }
+      ],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 2,
+       "validity_days": 30
+      },
+      "text": "Guten Tag,\nThank you for your letter - it is always good to hear from you, and I answer it myself, as I do for all the customers we have known for a long time.\nWe have reviewed your offer and can adjust our Angebot as follows.\nOur terms: a price of €50.80 per unit, Zahlungsziel 60 days net, a contract term of 24 months, valid from 1 December 2026.\nLet me tell you how we see it from our side.\nWe have noted your improved offer and appreciate your continued commitment to a 24-month volume of 4,000 pieces.\nIn recognition of our long-standing partnership and your preferred 30-day payment terms, we are prepared to lower our price to €50.40.\nWe trust this step brings us closer to a fair agreement between our two houses.\nWe have worked together for many years, and I am confident that we will find a fair way forward, as we always have between our two houses.\nViele Grüße aus der Gießerei\nAndreas Moser\nOwner, Demo Gießerei GmbH"
+     },
+     "reasons": [
+      "We have noted your improved offer and appreciate your continued commitment to a 24-month volume of … pieces.",
+      "In recognition of our long-standing partnership and your preferred 30-day payment terms, we are prepared to lower our price to €….",
+      "We trust this step brings us closer to a fair agreement between our two houses."
+     ]
+    },
+    {
+     "round": 4,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Re: Pump housing PH-100: the foundry wants +8.8 %",
+      "body": "Dear Sir or Madam,\n\nthank you for your offer regarding pump housing ph-100: the foundry wants +8.8 %.\nWe are happy to pay faster if that helps your cash flow, in exchange for a better price.\nEach of the attached packages works for us; please choose the one that suits you best.\nWe commit to a binding volume of 4,000 pcs per year over 24 months.\nWe value our cooperation.\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 48.3,
+         "payment_days": 60,
+         "contract_months": 24,
+         "effective_date": "2026-12-01"
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 48.29,
+         "payment_days": 60,
+         "contract_months": 24,
+         "effective_date": "2027-01-01"
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 47.82,
+         "payment_days": 30,
+         "contract_months": 24,
+         "effective_date": "2026-12-01"
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": []
+      },
+      "supplier_id": "sup:DEMO-F1"
+     },
+     "reasons": []
+    },
+    {
+     "round": 4,
+     "actor": "sup:DEMO-F1",
+     "move": {
+      "offer_id": "offer:DEMO-F1-4",
+      "round": 4,
+      "status": "open",
+      "terms": {
+       "unit_price": 50.6,
+       "payment_days": 60,
+       "contract_months": 24,
+       "effective_date": "2027-01-01"
+      },
+      "alternatives": [
+       {
+        "offer_id": "offer:DEMO-F1-4-a",
+        "terms": {
+         "unit_price": 50.1,
+         "payment_days": 30,
+         "contract_months": 24,
+         "effective_date": "2026-12-01"
+        }
+       }
+      ],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 2,
+       "validity_days": 30
+      },
+      "text": "Guten Tag,\nThank you for your letter - it is always good to hear from you, and I answer it myself, as I do for all the customers we have known for a long time.\nWe have reviewed your offer and can adjust our Angebot as follows.\nOur terms: a price of €50.60 per unit, Zahlungsziel 60 days net, a contract term of 24 months, valid from 1 January 2027.\nLet me tell you how we see it from our side.\nIn recognition of this step and our long-standing partnership, we are prepared to lower our price further to €50.10.\nI trust this concession demonstrates our willingness to find a fair way forward between our two houses.\nAlternatively, with Zahlungsziel 30 days net and valid from 1 December 2026: €50.10 per unit.\nWe have worked together for many years, and I am confident that we will find a fair way forward, as we always have between our two houses.\nViele Grüße aus der Gießerei\nAndreas Moser\nOwner, Demo Gießerei GmbH"
+     },
+     "reasons": [
+      "In recognition of this step and our long-standing partnership, we are prepared to lower our price further to €….",
+      "I trust this concession demonstrates our willingness to find a fair way forward between our two houses.",
+      "Alternatively, with Zahlungsziel … days net and valid from … December …: €… per unit."
+     ]
+    },
+    {
+     "round": 5,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Re: Pump housing PH-100: the foundry wants +8.8 %",
+      "body": "Dear Sir or Madam,\n\nthank you for your offer regarding pump housing ph-100: the foundry wants +8.8 %.\nWe are happy to pay faster if that helps your cash flow, in exchange for a better price.\nEach of the attached packages works for us; please choose the one that suits you best.\nWe commit to a binding volume of 4,000 pcs per year over 24 months.\nWe value our cooperation.\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 48.68,
+         "payment_days": 60,
+         "contract_months": 24,
+         "effective_date": "2027-04-01"
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 48.68,
+         "payment_days": 60,
+         "contract_months": 24,
+         "effective_date": "2027-02-01"
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 48.11,
+         "payment_days": 30,
+         "contract_months": 24,
+         "effective_date": "2027-04-01"
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": []
+      },
+      "supplier_id": "sup:DEMO-F1"
+     },
+     "reasons": []
+    },
+    {
+     "round": 5,
+     "actor": "sup:DEMO-F1",
+     "move": {
+      "offer_id": "offer:DEMO-F1-5",
+      "round": 5,
+      "status": "final_offer",
+      "terms": {
+       "unit_price": 50.3,
+       "payment_days": 60,
+       "contract_months": 24,
+       "effective_date": "2027-02-01"
+      },
+      "alternatives": [
+       {
+        "offer_id": "offer:DEMO-F1-5-a",
+        "terms": {
+         "unit_price": 50.0,
+         "payment_days": 30,
+         "contract_months": 24,
+         "effective_date": "2027-04-01"
+        }
+       }
+      ],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 3,
+       "validity_days": 7
+      },
+      "text": "Guten Tag,\nMany thanks for your message; I have read it carefully together with my people here at the foundry, and we have given it the attention it deserves.\nThis is our final offer (letztes Angebot). Please decide.\nOur terms: a price of €50.30 per unit, Zahlungsziel 60 days net, a contract term of 24 months, valid from 1 February 2027.\nA few words from the foundry on this.\nWe have noted your improved offer and the proposed effective date of April 2027.\nTo accommodate this later start date while maintaining your preferred 30-day payment terms, we are prepared to lower our price to €50.00.\nWe are making steady progress, and I am confident we can bridge the remaining gap to continue our successful cooperation.\nAlternatively, with Zahlungsziel 30 days net and valid from 1 April 2027: €50.00 per unit.\nOur general terms and conditions apply; the quote lists our standard terms.\nOur standard Zahlungsziel is 30 days net.\nWe have supplied you reliably for years and expect fairness in return.\nWe have worked together for many years, and I am confident that we will find a fair way forward, as we always have between our two houses.\nViele Grüße aus der Gießerei\nAndreas Moser\nOwner, Demo Gießerei GmbH"
+     },
+     "reasons": [
+      "We have noted your improved offer and the proposed effective date of April ….",
+      "To accommodate this later start date while maintaining your preferred 30-day payment terms, we are prepared to lower our price to €….",
+      "We are making steady progress, and I am confident we can bridge the remaining gap to continue our successful cooperation.",
+      "Alternatively, with Zahlungsziel … days net and valid from … April …: €… per unit.",
+      "Our general terms and conditions apply; the quote lists our standard terms.",
+      "Our standard Zahlungsziel is … days net."
+     ]
+    },
+    {
+     "round": 6,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Re: Pump housing PH-100: the foundry wants +8.8 %",
+      "body": "Thank you for your offer. We are ready to accept your alternative package as attached. Please confirm it.\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "unit_price": 50.0,
+         "payment_days": 30,
+         "contract_months": 24,
+         "effective_date": "2027-04-01"
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": []
+      },
+      "supplier_id": "sup:DEMO-F1"
+     },
+     "reasons": []
+    },
+    {
+     "round": 6,
+     "actor": "sup:DEMO-F1",
+     "move": {
+      "offer_id": "offer:DEMO-F1-6",
+      "round": 6,
+      "status": "agreed",
+      "terms": {
+       "unit_price": 50.0,
+       "payment_days": 30,
+       "contract_months": 24,
+       "effective_date": "2027-04-01"
+      },
+      "alternatives": [],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 3,
+       "validity_days": 14
+      },
+      "text": "Guten Tag,\n\nWe can accept your terms and await your order. We are pleased to confirm the acceptance of this package at a price of €50.00 per unit, Zahlungsziel 30 days net, a contract term of 24 months, valid from 1 April 2027. This offer stays valid for 14 days. \n\nWe look forward to continuing our successful and long-standing cooperation over the next 24 months.\n\nViele Grüße aus der Gießerei\nAndreas Moser\nOwner, Demo Gießerei GmbH"
+     },
+     "reasons": [
+      "We are pleased to confirm the acceptance of this package at €… per unit.",
+      "We look forward to continuing our successful and long-standing cooperation over the next … months."
+     ]
+    },
+    {
+     "round": 6,
+     "actor": "buyer",
+     "move": {
+      "type": "accept",
+      "offer_id": "offer:DEMO-F1-6",
+      "supplier_id": "sup:DEMO-F1"
+     },
+     "reasons": []
+    }
+   ]
+  },
+  "replay_url": "/replay/a5f8f95f46c63c99"
+ },
+ "backoffice": [
+  {
+   "round": 0,
+   "supplier_id": "sup:DEMO-F1",
+   "supplier": "Demo Gießerei GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "quote attached (quote-offer-DEMO-F1-0.pdf)"
+  },
+  {
+   "round": 1,
+   "supplier_id": "sup:DEMO-F1",
+   "supplier": "Demo Gießerei GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "My call: counter."
+  },
+  {
+   "round": 1,
+   "supplier_id": "sup:DEMO-F1",
+   "supplier": "Demo Gießerei GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheets; we answer with our offer."
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:DEMO-F1",
+   "supplier": "Demo Gießerei GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "My call: counter."
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:DEMO-F1",
+   "supplier": "Demo Gießerei GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheets; we answer with our offer."
+  },
+  {
+   "round": 3,
+   "supplier_id": "sup:DEMO-F1",
+   "supplier": "Demo Gießerei GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "My call: counter."
+  },
+  {
+   "round": 3,
+   "supplier_id": "sup:DEMO-F1",
+   "supplier": "Demo Gießerei GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheets; we answer with our offer."
+  },
+  {
+   "round": 4,
+   "supplier_id": "sup:DEMO-F1",
+   "supplier": "Demo Gießerei GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "My call: counter."
+  },
+  {
+   "round": 4,
+   "supplier_id": "sup:DEMO-F1",
+   "supplier": "Demo Gießerei GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheets; we answer with our offer."
+  },
+  {
+   "round": 5,
+   "supplier_id": "sup:DEMO-F1",
+   "supplier": "Demo Gießerei GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "My call: counter."
+  },
+  {
+   "round": 5,
+   "supplier_id": "sup:DEMO-F1",
+   "supplier": "Demo Gießerei GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheets; we answer with our final offer."
+  },
+  {
+   "round": 5,
+   "supplier_id": "sup:DEMO-F1",
+   "supplier": "Demo Gießerei GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "quote attached (quote-offer-DEMO-F1-5.pdf)"
+  },
+  {
+   "round": 6,
+   "supplier_id": "sup:DEMO-F1",
+   "supplier": "Demo Gießerei GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "My call: accept."
+  },
+  {
+   "round": 6,
+   "supplier_id": "sup:DEMO-F1",
+   "supplier": "Demo Gießerei GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheet; we agree."
+  },
+  {
+   "round": 6,
+   "supplier_id": "sup:DEMO-F1",
+   "supplier": "Demo Gießerei GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "quote attached (quote-offer-DEMO-F1-6.pdf)"
+  },
+  {
+   "round": 6,
+   "supplier_id": "sup:DEMO-F1",
+   "supplier": "Demo Gießerei GmbH",
+   "from": "Owner",
+   "to": "team",
+   "text": "order confirmation attached (order-confirmation-offer-DEMO-F1-6.pdf)"
+  }
+ ]
+}
