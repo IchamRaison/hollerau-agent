@@ -3,10 +3,11 @@
 pegasus_claims(case, package, pegasus_claims_list, used=None, supplier=None, used_by_supplier=None) -> list[Claim]
     The union of our claims (`compile_evidence`) and Pegasus candidates (`Claims.candidates` / `rival_claim` dicts:
     `refs`, `sentence`, optional `rival`), each ID once, strongest first by measured effect (EFFECT: rising price
-    history, should-cost, ppm, index, rival quote, volume forecast, the rest, OTD last): the caller keeps the first
-    three, and the first leads the e-mail. Never an order history at the same price. Our filters apply to the
-    Pegasus ones: no should-cost unless clearly below the price at stake, no volume growth in a capacity case or to
-    a saturated supplier, scorecards only past our thresholds, no index claim when the increase is justified, and
+    history, should-cost, notice (provisional), ppm, index, rival quote, volume forecast, the rest, OTD last; in an
+    RFQ a rival's offer or quote second): the caller keeps the first three, and the first leads the e-mail. Never
+    an order history at the same price, nor another supplier's orders. Our filters apply to the Pegasus ones: no
+    should-cost unless clearly below the price at stake, no volume growth in a capacity case or to a saturated
+    supplier, scorecards only past our thresholds, no index claim when the increase is justified, and
     every claim must pass `check()` - except a rival's session offer (`offer:`), which the arena checks itself.
     At most 3 per message: the caller slices.
     Memory, as the arena counts (api.md): a rival's `offer:` or `quote:` counts once per supplier, every other ID
@@ -41,7 +42,10 @@ log = logging.getLogger(__name__)
 # sessions, identical texts once): price history rising 9/10, should-cost 11/13, ppm 7/7, index 7/7, rival quote
 # 14/21, volume forecast 23/27 (it never moved the price on P08 or P18), the rest, and OTD last (9/33). The first
 # claim leads the first e-mail, and that argument shifts the supplier's whole price ladder by about 3 % (X9).
-EFFECT = ("orders", "should_cost", "ppm", "index", "rival", "forecast", "other", "otd")
+# The notice (a letter shorter than the contract's notice) was not measured in X9: provisional rank, right after
+# the rising history and the should-cost. In an RFQ a rival's offer or quote takes the second place (RIVAL_SLOT).
+EFFECT = ("orders", "should_cost", "notice", "ppm", "index", "rival", "forecast", "other", "otd")
+RIVAL_SLOT = 1
 FAMILY = {
     "idx": "index",
     "doc": "notice",
@@ -85,6 +89,8 @@ def effect_rank(claim: Claim) -> int:
         kind = "orders"
     elif prefix == "cost":
         kind = "should_cost"
+    elif claim.family == "notice" and prefix in ("doc", "ctr"):
+        kind = "notice"
     elif prefix == "sc":
         kind = "ppm" if claim.unit == "ppm" or claim.supports == "quality" else "otd"
     elif prefix == "idx":
@@ -104,9 +110,18 @@ def ranked(claims: list[Claim]) -> list[Claim]:
 
 
 def _rising(ids: list[str], facts: dict) -> bool:
-    """Order lines whose price rises from the first to the last: never two orders at the same price (0/24, X9)."""
-    prices = [(facts.get(i) or {}).get("unit_price") if isinstance(facts.get(i), dict) else None for i in ids]
-    return len(prices) >= 2 and all(isinstance(p, int | float) for p in prices) and prices[-1] > prices[0]
+    """Order lines of one supplier and one part whose price rises from the earliest to the latest by date, whatever
+    order the IDs are listed in: never two orders at the same price (0/24, X9), never a fall, never a mix."""
+    rows = [facts.get(i) for i in ids]
+    if len(rows) < 2 or not all(
+        isinstance(r, dict) and isinstance(r.get("unit_price"), int | float) and isinstance(r.get("date"), str)
+        for r in rows
+    ):
+        return False
+    if len({r.get("supplier") for r in rows}) != 1 or len({r.get("part") for r in rows}) != 1:
+        return False
+    by_date = sorted(rows, key=lambda r: r["date"])
+    return by_date[-1]["unit_price"] > by_date[0]["unit_price"]
 
 
 def _justified(case: dict, data, facts: dict) -> bool:
@@ -153,7 +168,7 @@ def _keep(case: dict, data, facts: dict, claim: Claim, justified: bool) -> bool:
 
 
 PER_SUPPLIER = ("offer:", "quote:")  # a rival's offer or quote counts once per supplier (api.md)
-ABOUT_SUPPLIER = ("sc:", "news:", "doc:", "ctr:")  # facts about one supplier: only to that supplier
+ABOUT_SUPPLIER = ("sc:", "news:", "doc:", "ctr:", "po:")  # facts about one supplier: only to that supplier
 
 
 def _supplier_no(supplier) -> str:
@@ -209,8 +224,8 @@ def _well_formed(candidate) -> bool:
 
 
 def _for_recipient(claim: Claim, supplier, facts: dict) -> bool:
-    """Whether the claim may go to `supplier`: never another supplier's card, news, letter or contract; never a
-    rival's offer or quote back to its own supplier."""
+    """Whether the claim may go to `supplier`: never another supplier's card, news, letter, contract or order
+    prices; never a rival's offer or quote back to its own supplier."""
     for i in claim.ids:
         owner = (facts.get(i) or {}).get("supplier") if isinstance(facts.get(i), dict) else None
         if i.startswith(ABOUT_SUPPLIER) and owner is not None and owner != supplier:
@@ -285,7 +300,19 @@ def _pegasus_claims(case, package, candidates, used, supplier, used_by_supplier)
             continue  # an ID once per message; non-rival IDs once per case (`used`)
         seen |= ids
         out.append(claim)
-    return out
+    return _rival_second(case, out)
+
+
+def _rival_second(case: dict, claims: list[Claim]) -> list[Claim]:
+    """In an RFQ, a rival's offer or quote (if any) goes right after the strongest claim: with three claims at most
+    per e-mail it could otherwise be cut (P06, sup:70150: should-cost, ppm and index came first)."""
+    if case.get("type") != "rfq":
+        return claims
+    rival = next((c for c in claims if effect_rank(c) == EFFECT.index("rival")), None)
+    if rival is None or claims.index(rival) <= RIVAL_SLOT:
+        return claims
+    rest = [c for c in claims if c is not rival]
+    return rest[:RIVAL_SLOT] + [rival] + rest[RIVAL_SLOT:]
 
 
 def planner_hints(case: dict, data, standard=None) -> dict:

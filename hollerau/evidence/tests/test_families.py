@@ -13,7 +13,7 @@ from hollerau.evidence.compile import compile_evidence
 from hollerau.evidence.economics import compile_case, estimate_supplier, relationship_risk
 from hollerau.evidence.facts import check, facts_of, load_package
 from hollerau.evidence.forecast_cost_news import forecast_cost_news_claims
-from hollerau.evidence.orders import orders_claims
+from hollerau.evidence.orders import RAISED_PCT, orders_claims
 from hollerau.evidence.quote import quote_claims
 from hollerau.evidence.scorecard import scorecard_claims
 from hollerau.evidence.signals import signals
@@ -256,14 +256,20 @@ def test_supplier_letter_check():
     assert not check(Claim("forecast_cost_news", ["doc:2"], None, "", "", "other"), facts)
 
 
-@pytest.mark.parametrize("case_id", ["case:P03", "case:P04", "case:P18"])
+@pytest.mark.parametrize("case_id", ["case:P03", "case:P18"])
 def test_orders_without_a_price_letter_stay_at_or_below_today(data, case_id):
     case = CASES[case_id]
     facts = facts_of(case, data)
     [orders] = [c for c in compile_evidence(case, data) if c.family == "orders"]
     assert len({facts[i]["part"] for i in orders.ids}) == 1
     assert all(facts[i]["unit_price"] <= case["buyer"]["current_unit_price"] for i in orders.ids)
-    assert facts[orders.ids[-1]]["unit_price"] > facts[orders.ids[0]]["unit_price"]  # the price rose
+    low, last = (facts[i]["unit_price"] for i in orders.ids)
+    assert (last / low - 1) * 100 >= RAISED_PCT  # the price rose by 3 % or more
+
+
+def test_p04_rise_below_three_percent_is_not_cited(data):
+    """Review fix: 4.29 -> 4.39 is +2.3 %, below RAISED_PCT (X9 measured rises of 5.4 % and 11 %)."""
+    assert [c for c in compile_evidence(CASES["case:P04"], data) if c.family == "orders"] == []
 
 
 @pytest.mark.parametrize("case_id", ["case:P09", "case:P10", "case:P11", "case:P12", "case:P16"])
@@ -391,7 +397,7 @@ def test_asked_pct_alone_is_a_price_letter(data):
 
 
 def test_no_orders_in_an_rfq(data):
-    case = copy.deepcopy(CASES["case:P04"])  # has orders normally
+    case = copy.deepcopy(CASES["case:P03"])  # has orders normally
     assert orders_claims(case, data, facts_of(case, data))
     case["type"] = "rfq"
     assert orders_claims(case, data, facts_of(case, data)) == []

@@ -35,7 +35,7 @@ Nevil (avec Claude), samedi 10/10/2026. Branche locale `nevil/evidence` de `holl
 
 ```bash
 cd ~/Projets/hollerau-agent
-PYTHONDONTWRITEBYTECODE=1 uv run --offline pytest -p no:cacheprovider hollerau/evidence/tests -q   # 275 passed
+PYTHONDONTWRITEBYTECODE=1 uv run --offline pytest -p no:cacheprovider hollerau/evidence/tests -q   # 279 passed
 uv run --offline ruff check hollerau/evidence && uv run --offline ruff format --check hollerau/evidence   # propres
 ```
 
@@ -178,19 +178,26 @@ avec `from hollerau.evidence.adapter import pegasus_claims, remember`. `remember
 
 ## Ordre des arguments selon leur effet mesuré (X9, 11/10)
 
-Source : X9 dans `03 Build/Expériences.md` du vault, verdict du fournisseur par type d'argument sur 202 sessions d'entraînement. À premier mail identique, l'argument de tête décale toute l'échelle de prix du fournisseur d'environ 3 %.
+Source : X9 dans `03 Build/Expériences.md` du vault, verdict du fournisseur par type d'argument sur 202 sessions d'entraînement. À premier mail identique, l'argument de tête décale toute l'échelle de prix du fournisseur d'environ 3 %. **À mesurer sur le candidat avant d'en faire le défaut.**
 
-- **`adapter.py`** : `pegasus_claims` classe désormais chaque claim par effet mesuré, et non plus par famille.
-  - Ordre (`EFFECT`, `effect_rank`) : historique de prix en hausse (9/10) > should-cost (11/13) > ppm (7/7) > indice (7/7) > devis ou offre concurrente (14/21) > prévision de volume (23/27, sans effet sur le prix de P08 et P18) > le reste (préavis, lettres, news) > OTD en dernier (9/33).
-  - Le tri est stable : à rang égal, nos claims restent devant ceux de Pegasus.
-  - Pegasus garde les 3 premiers, et le premier ouvre le mail.
-- **`orders.py`** : le claim « sans lettre de prix » (`_held_claim`) ne sort que si la commande la plus récente est plus chère que la plus basse citée. Deux commandes au même prix ne sont jamais citées (0/24 dans X9).
-  - Ce claim disparaît de P09, P10, P11, P12 et P16.
+- **`adapter.py`** : `pegasus_claims` classe chaque claim par effet mesuré (`EFFECT`, `effect_rank`).
+  - Ordre : historique de prix en hausse (9/10) > should-cost (11/13) > **préavis (rang provisoire, non mesuré)** > ppm (7/7) > indice (7/7) > devis ou offre concurrente (14/21) > prévision de volume (23/27, sans effet sur le prix de P08 et P18) > le reste (lettres de couverture, news) > OTD en dernier (9/33).
+  - Le tri est stable : à rang égal, nos claims restent devant ceux de Pegasus. Pegasus garde les 3 premiers, et le premier ouvre le mail.
+- **Appel d'offres** (`case.type == "rfq"`) : une offre ou un devis rival passe en 2e place (`RIVAL_SLOT`), juste après le claim le plus fort. Sans cela, la limite de 3 claims coupait l'offre rivale de P06 pour `sup:70150`. Hors appel d'offres, il garde son rang.
+- **Jamais les commandes d'un autre fournisseur** : `po:` fait partie d'`ABOUT_SUPPLIER`. Le défaut existait déjà, mais le nouvel ordre l'aurait mis en tête d'un mail.
+- **`orders.py`** : le claim « sans lettre de prix » (`_held_claim`) ne sort que si la commande la plus récente dépasse de `RAISED_PCT` (3 %) la plus basse citée, comme `_rise_claim`. Deux commandes au même prix ne sont jamais citées (0/24 dans X9).
+  - Ce claim disparaît de P04 (+2,3 %), P09, P10, P11, P12 et P16.
   - P08 (5,17 → 5,45) et P18 (5,26 → 5,84) gardent l'historique en hausse, qui passe en tête.
-  - Le filtre `_rising` de l'adaptateur écarte aussi un historique au même prix venu d'ailleurs, par exemple celui du dossier `intel`.
-- **Lecture du point 2.** « Entre la commande la plus ancienne et la récente » est lu comme : entre les deux commandes **citées**. La plus ancienne commande de la fenêtre de 24 mois est à 5,45 sur P08 (comme la dernière) et à 5,75 sur P18. Une lecture littérale aurait supprimé l'argument de P08, celui qui avait le plus d'effet.
-- **Effet de bord** : sur P01, la lettre de préavis (dans « le reste ») n'est plus en tête ; l'indice et la prévision passent devant.
-- Tests : `test_rising_price_history_leads_the_first_email` (P08, P18), `test_never_an_order_history_at_the_same_price` (19 cas, chaque fournisseur), `test_otd_never_leads_and_comes_last`, `test_effect_order_on_every_kind`, `test_a_same_price_history_from_pegasus_is_dropped`, `test_no_orders_claim_when_the_price_did_not_rise`. Les contrôles par mutation (ancien tri par famille, ancien claim au même prix) font échouer 10 tests chacun.
+- **Filtre `_rising`** (adaptateur) : les lignes sont lues par date, quel que soit l'ordre des IDs, et doivent être d'un seul fournisseur et d'une seule pièce. Il écarte un historique plat, en baisse ou mélangé, d'où qu'il vienne, par exemple du dossier `intel`.
+- **Lecture du point 2** : la hausse se mesure entre les deux commandes **citées**. La plus ancienne commande de la fenêtre de 24 mois est à 5,45 sur P08, comme la dernière : une lecture littérale aurait supprimé l'argument de P08.
+- **Effet de bord** : sur P01, le préavis passe derrière l'historique et le should-cost s'il y en a. Il n'y en a pas sur P01, donc il reste en tête.
+- **Tests** (279) :
+  - `test_rising_price_history_leads_the_first_email` (P08, P18) ;
+  - `test_never_an_order_history_at_the_same_price` (19 cas, chaque fournisseur) ;
+  - `test_otd_never_leads_and_comes_last`, `test_effect_order_on_every_kind` ;
+  - `test_p06_rival_offer_is_sent_to_70150`, `test_rival_offer_passes_through_and_comes_second_in_an_rfq`, `test_rival_keeps_its_effect_rank_outside_an_rfq` ;
+  - `test_never_another_suppliers_orders`, `test_rising_is_read_by_date_one_supplier_one_part`, `test_p04_rise_below_three_percent_is_not_cited`.
+  - Chaque correction de la revue a été retirée une fois pour contrôle : son test échoue à chaque fois.
 
 ## À voir avec Icham
 

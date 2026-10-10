@@ -17,8 +17,7 @@ from .orders import orders_claims
 from .quote import quote_claims
 from .scorecard import scorecard_claims
 
-# order = strength: a contract breach, then a cheaper rival quote, the supplier's own record, cost and index
-# data, our order history, then our forecast and the news
+# the order the families are compiled in; Pegasus' messages are ranked by measured effect in adapter.py (EFFECT, X9)
 FAMILIES = [
     notice_claims,
     quote_claims,

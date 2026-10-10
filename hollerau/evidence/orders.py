@@ -1,5 +1,6 @@
 """Orders family: what our orders of the same part show - the supplier already raised its price, or, without a
-price letter (renewal, raw material), a rise from our lowest recent price to the latest, both at or below today's.
+price letter (renewal, raw material), a rise of RAISED_PCT or more from our lowest recent price to the latest, both
+at or below today's.
 Never two orders at the same price.
 
 The arena checks 2-8 `po` lines of one part against their order prices (brief/api.md); lines of different
@@ -71,7 +72,8 @@ def _rise_claim(part: str, lines: list[dict]) -> Claim | None:
 
 def _held_claim(part: str, lines: list[dict], current: float) -> Claim | None:
     """Without a price letter: the lowest and the latest order of the last 24 months, both at or below today's
-    price, only when the latest is dearer - the price already rose. Two orders at the same price are never cited:
+    price, only when the latest is dearer by RAISED_PCT or more - the price already rose. Two orders at the same
+    price are never cited:
     the suppliers took that into account 0 times out of 24, against 9 out of 10 for a rise (X9, 202 sessions)."""
     last = lines[-1]
     since = last["day"].toordinal() - WINDOW_DAYS
@@ -79,8 +81,8 @@ def _held_claim(part: str, lines: list[dict], current: float) -> Claim | None:
     if last not in window:
         return None
     low = min(window, key=lambda r: (r["price"], r["day"]))
-    if low["price"] >= last["price"]:
-        return None
+    if (last["price"] / low["price"] - 1) * 100 < RAISED_PCT:
+        return None  # no rise, or too small to argue with (X9 measured 5.4 % and 11 %; P04's 2.3 % is out)
     return Claim(
         family="orders",
         ids=[low["id"], last["id"]],
@@ -95,7 +97,8 @@ def _held_claim(part: str, lines: list[dict], current: float) -> Claim | None:
 
 
 def orders_claims(case: dict, data, facts: dict) -> list[Claim]:
-    """Per part (one argument each): the price already rose; else, without a price letter, what we pay today.
+    """Per part (one argument each): the price already rose by RAISED_PCT over the window; else, without a price
+    letter, it rose by RAISED_PCT from our lowest recent order to the latest, both at or below today's price.
     Never in a bundle (the case price is the kit's, not one part's), never in an RFQ (it reveals our price)."""
     if is_bundle(case) or case.get("type") in SILENT_TYPES:
         return []

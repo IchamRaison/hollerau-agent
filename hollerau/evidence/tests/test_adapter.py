@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 from hollerau.contracts import Claim
-from hollerau.evidence.adapter import EFFECT, effect_rank, pegasus_claims, planner_hints
+from hollerau.evidence.adapter import EFFECT, _rising, effect_rank, pegasus_claims, planner_hints
 from hollerau.evidence.economics import lever_price
 from hollerau.evidence.facts import check, facts_of, load_package
 from hollerau.pegasus.claims import Claims
@@ -69,17 +69,34 @@ def test_scorecards_only_past_our_thresholds(data):
     assert "sc:70110@2026Q3" in ids(p01)  # amber, weak on both counts: ours cites it too
 
 
-def test_rival_offer_passes_through_and_ranks_by_effect(data):
-    """A rival's offer (14/21 in X9) comes after the index (7/7) and before the volume forecast and the rest."""
+def test_rival_offer_passes_through_and_comes_second_in_an_rfq(data):
+    """P05 is an RFQ: the rival's offer goes right after the strongest claim, whatever else is available."""
     case = CASES["case:P05"]
     rival = Claims(case, data).rival_claim("offer:70250-1", 33.1)[0]
-    out = pegasus_claims(case, data, [rival, *raw(case, data)])
+    out = pegasus_claims(case, data, [rival, *raw(case, data)], supplier="sup:70210")
     quote = next(c for c in out if c.ids == ["offer:70250-1"])
     assert quote.family == "quote" and quote.figure == 33.1
-    before = [c for c in out if effect_rank(c) < EFFECT.index("rival")]
-    after = [c for c in out if effect_rank(c) > EFFECT.index("rival")]
-    assert all(out.index(c) < out.index(quote) for c in before)
-    assert all(out.index(c) > out.index(quote) for c in after)
+    assert out.index(quote) == 1
+
+
+def test_p06_rival_offer_is_sent_to_70150(data):
+    """Review fix: should-cost, ppm and index came first and the 3-claim cap cut the rival's offer for sup:70150."""
+    case = CASES["case:P06"]
+    gen, price = Claims(case, data), lever_price(case, data)
+    rival = gen.rival_claim("offer:70120-1", round(price * 0.97, 2))
+    cands = rival + [c for p in case["parts"] for c in gen.candidates("sup:70150", p, price)]
+    out = pegasus_claims(case, data, cands, supplier="sup:70150")
+    assert ["offer:70120-1"] in [c.ids for c in out[:3]]
+    assert out[1].ids == ["offer:70120-1"] and effect_rank(out[0]) < EFFECT.index("rival")
+
+
+def test_rival_keeps_its_effect_rank_outside_an_rfq(data):
+    case = copy.deepcopy(CASES["case:P05"])
+    case["type"] = "price_increase"
+    rival = Claims(case, data).rival_claim("offer:70250-1", 33.1)[0]
+    out = pegasus_claims(case, data, [rival, *raw(case, data)], supplier="sup:70210")
+    ranks = [effect_rank(c) for c in out]
+    assert ranks == sorted(ranks)
 
 
 def test_used_ids_are_left_out(data):
@@ -309,10 +326,12 @@ def test_otd_never_leads_and_comes_last(data, case_id):
 
 
 def test_effect_order_on_every_kind():
-    """rising history > should-cost > ppm > index > rival quote > volume forecast > the rest > OTD."""
+    """rising history > should-cost > notice (provisional) > ppm > index > rival quote > volume forecast > the rest
+    > OTD."""
     kinds = [
         Claim("scorecard", ["sc:1@2026Q3"], 78.0, "%", "OTD", "other"),
-        Claim("notice", ["doc:1"], 30.0, "days", "notice", "effective_date"),
+        Claim("forecast_cost_news", ["news:1"], None, "", "news", "other"),
+        Claim("notice", ["doc:1", "ctr:1"], 30.0, "days", "notice", "effective_date"),
         Claim("forecast_cost_news", ["fc:1@2027"], 8.0, "%", "volume", "volume"),
         Claim("quote", ["quote:1"], 9.0, "EUR", "rival", "price"),
         Claim("index", ["idx:A@2026-01", "idx:A@2026-09"], -3.0, "%", "index", "price"),
@@ -320,15 +339,16 @@ def test_effect_order_on_every_kind():
         Claim("forecast_cost_news", ["cost:1"], 5.0, "EUR", "should-cost", "price"),
         Claim("orders", ["po:1", "po:2"], None, "", "history", "price"),
     ]
-    assert [effect_rank(c) for c in kinds] == [7, 6, 5, 4, 3, 2, 1, 0]
+    assert [effect_rank(c) for c in kinds] == [8, 7, 2, 6, 5, 4, 3, 1, 0]
     assert [c.sentence for c in sorted(kinds, key=effect_rank)] == [
         "history",
         "should-cost",
+        "notice",
         "ppm",
         "index",
         "rival",
         "volume",
-        "notice",
+        "news",
         "OTD",
     ]
 
@@ -345,3 +365,44 @@ def test_a_same_price_history_from_pegasus_is_dropped(data):
     assert len(same) == 2
     cand = {"refs": same, "sentence": f"Our orders were placed at 16.02 EUR ({same[0]}, {same[1]})."}
     assert not set(same) & set(ids(pegasus_claims(case, data, [cand])))
+
+
+def test_never_another_suppliers_orders(data):
+    """Review fix (critical): po: lines belong to one supplier, like its scorecard; no other supplier gets them."""
+    case = copy.deepcopy(CASES["case:P08"])
+    case["suppliers"] = ["sup:70710", "sup:70740"]
+    facts = facts_of(case, data)
+    for sup in case["suppliers"]:
+        for c in pegasus_claims(case, data, [], supplier=sup):
+            assert all(facts[i]["supplier"] == sup for i in c.ids if i.startswith("po:")), (sup, c.ids)
+    assert any(c.family == "orders" for c in pegasus_claims(case, data, [], supplier="sup:70710"))
+
+
+def po_ids(data, supplier, part, *prices_by_date):
+    """IDs of `supplier`'s order lines of `part`, one per wanted price, in date order."""
+    rows = sorted(
+        (f["date"], i, f["unit_price"])
+        for i, f in data.facts.items()
+        if i.startswith("po:") and f.get("supplier") == supplier and f.get("part") == part
+    )
+    out = []
+    for price in prices_by_date:
+        out.append(next(i for d, i, p in rows if p == price and (not out or d > data.facts[out[-1]]["date"])))
+    return out
+
+
+def test_rising_is_read_by_date_one_supplier_one_part(data):
+    """Review fix: listed order does not matter; a fall is a fall; two suppliers or two parts are not a history."""
+    facts = data.facts
+    up = po_ids(data, "sup:70710", "part:370010", 5.17, 5.45)
+    assert _rising(up, facts) and _rising(list(reversed(up)), facts)
+    down = po_ids(data, "sup:70710", "part:370010", 6.06, 5.45)
+    assert not _rising(down, facts) and not _rising(list(reversed(down)), facts)
+    mixed = [up[1], po_ids(data, "sup:70740", "part:370010", 5.84)[0]]  # 5.45 (70710) then 5.84 (70740)
+    assert not _rising(mixed, facts)
+    two_parts = {  # one supplier, two parts: two arguments, not one history
+        "po:A": {"date": "2025-01-01", "unit_price": 1.0, "supplier": "sup:1", "part": "part:1"},
+        "po:B": {"date": "2026-01-01", "unit_price": 2.0, "supplier": "sup:1", "part": "part:2"},
+        "po:C": {"date": "2026-01-01", "unit_price": 2.0, "supplier": "sup:1", "part": "part:1"},
+    }
+    assert _rising(["po:A", "po:C"], two_parts) and not _rising(["po:A", "po:B"], two_parts)
