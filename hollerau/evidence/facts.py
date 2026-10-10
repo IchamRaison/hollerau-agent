@@ -71,6 +71,12 @@ def asked_price(case: dict, facts: dict) -> float | None:
     return doc.get("asked_price") if isinstance(doc, dict) else None
 
 
+def price_letter(case: dict, facts: dict) -> bool:
+    """The supplier's letter asks for a price change: an `asked_price` or an `asked_pct` (either is enough)."""
+    doc = facts.get(case.get("trigger_doc") or "")
+    return isinstance(doc, dict) and (doc.get("asked_price") is not None or doc.get("asked_pct") is not None)
+
+
 def stake_price(case: dict, facts: dict) -> float | None:
     """The price a rival quote or our should-cost must beat to be worth citing: the lower of the current price and
     the asked price. A rival above today's price would anchor the supplier there."""
@@ -151,12 +157,15 @@ def _orders_ok(claim: Claim, facts: dict) -> bool:
 
 
 def _fcn_ok(claim: Claim, facts: dict) -> bool:
-    """forecast_cost_news: one `fc` (change %), one `cost` (estimate EUR) or one `news` (no figure)."""
+    """forecast_cost_news: one `fc` (change %), one `cost` (estimate EUR), one `news` or one supplier `doc` (no
+    figure)."""
     if len(claim.ids) != 1:
         return False
     i, row = claim.ids[0], facts[claim.ids[0]]
     if i.startswith("news:"):
         return claim.figure is None
+    if i.startswith("doc:"):  # the supplier's own letter (material covered), cited without a figure
+        return claim.figure is None and row.get("type") in {"letter", "email"}
     if claim.figure is None:
         return i.startswith(("fc:", "cost:"))
     if i.startswith("fc:"):

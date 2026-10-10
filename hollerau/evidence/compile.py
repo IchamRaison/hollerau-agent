@@ -19,7 +19,14 @@ from .scorecard import scorecard_claims
 
 # order = strength: a contract breach, then a cheaper rival quote, the supplier's own record, cost and index
 # data, our order history, then our forecast and the news
-FAMILIES = [notice_claims, quote_claims, scorecard_claims, index_claims, orders_claims, forecast_cost_news_claims]
+FAMILIES = [
+    notice_claims,
+    quote_claims,
+    scorecard_claims,
+    index_claims,
+    orders_claims,
+    forecast_cost_news_claims,
+]
 
 log = logging.getLogger(__name__)
 

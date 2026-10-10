@@ -3,7 +3,8 @@
 The arena checks the mean on-time delivery of the cited rows, or their mean ppm if we speak of quality
 (brief/api.md). Each `sc` row is already a rolling 12-month figure (P11 letter), so one row is one argument.
 OTD is low across the package (KNOWN_ISSUES 1: it depends on the reference date): only a red or amber card
-and a clear gap are cited.
+and a clear gap are cited - ppm above 1000 or OTD below 80 %, or, on an amber card, both moderately weak at once
+(OTD below 90 % and ppm above 500: P01).
 """
 
 from hollerau.contracts import Claim
@@ -12,7 +13,17 @@ from .facts import has
 
 PPM_LIMIT = 1000  # above this, the quality argument
 OTD_LIMIT = 80.0  # below this %, the delivery argument
+AMBER_OTD, AMBER_PPM = 90.0, 500  # an amber card weak on both counts at once is cited too
 QUALITY_TYPES = {"quality"}
+
+
+def dimension_ok(row: dict, quality: bool) -> bool:
+    """Our thresholds for one argument on one card: red or amber, and the cited dimension clearly weak (ppm above
+    1000 / OTD below 80 %), or an amber card weak on both counts at once."""
+    if not has(row, "ppm", "otd_pct") or row.get("colour") not in {"red", "amber"}:
+        return False
+    both = row["colour"] == "amber" and row["otd_pct"] < AMBER_OTD and row["ppm"] > AMBER_PPM
+    return both or (row["ppm"] > PPM_LIMIT if quality else row["otd_pct"] < OTD_LIMIT)
 
 
 def supplier_cards(supplier: str, facts: dict) -> list[str]:
@@ -54,6 +65,9 @@ def scorecard_claims(case: dict, data, facts: dict) -> list[Claim]:
             bad.append(True)
         if row["otd_pct"] < OTD_LIMIT:
             bad.append(False)
+        if not bad and row.get("colour") == "amber" and row["otd_pct"] < AMBER_OTD and row["ppm"] > AMBER_PPM:
+            claims.append(_claim(cards[0], row, case.get("type") in QUALITY_TYPES))  # one argument, latest card
+            continue
         if case.get("type") not in QUALITY_TYPES:
             bad.sort()  # delivery first outside quality cases
         # each ID counts once: the second argument uses the previous quarter, if it is bad on that dimension too
