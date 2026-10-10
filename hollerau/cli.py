@@ -11,10 +11,12 @@ import sys
 
 from arena_kit import cli as kit_cli
 
+_kit_agent_factory = kit_cli.agent_factory
+
 
 def agent_factory(name, data):
     if name != "ours":
-        return kit_cli.agent_factory(name, data)
+        return _kit_agent_factory(name, data)
     from arena_kit.agents.llm import llm_from_env
     from arena_kit.data import DataPackage
 
