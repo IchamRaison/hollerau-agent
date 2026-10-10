@@ -19,13 +19,14 @@ Nevil (avec Claude), samedi 10/10/2026. Branche locale `nevil/evidence` de `holl
 | `quote.py` | `quote` : devis du cas (`refs` + alternative), même pièce, autre fournisseur, **moins cher que le prix en jeu** | fait |
 | `scorecard.py` | `scorecard` : dernière ligne `sc` (déjà glissante sur 12 mois), carte rouge ou orange, ppm > 1 000 ou OTD < 80 % ; ou carte orange avec OTD < 90 % **et** ppm > 500 (P01 : 85,2 %, 712 ppm) | fait |
 | `compare_pegasus.py` | Comparatif hors ligne avec `hollerau/pegasus/` sur les 19 cas (`python -m hollerau.evidence.compare_pegasus`) | fait |
+| `adapter.py` | `pegasus_claims(case, package, pegasus_claims_list, used=None)` et `planner_hints(case, data, standard=None)` pour l'agent de Vincent | fait, **pas encore branché** |
 | `index.py` | `index` : fenêtre de 12 mois, une série par claim ; hausse justifiée si pondéré ≥ demande − 1 point | fait |
 | `orders.py` | `orders` : première et dernière commande des 24 derniers mois si le prix a déjà monté de 3 % ou plus ; sinon, sans lettre de prix, la commande la moins chère et la dernière, toutes deux au prix courant ou en dessous ; jamais dans un kit ; sans les lignes `stale_condition` | fait |
 | `forecast_cost_news.py` | `forecast_cost_news` : should-cost (marge > 15 %), lettre du fournisseur « matière couverte » (`doc:`, sans lettre de prix, sans chiffre, `supports=price`), prévision en hausse ≥ 5 %, news qui affaiblissent le fournisseur | fait |
 | `compile.py` | `compile_evidence(case, data)` : notice, quote, scorecard, index, orders, forecast_cost_news, chaque claim vérifié, chaque ID une seule fois | fait |
 | `economics.py` | `compile_case(case, standard=None, data=None)`, `lever_price`, `estimate_supplier`, `relationship_risk` | fait, D3 appliquée |
 | `signals.py` | `signals(case, data)` pour le planificateur, jamais envoyé comme claim ; `price_floor_hint` (plafonné), `price_floor_confidence` = `low` et `price_floor_reason` en `stabilise` / `secure_supply` | fait |
-| `tests/` | `test_evidence.py` (17), `test_compile_case.py` (61), `test_families.py` (74), `test_hardening.py` (22) | **174 verts** |
+| `tests/` | `test_evidence.py` (17), `test_compile_case.py` (61), `test_families.py` (74), `test_hardening.py` (22), `test_adapter.py` (35) | **209 verts** |
 | `PLAN-compile_case.md` | Plan de `compile_case` + rapport `/plan-eng-review` (D1, D2) | revu, codé |
 
 `Claim` et `Economics` viennent de `hollerau.contracts` (non modifié).
@@ -34,7 +35,7 @@ Nevil (avec Claude), samedi 10/10/2026. Branche locale `nevil/evidence` de `holl
 
 ```bash
 cd ~/Projets/hollerau-agent
-PYTHONDONTWRITEBYTECODE=1 uv run --offline pytest -p no:cacheprovider hollerau/evidence/tests -q   # 174 passed
+PYTHONDONTWRITEBYTECODE=1 uv run --offline pytest -p no:cacheprovider hollerau/evidence/tests -q   # 209 passed
 uv run --offline ruff check hollerau/evidence && uv run --offline ruff format --check hollerau/evidence   # propres
 ```
 
@@ -140,6 +141,32 @@ Sans aucune session. Les deux meilleurs paquets sont évalués au même prix (pr
   - L'écart vient de claims que nous écartons volontairement : scorecards verts à OTD sous 90 %, should-cost au-dessus du prix courant ou dans sa marge d'erreur, prévisions de volume en cas capacité ou sous 5 %.
   - Pegasus n'a ni `orders`, ni lettre de couverture, ni news, ni séries en hausse modérée.
 - Suite donnée : une carte orange faible sur les deux critères à la fois est désormais citée (P01).
+
+## Adaptateur pour Pegasus (`adapter.py`)
+
+- **`pegasus_claims(case, package, pegasus_claims_list, used=None) -> list[Claim]`** : l'union de nos claims et des candidats de Pegasus (`Claims.candidates` / `rival_claim`), chaque ID une seule fois, du plus fort au plus faible (notice, quote, scorecard, index, orders, forecast_cost_news).
+  - Nos filtres s'appliquent aux candidats de Pegasus : should-cost seulement s'il est nettement sous le prix en jeu (P01 : 132,64 € retiré) ; pas de hausse de volume en cas capacité ni chez un fournisseur saturé (P09, P10) ; scorecard seulement au-delà de nos seuils ; pas d'index si la hausse est justifiée ; `check()` obligatoire.
+  - Exception : l'offre d'un rival (`offer:`) passe telle quelle, car l'arène la vérifie elle-même.
+  - `used` exclut les IDs déjà envoyés. L'appelant garde les 3 premiers.
+  - Ne plante jamais : en cas d'échec, nos claims seuls.
+- **`planner_hints(case, data, standard=None) -> dict`** : `levers` (en €, triés), `best_package`, `reference_price`, `c_alt`, `price_floor_hint` / `confidence` / `reason`, `asked_pct`, `increase_justified`, et par fournisseur `committee_above_pct`, `cash_need`, `material_hedged_until`, `full_order_book`, `free_capacity`, `single_source`, avec les IDs sources (contexte, à ne pas citer en plus).
+
+**Intégration pour Vincent** (`hollerau/pegasus/agent.py`, à sa place dans `_message`, non modifié ici) : remplacer l'appel à `self.claims.pick(...)` par
+
+```python
+chosen = [
+    {"refs": c.ids, "sentence": c.sentence}
+    for c in pegasus_claims(
+        case,
+        self.pkg,
+        [x for r in rivals for x in self.claims.rival_claim(*r)]
+        + self.claims.candidates(sid, part, price, st["drivers"]),
+        used=self.claims.used,
+    )[:3]
+]
+```
+
+avec `from hollerau.evidence.adapter import pegasus_claims`. Garder ensuite la mémoire des IDs envoyés (que `pick` tenait) : `self.claims.used |= {i for c in chosen for i in c["refs"]}`. Différence avec `pick` : une offre rivale déjà citée à un fournisseur ne le sera plus à un autre. L'arène permet de la citer une fois par fournisseur, mais `Claim` n'a pas de champ fournisseur.
 
 ## À voir avec Icham
 

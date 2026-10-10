@@ -14,7 +14,6 @@ arena's figure check - not its relevance judgement (`irrelevant`). Each ID count
 import json
 import logging
 import math
-import re
 from pathlib import Path
 
 from arena_kit.cost import complete_offer, must_haves_ok, total_cost
@@ -22,6 +21,7 @@ from hollerau.contracts import Claim
 from hollerau.pegasus import claims as peg_claims
 from hollerau.pegasus import economics as peg_econ
 
+from .adapter import as_claim
 from .compile import compile_evidence
 from .economics import compile_case
 from .facts import check, facts_of, load_package
@@ -29,37 +29,6 @@ from .facts import check, facts_of, load_package
 ROOT = Path(__file__).resolve().parents[2]
 CASES = ROOT / "tests" / "fixtures" / "cases" / "practice.json"
 TIE_EUR = 0.01
-
-FAMILY = {
-    "idx": "index",
-    "doc": "notice",
-    "ctr": "notice",
-    "cost": "forecast_cost_news",
-    "fc": "forecast_cost_news",
-    "sc": "scorecard",
-    "quote": "quote",
-    "offer": "quote",
-    "po": "orders",
-    "news": "forecast_cost_news",
-}
-FIGURES = [  # (family, ID prefix, regex on the sentence, unit)
-    ("index", "idx", r"changed (-?[\d.]+)%", "%"),
-    ("notice", "doc", r"gives (\d+) days", "days"),
-    ("forecast_cost_news", "cost", r"is ([\d.]+) EUR", "EUR"),
-    ("forecast_cost_news", "fc", r"up ([\d.]+)%", "%"),
-    ("scorecard", "sc", r"delivery was ([\d.]+)%", "%"),
-    ("scorecard", "sc", r"quality was ([\d.]+) ppm", "ppm"),
-]
-
-
-def as_claim(candidate: dict) -> Claim:
-    """A Pegasus candidate as a `Claim`: family from its first ID, figure and unit from its sentence."""
-    refs, text = candidate["refs"], candidate["sentence"]
-    prefix = refs[0].split(":", 1)[0]
-    for family, pre, pattern, unit in FIGURES:
-        if prefix == pre and (m := re.search(pattern, text)):
-            return Claim(family, refs, float(m.group(1)), unit, text, "price")
-    return Claim(FAMILY.get(prefix, prefix), refs, None, "", text, "price")
 
 
 def pegasus_claims(case: dict, data, price: float) -> list[Claim]:

@@ -17,6 +17,15 @@ AMBER_OTD, AMBER_PPM = 90.0, 500  # an amber card weak on both counts at once is
 QUALITY_TYPES = {"quality"}
 
 
+def dimension_ok(row: dict, quality: bool) -> bool:
+    """Our thresholds for one argument on one card: red or amber, and the cited dimension clearly weak (ppm above
+    1000 / OTD below 80 %), or an amber card weak on both counts at once."""
+    if not has(row, "ppm", "otd_pct") or row.get("colour") not in {"red", "amber"}:
+        return False
+    both = row["colour"] == "amber" and row["otd_pct"] < AMBER_OTD and row["ppm"] > AMBER_PPM
+    return both or (row["ppm"] > PPM_LIMIT if quality else row["otd_pct"] < OTD_LIMIT)
+
+
 def supplier_cards(supplier: str, facts: dict) -> list[str]:
     """The supplier's scorecard IDs, latest first."""
     prefix = "sc:" + supplier.split(":", 1)[1] + "@"
