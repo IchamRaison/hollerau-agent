@@ -33,9 +33,12 @@ def main(argv=None):
     logging.basicConfig(level=logging.INFO if a.v else logging.WARNING, format="%(asctime)s %(message)s",
                         datefmt="%H:%M:%S")
     logging.getLogger("httpx").setLevel(logging.WARNING)
-    pkg = DataPackage(os.environ.get("ARENA_DATA", "data/package"))
+    data_dir = os.environ.get("ARENA_DATA", "data/package")
+    DataPackage(data_dir)  # fail now, before any session opens, if the package is missing
     playbook = json.load(open(a.playbook)) if a.playbook else {}
-    new_agent = lambda: PegasusAgent(pkg, playbook, a.push_after_final)  # noqa: E731
+    # One package per agent: a DataPackage holds a single SQLite connection and a lazily built
+    # index (`_ids`), neither safe to share between the parallel cases (R1: "no such table: None").
+    new_agent = lambda: PegasusAgent(DataPackage(data_dir), playbook, a.push_after_final)  # noqa: E731
     n = len(a.cases) or 10
     require_validation(f"pegasus {a.set} {' '.join(a.cases)}".strip(), n, quota=a.set == "practice")
     client = ArenaClient()
