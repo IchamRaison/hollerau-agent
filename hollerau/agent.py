@@ -1,10 +1,8 @@
-"""OurAgent: the kit's LLMAgent plus our dossier, packages and closing rules.
+"""OurAgent: the kit's LLMAgent with one extra rule, as a placeholder until the real agent exists.
 
-Design: vault `03 Build/Design doc - Agent acheteur tacto.md`.
-  prepare()  -> inject the dossier (levers in EUR, fair price, <=3 verified claims)
-  decide()   -> on `final_offer` apply the closing rule at once; validate the e-mail
-Approach A (kit + dossier) is the safety net; approach B (iso-value packages) only if it beats A
-on the paired bench.
+Design (proposed, nothing of it is built yet): team vault,
+`03 Build/Design doc - Mesurer le moteur fournisseur.md`.
+The only behaviour added here: on `final_offer`, close at once with the kit's `closing_move`.
 """
 
 import logging
