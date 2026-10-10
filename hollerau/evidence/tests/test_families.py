@@ -6,8 +6,10 @@ from pathlib import Path
 
 import pytest
 
+from arena_kit.cost import relationship_cost
 from hollerau.contracts import Claim
 from hollerau.evidence.compile import compile_evidence
+from hollerau.evidence.economics import compile_case, estimate_supplier, relationship_risk
 from hollerau.evidence.facts import check, facts_of, load_package
 from hollerau.evidence.forecast_cost_news import forecast_cost_news_claims
 from hollerau.evidence.orders import orders_claims
@@ -212,3 +214,107 @@ def test_signals_read_notes_up_to_the_case_start(data):
     assert all(i.split(":")[1][:8] <= "20260910" for i in ids if i.startswith("doc:"))
     late = signals(CASES["case:P01"], data)["suppliers"]["sup:70110"]  # start = latest fact date
     assert "doc:20260902-70110-M2" in late["cash_need"]
+
+
+# --- supplier letter (material covered) and orders without a price letter
+
+
+def hedge_letters(claims):
+    """forecast_cost_news claims citing a supplier `doc` (the material-covered letter)."""
+    return [c for c in claims if c.family == "forecast_cost_news" and c.ids[0].startswith("doc:")]
+
+
+def test_p08_raw_material_gets_letter_and_orders(data):
+    case = CASES["case:P08"]  # no asked_price: the supplier proposes an index clause
+    claims = compile_evidence(case, data)
+    assert len(claims) >= 2
+    [letter] = hedge_letters(claims)
+    assert letter.ids == ["doc:20260706-70710-M1"] and letter.figure is None and letter.supports == "other"
+    assert "March 2027" in letter.sentence
+    [orders] = [c for c in claims if c.family == "orders"]
+    facts = facts_of(case, data)
+    assert all(facts[i]["unit_price"] <= case["buyer"]["current_unit_price"] for i in orders.ids)
+    assert orders.supports == "price"
+
+
+def test_letter_needs_no_price_letter_and_a_running_cover(data):
+    case = copy.deepcopy(CASES["case:P08"])
+    case["trigger_doc"] = "doc:HIDDEN-P08"
+    case["facts"] = {"doc:HIDDEN-P08": {"supplier": "sup:70710", "date": "2026-09-12", "asked_price": 5.9}}
+    assert hedge_letters(compile_evidence(case, data)) == []  # a price letter: not this case
+    case = copy.deepcopy(CASES["case:P08"])
+    case["start_date"] = "2027-05-01"  # cover ran out in March 2027
+    assert hedge_letters(compile_evidence(case, data)) == []
+
+
+def test_call_notes_are_never_cited_as_letters(data):
+    """P14: the copper cover comes from our own call note (context, not a check)."""
+    assert hedge_letters(compile_evidence(CASES["case:P14"], data)) == []
+
+
+def test_supplier_letter_check():
+    facts = {"doc:1": {"type": "letter"}, "doc:2": {"type": "call_note"}}
+    assert check(Claim("forecast_cost_news", ["doc:1"], None, "", "", "other"), facts)
+    assert not check(Claim("forecast_cost_news", ["doc:1"], 1.0, "", "", "other"), facts)
+    assert not check(Claim("forecast_cost_news", ["doc:2"], None, "", "", "other"), facts)
+
+
+@pytest.mark.parametrize("case_id", ["case:P03", "case:P04", "case:P09", "case:P11", "case:P16", "case:P18"])
+def test_orders_without_a_price_letter_stay_at_or_below_today(data, case_id):
+    case = CASES[case_id]
+    facts = facts_of(case, data)
+    [orders] = [c for c in compile_evidence(case, data) if c.family == "orders"]
+    assert len({facts[i]["part"] for i in orders.ids}) == 1
+    assert all(facts[i]["unit_price"] <= case["buyer"]["current_unit_price"] for i in orders.ids)
+
+
+def test_no_orders_claim_in_a_bundle(data):
+    for case_id in ("case:P07", "case:P15"):
+        assert [c for c in compile_evidence(CASES[case_id], data) if c.family == "orders"] == []
+
+
+# --- price floor hint
+
+
+def test_p02_price_floor_hint(data):
+    case = CASES["case:P02"]
+    floor = signals(case, data)["price_floor_hint"]
+    assert floor == pytest.approx(365, abs=3)  # 366.87: below it the relationship cost outgrows the saving
+    econ, supplier = compile_case(case, data=data), estimate_supplier(case, data=data)
+
+    def total(p):
+        t = {**econ.best_package, "unit_price": p}
+        return econ.cost(t) + relationship_risk(case, t, supplier=supplier)
+
+    assert total(floor) <= min(total(floor - 1), total(floor + 1), total(floor - 0.01), total(floor + 0.01))
+
+
+def test_price_floor_never_above_the_asked_or_current_price(data):
+    """P03 (renewal, no price letter): capped at today's 412.74 (424.75 uncapped). P01: at most the 138.55 asked."""
+    assert signals(CASES["case:P03"], data)["price_floor_hint"] <= 412.74
+    for case_id in ("case:P01", "case:P02", "case:P06", "case:P09", "case:P10", "case:P14", "case:P17"):
+        s, case = signals(CASES[case_id], data), CASES[case_id]
+        assert s["price_floor_hint"] <= (s["asked_price"] or case["buyer"]["current_unit_price"]), case_id
+
+
+def test_price_floor_confidence_is_low_with_its_reason(data):
+    s = signals(CASES["case:P02"], data)
+    assert s["price_floor_confidence"] == "low"
+    assert "P01" in s["price_floor_reason"] and "135.40" in s["price_floor_reason"]
+    routine = signals(CASES["case:P04"], data)
+    assert routine["price_floor_confidence"] is None and routine["price_floor_reason"] is None
+
+
+def test_price_floor_reason_figures_are_reproduced(data):
+    """The figures quoted in the reason: 1,430 EUR of relationship cost on the P01 deal (4,055 at a 30-day standard)."""
+    session = json.loads((ROOT / "tests/fixtures/sessions/P01-naive.json").read_text())["state"]["result"]
+    case, supplier = CASES["case:P01"], estimate_supplier(CASES["case:P01"], data=data)
+    assert session["cost_breakdown"]["relationship"] == 0.0
+    assert relationship_risk(case, session["terms"], supplier=supplier) == pytest.approx(1430.46, abs=0.01)
+    thirty = {**supplier, "standard": {**supplier["standard"], "payment_days": 30}}
+    assert relationship_cost(case, session["terms"], None, thirty) == pytest.approx(4055.21, abs=0.01)
+
+
+def test_price_floor_only_for_relationship_goals(data):
+    assert signals(CASES["case:P04"], data)["price_floor_hint"] is None  # routine
+    assert signals(CASES["case:P08"], data)["price_floor_hint"] is None  # leverage

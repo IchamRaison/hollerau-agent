@@ -19,12 +19,12 @@ Nevil (avec Claude), samedi 10/10/2026. Branche locale `nevil/evidence` de `holl
 | `quote.py` | `quote` : devis du cas (`refs` + alternative), même pièce, autre fournisseur, **moins cher que le prix en jeu** | fait |
 | `scorecard.py` | `scorecard` : dernière ligne `sc` (déjà glissante sur 12 mois), carte rouge ou orange, ppm > 1 000 ou OTD < 80 % | fait |
 | `index.py` | `index` : fenêtre de 12 mois, une série par claim ; hausse justifiée si pondéré ≥ demande − 1 point | fait |
-| `orders.py` | `orders` : première et dernière commande des 24 derniers mois, si le prix a déjà monté de 3 % ou plus, sans les lignes `stale_condition` | fait |
-| `forecast_cost_news.py` | `forecast_cost_news` : should-cost (marge > 15 %), prévision en hausse ≥ 5 %, news qui affaiblissent le fournisseur | fait |
+| `orders.py` | `orders` : première et dernière commande des 24 derniers mois si le prix a déjà monté de 3 % ou plus ; sinon, sans lettre de prix, la commande la moins chère et la dernière, toutes deux au prix courant ou en dessous ; jamais dans un kit ; sans les lignes `stale_condition` | fait |
+| `forecast_cost_news.py` | `forecast_cost_news` : should-cost (marge > 15 %), lettre du fournisseur « matière couverte » (`doc:`, sans lettre de prix, sans chiffre, `supports=other`), prévision en hausse ≥ 5 %, news qui affaiblissent le fournisseur | fait |
 | `compile.py` | `compile_evidence(case, data)` : notice, quote, scorecard, index, orders, forecast_cost_news, chaque claim vérifié, chaque ID une seule fois | fait |
 | `economics.py` | `compile_case(case, standard=None, data=None)`, `lever_price`, `estimate_supplier`, `relationship_risk` | fait, D3 appliquée |
-| `signals.py` | `signals(case, data)` pour le planificateur, jamais envoyé comme claim | fait |
-| `tests/` | `test_evidence.py` (17), `test_compile_case.py` (61), `test_families.py` (40), `test_hardening.py` (22) | **140 verts** |
+| `signals.py` | `signals(case, data)` pour le planificateur, jamais envoyé comme claim ; `price_floor_hint` (plafonné), `price_floor_confidence` = `low` et `price_floor_reason` en `stabilise` / `secure_supply` | fait |
+| `tests/` | `test_evidence.py` (17), `test_compile_case.py` (61), `test_families.py` (56), `test_hardening.py` (22) | **156 verts** |
 | `PLAN-compile_case.md` | Plan de `compile_case` + rapport `/plan-eng-review` (D1, D2) | revu, codé |
 
 `Claim` et `Economics` viennent de `hollerau.contracts` (non modifié).
@@ -33,7 +33,7 @@ Nevil (avec Claude), samedi 10/10/2026. Branche locale `nevil/evidence` de `holl
 
 ```bash
 cd ~/Projets/hollerau-agent
-PYTHONDONTWRITEBYTECODE=1 uv run --offline pytest -p no:cacheprovider hollerau/evidence/tests -q   # 140 passed
+PYTHONDONTWRITEBYTECODE=1 uv run --offline pytest -p no:cacheprovider hollerau/evidence/tests -q   # 156 passed
 uv run --offline ruff check hollerau/evidence && uv run --offline ruff format --check hollerau/evidence   # propres
 ```
 
@@ -103,10 +103,26 @@ Restent ouverts, hors de la liste demandée :
 - `_grid` ignore le standard du devis pour un champ négociable **sans** options : l'incoterm partirait du plus cher.
 - Les factures impayées échues ne comptent pas dans `our_late_payments`.
 
+## Améliorations après la PR #2 (branche `nevil/evidence`, pour la PR #3)
+
+- **Lettre « matière couverte »** (famille `forecast_cost_news`, le contrat reste intact) : P08 cite la lettre du fournisseur `doc:20260706-70710-M1` (« covered at fixed prices until March 2027 »), sans chiffre, `supports=other`. Les conditions : aucun `asked_price`, une lettre ou un e-mail du fournisseur (jamais nos notes d'appel : P14 n'a donc rien), et une couverture encore valable au début du cas.
+- **`orders` sans lettre de prix** : la commande la moins chère des 24 derniers mois et la dernière, toutes deux au prix courant ou en dessous. Concerne P03, P04, P08 à P12, P16 et P18. P14 et P19 gardent la hausse déjà subie. Plus aucun claim `orders` dans un kit (P07, P15).
+- **P08** : 2 claims (lettre + orders), contre 0 avant.
+- **`price_floor_hint`** (`signals`) : le prix qui minimise `cost + relationship_risk` sur une grille de 400 pas, affinée au centime, au meilleur paquet. Seulement en `stabilise` / `secure_supply`. **Plafonné** au prix demandé, ou au prix courant sans lettre de hausse. Toujours accompagné de `price_floor_confidence` = `"low"` et de `price_floor_reason`.
+
+  | Cas | P01 | P02 | P03 | P06 | P09 | P10 | P14 | P17 |
+  |---|---|---|---|---|---|---|---|---|
+  | Plancher (€) | 137,42 | 366,87 | 412,74 (plafond ; 424,75 sans) | 202,36 | 15,74 | 26,31 | 308,83 | 36,43 |
+
+  **Attention** : il hérite de l'estimation du fournisseur. Sur P01, il sort à 137,42 €, presque le prix demandé (138,55 €), alors que l'arène a facturé 0 € de relation pour le deal à 135,40 €. C'est une indication, pas une limite.
+- **Correction du chiffre de D1.** Avec l'estimation actuelle, la relation du deal P01 coûte **1 430,46 €**, et non 4 055 €. Les 4 055 € (4 055,21) supposent un délai de paiement standard du fournisseur à 30 jours ; notre estimation prend les 60 jours du plan acheteur. Les deux sont vérifiés par `test_price_floor_reason_figures_are_reproduced`. La conclusion de D1 ne change pas : l'arène a facturé 0 €.
+
 ## À voir avec Icham
 
 - **D1, `cost` sans le coût de relation.** Dans les 8 cas `stabilise` / `secure_supply`, si le planificateur pousse le fournisseur sous sa marge soutenable, l'arène facture un poste `relationship` que `Economics.cost` ignore, donc `cost`, `best_package` et les leviers sous-estiment C. La décision ne repose que sur le deal P01, conclu au-dessus du prix courant. Proposition : le planificateur ajoute `relationship_risk(case, terms, standard, data=data)` dans ces cas, ou on calibre `full_cost` sur des sessions validées.
 - **`Claim` n'a pas de champ fournisseur.** Dans un appel d'offres à plusieurs fournisseurs (P05, P06), les claims `sc:` et `news:` concernent chacun un fournisseur précis : le planificateur doit les router d'après l'ID (`sc:<n°>@…`, `facts[news]["supplier"]`). Envoyé au mauvais fournisseur, un claim est `irrelevant`. Une modification du contrat (`Claim.supplier_id`) passe par `Décisions.md`.
+- **Lettre « matière couverte » citée seule** (dans `forecast_cost_news`) : l'arène ne prévoit aucune vérification d'un `doc:` seul. Le résultat est **non vérifié** (sans chiffre, au pire `irrelevant`, pas `contradicted`). À observer lors de la première session validée.
+- **`price_floor_hint` surestime probablement le plancher** quand le should-cost dépasse le prix courant (P01 : should-cost 132,64 € contre 126,53 € pour le prix courant). Même cause que D1 : `full_cost` n'est pas calibré sur l'arène.
 - **`c_alt` pour une alternative `kind: none`.** Ici, c'est l'infini dès que `kind == "none"`. Le kit (`arena_kit/play.py:130`, `closing_move`) coûte toute alternative qui a un `unit_price`, quel que soit son type. Aucun des 19 cas n'est concerné (une alternative `none` n'a jamais de prix). Laquelle des deux règles suit l'arène ?
 
 ## Prochaine étape

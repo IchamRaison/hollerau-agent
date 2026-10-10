@@ -9,6 +9,12 @@ a note later than the supplier's letter but known before the case is still ours 
   asked_pct, asked_price      the letter's demand (None without a price letter)
   weighted_index_pct          per part, the 12-month move of its cost drivers weighted by `cost_drivers`
   increase_justified          the weighted move meets the demand, within 1 point (P02): argue terms, not the price
+  price_floor_hint            stabilise / secure_supply only: the unit price that minimises cost + relationship_risk
+                              over a price grid (best package, our estimate of the supplier), capped at the asked price
+                              (else the current price without a price letter). Below it, squeezing the supplier costs
+                              more in relationship than it saves (P02: 366.87). None in other goals
+  price_floor_confidence      "low" with the hint (None without): our supplier estimate is not calibrated on the arena
+  price_floor_reason          why, in one sentence, with the P01 counter-example
   suppliers[sup]              per supplier:
     committee_above_pct       price changes above this % need its pricing committee
     material_hedged_until     "Month YYYY" its material or energy is bought forward to (P08, P14)
@@ -25,12 +31,21 @@ import logging
 import re
 from datetime import date, timedelta
 
+from arena_kit.cost import RELATIONSHIP_GOALS
+
+from .economics import compile_case, estimate_supplier, relationship_risk
 from .facts import _day, asked_price, case_start, facts_of, package, release_rows
 from .index import asked_pct, driver_moves, increase_justified, weighted_move_pct
 
 log = logging.getLogger(__name__)
 
 NOTE_DAYS = 548  # notes of the last 18 months
+FLOOR_STEPS = 400  # coarse price grid, then refined to the cent around its best point
+FLOOR_REASON = (
+    "Not calibrated on the arena: the supplier's full cost is our should-cost estimate. Counter-example P01: the "
+    "arena charged no relationship cost for the deal at 135.40, while this estimate charges 1,430 EUR (4,055 EUR "
+    "if the supplier's standard payment is 30 days) and puts the floor at 137.42."
+)
 PAY_DAYS = 365
 
 PHRASES = {
@@ -185,8 +200,33 @@ def saturated(case: dict, data, facts: dict, supplier: str) -> bool:
     return bool(out["full_order_book"])
 
 
+def price_floor_hint(case: dict, data) -> float | None:
+    """The price that minimises cost + relationship_risk, stabilise / secure_supply only (None otherwise). Never above
+    the asked price, nor above the current price without a price letter: the hint must not concede more than that."""
+    b = case["buyer"]
+    if b.get("category_goal") not in RELATIONSHIP_GOALS:
+        return None
+    econ = compile_case(case, data=data)
+    supplier = estimate_supplier(case, data=data)
+    current = b.get("current_unit_price") or b["fallback_unit_price"]
+    asked = asked_price(case, facts_of(case, data))
+    cap = asked or current
+    top = max(p for p in (current, asked, b.get("fallback_unit_price")) if p)
+
+    def total(price: float) -> float:
+        t = {**econ.best_package, "unit_price": round(price, 2)}
+        return econ.cost(t) + relationship_risk(case, t, supplier=supplier)
+
+    lo, hi = 0.8 * current, 1.1 * top
+    step = (hi - lo) / FLOOR_STEPS
+    coarse = min((lo + i * step for i in range(FLOOR_STEPS + 1)), key=total)
+    cents = range(round((coarse - step) * 100), round((coarse + step) * 100) + 1)
+    return min(min((c / 100 for c in cents), key=total), cap)
+
+
 def signals(case: dict, data) -> dict:
     out = {"asked_pct": None, "asked_price": None, "weighted_index_pct": {}, "increase_justified": None}
+    out |= {"price_floor_hint": None, "price_floor_confidence": None, "price_floor_reason": None}
     out["suppliers"] = {}
     try:
         facts = facts_of(case, data)
@@ -206,6 +246,12 @@ def signals(case: dict, data) -> dict:
             out["increase_justified"] = any(increase_justified(w, asked) for w in weighted.values())
     except Exception:
         log.exception("%s: index signals failed", case.get("case_id"))
+    try:
+        out["price_floor_hint"] = price_floor_hint(case, data)
+        if out["price_floor_hint"] is not None:
+            out["price_floor_confidence"], out["price_floor_reason"] = "low", FLOOR_REASON
+    except Exception:
+        log.exception("%s: price floor hint failed", case.get("case_id"))
     for s in case.get("suppliers") or []:
         out["suppliers"][s] = supplier_signals(case, data, facts, s)
     return out

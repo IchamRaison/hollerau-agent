@@ -151,12 +151,15 @@ def _orders_ok(claim: Claim, facts: dict) -> bool:
 
 
 def _fcn_ok(claim: Claim, facts: dict) -> bool:
-    """forecast_cost_news: one `fc` (change %), one `cost` (estimate EUR) or one `news` (no figure)."""
+    """forecast_cost_news: one `fc` (change %), one `cost` (estimate EUR), one `news` or one supplier `doc` (no
+    figure)."""
     if len(claim.ids) != 1:
         return False
     i, row = claim.ids[0], facts[claim.ids[0]]
     if i.startswith("news:"):
         return claim.figure is None
+    if i.startswith("doc:"):  # the supplier's own letter (material covered), cited without a figure
+        return claim.figure is None and row.get("type") in {"letter", "email"}
     if claim.figure is None:
         return i.startswith(("fc:", "cost:"))
     if i.startswith("fc:"):
