@@ -1,0 +1,743 @@
+{
+ "summary": {
+  "session_id": "f3094ddd0af46578",
+  "case_id": "case:P11",
+  "status": "ended",
+  "end_reason": "accepted",
+  "deal": 1,
+  "score": 0.7098962346486538,
+  "rounds": 7,
+  "created_at": 1791663968.2932596
+ },
+ "session": {
+  "session_id": "f3094ddd0af46578",
+  "case_id": "case:P11",
+  "status": "ended",
+  "end_reason": "accepted",
+  "rounds": 7,
+  "set": "practice",
+  "opening": {
+   "sup:70140": {
+    "offer_id": "offer:70140-0",
+    "round": 0,
+    "status": "open",
+    "terms": {
+     "unit_price": 47.0,
+     "ppm_commitment": 6400
+    },
+    "alternatives": [],
+    "missing_fields": [
+     "chargeback_eur_per_complaint"
+    ],
+    "claims": [],
+    "claim_results": [],
+    "signals": {
+     "reply_delay_days": 4,
+     "validity_days": 30
+    },
+    "text": "Hello,\n\nThank you for your enquiry. Please find our Angebot below. We are very excited about the opportunity to work together with Hollerau Pumpenwerke GmbH and to prove ourselves as a reliable partner for your business!\n\nFor our offer, we can propose a price of €47.00 per unit, alongside a quality commitment of 6400 ppm. \n\nPlease note that this offer stays valid for 30 days. We are eager to show you what we can do and hope this initial quote meets your expectations. Let us know if you have any questions at all.\n\nKind regards\nMarek Lis\nExport Manager, Odlewnia Kalwisz Sp. z o.o."
+   }
+  },
+  "threads": {
+   "sup:70140": {
+    "offer_id": "offer:70140-6",
+    "status": "agreed",
+    "offers": 7,
+    "closed": null,
+    "seconds_left": null
+   }
+  },
+  "moves": [],
+  "result": {
+   "ended": true,
+   "deal": true,
+   "supplier_id": "sup:70140",
+   "offer_id": "offer:70140-6",
+   "terms": {
+    "payment_days": 60,
+    "lead_time_days": 56,
+    "volume_per_year": 15900,
+    "contract_months": 12,
+    "effective_date": "2027-01-01",
+    "index_clause": null,
+    "incoterm": "FCA",
+    "tooling_eur": 0.0,
+    "ppm_commitment": 300,
+    "chargeback_eur_per_complaint": 0.0,
+    "unit_price": 45.5
+   },
+   "c_open": 817578.0,
+   "c_deal": 750082.5,
+   "c_alt": 894383.19,
+   "c_best": 722500.02,
+   "score": 0.7098962346486538,
+   "must_haves_ok": true,
+   "cost_breakdown": {
+    "price": 723450.0,
+    "uncovered_need": 0.0,
+    "fallback_risk": 0.0,
+    "payment_terms": 0.0,
+    "freight": 24486.0,
+    "late_delivery": 0.0,
+    "quality": 2146.5,
+    "tooling": 0.0,
+    "index_clause": 0.0,
+    "index_risk": 0.0,
+    "relationship": 0.0
+   },
+   "trace": [
+    {
+     "round": 0,
+     "actor": "sup:70140",
+     "move": {
+      "offer_id": "offer:70140-0",
+      "round": 0,
+      "status": "open",
+      "terms": {
+       "unit_price": 47.0,
+       "ppm_commitment": 6400
+      },
+      "alternatives": [],
+      "missing_fields": [
+       "chargeback_eur_per_complaint"
+      ],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 4,
+       "validity_days": 30
+      },
+      "text": "Hello,\nhere is our price.\nOur terms: a price of €47.00 per unit, a quality commitment of 6400 ppm.\nWe are ready when you are!\nKind regards\nMarek Lis\nExport Manager, Odlewnia Kalwisz Sp. z o.o."
+     },
+     "reasons": []
+    },
+    {
+     "round": 1,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Re: Kalwisz: bearing brackets in red (1)",
+      "body": "Dear Sir or Madam,\n\nthank you for your offer regarding kalwisz: bearing brackets in red.\nYour rolling quality to 2026Q3 stands at 2376 ppm (sc:70140@2026Q3).\nYour rolling on-time delivery to 2026Q2 stands at 78.0% (sc:70140@2026Q2).\nElectric power generation producer prices (PPI-D351) changed -3.7% from 2025-08 to 2026-08 (idx:PPI-D351@2025-08, idx:PPI-D351@2026-08).\nThe enquiry fixes payment at 60 days net; the attached packages therefore trade only the negotiable terms.\nEach of the attached packages works for us; please choose the one that suits you best.\nWe commit to a binding volume of 15,900 pcs per year over 12 months.\nCould you send us a cost breakdown for this part?\nWe value our cooperation.\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing",
+      "refs": [
+       "sc:70140@2026Q3",
+       "sc:70140@2026Q2",
+       "idx:PPI-D351@2025-08",
+       "idx:PPI-D351@2026-08"
+      ],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "ppm_commitment": 1500,
+         "chargeback_eur_per_complaint": 500,
+         "unit_price": 37.6
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "ppm_commitment": 300,
+         "chargeback_eur_per_complaint": 0,
+         "unit_price": 37.46
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "ppm_commitment": 1500,
+         "chargeback_eur_per_complaint": 0,
+         "unit_price": 36.92
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": [
+        {
+         "type": "index_change",
+         "refs": [
+          "idx:PPI-D351@2025-08",
+          "idx:PPI-D351@2026-08"
+         ],
+         "asserted": {
+          "change_pct": -3.7
+         }
+        },
+        {
+         "type": "quality_record",
+         "refs": [
+          "sc:70140@2026Q3",
+          "sc:70140@2026Q2"
+         ],
+         "asserted": {
+          "ppm": 2376.0
+         }
+        }
+       ]
+      },
+      "supplier_id": "sup:70140"
+     },
+     "reasons": []
+    },
+    {
+     "round": 1,
+     "actor": "sup:70140",
+     "move": {
+      "offer_id": "offer:70140-1",
+      "round": 1,
+      "status": "open",
+      "terms": {
+       "unit_price": 47.0,
+       "ppm_commitment": 300,
+       "chargeback_eur_per_complaint": 0.0
+      },
+      "alternatives": [
+       {
+        "offer_id": "offer:70140-1-a",
+        "terms": {
+         "unit_price": 46.5,
+         "ppm_commitment": 1500,
+         "chargeback_eur_per_complaint": 0.0
+        }
+       }
+      ],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [
+       {
+        "index": 0,
+        "result": "verified"
+       },
+       {
+        "index": 1,
+        "result": "verified"
+       }
+      ],
+      "signals": {
+       "reply_delay_days": 4,
+       "validity_days": 30
+      },
+      "text": "Hello,\nthank you for your mail, we are very happy to hear from you!\nwe can move a bit:\nOur terms: a price of €47.00 per unit, a quality commitment of 300 ppm, a chargeback of €0.00 per complaint.\nTo be fully transparent with you:\nWe checked the index change data you cited; it holds and we took it into account.\nWe checked the quality record data you cited; it holds and we took it into account.\nWe see your figures, but we cannot give up margin right now. Faster payment would help us more than anything.\nHi, we don't share cost breakdowns, that's strictly internal.\nWe can do the 1500 ppm with zero chargebacks, but the price for that is €46.50.\nYou want 60 days payment and honestly you guys often pay late, so we can't drop the price much more.\nMaterial accounts for about 30 % of our cost; more detail we do not share.\nWe are ready when you are!\nKind regards\nMarek Lis\nExport Manager, Odlewnia Kalwisz Sp. z o.o."
+     },
+     "reasons": [
+      "We checked the index change data you cited; it holds and we took it into account.",
+      "We checked the quality record data you cited; it holds and we took it into account.",
+      "We see your figures, but we cannot give up margin right now. Faster payment would help us more than anything.",
+      "Hi, we don't share cost breakdowns, that's strictly internal.",
+      "We can do the … ppm with zero chargebacks, but the price for that is €….",
+      "You want … days payment and honestly you guys often pay late, so we can't drop the price much more.",
+      "Material accounts for about … of our cost; more detail we do not share."
+     ]
+    },
+    {
+     "round": 2,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Re: Kalwisz: bearing brackets in red (2)",
+      "body": "Dear Sir or Madam,\n\nthank you for your offer regarding kalwisz: bearing brackets in red.\nOur orders of part:310020 were placed at 45.15 (po:4500013376-10, 2026-01) and 45.15 EUR (po:4500014429-10, 2026-09).\nWe have reduced the chargeback to EUR 0 per complaint.\nWe understand your position on list prices, so we have structured the packages below around chargebacks, quality commitment.\nThe enquiry fixes payment at 60 days net; the attached packages therefore trade only the negotiable terms.\nEach of the attached packages works for us; please choose the one that suits you best.\nWe commit to a binding volume of 15,900 pcs per year over 12 months.\nWe value our cooperation.\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing",
+      "refs": [
+       "po:4500013376-10",
+       "po:4500014429-10"
+      ],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "ppm_commitment": 300,
+         "chargeback_eur_per_complaint": 0,
+         "unit_price": 39.56
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "ppm_commitment": 800,
+         "chargeback_eur_per_complaint": 0,
+         "unit_price": 39.33
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": [
+        {
+         "type": "price_history",
+         "refs": [
+          "po:4500013376-10",
+          "po:4500014429-10"
+         ],
+         "asserted": {
+          "prices": [
+           45.15,
+           45.15
+          ]
+         }
+        }
+       ]
+      },
+      "supplier_id": "sup:70140"
+     },
+     "reasons": []
+    },
+    {
+     "round": 2,
+     "actor": "sup:70140",
+     "move": {
+      "offer_id": "offer:70140-2",
+      "round": 2,
+      "status": "open",
+      "terms": {
+       "unit_price": 46.5,
+       "ppm_commitment": 300,
+       "chargeback_eur_per_complaint": 0.0
+      },
+      "alternatives": [
+       {
+        "offer_id": "offer:70140-2-a",
+        "terms": {
+         "unit_price": 46.0,
+         "ppm_commitment": 800,
+         "chargeback_eur_per_complaint": 0.0
+        }
+       }
+      ],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [
+       {
+        "index": 0,
+        "result": "verified"
+       }
+      ],
+      "signals": {
+       "reply_delay_days": 4,
+       "validity_days": 30
+      },
+      "text": "Hello,\nmany thanks, good to have your reply!\nwe can move a bit:\nOur terms: a price of €46.50 per unit, a quality commitment of 300 ppm, a chargeback of €0.00 per complaint.\nTo be fully transparent with you:\nAs to the price history data you cited, we see your figures, but we cannot give up margin right now. Faster payment would help us more than anything.\nWe checked the past orders you mentioned, but costs have gone up since then so we can't just match old prices.\nWe can do 800 ppm with zero chargebacks for 46.00 EUR.\nIf you want a lower price, we really need to talk about faster payment, because 60 days is tough for us.\nWe really want this business - let's make it happen!\nKind regards\nMarek Lis\nExport Manager, Odlewnia Kalwisz Sp. z o.o."
+     },
+     "reasons": [
+      "As to the price history data you cited, we see your figures, but we cannot give up margin right now. Faster payment would help us more than anything.",
+      "We checked the past orders you mentioned, but costs have gone up since then so we can't just match old prices.",
+      "We can do … ppm with zero chargebacks for … EUR.",
+      "If you want a lower price, we really need to talk about faster payment, because … days is tough for us."
+     ]
+    },
+    {
+     "round": 3,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Re: Kalwisz: bearing brackets in red (3)",
+      "body": "Dear Sir or Madam,\n\nthank you for your offer regarding kalwisz: bearing brackets in red.\nOur latest forecast for part:310020 grows +20.0% (fc:310020@2026-09).\nWe have reduced the chargeback to EUR 0 per complaint.\nWe understand your position on list prices, so we have structured the packages below around chargebacks, quality commitment.\nThe enquiry fixes payment at 60 days net; the attached packages therefore trade only the negotiable terms.\nEach of the attached packages works for us; please choose the one that suits you best.\nWe commit to a binding volume of 15,900 pcs per year over 12 months.\nWe value our cooperation.\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing",
+      "refs": [
+       "fc:310020@2026-09"
+      ],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "ppm_commitment": 300,
+         "chargeback_eur_per_complaint": 0,
+         "unit_price": 40.79
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "ppm_commitment": 800,
+         "chargeback_eur_per_complaint": 0,
+         "unit_price": 40.56
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": [
+        {
+         "type": "volume_change",
+         "refs": [
+          "fc:310020@2026-09"
+         ],
+         "asserted": {
+          "change_pct": 20.0
+         }
+        }
+       ]
+      },
+      "supplier_id": "sup:70140"
+     },
+     "reasons": []
+    },
+    {
+     "round": 3,
+     "actor": "sup:70140",
+     "move": {
+      "offer_id": "offer:70140-3",
+      "round": 3,
+      "status": "open",
+      "terms": {
+       "unit_price": 46.0,
+       "ppm_commitment": 300,
+       "chargeback_eur_per_complaint": 0.0
+      },
+      "alternatives": [
+       {
+        "offer_id": "offer:70140-3-a",
+        "terms": {
+         "unit_price": 45.5,
+         "ppm_commitment": 800,
+         "chargeback_eur_per_complaint": 0.0
+        }
+       }
+      ],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [
+       {
+        "index": 0,
+        "result": "verified"
+       }
+      ],
+      "signals": {
+       "reply_delay_days": 4,
+       "validity_days": 30
+      },
+      "text": "Hello,\nthank you for your mail, we are very happy to hear from you!\nwe can move a bit:\nOur terms: a price of €46.00 per unit, a quality commitment of 300 ppm, a chargeback of €0.00 per complaint.\nTo be fully transparent with you:\nWe checked the volume change data you cited; it holds and we took it into account.\nWe see your figures, but we cannot give up margin right now. Faster payment would help us more than anything.\nWe checked the forecast data you cited; it holds and we took it into account.\nThe volume increase is great news, so we can drop the price to 45.50 EUR for the 800 ppm option.\nBut honestly, we still need to talk about faster payment if you want more movement, because 60 days is really tough for us right now.\nWe are ready when you are!\nKind regards\nMarek Lis\nExport Manager, Odlewnia Kalwisz Sp. z o.o."
+     },
+     "reasons": [
+      "We checked the volume change data you cited; it holds and we took it into account.",
+      "We see your figures, but we cannot give up margin right now. Faster payment would help us more than anything.",
+      "We checked the forecast data you cited; it holds and we took it into account.",
+      "The volume increase is great news, so we can drop the price to … EUR for the … ppm option.",
+      "But honestly, we still need to talk about faster payment if you want more movement, because … days is really tough for us right now."
+     ]
+    },
+    {
+     "round": 4,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Re: Kalwisz: bearing brackets in red (4)",
+      "body": "Dear Sir or Madam,\n\nthank you for your offer regarding kalwisz: bearing brackets in red.\nWe have reduced the chargeback to EUR 0 per complaint.\nWe understand your position on list prices, so we have structured the packages below around chargebacks, quality commitment.\nThe enquiry fixes payment at 60 days net; the attached packages therefore trade only the negotiable terms.\nEach of the attached packages works for us; please choose the one that suits you best.\nWe commit to a binding volume of 15,900 pcs per year over 12 months.\nWe value our cooperation.\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "ppm_commitment": 300,
+         "chargeback_eur_per_complaint": 0,
+         "unit_price": 41.76
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "ppm_commitment": 800,
+         "chargeback_eur_per_complaint": 0,
+         "unit_price": 41.53
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": []
+      },
+      "supplier_id": "sup:70140"
+     },
+     "reasons": []
+    },
+    {
+     "round": 4,
+     "actor": "sup:70140",
+     "move": {
+      "offer_id": "offer:70140-4",
+      "round": 4,
+      "status": "open",
+      "terms": {
+       "unit_price": 45.5,
+       "ppm_commitment": 300,
+       "chargeback_eur_per_complaint": 0.0
+      },
+      "alternatives": [],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 4,
+       "validity_days": 30
+      },
+      "text": "Hello,\nmany thanks, good to have your reply!\nwe can move a bit:\nOur terms: a price of €45.50 per unit, a quality commitment of 300 ppm, a chargeback of €0.00 per complaint.\nPlease let me explain.\nThanks for the new offer, we are moving in the right direction!\nI can do 45.50 EUR for the 300 ppm option with zero chargebacks.\nSince you can't change the 60 days payment, which is really tough for us, we don't have much more room on the price.\nWhich figures is that based on? Please send us the data.\nOur standard Zahlungsziel is 60 days net.\nFaster payment is welcome; we can reflect it in the price.\nWe are ready when you are!\nKind regards\nMarek Lis\nExport Manager, Odlewnia Kalwisz Sp. z o.o."
+     },
+     "reasons": [
+      "Thanks for the new offer, we are moving in the right direction!",
+      "I can do … EUR for the … ppm option with zero chargebacks.",
+      "Since you can't change the … days payment, which is really tough for us, we don't have much more room on the price.",
+      "Which figures is that based on? Please send us the data.",
+      "Our standard Zahlungsziel is … days net.",
+      "Faster payment is welcome; we can reflect it in the price."
+     ]
+    },
+    {
+     "round": 5,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Re: Kalwisz: bearing brackets in red (5)",
+      "body": "Dear Sir or Madam,\n\nthank you for your offer regarding kalwisz: bearing brackets in red.\nWe have reduced the chargeback to EUR 0 per complaint.\nWe understand your position on list prices, so we have structured the packages below around chargebacks, quality commitment.\nThe enquiry fixes payment at 60 days net; the attached packages therefore trade only the negotiable terms.\nEach of the attached packages works for us; please choose the one that suits you best.\nWe commit to a binding volume of 15,900 pcs per year over 12 months.\nWe value our cooperation.\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "ppm_commitment": 300,
+         "chargeback_eur_per_complaint": 0,
+         "unit_price": 42.52
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "ppm_commitment": 800,
+         "chargeback_eur_per_complaint": 0,
+         "unit_price": 42.3
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": []
+      },
+      "supplier_id": "sup:70140"
+     },
+     "reasons": []
+    },
+    {
+     "round": 5,
+     "actor": "sup:70140",
+     "move": {
+      "offer_id": "offer:70140-5",
+      "round": 5,
+      "status": "open",
+      "terms": {
+       "unit_price": 45.5,
+       "ppm_commitment": 300,
+       "chargeback_eur_per_complaint": 0.0
+      },
+      "alternatives": [],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 4,
+       "validity_days": 30
+      },
+      "text": "Hello,\nmany thanks, good to have your reply!\nwe can move a bit:\nOur terms: a price of €45.50 per unit, a quality commitment of 300 ppm, a chargeback of €0.00 per complaint.\nTo be fully transparent with you:\nHi again, thanks for the new numbers, but without faster payment we are really stuck.\nWe have to hold at 45.50 EUR for the 300 ppm and zero chargebacks package.\nSince 60 days payment is fixed on your end, this is the best we can do for the 15,900 pcs volume.\nOur standard Zahlungsziel is 60 days net.\nFaster payment is welcome; we can reflect it in the price.\nWe really want this business - let's make it happen!\nKind regards\nMarek Lis\nExport Manager, Odlewnia Kalwisz Sp. z o.o."
+     },
+     "reasons": [
+      "Hi again, thanks for the new numbers, but without faster payment we are really stuck.",
+      "We have to hold at … EUR for the … ppm and zero chargebacks package.",
+      "Since … days payment is fixed on your end, this is the best we can do for the … pcs volume.",
+      "Our standard Zahlungsziel is … days net.",
+      "Faster payment is welcome; we can reflect it in the price."
+     ]
+    },
+    {
+     "round": 6,
+     "actor": "buyer",
+     "move": {
+      "type": "message",
+      "message_id": null,
+      "subject": "Re: Kalwisz: bearing brackets in red (6)",
+      "body": "Dear Sir or Madam,\n\nthank you for your offer regarding kalwisz: bearing brackets in red.\nWe have reduced the chargeback to EUR 0 per complaint.\nWe understand your position on list prices, so we have structured the packages below around chargebacks, quality commitment.\nThe enquiry fixes payment at 60 days net; the attached packages therefore trade only the negotiable terms.\nEach of the attached packages works for us; please choose the one that suits you best.\nWe commit to a binding volume of 15,900 pcs per year over 12 months.\nWe value our cooperation.\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing",
+      "refs": [],
+      "term_sheets": [
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "ppm_commitment": 300,
+         "chargeback_eur_per_complaint": 0,
+         "unit_price": 43.25
+        }
+       },
+       {
+        "term_sheet_id": null,
+        "terms": {
+         "ppm_commitment": 800,
+         "chargeback_eur_per_complaint": 0,
+         "unit_price": 43.02
+        }
+       }
+      ],
+      "interpreted": {
+       "claims": []
+      },
+      "supplier_id": "sup:70140"
+     },
+     "reasons": []
+    },
+    {
+     "round": 6,
+     "actor": "sup:70140",
+     "move": {
+      "offer_id": "offer:70140-6",
+      "round": 6,
+      "status": "final_offer",
+      "terms": {
+       "unit_price": 45.5,
+       "ppm_commitment": 300,
+       "chargeback_eur_per_complaint": 0.0
+      },
+      "alternatives": [],
+      "missing_fields": [],
+      "claims": [],
+      "claim_results": [],
+      "signals": {
+       "reply_delay_days": 5,
+       "validity_days": 7
+      },
+      "text": "Hello,\n\nThanks for the new numbers, but I really can't drop the price any further without faster payment. We have to stick to 45.50 EUR for the 300 ppm and zero chargebacks package. Since you guys are fixed on 60 days net, this is the absolute best we can do. \n\nSo here is our Angebot: a price of €45.50 per unit, a quality commitment of 300 ppm, a chargeback of €0.00 per complaint. This is our final offer (letztes Angebot). Please decide. This offer stays valid for 7 days.\n\nWe are very eager to work with Hollerau Pumpenwerke GmbH and prove ourselves as a reliable long-term partner for your business!\n\nKind regards\nMarek Lis\nExport Manager, Odlewnia Kalwisz Sp. z o.o."
+     },
+     "reasons": [
+      "Thanks for the new numbers, but I really can't drop the price any further without faster payment.",
+      "We have to stick to … EUR for the … ppm and zero chargebacks package.",
+      "Since you guys are fixed on … days net, this is the absolute best we can do."
+     ]
+    },
+    {
+     "round": 6,
+     "actor": "buyer",
+     "move": {
+      "type": "accept",
+      "offer_id": "offer:70140-6",
+      "supplier_id": "sup:70140"
+     },
+     "reasons": []
+    }
+   ]
+  },
+  "replay_url": "/replay/f3094ddd0af46578"
+ },
+ "backoffice": [
+  {
+   "round": 0,
+   "supplier_id": "sup:70140",
+   "supplier": "Odlewnia Kalwisz Sp. z o.o.",
+   "from": "Export Manager",
+   "to": "team",
+   "text": "quote attached (quote-offer-70140-0.pdf)"
+  },
+  {
+   "round": 1,
+   "supplier_id": "sup:70140",
+   "supplier": "Odlewnia Kalwisz Sp. z o.o.",
+   "from": "Export Manager",
+   "to": "team",
+   "text": "My call: counter."
+  },
+  {
+   "round": 1,
+   "supplier_id": "sup:70140",
+   "supplier": "Odlewnia Kalwisz Sp. z o.o.",
+   "from": "Export Manager",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheets and … cited facts to check; we answer with our offer."
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:70140",
+   "supplier": "Odlewnia Kalwisz Sp. z o.o.",
+   "from": "Export Manager",
+   "to": "team",
+   "text": "My call: counter."
+  },
+  {
+   "round": 2,
+   "supplier_id": "sup:70140",
+   "supplier": "Odlewnia Kalwisz Sp. z o.o.",
+   "from": "Export Manager",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheets and … cited fact to check; we answer with our offer."
+  },
+  {
+   "round": 3,
+   "supplier_id": "sup:70140",
+   "supplier": "Odlewnia Kalwisz Sp. z o.o.",
+   "from": "Export Manager",
+   "to": "team",
+   "text": "My call: counter."
+  },
+  {
+   "round": 3,
+   "supplier_id": "sup:70140",
+   "supplier": "Odlewnia Kalwisz Sp. z o.o.",
+   "from": "Export Manager",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheets and … cited fact to check; we answer with our offer."
+  },
+  {
+   "round": 4,
+   "supplier_id": "sup:70140",
+   "supplier": "Odlewnia Kalwisz Sp. z o.o.",
+   "from": "Export Manager",
+   "to": "team",
+   "text": "My call: counter."
+  },
+  {
+   "round": 4,
+   "supplier_id": "sup:70140",
+   "supplier": "Odlewnia Kalwisz Sp. z o.o.",
+   "from": "Export Manager",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheets; we answer with our offer."
+  },
+  {
+   "round": 5,
+   "supplier_id": "sup:70140",
+   "supplier": "Odlewnia Kalwisz Sp. z o.o.",
+   "from": "Export Manager",
+   "to": "team",
+   "text": "My call: hold."
+  },
+  {
+   "round": 5,
+   "supplier_id": "sup:70140",
+   "supplier": "Odlewnia Kalwisz Sp. z o.o.",
+   "from": "Export Manager",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheets; we answer with our offer."
+  },
+  {
+   "round": 6,
+   "supplier_id": "sup:70140",
+   "supplier": "Odlewnia Kalwisz Sp. z o.o.",
+   "from": "Export Manager",
+   "to": "team",
+   "text": "My call: hold."
+  },
+  {
+   "round": 6,
+   "supplier_id": "sup:70140",
+   "supplier": "Odlewnia Kalwisz Sp. z o.o.",
+   "from": "Export Manager",
+   "to": "team",
+   "text": "Read the buyer's e-mail: … term sheets; we answer with our final offer."
+  },
+  {
+   "round": 6,
+   "supplier_id": "sup:70140",
+   "supplier": "Odlewnia Kalwisz Sp. z o.o.",
+   "from": "Export Manager",
+   "to": "team",
+   "text": "quote attached (quote-offer-70140-6.pdf)"
+  },
+  {
+   "round": 6,
+   "supplier_id": "sup:70140",
+   "supplier": "Odlewnia Kalwisz Sp. z o.o.",
+   "from": "Export Manager",
+   "to": "team",
+   "text": "order confirmation attached (order-confirmation-offer-70140-6.pdf)"
+  }
+ ]
+}

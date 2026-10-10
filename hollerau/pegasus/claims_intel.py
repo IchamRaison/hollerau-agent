@@ -1,8 +1,6 @@
 """Citations proposées, fondées sur citable_claims et les faits locaux du cas."""
 import re
-
 from .intel_bridge import Intelligence
-
 
 class Claims:
     def __init__(self,case,package,intelligence=None):
