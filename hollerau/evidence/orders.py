@@ -7,11 +7,14 @@ price already rose by RAISED_PCT or more in between. Lines at an outdated price 
 KNOWN_ISSUES 6) are skipped. Prices stay per the part's price_unit, as in the data.
 """
 
+import logging
 from datetime import date
 
 from hollerau.contracts import Claim
 
 from .facts import is_bundle, package, price_letter, release_rows
+
+log = logging.getLogger(__name__)
 
 WINDOW_DAYS = 730
 SILENT_TYPES = {"rfq"}  # an RFQ: our order prices would tell the rival bidders what we pay
@@ -92,6 +95,23 @@ def _held_claim(part: str, lines: list[dict], current: float) -> Claim | None:
         ),
         supports="price",
     )
+
+
+def order_history(case: dict, data, facts: dict, supplier: str) -> list[dict]:
+    """The supplier's order lines of the last 24 months for the case's part, oldest first: `id`, `order_date`,
+    `price`, `price_unit`. What a planner may reason on; whether a line may be *cited* stays `orders_claims`' call
+    (never in an RFQ). [] for a bundle (the case price is the kit's, not one part's) or on any failure."""
+    try:
+        if is_bundle(case) or len(case.get("parts") or []) != 1:
+            return []
+        lines = _lines(data, case["parts"][0], supplier, facts)
+        if not lines:
+            return []
+        since = lines[-1]["day"].toordinal() - WINDOW_DAYS
+        return [r for r in lines if r["day"].toordinal() >= since]
+    except Exception:
+        log.exception("%s: order history failed", case.get("case_id") if isinstance(case, dict) else None)
+        return []
 
 
 def orders_claims(case: dict, data, facts: dict) -> list[Claim]:

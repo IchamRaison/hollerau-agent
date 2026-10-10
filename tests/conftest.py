@@ -36,3 +36,17 @@ def sim():
     yield f"http://127.0.0.1:{port}", state, clock
     server.should_exit = True
     thread.join()
+
+
+@pytest.fixture(scope="session")
+def package():
+    """The data package on disk (ARENA_DATA, else data/package); the test is skipped without it."""
+    import os
+    from pathlib import Path
+
+    from arena_kit.data import DataPackage
+
+    root = Path(os.environ.get("ARENA_DATA") or Path(__file__).resolve().parents[1] / "data" / "package")
+    if not (root / "facts.json").is_file():
+        pytest.skip("no data package: run `uv run arena data` or set ARENA_DATA")
+    return DataPackage(root)
