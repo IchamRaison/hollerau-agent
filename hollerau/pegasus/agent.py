@@ -21,7 +21,7 @@ from arena_kit.docs import quote_terms, standard_terms
 from arena_kit.play import latest, live_threads, moves_left, standing
 
 from . import economics as eco
-from . import guard
+from . import guard, relationship
 from .claims import Claims
 
 log = logging.getLogger("pegasus")
@@ -85,7 +85,8 @@ class PegasusAgent:
             sheets = first.get("term_sheets") or []
             open_terms = dict(sheets[0]["terms"]) if sheets else {}
             st = self.state[sid] = {"std": std, "open": open_terms, "offers": 0, "seen": [],
-                                    "drivers": " ".join(m.get("body", "") for m in events if m.get("from") != "buyer")}
+                                    "drivers": " ".join(m.get("body", "") for m in events if m.get("from") != "buyer"),
+                                    "sup": relationship.estimate(case, self.pkg, std)}
             st["anchor"] = self._anchor(case, sid, st)
         return st
 
@@ -222,14 +223,16 @@ class PegasusAgent:
                 if not eco.ok(case, terms, st["std"]):
                     continue
                 c = eco.standing_cost(case, terms, st["std"])
-                if best is None or c < best[0] - 1e-6 or (abs(c - best[0]) < 1e-6 and s == prefer):
-                    best = (c, s, sid_sheet)
+                # rank on C with the estimated relationship cost: the lowest price is not always the cheapest deal
+                rank = c + relationship.cost(case, terms, st["std"], st.get("sup"))
+                if best is None or rank < best[0] - 1e-6 or (abs(rank - best[0]) < 1e-6 and s == prefer):
+                    best = (rank, s, sid_sheet, c)
         if best and best[1] in busy:
             # the best sheet is on a thread whose reply is on its way: wait for it, do not take a
             # dearer one meanwhile (and do not accept a sheet that may be stale)
             return {"wait": True}
-        if best and best[0] < self.c_alt:
-            log.info("%s: accept %s at C=%.0f", case["case_id"], best[2], best[0])
+        if best and best[3] < self.c_alt:
+            log.info("%s: accept %s at C=%.0f", case["case_id"], best[2], best[3])
             return {"supplier_id": best[1], "message": {"action": {"type": "accept", "term_sheet_id": best[2]}}}
         if len(live_threads(threads)) > 1 and prefer:
             # RFQ: this thread is not good enough, keep the others going - a question keeps it alive
@@ -260,6 +263,8 @@ class PegasusAgent:
         cap = st.get("ask") or float("inf")
         for s in picks[:3]:
             p = min(eco.price_for(case, s, target, st["std"]), cap)
+            if st.get("sup"):  # never ask below the bottom of the relationship U
+                p = min(max(p, relationship.floor_price(case, s, st["std"], st["sup"])), cap)
             t = eco.sheet(case, s, p)
             if eco.ok(case, t, st["std"]) and t not in out:
                 out.append(t)
