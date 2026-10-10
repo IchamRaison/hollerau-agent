@@ -14,7 +14,7 @@ Nevil (avec Claude), samedi 10/10/2026. Branche locale `nevil/evidence` de `holl
 | Fichier | Contenu | État |
 |---|---|---|
 | `__init__.py` | Description du couloir | fait |
-| `facts.py` | `package(data)` (cache des seuls succès), `facts_of`, `asked_price`, `stake_price` (min. du prix courant et du prix demandé), `comparable` (une pièce, même `price_unit`), `case_start`, `release_rows`, `check` qui ne lève jamais | fait |
+| `facts.py` | `package(data)` (paquet par défaut propre à chaque fil, cache des seuls succès), `facts_of`, `asked_price`, `stake_price` (min. du prix courant et du prix demandé), `comparable` (une pièce, même `price_unit`), `case_start`, `release_rows`, `check` qui ne lève jamais | fait |
 | `notice.py` | `notice` : préavis de la lettre < préavis du contrat, `supports=effective_date` | fait |
 | `quote.py` | `quote` : devis du cas (`refs` + alternative), même pièce, autre fournisseur, **moins cher que le prix en jeu** | fait |
 | `scorecard.py` | `scorecard` : dernière ligne `sc` (déjà glissante sur 12 mois), carte rouge ou orange, ppm > 1 000 ou OTD < 80 % ; ou carte orange avec OTD < 90 % **et** ppm > 500 (P01 : 85,2 %, 712 ppm) | fait |
@@ -35,7 +35,7 @@ Nevil (avec Claude), samedi 10/10/2026. Branche locale `nevil/evidence` de `holl
 
 ```bash
 cd ~/Projets/hollerau-agent
-PYTHONDONTWRITEBYTECODE=1 uv run --offline pytest -p no:cacheprovider hollerau/evidence/tests -q   # 230 passed
+PYTHONDONTWRITEBYTECODE=1 uv run --offline pytest -p no:cacheprovider hollerau/evidence/tests -q   # 231 passed
 uv run --offline ruff check hollerau/evidence && uv run --offline ruff format --check hollerau/evidence   # propres
 ```
 
@@ -100,6 +100,7 @@ Chaque correctif a son test dans `tests/test_hardening.py`. Contrôle par mutati
 6. **Forecast** : aucun claim « hausse de nos volumes » dans un cas `capacity`, ni pour un fournisseur dont le carnet est plein ou qui alloue (notes, lettres, news : `saturated()`). P09 et P10 n'en ont plus.
 7. **Index** : la hausse est justifiée si la variation pondérée atteint la demande à 1 point près. P17 (+7,95 % contre 8 %) n'a plus de claim index, et `increase_justified` y est vrai.
 8. **Quote et should-cost** : on les compare au plus bas entre prix courant et prix demandé. Ni l'un ni l'autre n'est cité ni utilisé dans `estimate_supplier` si son `price_unit` diffère de celui de la pièce, ou si le cas est un kit (`bundling` ou plusieurs pièces).
+9. **Fils** : le paquet par défaut est propre à chaque fil (`threading.local`). Un seul `DataPackage` partagé entre des parties jouées de front plantait (R1, `no such table: None` : une connexion SQLite et un index construit au premier appel, sans verrou). Un paquet passé en `data` reste à l'appelant : ne pas le partager entre fils. Test : `test_default_package_is_one_per_thread`.
 
 Restent ouverts, hors de la liste demandée :
 - `_grid` ignore le standard du devis pour un champ négociable **sans** options : l'incoterm partirait du plus cher.

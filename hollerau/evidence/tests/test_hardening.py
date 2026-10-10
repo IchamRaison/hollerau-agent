@@ -1,10 +1,12 @@
 """Fixes after the /review of 10/10: never raise, must-haves the grid cannot test, null facts, Sunday release,
-no cached failure, forecast in capacity cases, index margin, quotes and should-cost that are not comparable."""
+no cached failure, forecast in capacity cases, index margin, quotes and should-cost that are not comparable,
+no default package shared between threads."""
 
 import copy
 import json
 import logging
 import math
+import threading
 from pathlib import Path
 
 import pytest
@@ -185,7 +187,7 @@ def test_a_failed_load_is_not_cached(data, monkeypatch):
         return data
 
     monkeypatch.setattr(facts_mod, "load_package", flaky)
-    monkeypatch.setattr(facts_mod, "_loaded", None)
+    monkeypatch.setattr(facts_mod, "_local", threading.local())
     assert facts_of(CASES["case:P01"]) == {}  # first call: no package yet
     assert compile_case(CASES["case:P01"]).reference_price == 138.55  # second call loads it: D3 works
     assert len(calls) == 2
@@ -257,3 +259,50 @@ def test_should_cost_in_another_price_unit_is_not_used(data):
     assert ids_of(forecast_cost_news_claims(case, data, facts), "cost:") == []
     supplier = estimate_supplier(case, data=data)
     assert supplier["estimated"] and not math.isclose(supplier["full_cost"], 2.0)
+
+
+# 9. The default package is never shared between threads (R1: parallel cases crashed on one SQLite connection)
+
+THREADS, ROUNDS = 6, 4
+
+
+def numbers(case, data=None):
+    """What the lane computes from the package (Economics also holds functions, which do not compare)."""
+    e = compile_case(case, data=data)
+    return facts_of(case, data), e.levers, e.best_package, e.c_alt, e.reference_price
+
+
+def one_round(case):
+    """THREADS threads released at once, each on the default package of a fresh process."""
+    start, errors, packages, results = threading.Barrier(THREADS), [], [], []
+
+    def work():
+        start.wait()
+        try:
+            p = facts_mod.package()
+            packages.append(p)
+            p.ids("idx:")
+            p.query("SELECT series_id, weight FROM cost_drivers WHERE part_id = ?", ("part:310010",))
+            results.append(numbers(case))  # on the default package
+        except Exception as e:  # noqa: BLE001 - the test reports any failure of any thread
+            errors.append(f"{type(e).__name__}: {e}")
+
+    threads = [threading.Thread(target=work) for _ in range(THREADS)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    return errors, packages, results
+
+
+def test_default_package_is_one_per_thread(data, monkeypatch):
+    """Like runner-repro/hammer.py: threads released at once build the ID index and query the default package.
+    With one package shared by all threads this fails in nearly every round (no such table: None, IndexError)."""
+    case = CASES["case:P01"]
+    expected = numbers(case, data)
+    for _ in range(ROUNDS):
+        monkeypatch.setattr(facts_mod, "_local", threading.local())  # a fresh process: nothing loaded yet
+        errors, packages, results = one_round(case)
+        assert errors == []
+        assert len({id(p) for p in packages}) == THREADS
+        assert results == [expected] * THREADS

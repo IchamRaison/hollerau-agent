@@ -10,6 +10,7 @@ Never raise out of this lane: a fact with a missing or null field is skipped, a 
 import csv
 import logging
 import os
+import threading
 from datetime import date
 from pathlib import Path
 from statistics import mean
@@ -28,7 +29,10 @@ REL_TOL = 0.005  # ±0.5 %, at least 0.01
 MAX_ORDERS = 8
 BUNDLE_TYPES = {"bundling"}
 
-_loaded: DataPackage | None = None  # only a package that loaded is kept: a failure is retried on the next call
+# The default package, one per thread: a DataPackage holds a single SQLite connection and a lazily built ID index,
+# neither safe to share between the agents of cases played in parallel (R1: "no such table: None"). Only a package
+# that loaded is kept: a failure is retried on the next call. A package passed in is the caller's: never shared here.
+_local = threading.local()
 
 
 def load_package() -> DataPackage:
@@ -40,16 +44,16 @@ def load_package() -> DataPackage:
 
 def package(data: DataPackage | None = None) -> DataPackage | None:
     """`data` when given (pass it in the final: package + Sunday release), else the package on disk, else None."""
-    global _loaded
     if data is not None:
         return data
-    if _loaded is None:
+    loaded = getattr(_local, "package", None)
+    if loaded is None:
         try:
-            _loaded = load_package()
+            loaded = _local.package = load_package()
         except FileNotFoundError:
             log.warning("no data package found: facts are the case's own only")
             return None
-    return _loaded
+    return loaded
 
 
 def facts_of(case: dict, data: DataPackage | None = None) -> dict:
