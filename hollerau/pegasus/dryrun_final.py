@@ -16,13 +16,12 @@ os.environ["PEGASUS_MEMORY"] = tempfile.mktemp(suffix=".json")
 from arena_kit.cli import load_env  # noqa: E402
 
 load_env()
-import pegasus.memory as memory  # noqa: E402
-
+import hollerau.pegasus.memory as memory  # noqa: E402
 from arena_kit.data import DataPackage  # noqa: E402
 
 memory.FILE = Path(os.environ["PEGASUS_MEMORY"])
-from pegasus.agent import PegasusAgent  # noqa: E402
-from pegasus.play import play_waves  # noqa: E402
+from hollerau.pegasus.agent import PegasusAgent  # noqa: E402
+from hollerau.pegasus.play import play_waves  # noqa: E402
 
 _CASES_FILE = os.environ.get("PEGASUS_CASES") or str(Path(__file__).resolve().parents[2] / "tests" / "fixtures" / "cases" / "practice.json")
 CASES = {c["case_id"]: c for c in json.load(open(_CASES_FILE))}
