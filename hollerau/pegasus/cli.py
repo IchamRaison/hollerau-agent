@@ -34,11 +34,19 @@ def main(argv=None):
                         datefmt="%H:%M:%S")
     logging.getLogger("httpx").setLevel(logging.WARNING)
     data_dir = os.environ.get("ARENA_DATA", "data/package")
-    DataPackage(data_dir)  # fail now, before any session opens, if the package is missing
+    base = DataPackage(data_dir)  # fail now, before any session opens, if the package is missing
+    index = base._ids  # the ID index, built once here: read-only from now on, so the agents can share it
     playbook = json.load(open(a.playbook)) if a.playbook else {}
-    # One package per agent: a DataPackage holds a single SQLite connection and a lazily built
-    # index (`_ids`), neither safe to share between the parallel cases (R1: "no such table: None").
-    new_agent = lambda: PegasusAgent(DataPackage(data_dir), playbook, a.push_after_final)  # noqa: E731
+
+    def package():
+        """One package per agent: a DataPackage holds a single SQLite connection, not safe to share
+        between the parallel cases (R1: "no such table: None"). The ID index is the base's: built
+        by each agent at once, it took 3.5 s with 6 agents and 14 s with 10 (0.02 s shared)."""
+        p = DataPackage(data_dir)
+        p.__dict__["_ids"] = index  # a cached_property lives in the instance's __dict__
+        return p
+
+    new_agent = lambda: PegasusAgent(package(), playbook, a.push_after_final)  # noqa: E731
     n = len(a.cases) or 10
     require_validation(f"pegasus {a.set} {' '.join(a.cases)}".strip(), n, quota=a.set == "practice")
     client = ArenaClient()
