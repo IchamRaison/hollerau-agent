@@ -103,7 +103,6 @@ def test_p09_delivery_card(data):
 
 def test_green_card_is_not_cited(data):
     assert run(scorecard_claims, "case:P02", data) == []  # green, 273 ppm
-    assert run(scorecard_claims, "case:P01", data) == []  # amber but 712 ppm and 85.2 % on time
 
 
 def test_scorecard_check_uses_the_mean():
@@ -412,3 +411,17 @@ def test_one_failing_sub_family_keeps_the_others(data, monkeypatch):
 
 def ids_of_prefix(claims, prefix):
     return [c.ids[0] for c in claims if c.ids[0].startswith(prefix)]
+
+
+def test_amber_card_weak_on_both_counts_is_cited(data):
+    """P01: amber, 85.2 % on time and 712 ppm - neither past the strong limits, both weak at once."""
+    [c] = run(scorecard_claims, "case:P01", data)
+    assert c.ids == ["sc:70110@2026Q3"] and c.unit == "%" and c.figure == 85.2 and c.supports == "other"
+
+
+def test_amber_card_weak_on_one_count_only_is_not_cited(data):
+    case = copy.deepcopy(CASES["case:P01"])
+    case["facts"] = {"sc:70110@2026Q4": {"supplier": "sup:70110", "ppm": 400, "otd_pct": 85.0, "colour": "amber"}}
+    assert scorecard_claims(case, data, facts_of(case, data)) == []  # 400 ppm: quality is fine
+    case["facts"]["sc:70110@2026Q4"] |= {"ppm": 712, "otd_pct": 91.0}
+    assert scorecard_claims(case, data, facts_of(case, data)) == []  # 91 % on time: delivery is fine

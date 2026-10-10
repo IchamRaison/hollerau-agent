@@ -17,14 +17,15 @@ Nevil (avec Claude), samedi 10/10/2026. Branche locale `nevil/evidence` de `holl
 | `facts.py` | `package(data)` (cache des seuls succès), `facts_of`, `asked_price`, `stake_price` (min. du prix courant et du prix demandé), `comparable` (une pièce, même `price_unit`), `case_start`, `release_rows`, `check` qui ne lève jamais | fait |
 | `notice.py` | `notice` : préavis de la lettre < préavis du contrat, `supports=effective_date` | fait |
 | `quote.py` | `quote` : devis du cas (`refs` + alternative), même pièce, autre fournisseur, **moins cher que le prix en jeu** | fait |
-| `scorecard.py` | `scorecard` : dernière ligne `sc` (déjà glissante sur 12 mois), carte rouge ou orange, ppm > 1 000 ou OTD < 80 % | fait |
+| `scorecard.py` | `scorecard` : dernière ligne `sc` (déjà glissante sur 12 mois), carte rouge ou orange, ppm > 1 000 ou OTD < 80 % ; ou carte orange avec OTD < 90 % **et** ppm > 500 (P01 : 85,2 %, 712 ppm) | fait |
+| `compare_pegasus.py` | Comparatif hors ligne avec `hollerau/pegasus/` sur les 19 cas (`python -m hollerau.evidence.compare_pegasus`) | fait |
 | `index.py` | `index` : fenêtre de 12 mois, une série par claim ; hausse justifiée si pondéré ≥ demande − 1 point | fait |
 | `orders.py` | `orders` : première et dernière commande des 24 derniers mois si le prix a déjà monté de 3 % ou plus ; sinon, sans lettre de prix, la commande la moins chère et la dernière, toutes deux au prix courant ou en dessous ; jamais dans un kit ; sans les lignes `stale_condition` | fait |
 | `forecast_cost_news.py` | `forecast_cost_news` : should-cost (marge > 15 %), lettre du fournisseur « matière couverte » (`doc:`, sans lettre de prix, sans chiffre, `supports=price`), prévision en hausse ≥ 5 %, news qui affaiblissent le fournisseur | fait |
 | `compile.py` | `compile_evidence(case, data)` : notice, quote, scorecard, index, orders, forecast_cost_news, chaque claim vérifié, chaque ID une seule fois | fait |
 | `economics.py` | `compile_case(case, standard=None, data=None)`, `lever_price`, `estimate_supplier`, `relationship_risk` | fait, D3 appliquée |
 | `signals.py` | `signals(case, data)` pour le planificateur, jamais envoyé comme claim ; `price_floor_hint` (plafonné), `price_floor_confidence` = `low` et `price_floor_reason` en `stabilise` / `secure_supply` | fait |
-| `tests/` | `test_evidence.py` (17), `test_compile_case.py` (61), `test_families.py` (72), `test_hardening.py` (22) | **172 verts** |
+| `tests/` | `test_evidence.py` (17), `test_compile_case.py` (61), `test_families.py` (74), `test_hardening.py` (22) | **174 verts** |
 | `PLAN-compile_case.md` | Plan de `compile_case` + rapport `/plan-eng-review` (D1, D2) | revu, codé |
 
 `Claim` et `Economics` viennent de `hollerau.contracts` (non modifié).
@@ -33,7 +34,7 @@ Nevil (avec Claude), samedi 10/10/2026. Branche locale `nevil/evidence` de `holl
 
 ```bash
 cd ~/Projets/hollerau-agent
-PYTHONDONTWRITEBYTECODE=1 uv run --offline pytest -p no:cacheprovider hollerau/evidence/tests -q   # 172 passed
+PYTHONDONTWRITEBYTECODE=1 uv run --offline pytest -p no:cacheprovider hollerau/evidence/tests -q   # 174 passed
 uv run --offline ruff check hollerau/evidence && uv run --offline ruff format --check hollerau/evidence   # propres
 ```
 
@@ -130,6 +131,15 @@ Chaque correctif a son test, dans `tests/test_families.py`, section « fixes aft
 7. **`forecast_cost_news`** : un `try` par sous-famille (should-cost, lettre, forecast, news). Une sous-famille en échec est journalisée, les autres comptent.
 
 Non traité, par choix : la recherche au centime reste proportionnelle au prix (1,3 s vers 500 000 €, 10 ms pour les prix réels).
+
+## Comparatif hors ligne avec Pegasus (`compare_pegasus.py`)
+
+Sans aucune session. Les deux meilleurs paquets sont évalués au même prix (prix demandé, sinon prix courant) avec `arena_kit.cost.total_cost`.
+- **Économie : égalité sur les 19 cas** (même C, must-haves respectés des deux côtés). Les seuls écarts portent sur `lead_time_days` (P05, P06, P09, P10, P12), entre des valeurs qui coûtent la même chose.
+- **Claims** : Pegasus 56, nous 52 (53 depuis la carte orange de P01). Tous passent `check()`, qui ne vérifie que les chiffres, pas la pertinence.
+  - L'écart vient de claims que nous écartons volontairement : scorecards verts à OTD sous 90 %, should-cost au-dessus du prix courant ou dans sa marge d'erreur, prévisions de volume en cas capacité ou sous 5 %.
+  - Pegasus n'a ni `orders`, ni lettre de couverture, ni news, ni séries en hausse modérée.
+- Suite donnée : une carte orange faible sur les deux critères à la fois est désormais citée (P01).
 
 ## À voir avec Icham
 
