@@ -275,14 +275,11 @@ def test_a_turn_the_model_misses_is_covered_by_the_fallback_and_marked(sim, tmp_
     result = play_case(RemoteTable(team(url)), "case:S01", pilot, journal=Journal(tmp_path / "d.jsonl"))
     assert result["deal"]
     decisions = [json.loads(line) for line in (tmp_path / "d.jsonl").read_text().splitlines() if '"decision"' in line]
-    assert [e["source"] for e in decisions[:3]] == ["fallback", "model", "fallback"]
-    assert (
-        decisions[0]["batch"]["emails"][0]["message"]["term_sheets"] == []
-    )  # first move missed: a question, no number
-    repeated = decisions[2]["batch"]["emails"][0]["message"]
-    assert (
-        repeated["term_sheets"] == decisions[1]["batch"]["emails"][0]["message"]["term_sheets"]
-    )  # our last sheets, unchanged
+    assert [e["source"] for e in decisions] == ["fallback", "model", "fallback"]
+    # first move missed, no coded agent: a question, never a number of ours
+    assert decisions[0]["batch"]["emails"][0]["message"]["term_sheets"] == []
+    # the supplier agreed to the model's sheet; the model missed the next turn: the fallback signs it
+    assert decisions[2]["batch"]["close"]["message"]["action"]["type"] == "accept"
 
 
 def test_without_time_or_messages_the_case_is_closed_never_left_open():
@@ -290,6 +287,46 @@ def test_without_time_or_messages_the_case_is_closed_never_left_open():
     assert closing_batch(state)["close"]["message"]["action"] == {"type": "accept", "term_sheet_id": "offer:DEMO-F1-1"}
     state.case["round_limit"] = 1  # no message left in the thread
     assert fallback_batch(state, state.ready())["close"]["message"]["action"]["type"] == "accept"
+
+
+def test_the_fallback_signs_at_the_suppliers_last_word_instead_of_pushing():
+    state = d01(with_reply=True)
+    sid = "sup:DEMO-F1"
+    state.by_model.add(sid)
+    assert fallback_batch(state, state.ready())["emails"][0]["message"]["body"]  # open: our last sheets again
+    state.threads[sid][-1]["status"] = "final_offer"
+    batch = fallback_batch(state, state.ready())
+    assert not batch["emails"] and batch["close"]["message"]["action"]["type"] == "accept"
+
+
+def test_a_thread_the_model_never_played_is_left_to_the_coded_agent(sim, tmp_path):
+    """The model is absent for the whole game: the coded agent plays it, as it does on its own."""
+    from arena_kit.data import DataPackage
+    from hollerau.pegasus.agent import PegasusAgent
+
+    data = Path("data/package")
+    if not data.exists():
+        pytest.skip("needs the data package")
+    url, _, _ = sim
+    pilot = Scripted(lowball_then_accept, slow=set(range(1, 40)))
+    result = play_case(
+        RemoteTable(team(url)),
+        "case:S01",
+        pilot,
+        journal=Journal(tmp_path / "d.jsonl"),
+        coded=PegasusAgent(DataPackage(data)),
+    )
+    decisions = [json.loads(line) for line in (tmp_path / "d.jsonl").read_text().splitlines() if '"decision"' in line]
+    assert {e["source"] for e in decisions} == {"fallback"}
+    assert result["deal"] and result["score"] > 0  # a missing model must not cost the deal
+
+
+def test_conversation_ids_are_never_reused_across_launches():
+    from hollerau.dsh.runtime import Pilot
+
+    a, b = Pilot(home="data/dsh/test"), Pilot(home="data/dsh/test")
+    assert a._conversation("case:S01") != b._conversation("case:S01")
+    assert a._conversation("case:S01") == a._conversation("case:S01")  # one conversation per case within a launch
 
 
 def test_a_launch_on_a_hosted_arena_is_refused_without_validation(monkeypatch):

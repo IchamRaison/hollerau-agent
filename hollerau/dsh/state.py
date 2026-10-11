@@ -23,6 +23,7 @@ class CaseState:
         self.arrived = {sid: clock() for sid in threads}  # when the supplier's latest e-mail came in
         self.errors = {}  # supplier -> what the arena last refused, shown to the model once
         self.hypotheses = []  # the model's revisable notes: {"id", "text", "status", "sources", ...}
+        self.by_model = set()  # suppliers the model has written to (the coded fallback did not play every move)
         self.result = None
         self.std, self.estimate = {}, {}
         facts = getattr(package, "facts", None) or {}

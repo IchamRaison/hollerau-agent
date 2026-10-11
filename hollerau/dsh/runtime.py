@@ -64,6 +64,8 @@ class Pilot:
         self.desk, self.tools, self.harness = Desk(), None, None
         self.lock = threading.Lock()
         self.running, self.generation = {}, {}
+        # conversations are stored in the harness home: an id must never be reused across launches
+        self.run_id = time.strftime("%Y%m%dT%H%M%S", time.gmtime()) + "-" + os.urandom(3).hex()
 
     # -- lifecycle ---------------------------------------------------------------------------
     def _wrapper(self):
@@ -143,7 +145,7 @@ class Pilot:
                 log.warning("%s: previous turn still running - fresh conversation", key)
             gen = self.generation.get(key, 0)
         safe = "".join(c if c.isalnum() else "-" for c in key)
-        return f"{safe}-{gen}" if gen else safe
+        return f"{self.run_id}-{safe}-{gen}"
 
     def _run(self, session_id, text, decision):
         t0 = time.monotonic()

@@ -71,13 +71,36 @@ def closing_batch(state):
 
 
 def fallback_batch(state, ready, coded=None):
-    """Keep the threads alive without the model: repeat our last sheets (what a timeout would do,
-    without the lost patience); on a first move the coded agent's opening if one is given, else a
-    question. A thread with no message left can only be closed."""
+    """A decision without the model, so that no thread times out.
+
+    A thread the model never wrote to is played by the coded agent (`coded`), which then has made
+    every move of it and decides as it does on its own - including when to accept. Otherwise:
+    at the supplier's last word (`final_offer`, `agreed`) or with one message left, close on the
+    cheapest signable sheet rather than push - a push there loses the deal; else repeat our last
+    sheets, which is what a timeout would do without the lost patience. A first move with no coded
+    agent is a question, never a number of ours."""
     emails = []
     for sid in ready:
-        if state.moves_left(sid) <= 0:
-            continue
+        if coded is not None and sid not in state.by_model:
+            move = None
+            try:
+                move = coded.decide(state.case, state.threads, sid, busy=state.inflight - {sid})
+            except Exception:
+                log.exception("%s %s: coded fallback failed", state.case["case_id"], sid)
+            message = (move or {}).get("message")
+            if message and message.get("action"):
+                return {
+                    "emails": [],
+                    "close": {"supplier_id": move["supplier_id"], "message": message},
+                    "note": "fallback: coded agent closes",
+                }
+            if message and move.get("supplier_id") == sid:
+                emails.append({"supplier_id": sid, "message": message})
+                continue
+            if move and move.get("wait"):
+                continue
+        if state.status(sid) in ("final_offer", "agreed") or state.moves_left(sid) <= 1:
+            return closing_batch(state)
         last = next(
             (m for m in reversed(state.threads[sid]) if m.get("from") == "buyer" and m.get("term_sheets")), None
         )
@@ -92,15 +115,6 @@ def fallback_batch(state, ready, coded=None):
                     },
                 }
             )
-            continue
-        move = None
-        if coded is not None:
-            try:
-                move = coded.decide(state.case, state.threads, sid)
-            except Exception:
-                log.exception("%s %s: coded fallback failed", state.case["case_id"], sid)
-        if move and move.get("message") and not move["message"].get("action") and move.get("supplier_id") == sid:
-            emails.append({"supplier_id": sid, "message": move["message"]})
         else:
             emails.append(
                 {"supplier_id": sid, "message": {"subject": "Your quote", "body": OPENING_QUESTION, "term_sheets": []}}
@@ -112,8 +126,8 @@ def fallback_batch(state, ready, coded=None):
 
 def play_case(table, case_id, pilot, package=None, deadline=None, journal=None, coded=None):
     """Play one case to its end and return the arena's result. `deadline`: a Live Final wave's cap
-    (time.time(), or a function returning it). `coded`: a coded agent used for a first move the
-    model missed."""
+    (time.time(), or a function returning it). `coded`: the coded agent that plays a thread the
+    model never wrote to when the model misses a turn."""
     journal = journal or Journal()
     case, threads = table.open(case_id)
     if getattr(table, "done", None):
@@ -234,7 +248,7 @@ def play_case(table, case_id, pilot, package=None, deadline=None, journal=None, 
             batch = decision.batch
         else:
             source = "fallback"
-            batch = fallback_batch(state, state.ready(), coded if turn == 1 else None)
+            batch = fallback_batch(state, state.ready(), coded)
         journal.write(
             "decision",
             case=case_id,
@@ -254,7 +268,8 @@ def play_case(table, case_id, pilot, package=None, deadline=None, journal=None, 
             continue
         if not batch["emails"]:
             # the model answered nobody: do not spin on the same state
-            fb = fallback_batch(state, state.ready())
+            source = "fallback"
+            fb = fallback_batch(state, state.ready(), coded)
             journal.write("decision", case=case_id, turn=turn, source="fallback", note="empty decision", batch=fb)
             if fb is None:
                 break
@@ -267,6 +282,8 @@ def play_case(table, case_id, pilot, package=None, deadline=None, journal=None, 
             sid = mail["supplier_id"]
             if sid not in state.ready():
                 continue
+            if source == "model":
+                state.by_model.add(sid)
             state.sent(sid, mail["message"])
             threading.Thread(target=send, args=(sid, mail["message"], t0), name=f"send-{sid}", daemon=True).start()
     result = box.get("result") or table.result()
