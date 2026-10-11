@@ -38,6 +38,13 @@ arena unless the launch was validated by the team lead: `hollerau`, `lab.experim
 run without `HOLLERAU_VALIDATED="<who validated, for what>"`. The local simulator is free.
 Do not call `uv run arena play|run` directly against arena.tacto.ai: it bypasses this check.
 
+## DSH pilot (LLM-led buyer)
+
+A second agent, in which the model conducts the whole case and the code computes, validates and
+executes: `uv run pegasus-dsh preflight --offline | sandbox | practice | final`. It recognises a
+supplier by comparing the live thread with a record of every supplier we have played. What it is,
+how to run it, what is measured and what is not: `hollerau/dsh/README.md`.
+
 ## Approach
 
 `docs/approach.md` (the short description for the submission) and the team vault design doc.

@@ -10,11 +10,14 @@ dependencies = ["httpx>=0.27", "openpyxl>=3.1", "pypdf>=5"]
 anthropic = ["anthropic>=1.0"]
 mcp = ["mcp>=2.3,<3"]
 sim = ["fastapi>=0.115", "uvicorn>=0.30"]
+# DeepSeek Harness drives the LLM loop of the DSH pilot (hollerau/dsh). Preview releases only: pin exactly.
+dsh = ["deepseek-harness-sdk==0.1.5rc1", "mcp>=2.3,<3", "uvicorn>=0.30"]
 
 [project.scripts]
 arena = "arena_kit.cli:main"
 arena-sim = "arena_kit.sim:main"
 hollerau = "hollerau.cli:main"
+pegasus-dsh = "hollerau.dsh.cli:main"
 
 [dependency-groups]
 dev = ["pytest>=8", "ruff>=0.6"]
@@ -26,6 +29,7 @@ build-backend = "hatchling.build"
 [tool.ruff]
 line-length = 120
 target-version = "py312"
+extend-exclude = ["analysis/dsh"]  # exploratory scripts, kept as they were run
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]

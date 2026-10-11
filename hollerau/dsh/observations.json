@@ -1,0 +1,98 @@
+[
+ {
+  "case_id": "case:D01",
+  "type": "price_increase",
+  "category_goal": "stabilise",
+  "suppliers": 1,
+  "games": 152,
+  "best_acceptable_deal_below_opening_pct": 9.0
+ },
+ {
+  "case_id": "case:D02",
+  "type": "rfq",
+  "category_goal": "leverage",
+  "suppliers": 2,
+  "games": 89,
+  "best_acceptable_deal_below_opening_pct": 26.9
+ },
+ {
+  "case_id": "case:P01",
+  "type": "price_increase",
+  "category_goal": "stabilise",
+  "suppliers": 1,
+  "games": 19,
+  "best_acceptable_deal_below_opening_pct": 4.9
+ },
+ {
+  "case_id": "case:P02",
+  "type": "price_increase",
+  "category_goal": "stabilise",
+  "suppliers": 1,
+  "games": 21,
+  "best_acceptable_deal_below_opening_pct": 2.1
+ },
+ {
+  "case_id": "case:P03",
+  "type": "renewal",
+  "category_goal": "stabilise",
+  "suppliers": 1,
+  "games": 18,
+  "best_acceptable_deal_below_opening_pct": 7.9
+ },
+ {
+  "case_id": "case:P04",
+  "type": "renewal",
+  "category_goal": "routine",
+  "suppliers": 1,
+  "games": 16,
+  "best_acceptable_deal_below_opening_pct": 1.2
+ },
+ {
+  "case_id": "case:P05",
+  "type": "rfq",
+  "category_goal": "leverage",
+  "suppliers": 3,
+  "games": 19,
+  "best_acceptable_deal_below_opening_pct": 26.9
+ },
+ {
+  "case_id": "case:P07",
+  "type": "bundling",
+  "category_goal": "routine",
+  "suppliers": 1,
+  "games": 20,
+  "best_acceptable_deal_below_opening_pct": 23.5
+ },
+ {
+  "case_id": "case:P08",
+  "type": "raw_material",
+  "category_goal": "leverage",
+  "suppliers": 1,
+  "games": 17,
+  "best_acceptable_deal_below_opening_pct": 15.5
+ },
+ {
+  "case_id": "case:P10",
+  "type": "capacity",
+  "category_goal": "secure_supply",
+  "suppliers": 1,
+  "games": 19,
+  "best_acceptable_deal_below_opening_pct": 31.2
+ },
+ {
+  "case_id": "case:P11",
+  "type": "quality",
+  "category_goal": "quality_first",
+  "suppliers": 1,
+  "games": 16,
+  "best_acceptable_deal_below_opening_pct": 11.6
+ },
+ {
+  "case_id": "case:P18",
+  "type": "raw_material",
+  "category_goal": "leverage",
+  "suppliers": 1,
+  "games": 128,
+  "best_acceptable_deal_below_opening_pct": 24.6
+ }
+]
