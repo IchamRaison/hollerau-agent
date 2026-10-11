@@ -226,6 +226,62 @@ def test_other_cases_of_the_same_kind_are_a_prior_and_never_include_the_case_pla
     assert all("case_id" not in r for r in seen["cases_of_this_category_goal"]) and mine["games"] > 0
 
 
+def test_a_suppliers_repeated_sentences_are_recognised_with_what_followed_them_elsewhere():
+    from hollerau.dsh import patterns
+
+    assert patterns.normalise("We can do 16.10 per unit for 14 days net") == "We can do … per unit for … days net"
+    boss = "We need to clarify this internally - we will come back to you on price."
+    entry = patterns.recognise(boss)
+    assert entry and entry["cue"] == boss and entry["suppliers"] >= 2
+    assert patterns.recognise("We need to clarify this internally and will come back to you on price.")["cue"] == boss
+    assert patterns.recognise("Viele Grüße aus der Gießerei") is None
+    events = [
+        {"from": "s", "body": "Our quote."},
+        {"from": "buyer", "body": "x"},
+        {"from": "s", "body": f"Hallo,\n{boss} I can only do €14.70."},
+    ]
+    said = patterns.signals(events, skip_case="case:D02")
+    assert [r["its_reply_number"] for r in said] == [1] and said[0]["it_said"][0]["sentence"] == boss
+    rec = said[0]["it_said"][0]["what_followed_in_our_records"]
+    assert (
+        rec["replies_in_our_records"] >= 5 and rec["its_next_step_per_eur_of_our_move"] > 1
+    )  # the big step comes next
+    everywhere = patterns.record(entry)["replies_in_our_records"]
+    assert rec["replies_in_our_records"] < everywhere  # the games of the case being played are left out
+
+
+def test_the_ledger_pairs_each_of_our_moves_with_the_step_that_answered_it():
+    state = d01(with_reply=True)
+    sid = "sup:DEMO-F1"
+    ours = {"unit_price": 50.4, "payment_days": 60, "contract_months": 24, "effective_date": "2026-12-01"}
+    state.sent(sid, {"body": "b", "term_sheets": [{"terms": ours}]})
+    state.replied(
+        sid,
+        {
+            "from": "s",
+            "status": "open",
+            "body": "ok",
+            "term_sheets": [{"term_sheet_id": "offer:DEMO-F1-2", "terms": {**ours, "unit_price": 51.5}}],
+        },
+    )
+    ex = economics.movement(state.case, state.threads[sid], state.std[sid])["exchanges"]
+    assert ex[0]["our_move_eur"] is None and ex[0]["its_step_eur"] > 0  # its answer to our first ask
+    assert ex[1]["our_move_eur"] > 0 and ex[1]["its_step_eur"] > 0
+    assert ex[1]["its_step_per_eur_of_our_move"] == round(ex[1]["its_step_eur"] / ex[1]["our_move_eur"], 2)
+
+
+def test_an_argument_given_to_two_bidders_or_twice_is_flagged_before_it_is_wasted():
+    state = d02()
+    body = "Our should-cost benchmark (cost:part:SH-220) supports a lower price. We propose EUR 13.00 per unit."
+    sheet = {"unit_price": 13.0, "payment_days": 14, "lead_time_days": 42, "incoterm": "EXW"}
+    both = [{"supplier_id": s, "subject": "x", "body": body, "term_sheets": [sheet]} for s in state.threads]
+    out = validation.prepare(state, {"emails": both})
+    assert out["ok"] and any("cost:part:SH-220 is cited to" in d and "once per case" in d for d in out["diagnostics"])
+    state.sent("sup:DEMO-J1", both[0])
+    again = validation.prepare(state, {"emails": [both[1]]})
+    assert any("already cited in this case" in d for d in again["diagnostics"])
+
+
 # -- validation -------------------------------------------------------------------------------------
 def mail(sid, price=50.0, body=None, **over):
     terms = {"unit_price": price, "payment_days": 60, "contract_months": 24, "effective_date": "2026-12-01", **over}

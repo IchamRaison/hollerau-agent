@@ -10,7 +10,7 @@ import hashlib
 import json
 import re
 
-from . import economics
+from . import economics, evidence
 
 MAX_SUBJECT, MAX_BODY, MAX_SHEETS, MAX_REFS = 300, 8000, 3, 20
 ID_RE = re.compile(r"\b(?:idx|quote|sc|qn|po|cost|fc|news|doc|ctr|offer):[A-Za-z0-9_.:@/-]*[A-Za-z0-9]")
@@ -116,6 +116,8 @@ def _email(state, mail, seen, errors, diagnostics, costs):
             errors.append(
                 f"{where}: {ref} is not a known data ID - an unknown ID is counted as contradicted and costs trust"
             )
+        elif ref in evidence.cited(state) and not ref.startswith("offer:"):
+            diagnostics.append(f"{where}: {ref} was already cited in this case - it will be answered `duplicate`")
         elif ref not in state.facts and not ref.startswith("offer:"):
             diagnostics.append(
                 f"{where}: {ref} is named by the case but its value is not in our data - "
@@ -208,6 +210,17 @@ def prepare(state, decision):
                 batch["emails"].append(m)
         if close and not emails:
             batch["close"] = _close(state, close if isinstance(close, dict) else {}, errors, diagnostics)
+        shared = {}
+        for m in batch["emails"]:
+            for ref in set(m["message"].get("refs") or []) | set(ID_RE.findall(m["message"]["body"])):
+                if not ref.startswith("offer:"):
+                    shared.setdefault(ref, []).append(m["supplier_id"])
+        for ref, to in sorted(shared.items()):
+            if len(to) > 1:
+                diagnostics.append(
+                    f"{ref} is cited to {to}: an argument counts once per case - the second supplier will answer "
+                    "`duplicate`; give each argument to one supplier"
+                )
         unanswered = [s for s in state.ready() if s not in seen] if emails else []
         if unanswered:
             diagnostics.append(

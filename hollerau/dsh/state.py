@@ -9,7 +9,7 @@ from arena_kit.play import ENDED, MOVE_LIMIT_S, latest
 
 from ..pegasus import economics as eco
 from ..pegasus.agent import direct_cost, supplier_reference
-from . import economics, evidence
+from . import economics, evidence, patterns
 
 BODY_CHARS = 3000  # of a supplier e-mail shown in the snapshot; `read_thread` gives all of it
 
@@ -190,6 +190,9 @@ class CaseState:
         signals = self.records.signals(sid)
         if signals:
             view["what_our_records_say_about_this_supplier"] = signals
+        said = patterns.signals(events, skip_case=self.case["case_id"])
+        if said:
+            view["signals_it_gave"] = said
         arithmetic = evidence.stated_drivers(events, self.case["buyer"].get("current_unit_price"))
         if arithmetic:
             view["its_own_cost_arithmetic"] = arithmetic

@@ -188,8 +188,8 @@ def _asked(case, msg, std, estimate):
 
 def movement(case, events, std=None, estimate=None):
     """How far each side has moved, in our cost units. For every message that carried term sheets,
-    the cheapest of them for us. `supplier_since_our_last_move` > 0: it came towards us after our
-    last message; 0: it held; < 0: it went backwards."""
+    the cheapest of them for us. `exchanges` pairs each of our moves with the supplier's step that
+    answered it: the supplier's pattern shows in how its step relates to ours."""
     ours = [
         (i, c)
         for i, m in enumerate(events)
@@ -205,6 +205,25 @@ def movement(case, events, std=None, estimate=None):
         return out
     now = theirs[-1][1]
     out["supplier_total_move_eur"] = round(theirs[0][1] - now, 2)
+    exchanges, ask, offer, pending = [], None, None, None
+    for m in events:
+        c = _asked(case, m, std, estimate)
+        if m.get("from") == "buyer":
+            pending = {"our_move_eur": None if ask is None or c is None else round(c - ask, 2)}
+            ask = c if c is not None else ask
+        elif c is not None:
+            if pending is not None and offer is not None:
+                pending["its_step_eur"] = round(offer - c, 2)
+                if pending["our_move_eur"] and pending["our_move_eur"] > 0.5:
+                    pending["its_step_per_eur_of_our_move"] = round(
+                        pending["its_step_eur"] / pending["our_move_eur"], 2
+                    )
+                elif pending["our_move_eur"] is None:
+                    pending["note"] = "its answer to our first ask"
+                exchanges.append(pending)
+            offer, pending = c, None
+    if exchanges:
+        out["exchanges"] = exchanges
     if ours:
         last_i, last_c = ours[-1]
         before = [c for i, c in theirs if i < last_i]
@@ -216,6 +235,7 @@ def movement(case, events, std=None, estimate=None):
         out["gap_eur"] = round(now - last_c, 2)
         first_gap = theirs[0][1] - ours[0][1]
         if first_gap > 0:
+            out["gap_at_our_first_ask_eur"] = round(first_gap, 2)
             out["gap_closed_by_supplier_pct"] = round(100 * (theirs[0][1] - now) / first_gap, 1)
             out["gap_closed_by_us_pct"] = round(100 * (last_c - ours[0][1]) / first_gap, 1)
     return out

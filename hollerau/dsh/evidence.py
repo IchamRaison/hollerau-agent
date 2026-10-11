@@ -155,8 +155,10 @@ def citable(state, sid, computed=None):
     if ready:
         out["arguments_already_computed_and_checked"] = ready[:8]
     out["rules"] = (
-        "at most 3 arguments are read per e-mail, one per sentence, the ID in the sentence; an ID counts once "
-        "per case; never cite an ID that is not listed here or that you have not looked up"
+        "at most 3 arguments are read per e-mail, one per sentence, the ID in the sentence. An argument counts once "
+        "per CASE, not once per supplier: data cited to one bidder is a duplicate for the next (only a rival's offer "
+        "counts once per supplier). Rows of the same kind are one argument (two scorecards: one delivery record): "
+        "cite them together. Never cite an ID that is not listed here or that you have not looked up."
     )
     return out
 
