@@ -1,0 +1,10 @@
+<pasted_content id="7b7a">
+1. Correction maintenant : dans OPPONENT_MODEL.md, retire « 4-6 % lâchés trop tôt » (c'était mon calcul à partir du collecteur, en équivalent prix, qui mélange prix et termes). Cite à la place l'écart de prix au record de X9 d'Icham : 4,4 % P08, 2,8 % P18, 2,3 % P10. Amende le commit 7090ea2, pas de push.
+2. À 08:01 : tâche 2 comme prévu (arena data + smoke test), rapport.
+3. Ensuite, évaluation hors ligne du modèle du fournisseur, sans aucune session, sur analysis/pegasus_data/sessions/ (316) :
+   - pour chaque session : prix d'ouverture du fournisseur, sa 1re contre-offre, son offre finale ou le prix du deal, type de cas / category_goal, signaux (comité, cash, capacité) ;
+   - « plancher réel » par cas = le prix implicite de c_best (Coûts de référence par cas, dans le vault) ; dis-le clairement si tu dois l'approximer autrement ;
+   - modèle simple (régression ou GP de scikit-learn s'il est installé, sinon numpy) : 1re contre-offre / ouverture + type → plancher / ouvertuant un cas de côté, contre la référence « ratio médian des autres cas » ;
+   - verdict contre le critère ÉCRIT AVANT dans OPPONENT_MODEL.md (erreur médiane ≤ 2 %, meilleur que la référence sur ≥ 7 cas sur 10, jamais plus de 3 % au-dessus du vrai plancher).
+   Écris le script dans analysis/ via une branche à toi (unfreeze/refreeze), rapport dans OPPONENT_MODEL.md, commit local. Montre-moi le verdict, même s'il est négatif.
+</pasted_content id="7b7a">
