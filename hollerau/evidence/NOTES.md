@@ -22,7 +22,7 @@ Nevil (avec Claude), samedi 10/10/2026. Branche locale `nevil/evidence` de `holl
 | `adapter.py` | `pegasus_claims(case, package, pegasus_claims_list, used=None, supplier=None, used_by_supplier=None)`, `remember(...)` et `planner_hints(case, data, standard=None)` pour l'agent de Vincent | fait, **pas encore branché** |
 | `index.py` | `index` : fenêtre de 12 mois, une série par claim ; hausse justifiée si pondéré ≥ demande − 1 point | fait |
 | `orders.py` | `orders` : première et dernière commande des 24 derniers mois si le prix a déjà monté de 3 % ou plus ; sinon, sans lettre de prix, la commande la moins chère et la dernière, toutes deux au prix courant ou en dessous ; jamais dans un kit ; sans les lignes `stale_condition` | fait |
-| `forecast_cost_news.py` | `forecast_cost_news` : should-cost (marge > 15 %), lettre du fournisseur « matière couverte » (`doc:`, sans lettre de prix, sans chiffre, `supports=price`), prévision en hausse ≥ 5 %, news qui affaiblissent le fournisseur | fait |
+| `forecast_cost_news.py` | `forecast_cost_news` : should-cost (sous le prix voulu par le fournisseur, sans marge), lettre du fournisseur « matière couverte » (`doc:`, sans lettre de prix, sans chiffre, `supports=price`), prévision en hausse ≥ 5 %, news qui affaiblissent le fournisseur | fait |
 | `compile.py` | `compile_evidence(case, data)` : notice, quote, scorecard, index, orders, forecast_cost_news, chaque claim vérifié, chaque ID une seule fois | fait |
 | `economics.py` | `compile_case(case, standard=None, data=None)`, `lever_price`, `estimate_supplier`, `relationship_risk` | fait, D3 appliquée |
 | `signals.py` | `signals(case, data)` pour le planificateur, jamais envoyé comme claim ; `price_floor_hint` (plafonné), `price_floor_confidence` = `low` et `price_floor_reason` en `stabilise` / `secure_supply` | fait |
@@ -35,7 +35,7 @@ Nevil (avec Claude), samedi 10/10/2026. Branche locale `nevil/evidence` de `holl
 
 ```bash
 cd ~/Projets/hollerau-agent
-PYTHONDONTWRITEBYTECODE=1 uv run --offline pytest -p no:cacheprovider hollerau/evidence/tests -q   # 231 passed
+PYTHONDONTWRITEBYTECODE=1 uv run --offline pytest -p no:cacheprovider hollerau/evidence/tests -q   # 315 passed
 uv run --offline ruff check hollerau/evidence && uv run --offline ruff format --check hollerau/evidence   # propres
 ```
 
@@ -175,6 +175,34 @@ chosen = [{"refs": c.ids, "sentence": c.sentence} for c in chosen]
 ```
 
 avec `from hollerau.evidence.adapter import pegasus_claims, remember`. `remember` écrit dans `self.claims.used`, au format de `pick` : `(fournisseur, refs)` pour une offre rivale, l'ID seul sinon. La même offre rivale peut donc être citée une fois à chaque autre fournisseur, comme avec `pick` (test : `test_p05_same_rival_offer_for_two_suppliers`).
+
+## Ordre des arguments selon leur effet mesuré (X9, 11/10)
+
+Source : X9 dans `03 Build/Expériences.md` du vault, verdict du fournisseur par type d'argument sur 202 sessions d'entraînement. À premier mail identique, l'argument de tête décale toute l'échelle de prix du fournisseur d'environ 3 %. **À mesurer sur le candidat avant d'en faire le défaut.**
+
+- **`adapter.py`** : `pegasus_claims` classe chaque claim par effet mesuré (`EFFECT`, `effect_rank`).
+  - Ordre : historique de prix en hausse (9/10) > should-cost (11/13) > **préavis (rang provisoire, non mesuré)** > ppm (7/7) > indice (7/7) > devis ou offre concurrente (14/21) > prévision de volume (23/27, sans effet sur le prix de P08 et P18) > le reste (lettres de couverture, news) > OTD en dernier (9/33).
+  - Le tri est stable : à rang égal, nos claims restent devant ceux de Pegasus. Pegasus garde les 3 premiers, et le premier ouvre le mail.
+- **Appel d'offres** (`case.type == "rfq"`) : une offre ou un devis rival passe en 2e place (`RIVAL_SLOT`), juste après le claim le plus fort. Sans cela, la limite de 3 claims coupait l'offre rivale de P06 pour `sup:70150`. Hors appel d'offres, il garde son rang.
+- **Jamais les commandes d'un autre fournisseur** : `po:` fait partie d'`ABOUT_SUPPLIER`. Le défaut existait déjà, mais le nouvel ordre l'aurait mis en tête d'un mail.
+- **`orders.py`** : le claim « sans lettre de prix » (`_held_claim`) ne sort que si la commande la plus récente dépasse de `RAISED_PCT` (3 %) la plus basse citée, comme `_rise_claim`. Deux commandes au même prix ne sont jamais citées (0/24 dans X9).
+  - Ce claim disparaît de P04 (+2,3 %), P09, P10, P11, P12 et P16.
+  - P08 (5,17 → 5,45) et P18 (5,26 → 5,84) gardent l'historique en hausse, qui passe en tête.
+- **Filtre `_rising`** (adaptateur) : les lignes sont lues par date, quel que soit l'ordre des IDs, et doivent être d'un seul fournisseur et d'une seule pièce. Il écarte un historique plat, en baisse ou mélangé, d'où qu'il vienne, par exemple du dossier `intel`.
+- **Should-cost, plus de marge de 15 %** (régression P01 du candidat, `PEGASUS_TEAM_CLAIMS=1`). Il est cité s'il est comparable et **sous le prix voulu par le fournisseur** (`supplier_price` : le prix demandé par sa lettre, sinon le prix courant).
+  - La règle est la même pour nos claims et ceux de Pegasus (`forecast_cost_news.citable_cost`).
+  - Preuves : X9 (should-cost pris en compte 11 fois sur 13) et le replay de P01 à 0,998 (`3a0b48ea4e9dae20`). Il citait `cost:310010` à 132,64 contre 138,55 demandé, `verified`, « a fair point », alors que le prix courant est de 126,53.
+  - **Pourquoi sans marge** : les 11/13 de X9 ont été mesurés avec la règle de Pegasus (`hollerau/pegasus/claims.py`, `should_cost_claim` : should-cost cité s'il est sous le prix demandé, `f["unit_cost"] < price`). C'est exactement la nôtre. Une marge de 15 % ou égale à `confidence_pct` n'a jamais été mesurée.
+  - Le should-cost ouvre désormais le mail de P01. P10 le garde. Il est nouveau sur P03, P09 et P14, et reste écarté sur P02, P05 et P17 (au-dessus du prix voulu).
+- **Lecture du point 2** : la hausse se mesure entre les deux commandes **citées**. La plus ancienne commande de la fenêtre de 24 mois est à 5,45 sur P08, comme la dernière : une lecture littérale aurait supprimé l'argument de P08.
+- **Effet de bord** : le préavis passe derrière l'historique en hausse et le should-cost. Sur P01, le should-cost (132,64) ouvre désormais le mail et le préavis passe en 2e.
+- **Tests** (315) :
+  - `test_rising_price_history_leads_the_first_email` (P08, P18) ;
+  - `test_never_an_order_history_at_the_same_price` (19 cas, chaque fournisseur) ;
+  - `test_otd_never_leads_and_comes_last`, `test_effect_order_on_every_kind` ;
+  - `test_p06_rival_offer_is_sent_to_70150`, `test_rival_offer_passes_through_and_comes_second_in_an_rfq`, `test_rival_keeps_its_effect_rank_outside_an_rfq` ;
+  - `test_never_another_suppliers_orders`, `test_rising_is_read_by_date_one_supplier_one_part`, `test_p04_rise_below_three_percent_is_not_cited`.
+  - Chaque correction de la revue a été retirée une fois pour contrôle : son test échoue à chaque fois.
 
 ## À voir avec Icham
 

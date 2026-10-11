@@ -3,8 +3,10 @@ supplier's own letter saying its material is covered (`doc`).
 
 The arena checks the recorded change of an `fc` (a %), the estimate of a `cost` (EUR), and that a `news`
 item is about this supplier (brief/api.md). Guards:
-- `cost`: cited only when the price at stake (the lower of today's and the asked price) exceeds it by more than
-  the should-cost's own error (5-15 %, KNOWN_ISSUES 14), and only when comparable (one part, same price unit).
+- `cost`: cited when it is below the price the supplier wants (its asked price, else today's price) and comparable
+  (one part, same price unit). No margin for the estimate's error: X9 (vault) counts the should-cost taken into
+  account 11 times out of 13, and P01's best deal (0.998, session 3a0b48ea) cited 132.64 against 138.55 asked -
+  "a fair point" - although it is above today's 126.53.
 - `fc`: our latest forecast for the part, cited when it grows: volume is our leverage. Never in a capacity case or
   with a supplier whose order book is full or that allocates: there, more volume is the supplier's leverage.
 - `news`: only topics that weaken the supplier's position (free capacity, a new plant), from the 12 months before
@@ -25,10 +27,9 @@ from datetime import date, datetime, timedelta
 from arena_kit.cost import horizon_start
 from hollerau.contracts import Claim
 
-from .facts import _day, case_start, comparable, has, package, price_letter, stake_price
+from .facts import _day, case_start, comparable, has, package, price_letter, supplier_price
 from .signals import HEDGED, saturated
 
-COST_ERROR = 0.15
 FC_GROWTH_PCT = 5.0
 NEWS_TOPICS = {"free_capacity", "new_plant"}
 NEWS_DAYS = 365
@@ -41,15 +42,24 @@ def _number(ref: str) -> str:
     return ref.split(":", 1)[1]
 
 
+def citable_cost(case: dict, data, facts: dict, row) -> bool:
+    """A should-cost row worth citing: comparable with the case price and below the price the supplier wants."""
+    price = supplier_price(case, facts)
+    return (
+        has(row, "unit_cost")
+        and isinstance(row["unit_cost"], int | float)
+        and price is not None
+        and comparable(case, data, row)
+        and row["unit_cost"] < price
+    )
+
+
 def cost_claims(case: dict, data, facts: dict) -> list[Claim]:
-    stake = stake_price(case, facts)
     claims = []
     for part in case["parts"]:
         cid = f"cost:{_number(part)}"
         row = facts.get(cid)
-        if not has(row, "unit_cost") or stake is None or not comparable(case, data, row):
-            continue
-        if row["unit_cost"] * (1 + COST_ERROR) >= stake:
+        if not citable_cost(case, data, facts, row):
             continue
         claims.append(
             Claim(

@@ -2,11 +2,14 @@
 
 pegasus_claims(case, package, pegasus_claims_list, used=None, supplier=None, used_by_supplier=None) -> list[Claim]
     The union of our claims (`compile_evidence`) and Pegasus candidates (`Claims.candidates` / `rival_claim` dicts:
-    `refs`, `sentence`, optional `rival`), each ID once, strongest first. Our filters apply to the Pegasus ones:
-    no should-cost unless clearly below the price at stake, no volume growth in a capacity case or to a saturated
-    supplier, scorecards only past our thresholds, no index claim when the increase is justified, and every claim
-    must pass `check()` - except a rival's session offer (`offer:`), which the arena checks itself. At most 3 per
-    message: the caller slices.
+    `refs`, `sentence`, optional `rival`), each ID once, strongest first by measured effect (EFFECT: rising price
+    history, should-cost, notice (provisional), ppm, index, rival quote, volume forecast, the rest, OTD last; in an
+    RFQ a rival's offer or quote second): the caller keeps the first three, and the first leads the e-mail. Never
+    an order history at the same price, nor another supplier's orders. Our filters apply to the Pegasus ones: no
+    should-cost unless below the price the supplier wants, no volume growth in a capacity case or to a saturated
+    supplier, scorecards only past our thresholds, no index claim when the increase is justified, and
+    every claim must pass `check()` - except a rival's session offer (`offer:`), which the arena checks itself.
+    At most 3 per message: the caller slices.
     Memory, as the arena counts (api.md): a rival's `offer:` or `quote:` counts once per supplier, every other ID
     once per case. `used`: IDs already sent in this case (global); it may also hold Pegasus `pick` entries
     `(supplier, refs)` for rival offers. `used_by_supplier`: {supplier: rival IDs already sent to it}. `supplier`:
@@ -27,15 +30,22 @@ from hollerau.contracts import Claim
 
 from .compile import compile_evidence
 from .economics import compile_case
-from .facts import check, comparable, facts_of, has, price_letter, stake_price
-from .forecast_cost_news import CAPACITY_TYPES, COST_ERROR, FC_GROWTH_PCT, NEWS_TOPICS
+from .facts import _day, check, facts_of, has, price_letter
+from .forecast_cost_news import CAPACITY_TYPES, FC_GROWTH_PCT, NEWS_TOPICS, citable_cost
 from .index import asked_pct, driver_moves, increase_justified, weighted_move_pct
 from .scorecard import dimension_ok
 from .signals import saturated, signals
 
 log = logging.getLogger(__name__)
 
-RANK = {"notice": 0, "quote": 1, "scorecard": 2, "index": 3, "orders": 4, "forecast_cost_news": 5}
+# Strongest first, as the suppliers took each argument into account (X9 in the vault's Expériences, 202 practice
+# sessions, identical texts once): price history rising 9/10, should-cost 11/13, ppm 7/7, index 7/7, rival quote
+# 14/21, volume forecast 23/27 (it never moved the price on P08 or P18), the rest, and OTD last (9/33). The first
+# claim leads the first e-mail, and that argument shifts the supplier's whole price ladder by about 3 % (X9).
+# The notice (a letter shorter than the contract's notice) was not measured in X9: provisional rank, right after
+# the rising history and the should-cost. In an RFQ a rival's offer or quote takes the second place (RIVAL_SLOT).
+EFFECT = ("orders", "should_cost", "notice", "ppm", "index", "rival", "forecast", "other", "otd")
+RIVAL_SLOT = 1
 FAMILY = {
     "idx": "index",
     "doc": "notice",
@@ -72,6 +82,47 @@ def as_claim(candidate: dict) -> Claim:
     return Claim(family, refs, None, "", text, supports)
 
 
+def effect_rank(claim: Claim) -> int:
+    """The claim's place in EFFECT: 0 leads the e-mail."""
+    prefix = claim.ids[0].split(":", 1)[0] if claim.ids else ""
+    if claim.family == "orders" or prefix == "po":
+        kind = "orders"
+    elif prefix == "cost":
+        kind = "should_cost"
+    elif claim.family == "notice" and prefix in ("doc", "ctr"):
+        kind = "notice"
+    elif prefix == "sc":
+        kind = "ppm" if claim.unit == "ppm" or claim.supports == "quality" else "otd"
+    elif prefix == "idx":
+        kind = "index"
+    elif prefix in ("quote", "offer"):
+        kind = "rival"
+    elif prefix == "fc":
+        kind = "forecast"
+    else:
+        kind = "other"
+    return EFFECT.index(kind)
+
+
+def ranked(claims: list[Claim]) -> list[Claim]:
+    """Strongest first (EFFECT); stable, so ours stay ahead of Pegasus' within a rank."""
+    return sorted(claims, key=effect_rank)
+
+
+def _rising(ids: list[str], facts: dict) -> bool:
+    """Order lines of one supplier and one part whose price rises from the earliest to the latest by date, whatever
+    order the IDs are listed in: never two orders at the same price (0/24, X9), never a fall, never a mix."""
+    rows = [facts.get(i) for i in ids]
+    if len(rows) < 2 or not all(
+        isinstance(r, dict) and isinstance(r.get("unit_price"), int | float) and _day(r.get("date")) for r in rows
+    ):
+        return False  # a date that is not ISO (YYYY-MM-DD) cannot be ordered: not a history
+    if len({r.get("supplier") for r in rows}) != 1 or len({r.get("part") for r in rows}) != 1:
+        return False
+    by_date = sorted(rows, key=lambda r: _day(r["date"]))
+    return by_date[-1]["unit_price"] > by_date[0]["unit_price"]
+
+
 def _justified(case: dict, data, facts: dict) -> bool:
     """The supplier's increase is explained by its cost drivers (within a point): index claims argue its case."""
     asked = asked_pct(case, facts)
@@ -91,13 +142,7 @@ def _keep(case: dict, data, facts: dict, claim: Claim, justified: bool) -> bool:
     prefix = claim.ids[0].split(":", 1)[0]
     row = facts.get(claim.ids[0])
     if prefix == "cost":
-        stake = stake_price(case, facts)
-        return (
-            has(row, "unit_cost")
-            and stake is not None
-            and comparable(case, data, row)
-            and row["unit_cost"] * (1 + COST_ERROR) < stake
-        )
+        return citable_cost(case, data, facts, row)
     if prefix == "fc":
         if case.get("type") in CAPACITY_TYPES or any(saturated(case, data, facts, s) for s in case["suppliers"]):
             return False
@@ -110,11 +155,13 @@ def _keep(case: dict, data, facts: dict, claim: Claim, justified: bool) -> bool:
         return has(row, "topic") and row["topic"] in NEWS_TOPICS
     if prefix == "doc" and claim.family == "forecast_cost_news":
         return not price_letter(case, facts)
-    return prefix in {"doc", "ctr", "quote", "po"}
+    if prefix == "po":
+        return _rising(claim.ids, facts)
+    return prefix in {"doc", "ctr", "quote"}
 
 
 PER_SUPPLIER = ("offer:", "quote:")  # a rival's offer or quote counts once per supplier (api.md)
-ABOUT_SUPPLIER = ("sc:", "news:", "doc:", "ctr:")  # facts about one supplier: only to that supplier
+ABOUT_SUPPLIER = ("sc:", "news:", "doc:", "ctr:", "po:")  # facts about one supplier: only to that supplier
 
 
 def _supplier_no(supplier) -> str:
@@ -170,8 +217,8 @@ def _well_formed(candidate) -> bool:
 
 
 def _for_recipient(claim: Claim, supplier, facts: dict) -> bool:
-    """Whether the claim may go to `supplier`: never another supplier's card, news, letter or contract; never a
-    rival's offer or quote back to its own supplier."""
+    """Whether the claim may go to `supplier`: never another supplier's card, news, letter, contract or order
+    prices; never a rival's offer or quote back to its own supplier."""
     for i in claim.ids:
         owner = (facts.get(i) or {}).get("supplier") if isinstance(facts.get(i), dict) else None
         if i.startswith(ABOUT_SUPPLIER) and owner is not None and owner != supplier:
@@ -191,8 +238,11 @@ def pegasus_claims(
     except Exception:
         log.exception("pegasus_claims failed: our claims only")
         try:
-            return compile_evidence(case, package) if isinstance(case, dict) else []
+            if not isinstance(case, dict):
+                return []
+            return _deliverable(case, compile_evidence(case, package), facts_of(case, package), supplier)
         except Exception:
+            log.exception("pegasus_claims fallback failed: no claim rather than an unfiltered one")
             return []
 
 
@@ -235,8 +285,10 @@ def _pegasus_claims(case, package, candidates, used, supplier, used_by_supplier)
         except Exception:
             log.warning("%s: Pegasus candidate skipped: %r", case_id, candidate)
     out, seen = [], {u for u in used if isinstance(u, str)}
-    for claim in sorted(ours + rivals + theirs, key=lambda c: RANK.get(c.family, len(RANK))):  # stable: ours first
+    for claim in ranked(ours + rivals + theirs):
         ids = set(claim.ids)
+        if claim.family == "orders" and not _rising(claim.ids, facts):
+            continue  # same price twice (or unknown): never cited
         rival_ids = {i for i in ids if i.startswith(PER_SUPPLIER)}
         if supplier is not None and (rival_ids & sent or not _for_recipient(claim, supplier, facts)):
             continue  # already sent to this supplier, its own, or about another supplier
@@ -244,7 +296,31 @@ def _pegasus_claims(case, package, candidates, used, supplier, used_by_supplier)
             continue  # an ID once per message; non-rival IDs once per case (`used`)
         seen |= ids
         out.append(claim)
-    return out
+    return _rival_second(case, out)
+
+
+def _deliverable(case: dict, claims: list[Claim], facts: dict, supplier) -> list[Claim]:
+    """The fallback's last line of defence, the same as the main path: strongest first, never an order history that
+    does not rise, never a fact about another supplier, a rival second in an RFQ."""
+    out = [
+        c
+        for c in ranked(claims)
+        if not (c.family == "orders" and not _rising(c.ids, facts))
+        and (supplier is None or _for_recipient(c, supplier, facts))
+    ]
+    return _rival_second(case, out)
+
+
+def _rival_second(case: dict, claims: list[Claim]) -> list[Claim]:
+    """In an RFQ, a rival's offer or quote (if any) goes right after the strongest claim: with three claims at most
+    per e-mail it could otherwise be cut (P06, sup:70150: should-cost, ppm and index came first)."""
+    if case.get("type") != "rfq":
+        return claims
+    rival = next((c for c in claims if effect_rank(c) == EFFECT.index("rival")), None)
+    if rival is None or claims.index(rival) <= RIVAL_SLOT:
+        return claims
+    rest = [c for c in claims if c is not rival]
+    return rest[:RIVAL_SLOT] + [rival] + rest[RIVAL_SLOT:]
 
 
 def planner_hints(case: dict, data, standard=None) -> dict:

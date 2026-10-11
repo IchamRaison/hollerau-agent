@@ -3,6 +3,7 @@
 import copy
 import json
 import logging
+import math
 from pathlib import Path
 
 import pytest
@@ -11,9 +12,9 @@ from arena_kit.cost import relationship_cost
 from hollerau.contracts import Claim
 from hollerau.evidence.compile import compile_evidence
 from hollerau.evidence.economics import compile_case, estimate_supplier, relationship_risk
-from hollerau.evidence.facts import check, facts_of, load_package
+from hollerau.evidence.facts import check, facts_of, load_package, supplier_price
 from hollerau.evidence.forecast_cost_news import forecast_cost_news_claims
-from hollerau.evidence.orders import orders_claims
+from hollerau.evidence.orders import RAISED_PCT, orders_claims
 from hollerau.evidence.quote import quote_claims
 from hollerau.evidence.scorecard import scorecard_claims
 from hollerau.evidence.signals import signals
@@ -138,12 +139,20 @@ def test_orders_check_needs_one_part():
 # --- forecast_cost_news
 
 
-def test_should_cost_cited_only_with_room(data):
-    p06 = [c for c in run(forecast_cost_news_claims, "case:P06", data) if c.ids[0].startswith("cost:")]
-    assert [c.ids for c in p06] == [["cost:310070"]] and p06[0].figure == 194.18
-    for case_id in ("case:P01", "case:P02", "case:P03", "case:P14"):  # within the should-cost's 15 % error
-        claims = run(forecast_cost_news_claims, case_id, data)
-        assert not [c for c in claims if c.ids[0].startswith("cost:")], case_id
+def test_should_cost_cited_below_the_price_the_supplier_wants(data):
+    """No margin any more (X9: should-cost taken into account 11/13; P01's 0.998 cited 132.64 against 138.55)."""
+    cited = {
+        case_id: [
+            (c.ids[0], c.figure) for c in run(forecast_cost_news_claims, case_id, data) if c.ids[0].startswith("cost:")
+        ]
+        for case_id in ("case:P01", "case:P02", "case:P03", "case:P05", "case:P06", "case:P10", "case:P14", "case:P17")
+    }
+    assert cited["case:P01"] == [("cost:310010", 132.64)]  # asked 138.55 (today 126.53)
+    assert cited["case:P06"] == [("cost:310070", 194.18)]
+    assert cited["case:P10"] == [("cost:340010", 24.31)]
+    assert cited["case:P03"] == [("cost:350020", 403.21)] and cited["case:P14"] == [("cost:350040", 304.49)]
+    for case_id in ("case:P02", "case:P05", "case:P17"):  # above what the supplier wants: 374.95, 36.87, 37.24
+        assert cited[case_id] == [], case_id
 
 
 def test_forecast_growth_is_cited(data):
@@ -256,13 +265,26 @@ def test_supplier_letter_check():
     assert not check(Claim("forecast_cost_news", ["doc:2"], None, "", "", "other"), facts)
 
 
-@pytest.mark.parametrize("case_id", ["case:P03", "case:P04", "case:P09", "case:P11", "case:P16", "case:P18"])
+@pytest.mark.parametrize("case_id", ["case:P03", "case:P18"])
 def test_orders_without_a_price_letter_stay_at_or_below_today(data, case_id):
     case = CASES[case_id]
     facts = facts_of(case, data)
     [orders] = [c for c in compile_evidence(case, data) if c.family == "orders"]
     assert len({facts[i]["part"] for i in orders.ids}) == 1
     assert all(facts[i]["unit_price"] <= case["buyer"]["current_unit_price"] for i in orders.ids)
+    low, last = (facts[i]["unit_price"] for i in orders.ids)
+    assert (last / low - 1) * 100 >= RAISED_PCT  # the price rose by 3 % or more
+
+
+def test_p04_rise_below_three_percent_is_not_cited(data):
+    """Review fix: 4.29 -> 4.39 is +2.3 %, below RAISED_PCT (X9 measured rises of 5.4 % and 11 %)."""
+    assert [c for c in compile_evidence(CASES["case:P04"], data) if c.family == "orders"] == []
+
+
+@pytest.mark.parametrize("case_id", ["case:P09", "case:P10", "case:P11", "case:P12", "case:P16"])
+def test_no_orders_claim_when_the_price_did_not_rise(data, case_id):
+    """Their lowest recent order is at today's price: two orders at one price, 0 effect out of 24 (X9)."""
+    assert [c for c in compile_evidence(CASES[case_id], data) if c.family == "orders"] == []
 
 
 def test_no_orders_claim_in_a_bundle(data):
@@ -384,7 +406,7 @@ def test_asked_pct_alone_is_a_price_letter(data):
 
 
 def test_no_orders_in_an_rfq(data):
-    case = copy.deepcopy(CASES["case:P04"])  # has orders normally
+    case = copy.deepcopy(CASES["case:P03"])  # has orders normally
     assert orders_claims(case, data, facts_of(case, data))
     case["type"] = "rfq"
     assert orders_claims(case, data, facts_of(case, data)) == []
@@ -425,3 +447,35 @@ def test_amber_card_weak_on_one_count_only_is_not_cited(data):
     assert scorecard_claims(case, data, facts_of(case, data)) == []  # 400 ppm: quality is fine
     case["facts"]["sc:70110@2026Q4"] |= {"ppm": 712, "otd_pct": 91.0}
     assert scorecard_claims(case, data, facts_of(case, data)) == []  # 91 % on time: delivery is fine
+
+
+# --- second review: supplier_price and a letter with a percentage only
+
+
+@pytest.mark.parametrize("bad", [True, False, math.inf, -math.inf, math.nan, -5.0, 0, "138.55", None])
+def test_supplier_price_refuses_what_is_not_a_price(bad):
+    case = {"buyer": {"current_unit_price": bad}, "trigger_doc": None}
+    assert supplier_price(case, {}) is None
+
+
+def test_supplier_price_asked_then_current():
+    case = {"buyer": {"current_unit_price": 126.53}, "trigger_doc": "doc:L"}
+    assert supplier_price(case, {"doc:L": {"asked_price": 138.55}}) == 138.55
+    assert supplier_price(case, {"doc:L": {"asked_price": None, "asked_pct": 9.5}}) == 126.53
+    assert supplier_price(case, {"doc:L": {"asked_price": math.inf}}) == 126.53  # inf falls back, never cited above
+
+
+def test_letter_with_a_percentage_only_compares_the_should_cost_with_todays_price(data):
+    """P01 with an asked % but no asked price: 132.64 is above today's 126.53, so it is not cited (the stricter side:
+    the supplier's target is not known in EUR)."""
+    case = copy.deepcopy(CASES["case:P01"])
+    case["trigger_doc"] = "doc:PCT-ONLY"
+    case["facts"] = {
+        "doc:PCT-ONLY": {"supplier": "sup:70110", "date": "2026-09-11", "asked_pct": 9.5, "asked_price": None}
+    }
+    claims = forecast_cost_news_claims(case, data, facts_of(case, data))
+    assert not [c for c in claims if c.ids[0].startswith("cost:")]
+    case["buyer"] = {**case["buyer"], "current_unit_price": 140.0}
+    assert [
+        c.ids for c in forecast_cost_news_claims(case, data, facts_of(case, data)) if c.ids[0].startswith("cost:")
+    ] == [["cost:310010"]]
