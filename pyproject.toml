@@ -29,6 +29,7 @@ build-backend = "hatchling.build"
 [tool.ruff]
 line-length = 120
 target-version = "py312"
+extend-exclude = ["analysis/dsh"]  # exploratory scripts, kept as they were run
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
