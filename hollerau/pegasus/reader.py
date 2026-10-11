@@ -11,6 +11,7 @@ Without an LLM (or on any failure) a keyword reader gives the same signal types.
 
 import json
 import logging
+import math
 import os
 import re
 import time
@@ -64,7 +65,8 @@ KEYWORDS = {
         r"payment.{0,25}(?:to support|to provide).{0,25}(?:better|competitive|favorable)|"
         r"(?:like|take).{0,35}payment.{0,30}(?:dropped|works best)|"
         r"(?:payment|liquidity).{0,45}(?:not feasible for our liquidity|in exchange for (?:this |a )?(?:better price|price reduction))|"
-        r"payment.{0,65}we can reduce (?:our |the )?price"),
+        r"payment.{0,65}we can reduce (?:our |the )?price|"
+        r"payment.{0,100}(?:competitive price|reduced price|(?:lower|reduce) our price|helps?\b|allows? us to offer)"),
     "wants_volume_commitment": (r"(?:which|what).{0,15}volume.{0,30}commit|volume.{0,30}(?:can commit|can you commit|you can award|intend to order)|"
         r"(?:please |could you |can you |we ask|we kindly ask|we would like to know|we need|still need|require|send over|not yet provided|still not provided).{0,80}(?:volume|binding release schedule)|"
         r"(?:binding|higher|increased).{0,30}volume.{0,70}(?:help|improve|allow)|"
@@ -107,7 +109,7 @@ KEYWORDS = {
 
 
 NEGATION = re.compile(r"\b(?:not|no|never|nicht|kein|keine|ohne)\b|n't\b", re.I)
-NUMBER = re.compile(r"-?\d+(?:[.,]\d+)?")
+NUMBER = re.compile(r"(?<![\w.,])-?\d+(?:[.,]\d+)?(?!\d|[.,]\d)")
 AFFIRMATIVE = {"requires_index_clause", "wants_faster_payment", "wants_volume_commitment",
                "wants_longer_contract", "free_capacity", "needs_internal_approval", "capacity_tight"}
 VALUED = {"cost_floor": "unit_price", "lead_time_firm": "lead_time_days",
@@ -155,21 +157,30 @@ def validate(sig, line, quote):
             v = float(value)
         except (TypeError, ValueError):
             return False, None
+        if isinstance(value, bool) or not math.isfinite(v):
+            return False, None
         unit = UNITS[VALUED[kind]]
-        num = re.escape(f"{v:g}") + r"(?!\d|[.,]\d)"  # 54 is not 54.5
-        near = re.compile(r"(?<![\d.,])" + num + r"\s*(?:%s)" % unit + "|" + r"(?:%s)\s*" % unit + num, re.I)
-        m = near.search(line.replace("\u202f", " "))
-        if not m:
-            return False, None  # the number is on the line but not with its unit (54 EUR is not 54 days)
-        nearest = nearest_field(line, m.start())
-        if nearest is not None and nearest != VALUED[kind]:
-            return False, None  # two EUR amounts on one line: the one next to "chargeback" is the chargeback
-        return True, v
+        line = line.replace("\u202f", " ")
+        # Compare full numeric tokens: 5.70 and 5,70 both express 5.7; 54.5 never expresses 54.
+        for number in NUMBER.finditer(line):
+            token = number.group()
+            if re.search(r"[.,]\d{3}$", token):
+                continue  # ambiguous thousands/decimal separator: do not infer a supplier constraint
+            if float(token.replace(",", ".")) != v:
+                continue
+            before, after = line[:number.start()], line[number.end():]
+            if not (re.search(rf"(?<!\w)(?:{unit})\s*$", before, re.I)
+                    or re.match(rf"\s*(?:{unit})(?!\w)", after, re.I)):
+                continue
+            nearest = nearest_field(line, number.start())
+            if nearest is None or nearest == VALUED[kind]:
+                return True, v
+        return False, None
     return True, None
 
 
 def _lines(text):
-    return {f"L{i}": " ".join(l.split()) for i, l in enumerate((text or "").splitlines(), 1) if l.strip()}
+    return {f"L{i}": " ".join(line.split()) for i, line in enumerate((text or "").splitlines(), 1) if line.strip()}
 
 
 def keyword_signals(text):
@@ -183,7 +194,7 @@ def keyword_signals(text):
             if kind == "cost_floor" and (re.search(r"(?:close to|approaching|reaching).{0,25}(?:limit|bottom)", phrase)
                     or ("price" not in phrase and "days" in phrase and "absolute limit" in phrase)):
                 continue  # close to a price limit, or a payment limit, is not an attained floor
-            if kind == "wants_faster_payment" and re.search(r"(?:faster|shorter) payment.{0,15}(?:does not|would not|won't) help|(?:do not|don't) (?:need|want) faster payment", phrase):
+            if kind == "wants_faster_payment" and re.search(r"payment.{0,20}(?:does not|would not|won't|will not) (?:help|allow|reduce|lower)|(?:do not|don't) (?:need|want) faster payment", phrase):
                 continue
             if kind == "wants_volume_commitment" and (re.search(r"(?:data (?:supporting|backing)|forecast data|actual (?:volume )?data).{0,50}volume|volume data", phrase)
                     and not re.search(r"binding|commit|release schedule|what volume|which volume", phrase)):
