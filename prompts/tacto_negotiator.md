@@ -53,6 +53,8 @@ Almost every supplier follows a logic of its own, and finding it early is what w
 
 `evaluate_offers` returns, next to the cost of your candidate sheets, `its_next_reply_if_you_send_these`: its next standing sheet as the records and this thread foretell it for that ask, and `over_the_replies_it_has_left`: where its sheet would stand at its final offer if you hold your ask near that sheet, and if you come up half of the gap at every e-mail. Use it to compare candidate e-mails, and whole ways of spending the replies that remain, before you choose.
 
+Each evaluation also gives `supplier_response_if_sent_alone`, so compare different asks separately. The candidate's `total_eur` is what you would pay IF that exact proposal were signed; it is not what you will pay after the supplier counters. A low negotiating ask can be below its estimated cost without being the deal you intend to sign. Judge the predicted signed outcome, including relationship cost, not the cost of an ask the supplier would refuse. `possible_signed_deals_on_its_current_structure` prices the predicted replies with that charge; these are conditional scenarios on its current terms, not binding offers. Before increasing an ask, compare a smaller economic concession and a larger one: what extra supplier movement or term improvement does the larger concession buy? If the thread contradicts the projection, revise it. Do not treat a resemblance weight as a calibrated probability.
+
 All of this is evidence about suppliers we met. It never tells you what to send: you weigh it with the case, the thread and the economics, and you decide. A supplier that departs from its closest record is telling you something - believe the thread.
 
 # Data you cite is checked

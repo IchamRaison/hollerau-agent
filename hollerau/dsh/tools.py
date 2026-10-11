@@ -119,13 +119,19 @@ class Desk:
         if supplier_id not in d.state.threads:
             return {"error": "UNKNOWN_SUPPLIER", "suppliers": list(d.state.threads)}
         out = [d.state.evaluate(supplier_id, dict(ts.get("terms", ts))) for ts in term_sheets or []]
+        for e in out:
+            if not e["problems"] and e["commercial_eur"] is not None:
+                e["supplier_response_if_sent_alone"] = d.state.foretell(supplier_id, e["commercial_eur"])
         totals = [e["total_eur"] for e in out if e["total_eur"] is not None]
-        commercial = [e["commercial_eur"] for e in out if e.get("commercial_eur") is not None]
+        commercial = [e["commercial_eur"] for e in out if not e["problems"] and e.get("commercial_eur") is not None]
         result = {
             "supplier_id": supplier_id,
             "evaluations": out,
             "cheapest_for_us_eur": min(totals) if totals else None,
             "alternative_without_a_deal_eur": economics.alternative(d.state.case),
+            "note": "An evaluation's total_eur is the cost IF that exact candidate is signed, not the outcome of "
+            "sending a negotiating ask. Compare the predicted supplier replies separately for each candidate. "
+            "The menu forecast uses its cheapest sheet; it does not predict which alternative the supplier selects.",
         }
         foretold = d.state.foretell(supplier_id, min(commercial)) if commercial else None
         if foretold:

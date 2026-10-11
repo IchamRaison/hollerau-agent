@@ -175,14 +175,15 @@ class CaseState:
         return out
 
     def _steps(self, sid):
-        """The thread as `recognition` reads it: each side's cheapest sheet in our commercial cost -
-        the unit of our records, so without the relationship charge."""
+        """Use the supplier's standing sheet, as the archive does; buyer menus use their minimum.
+        Commercial cost excludes the relationship charge in both the archive and this ledger."""
         steps, std = [], self.std.get(sid)
         for m in self.threads[sid]:
-            c = economics._asked(self.case, m, std, None)
             if m.get("from") == "buyer":
+                c = economics._asked(self.case, m, std, None)
                 steps.append({"who": "B", "cost": c, "sheets": len(m.get("term_sheets") or []), "kind": "message"})
             else:
+                c = economics._asked(self.case, {"term_sheets": (m.get("term_sheets") or [])[:1]}, std, None)
                 steps.append({"who": "S", "cost": c, "status": m.get("status"), "text": m.get("body") or ""})
         return steps
 
@@ -206,12 +207,49 @@ class CaseState:
 
     def foretell(self, sid, ask_eur):
         """Its next standing sheet if our cheapest sheet costs `ask_eur` (commercial cost)."""
+        if self.status(sid) != "open":
+            return {
+                "note": "This is not an open offer. Do not extrapolate open-offer concessions past its final offer."
+            }
         steps = self._steps(sid)
         theirs = [s["cost"] for s in steps if s["who"] == "S" and s.get("cost") is not None]
         if not theirs or ask_eur is None:
             return None
         _, found = self.recognise(sid)
-        return recognition.forecast(found, theirs[-1], ask_eur, theirs[0])
+        out = recognition.forecast(found, theirs[-1], ask_eur, theirs[0])
+        if not out or "if_it_moves_its_sheet_would_cost_us_eur" not in out:
+            return out
+        # Forecasts are commercial EUR; compare possible signed deals with the relationship charge too.
+        _, terms = self.standing(sid)
+        if not terms.get("unit_price"):
+            return out
+        filled = {**(self.std.get(sid) or {}), **terms}
+        structure = {k: v for k, v in filled.items() if k in self.case["negotiable"] and k != "unit_price"}
+        over = out.get("over_the_replies_it_has_left") or {}
+        projected = {}
+        for name, target in (
+            ("next_reply", out["if_it_moves_its_sheet_would_cost_us_eur"]["expected"]),
+            ("final_if_you_hold_the_ask_near_this_sheet", over.get("if_you_hold_your_ask_near_this_sheet")),
+            ("final_if_you_come_up_half_the_gap_each_time", over.get("if_you_come_up_half_the_gap_each_time")),
+        ):
+            if target is None or target <= 0:
+                continue
+            price = eco.price_for(self.case, structure, target, self.std.get(sid), hi=terms["unit_price"] * 2)
+            e = self.evaluate(sid, {**structure, "unit_price": price})
+            projected[name] = {
+                "unit_price": price,
+                "commercial_eur": e["commercial_eur"],
+                "relationship_eur": e["relationship_eur"],
+                "total_eur": e["total_eur"],
+                "relationship": e["relationship"],
+            }
+        out["possible_signed_deals_on_its_current_structure"] = {
+            "non_price_terms": structure,
+            **projected,
+            "note": "Conditional scenarios, not signable offers or guaranteed outcomes. Its current non-price terms "
+            "are held fixed; new terms, its floor, our movement and its willingness to move can change the reply.",
+        }
+        return out
 
     def _thread_view(self, sid):
         events = self.threads[sid]
