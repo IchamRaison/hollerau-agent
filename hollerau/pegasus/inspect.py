@@ -1,12 +1,14 @@
 """Inspect what the agent understands of a case before it writes - offline, no session, no score.
 
-  uv run python -m hollerau.pegasus.inspect [P01 P08 ...] [--json]
+  uv run python -m hollerau.pegasus.inspect [P01 P08 ...] [--json] [--move]
 
 For each case and supplier: the constraints, what each term is worth to us, the comparable prices
 with their sources and standing (fact, statement, estimate), the supplier's situation as read in
 the notes, the cost hypotheses, and what stays unknown. The opening quote comes from an archived
 session of the case (`analysis/pegasus_data/sessions`): it is an input of the game. Nothing here
 reads a result, a score or C_best - the point is to judge the reasoning, not its outcome.
+`--move` adds the first move the action policy would make on that opening quote: what it rests on,
+the sheets, the e-mail. It is computed locally; nothing is sent.
 """
 
 import argparse
@@ -58,11 +60,55 @@ def render(d):
     return "\n".join(lines)
 
 
+class Capture:
+    """A journal kept in memory."""
+
+    def __init__(self):
+        self.lines = []
+
+    def write(self, **entry):
+        self.lines.append(entry)
+
+
+def first_move(case, package, threads, sid):
+    """The action policy's first move on this opening, as text. Uses an empty supplier memory: a
+    case we have never played is the situation of the final."""
+    from . import agent as agent_module
+    from . import memory
+
+    was, memory_file = agent_module.POLICY, memory.FILE
+    agent_module.POLICY, memory.FILE = "actions", Path(os.devnull).with_name("pegasus-no-memory.json")
+    memory._mem.clear()
+    try:
+        journal = Capture()
+        out = agent_module.PegasusAgent(package, journal=journal).decide(case, threads, sid)
+    finally:
+        agent_module.POLICY, memory.FILE = was, memory_file
+        memory._mem.clear()
+    move = journal.lines[-1]["considered"][0] if journal.lines else {}
+    basis = (move.get("evaluation") or {}).get("basis") or {}
+    lines = [f"  first move: {journal.lines[-1]['chosen'] if journal.lines else '?'} - {move.get('why', '')}"]
+    if basis.get("others"):
+        lines.append("    other prices it could have rested on: "
+                     + ", ".join(f"{o['key']} {o['price']}" for o in basis["others"]))
+    if basis.get("floored"):
+        lines.append(f"    {basis['floored']}")
+    for ts in (out.get("message") or {}).get("term_sheets") or []:
+        t = ts["terms"]
+        terms = {k: ((v or {}).get("series", "none") if k == "index_clause" else v) for k, v in t.items()}
+        lines.append(f"    sheet: EUR {t['unit_price']} | "
+                     + ", ".join(f"{k}={v}" for k, v in terms.items() if k != "unit_price"))
+    body = ((out.get("message") or {}).get("body") or "").split("\n")
+    lines += [f"    > {x}" for x in body if x.strip() and not x.startswith(("Dear", "Best regards", "Hollerau"))]
+    return "\n".join(lines)
+
+
 def main(argv=None):
     load_env()
     p = argparse.ArgumentParser(prog="pegasus-inspect")
     p.add_argument("cases", nargs="*", help="e.g. P01 P08 (default: every case with an archived opening)")
     p.add_argument("--json", action="store_true")
+    p.add_argument("--move", action="store_true", help="also the action policy's first move (nothing is sent)")
     a = p.parse_args(argv)
     logging.basicConfig(level=logging.ERROR)
     cases = {c["case_id"]: c for c in json.loads(CASES.read_text())}
@@ -80,7 +126,10 @@ def main(argv=None):
             continue
         for sid, events in threads.items():
             d = dossiers.prepare(case, package, sid, events, supplier_reference(case, events), intel)
-            out.append(d.to_dict() if a.json else render(d))
+            if a.json:
+                out.append(d.to_dict())
+            else:
+                out.append(render(d) + ("\n" + first_move(case, package, threads, sid) if a.move else ""))
     print(json.dumps(out, indent=1, default=str) if a.json else "\n\n".join(out))
     return 0
 

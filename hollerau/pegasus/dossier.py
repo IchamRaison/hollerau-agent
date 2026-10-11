@@ -223,25 +223,34 @@ def _stated(events, d):
                              "statement", ["opening"], "a reason it gives for its price"))
 
 
-def _hypotheses(case, package, std, events, d):
-    """Supplier cost models for the relationship charge. Two when we have a should-cost - the
-    calibrated ratio and the raw estimate - so a choice that hangs on the difference shows; none
-    otherwise, and then the charge is an unknown, not zero."""
+def cost_hypotheses(case, package, std, opening_price):
+    """Supplier cost models for the relationship charge: two when the package has a comparable
+    should-cost - the calibrated ratio and the raw estimate - so a choice that hangs on the
+    difference shows; [] when the charge does not apply or cannot be estimated."""
     if not charge_applies(case):
-        return
-    opening = next((m for m in events or [] if m.get("from") != "buyer"), {})
-    price = ((opening.get("term_sheets") or [{}])[0].get("terms") or {}).get("unit_price")
-    base = eco.supplier_model(case, eco_std(std) or {}, price, getattr(package, "facts", None) or {})
+        return []
+    base = eco.supplier_model(case, eco_std(std) or {}, opening_price, getattr(package, "facts", None) or {})
     if not base:
-        d.unknowns.append("relationship charge: no comparable should-cost - it applies and cannot be "
-                          "estimated; C without it is an optimistic bound")
-        return
+        return []
     raw = {**base, "full_cost": base["full_cost"] / eco.SHOULD_COST_RATIO}
-    d.hypotheses = [
+    return [
         {"name": "should_cost_calibrated", "supplier": base, "provenance": RATIO_NOTE},
         {"name": "should_cost_raw", "supplier": raw,
          "provenance": "the package's should-cost as published (confidence stated in the data), uncalibrated"},
     ]
+
+
+def _hypotheses(case, package, std, events, d):
+    """Without a hypothesis the charge is an unknown, not zero."""
+    if not charge_applies(case):
+        return
+    opening = next((m for m in events or [] if m.get("from") != "buyer"), {})
+    price = ((opening.get("term_sheets") or [{}])[0].get("terms") or {}).get("unit_price")
+    d.hypotheses = cost_hypotheses(case, package, std, price)
+    if not d.hypotheses:
+        d.unknowns.append("relationship charge: no comparable should-cost - it applies and cannot be "
+                          "estimated; C without it is an optimistic bound")
+        return
     d.unknowns.append("supplier cash rate: the buyer's rate is assumed until two of its quotes that differ "
                       "only in payment terms let us read it")
 

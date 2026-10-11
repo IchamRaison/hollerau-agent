@@ -61,6 +61,9 @@ RFQ_BAFO = os.environ.get("PEGASUS_RFQ_BAFO", "0") == "1"
 # Share of the remaining gap (anchor -> supplier's standing C) we have conceded after k offers.
 SCHEDULE = [float(x) for x in os.environ.get(
     "PEGASUS_SCHEDULE", "0,0.22,0.38,0.52,0.63,0.72,0.80,0.86,0.90,0.93").split(",")]
+# How the next move is decided: "schedule" (the reference: concessions on a decreasing schedule) or
+# "actions" (`policy`: moves compared on what they give and get; the schedule is then the fallback).
+POLICY = os.environ.get("PEGASUS_POLICY", "schedule")
 # Off by default: on the sandbox (D02) walking up from the direct cost scored 0.534 vs 0.702.
 USE_FLOOR = os.environ.get("PEGASUS_FLOOR", "0") == "1"
 FLOOR_MARGIN = float(os.environ.get("PEGASUS_FLOOR_MARGIN", "0.015"))  # over direct cost
@@ -274,8 +277,9 @@ class PegasusAgent:
         return eco.cost(case, eco.sheet(case, best_s, p), st["std"])
 
     # -- decision ------------------------------------------------------------------------------
-    def decide(self, case, threads, sid=None, busy=()):
-        out = self._decide(case, threads, sid, busy)
+    def decide(self, case, threads, sid=None, busy=(), deadline=None):
+        """`deadline` (time.monotonic): when this decision must have left - optional work stops before."""
+        out = self._decide(case, threads, sid, busy, deadline)
         if out and isinstance(out.get("message"), dict) and not out["message"].get("action") and out["message"].get("body"):
             who = out.get("supplier_id")
             n = sum(m.get("from") == "buyer" for m in threads.get(who, [])) + 1
@@ -283,9 +287,19 @@ class PegasusAgent:
             out["message"]["subject"] = f"{subj} ({n})"[:300]
         return out
 
-    def _decide(self, case, threads, sid=None, busy=()):
+    def _decide(self, case, threads, sid=None, busy=(), deadline=None):
         if case["case_id"] != self.case_id:
             self._prepare(case)
+        if POLICY == "actions":
+            from . import policy  # imported late: it reads this module's helpers
+
+            try:
+                return policy.decide(self, case, threads, sid, busy, deadline)
+            except Exception:  # an unmeasured policy must never cost a round: the reference decides
+                log.exception("%s: action policy failed, the schedule policy decides", case.get("case_id"))
+        return self._decide_schedule(case, threads, sid, busy)
+
+    def _decide_schedule(self, case, threads, sid=None, busy=()):
         live = live_threads(threads)
         if not live:
             return None
@@ -725,7 +739,9 @@ class PegasusAgent:
                 out.append(t)
         return out
 
-    def _message(self, case, threads, sid, st, target, k, sheets=None, final_trade=False):
+    def _message(self, case, threads, sid, st, target, k, sheets=None, final_trade=False, prefer=(), extra=()):
+        """`prefer`: data IDs whose arguments go first (the move rests on them); `extra`: sentences
+        that explain the move (a trade, a question)."""
         preference = self._index_preference(case, threads[sid])
         if preference[0]:
             st["index_preference"] = preference
@@ -748,7 +764,9 @@ class PegasusAgent:
                 cands = ([x for r in rivals for x in self.fallback_claims.rival_claim(*r)]
                          + self.fallback_claims.candidates(sid, part, price, st["drivers"]))
                 picked = team_claims.pegasus_claims(case, self.pkg, cands, used=self.fallback_claims.used,
-                                                    supplier=sid)[:rules.claims_cap(st, MAX_CLAIMS)]
+                                                    supplier=sid)
+                picked.sort(key=lambda c: not set(c.ids) & set(prefer))  # stable: the move's own evidence first
+                picked = picked[:rules.claims_cap(st, MAX_CLAIMS)]
                 team_claims.remember(picked, sid, self.fallback_claims.used)
                 chosen = [{"refs": list(c.ids), "sentence": c.sentence} for c in picked]
             except Exception as e:
@@ -768,6 +786,7 @@ class PegasusAgent:
         if WARM and prev_their is not None and st["seen"][-1] < prev_their:
             lines[-1] = ("thank you for your offer and for the step you made towards us on "
                          f"{case['title'].lower()} - we appreciate it.")
+        chosen.sort(key=lambda c: not set(c["refs"]) & set(prefer))  # stable: no `prefer`, no change
         cap = rules.claims_cap(st, MAX_CLAIMS)
         for c in chosen[cap:]:  # not sent: give their IDs back to the ledger
             self.fallback_claims.used -= set(c["refs"])
@@ -775,6 +794,7 @@ class PegasusAgent:
         chosen = chosen[:cap]
         lines += [c["sentence"] for c in chosen]
         lines += rules.lines(case, st, sheets)
+        lines += list(extra)
         if not sheets:
             lines.append("Could you confirm a feasible package using the allowed terms?")
         if final_trade:
