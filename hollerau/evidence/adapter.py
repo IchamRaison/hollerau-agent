@@ -30,7 +30,7 @@ from hollerau.contracts import Claim
 
 from .compile import compile_evidence
 from .economics import compile_case
-from .facts import check, facts_of, has, price_letter
+from .facts import _day, check, facts_of, has, price_letter
 from .forecast_cost_news import CAPACITY_TYPES, FC_GROWTH_PCT, NEWS_TOPICS, citable_cost
 from .index import asked_pct, driver_moves, increase_justified, weighted_move_pct
 from .scorecard import dimension_ok
@@ -114,13 +114,12 @@ def _rising(ids: list[str], facts: dict) -> bool:
     order the IDs are listed in: never two orders at the same price (0/24, X9), never a fall, never a mix."""
     rows = [facts.get(i) for i in ids]
     if len(rows) < 2 or not all(
-        isinstance(r, dict) and isinstance(r.get("unit_price"), int | float) and isinstance(r.get("date"), str)
-        for r in rows
+        isinstance(r, dict) and isinstance(r.get("unit_price"), int | float) and _day(r.get("date")) for r in rows
     ):
-        return False
+        return False  # a date that is not ISO (YYYY-MM-DD) cannot be ordered: not a history
     if len({r.get("supplier") for r in rows}) != 1 or len({r.get("part") for r in rows}) != 1:
         return False
-    by_date = sorted(rows, key=lambda r: r["date"])
+    by_date = sorted(rows, key=lambda r: _day(r["date"]))
     return by_date[-1]["unit_price"] > by_date[0]["unit_price"]
 
 
@@ -239,8 +238,11 @@ def pegasus_claims(
     except Exception:
         log.exception("pegasus_claims failed: our claims only")
         try:
-            return ranked(compile_evidence(case, package)) if isinstance(case, dict) else []
+            if not isinstance(case, dict):
+                return []
+            return _deliverable(case, compile_evidence(case, package), facts_of(case, package), supplier)
         except Exception:
+            log.exception("pegasus_claims fallback failed: no claim rather than an unfiltered one")
             return []
 
 
@@ -294,6 +296,18 @@ def _pegasus_claims(case, package, candidates, used, supplier, used_by_supplier)
             continue  # an ID once per message; non-rival IDs once per case (`used`)
         seen |= ids
         out.append(claim)
+    return _rival_second(case, out)
+
+
+def _deliverable(case: dict, claims: list[Claim], facts: dict, supplier) -> list[Claim]:
+    """The fallback's last line of defence, the same as the main path: strongest first, never an order history that
+    does not rise, never a fact about another supplier, a rival second in an RFQ."""
+    out = [
+        c
+        for c in ranked(claims)
+        if not (c.family == "orders" and not _rising(c.ids, facts))
+        and (supplier is None or _for_recipient(c, supplier, facts))
+    ]
     return _rival_second(case, out)
 
 

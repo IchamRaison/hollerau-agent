@@ -3,6 +3,7 @@
 import copy
 import json
 import logging
+import math
 from pathlib import Path
 
 import pytest
@@ -11,7 +12,7 @@ from arena_kit.cost import relationship_cost
 from hollerau.contracts import Claim
 from hollerau.evidence.compile import compile_evidence
 from hollerau.evidence.economics import compile_case, estimate_supplier, relationship_risk
-from hollerau.evidence.facts import check, facts_of, load_package
+from hollerau.evidence.facts import check, facts_of, load_package, supplier_price
 from hollerau.evidence.forecast_cost_news import forecast_cost_news_claims
 from hollerau.evidence.orders import RAISED_PCT, orders_claims
 from hollerau.evidence.quote import quote_claims
@@ -446,3 +447,35 @@ def test_amber_card_weak_on_one_count_only_is_not_cited(data):
     assert scorecard_claims(case, data, facts_of(case, data)) == []  # 400 ppm: quality is fine
     case["facts"]["sc:70110@2026Q4"] |= {"ppm": 712, "otd_pct": 91.0}
     assert scorecard_claims(case, data, facts_of(case, data)) == []  # 91 % on time: delivery is fine
+
+
+# --- second review: supplier_price and a letter with a percentage only
+
+
+@pytest.mark.parametrize("bad", [True, False, math.inf, -math.inf, math.nan, -5.0, 0, "138.55", None])
+def test_supplier_price_refuses_what_is_not_a_price(bad):
+    case = {"buyer": {"current_unit_price": bad}, "trigger_doc": None}
+    assert supplier_price(case, {}) is None
+
+
+def test_supplier_price_asked_then_current():
+    case = {"buyer": {"current_unit_price": 126.53}, "trigger_doc": "doc:L"}
+    assert supplier_price(case, {"doc:L": {"asked_price": 138.55}}) == 138.55
+    assert supplier_price(case, {"doc:L": {"asked_price": None, "asked_pct": 9.5}}) == 126.53
+    assert supplier_price(case, {"doc:L": {"asked_price": math.inf}}) == 126.53  # inf falls back, never cited above
+
+
+def test_letter_with_a_percentage_only_compares_the_should_cost_with_todays_price(data):
+    """P01 with an asked % but no asked price: 132.64 is above today's 126.53, so it is not cited (the stricter side:
+    the supplier's target is not known in EUR)."""
+    case = copy.deepcopy(CASES["case:P01"])
+    case["trigger_doc"] = "doc:PCT-ONLY"
+    case["facts"] = {
+        "doc:PCT-ONLY": {"supplier": "sup:70110", "date": "2026-09-11", "asked_pct": 9.5, "asked_price": None}
+    }
+    claims = forecast_cost_news_claims(case, data, facts_of(case, data))
+    assert not [c for c in claims if c.ids[0].startswith("cost:")]
+    case["buyer"] = {**case["buyer"], "current_unit_price": 140.0}
+    assert [
+        c.ids for c in forecast_cost_news_claims(case, data, facts_of(case, data)) if c.ids[0].startswith("cost:")
+    ] == [["cost:310010"]]

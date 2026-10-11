@@ -9,6 +9,7 @@ Never raise out of this lane: a fact with a missing or null field is skipped, a 
 
 import csv
 import logging
+import math
 import os
 import threading
 from datetime import date
@@ -83,13 +84,16 @@ def price_letter(case: dict, facts: dict) -> bool:
 
 def supplier_price(case: dict, facts: dict) -> float | None:
     """The price the supplier wants: its letter's asked price, else today's price (what it charges us now)."""
-    price = asked_price(case, facts) or (case.get("buyer") or {}).get("current_unit_price")
-    return price if isinstance(price, int | float) and price > 0 else None
+    for price in (asked_price(case, facts), (case.get("buyer") or {}).get("current_unit_price")):
+        # never True (an int), inf (every should-cost below it), NaN, zero or negative: try the next source
+        if isinstance(price, int | float) and not isinstance(price, bool) and math.isfinite(price) and price > 0:
+            return price
+    return None
 
 
 def stake_price(case: dict, facts: dict) -> float | None:
-    """The price a rival quote or our should-cost must beat to be worth citing: the lower of the current price and
-    the asked price. A rival above today's price would anchor the supplier there."""
+    """The price a rival quote must beat to be worth citing (`quote.py`): the lower of the current price and the
+    asked price. A rival above today's price would anchor the supplier there. The should-cost uses `supplier_price`."""
     prices = [p for p in (case.get("buyer", {}).get("current_unit_price"), asked_price(case, facts)) if p]
     return min(prices) if prices else None
 

@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from hollerau.contracts import Claim
+from hollerau.evidence import adapter as adapter_mod
 from hollerau.evidence.adapter import EFFECT, _rising, effect_rank, pegasus_claims, planner_hints
 from hollerau.evidence.economics import lever_price
 from hollerau.evidence.facts import check, facts_of, load_package, supplier_price
@@ -433,3 +434,52 @@ def test_rising_is_read_by_date_one_supplier_one_part(data):
         "po:C": {"date": "2026-01-01", "unit_price": 2.0, "supplier": "sup:1", "part": "part:1"},
     }
     assert _rising(["po:A", "po:C"], two_parts) and not _rising(["po:A", "po:B"], two_parts)
+
+
+# --- second review: the fallback, dates, supplier_price
+
+
+def broken(*_args, **_kwargs):
+    raise RuntimeError("main path down")
+
+
+def test_fallback_never_sends_another_suppliers_orders(data, monkeypatch):
+    """When the main path raises, the fallback keeps the delivery filters (po: of another supplier, rising history)."""
+    monkeypatch.setattr(adapter_mod, "_pegasus_claims", broken)
+    case = copy.deepcopy(CASES["case:P08"])
+    case["suppliers"] = ["sup:70710", "sup:70740"]
+    facts = facts_of(case, data)
+    assert not [c for c in pegasus_claims(case, data, [], supplier="sup:70740") if c.family == "orders"]
+    out = pegasus_claims(case, data, [], supplier="sup:70710")
+    assert out[0].family == "orders" and all(facts[i]["supplier"] == "sup:70710" for i in out[0].ids)
+
+
+def test_fallback_is_ranked_and_puts_the_rival_second(data, monkeypatch):
+    monkeypatch.setattr(adapter_mod, "_pegasus_claims", broken)
+    case = CASES["case:P01"]
+    out = pegasus_claims(case, data, [], supplier="sup:70110")
+    assert out[0].ids == ["cost:310010"] and [effect_rank(c) for c in out] == sorted(effect_rank(c) for c in out)
+    rfq = copy.deepcopy(CASES["case:P06"])
+    first = [c.family for c in pegasus_claims(rfq, data, [], supplier="sup:70150")]
+    assert "quote" not in first or first.index("quote") <= 1
+
+
+def test_fallback_without_facts_sends_nothing(data, monkeypatch):
+    """No facts, no filter: nothing rather than claims that may be about another supplier."""
+    monkeypatch.setattr(adapter_mod, "_pegasus_claims", broken)
+    monkeypatch.setattr(adapter_mod, "facts_of", broken)
+    assert pegasus_claims(CASES["case:P08"], data, [], supplier="sup:70710") == []
+
+
+def test_rising_refuses_dates_that_are_not_iso():
+    """A date that cannot be read is never ordered as text: "2025-9-05" would sort after "2025-12-01"."""
+    row = {"supplier": "sup:1", "part": "part:1"}
+    facts = {
+        "po:SEP": {**row, "date": "2025-9-05", "unit_price": 5.0},
+        "po:DEC": {**row, "date": "2025-12-01", "unit_price": 4.0},
+        "po:JAN": {**row, "date": "2026-01-02", "unit_price": 6.0},
+    }
+    assert not _rising(["po:DEC", "po:SEP"], facts) and not _rising(["po:SEP", "po:DEC"], facts)
+    assert _rising(["po:DEC", "po:JAN"], facts)
+    facts["po:DEC"]["date"] = "2025-12-01T08:00:00"  # an ISO timestamp is a date
+    assert _rising(["po:JAN", "po:DEC"], facts)

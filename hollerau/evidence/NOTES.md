@@ -35,7 +35,7 @@ Nevil (avec Claude), samedi 10/10/2026. Branche locale `nevil/evidence` de `holl
 
 ```bash
 cd ~/Projets/hollerau-agent
-PYTHONDONTWRITEBYTECODE=1 uv run --offline pytest -p no:cacheprovider hollerau/evidence/tests -q   # 300 passed
+PYTHONDONTWRITEBYTECODE=1 uv run --offline pytest -p no:cacheprovider hollerau/evidence/tests -q   # 315 passed
 uv run --offline ruff check hollerau/evidence && uv run --offline ruff format --check hollerau/evidence   # propres
 ```
 
@@ -192,10 +192,11 @@ Source : X9 dans `03 Build/Expériences.md` du vault, verdict du fournisseur par
 - **Should-cost, plus de marge de 15 %** (régression P01 du candidat, `PEGASUS_TEAM_CLAIMS=1`). Il est cité s'il est comparable et **sous le prix voulu par le fournisseur** (`supplier_price` : le prix demandé par sa lettre, sinon le prix courant).
   - La règle est la même pour nos claims et ceux de Pegasus (`forecast_cost_news.citable_cost`).
   - Preuves : X9 (should-cost pris en compte 11 fois sur 13) et le replay de P01 à 0,998 (`3a0b48ea4e9dae20`). Il citait `cost:310010` à 132,64 contre 138,55 demandé, `verified`, « a fair point », alors que le prix courant est de 126,53.
+  - **Pourquoi sans marge** : les 11/13 de X9 ont été mesurés avec la règle de Pegasus (`hollerau/pegasus/claims.py`, `should_cost_claim` : should-cost cité s'il est sous le prix demandé, `f["unit_cost"] < price`). C'est exactement la nôtre. Une marge de 15 % ou égale à `confidence_pct` n'a jamais été mesurée.
   - Le should-cost ouvre désormais le mail de P01. P10 le garde. Il est nouveau sur P03, P09 et P14, et reste écarté sur P02, P05 et P17 (au-dessus du prix voulu).
 - **Lecture du point 2** : la hausse se mesure entre les deux commandes **citées**. La plus ancienne commande de la fenêtre de 24 mois est à 5,45 sur P08, comme la dernière : une lecture littérale aurait supprimé l'argument de P08.
-- **Effet de bord** : sur P01, le préavis passe derrière l'historique et le should-cost s'il y en a. Il n'y en a pas sur P01, donc il reste en tête.
-- **Tests** (279) :
+- **Effet de bord** : le préavis passe derrière l'historique en hausse et le should-cost. Sur P01, le should-cost (132,64) ouvre désormais le mail et le préavis passe en 2e.
+- **Tests** (315) :
   - `test_rising_price_history_leads_the_first_email` (P08, P18) ;
   - `test_never_an_order_history_at_the_same_price` (19 cas, chaque fournisseur) ;
   - `test_otd_never_leads_and_comes_last`, `test_effect_order_on_every_kind` ;
