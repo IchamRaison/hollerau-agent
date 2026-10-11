@@ -144,10 +144,51 @@ def play_case(table, case_id, agent, deadline=None):
     return result
 
 
-def play_cases(client, case_ids, new_agent, parallel=5):
+class ResumedTable(RemoteTable):
+    """A session this team left open (the runner was killed): pick it up instead of opening a new one."""
+
+    def __init__(self, client, case, session_id):
+        super().__init__(client, case)
+        self.running = session_id
+
+    def open(self, case_id):
+        return self.resume(self.running)
+
+
+def open_sessions(client, set_):
+    """{case_id: [(session_id, case), ...]} of this team's sessions still open in `set_`, oldest first; {} if they
+    cannot be read. Practice and sandbox never answer 409 with the running session (the final does): without this, a
+    restarted runner opens new sessions, the old ones stay open until the clock ends them, and at 10 open the arena
+    refuses every new one (429)."""
+    try:
+        running = {}
+        for s in sorted(client.sessions(set_), key=lambda s: s.get("created_at") or 0):
+            if s.get("status") == "open":
+                running.setdefault(s["case_id"], []).append(s["session_id"])
+        if not running:
+            return {}
+        cases = {c["case_id"]: c for c in client.cases(set_)}
+        return {cid: [(sid, cases[cid]) for sid in sids] for cid, sids in running.items() if cid in cases}
+    except Exception:
+        log.exception("could not list the open sessions: none resumed")
+        return {}
+
+
+def play_cases(client, case_ids, new_agent, parallel=5, set_="practice"):
+    running, taken = open_sessions(client, set_), threading.Lock()
+    if running:
+        log.warning("resuming %d open session(s): %s", sum(map(len, running.values())), sorted(running))
+
+    def table_for(cid):
+        """Each open session is picked up once: two runs of one case never play the same session."""
+        with taken:
+            queue = running.get(cid) or []
+            found = queue.pop(0) if queue else None
+        return ResumedTable(client, found[1], found[0]) if found else RemoteTable(client)
+
     def one(cid):
         try:
-            return cid, play_case(RemoteTable(client), cid, new_agent())
+            return cid, play_case(table_for(cid), cid, new_agent())
         except Exception as e:
             log.exception("%s failed", cid)
             return cid, e
