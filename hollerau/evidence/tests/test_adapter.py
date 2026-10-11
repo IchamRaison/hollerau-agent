@@ -9,7 +9,7 @@ import pytest
 from hollerau.contracts import Claim
 from hollerau.evidence.adapter import EFFECT, _rising, effect_rank, pegasus_claims, planner_hints
 from hollerau.evidence.economics import lever_price
-from hollerau.evidence.facts import check, facts_of, load_package
+from hollerau.evidence.facts import check, facts_of, load_package, supplier_price
 from hollerau.pegasus.claims import Claims
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -46,11 +46,37 @@ def test_union_is_checked_unique_and_ranked(data, case_id):
     assert ranks == sorted(ranks)
 
 
-def test_p01_drops_the_should_cost_above_todays_price(data):
+def test_p01_should_cost_leads_the_first_email(data):
+    """Regression of the candidate (PEGASUS_TEAM_CLAIMS=1): P01's should-cost was filtered out. Its 0.998 replay
+    (3a0b48ea) cited cost:310010, 132.64 below the 138.55 asked, verified, "a fair point". P01 has no rising history,
+    so the should-cost opens the e-mail."""
     case = CASES["case:P01"]
-    candidates = raw(case, data)
-    assert any("cost:310010" in c["refs"] for c in candidates)  # Pegasus would send it
-    assert "cost:310010" not in ids(pegasus_claims(case, data, candidates))  # 132.64 against 126.53 today
+    out = pegasus_claims(case, data, raw(case, data), supplier="sup:70110")
+    assert out[0].ids == ["cost:310010"] and out[0].figure == 132.64
+
+
+def test_p10_keeps_its_should_cost(data):
+    case = CASES["case:P10"]
+    assert "cost:340010" in ids(pegasus_claims(case, data, raw(case, data), supplier="sup:70410")[:3])
+
+
+@pytest.mark.parametrize("case_id", sorted(CASES))
+def test_never_a_should_cost_above_the_price_the_supplier_wants(data, case_id):
+    """Ours and Pegasus' alike, for every supplier: a should-cost is cited only below the asked (else today's) price."""
+    case = CASES[case_id]
+    facts = facts_of(case, data)
+    wants = supplier_price(case, facts)
+    for out in every_message(case, data).values():
+        for c in out:
+            if c.ids[0].startswith("cost:"):
+                assert wants is not None and facts[c.ids[0]]["unit_cost"] < wants, (c.ids, wants)
+
+
+def test_pegasus_should_cost_above_the_asked_price_is_dropped(data):
+    """P02: Pegasus offers its should-cost (374.95) against a higher offer price; the supplier only asks 370.96."""
+    case = CASES["case:P02"]
+    cand = {"refs": ["cost:350011"], "sentence": "Our should-cost estimate for this part is 374.95 EUR (cost:350011)."}
+    assert "cost:350011" not in ids(pegasus_claims(case, data, [cand]))
 
 
 @pytest.mark.parametrize("case_id", ["case:P09", "case:P10"])
@@ -207,8 +233,9 @@ def test_rival_flag_does_not_skip_check_for_other_ids(data):
         {"refs": ["cost:310010"], "sentence": "Our should-cost estimate is 1.00 EUR (cost:310010).", "rival": True},
         {"refs": ["idx:NOPE@2026-01"], "sentence": "NOPE changed -9.0% (idx:NOPE@2026-01).", "rival": True},
     ]
-    out = ids(pegasus_claims(case, data, fake))
-    assert "cost:310010" not in out and "idx:NOPE@2026-01" not in out
+    out = pegasus_claims(case, data, fake)
+    assert not [c for c in out if c.ids == ["cost:310010"] and c.figure != 132.64]  # ours (132.64) only, not 1.00
+    assert "idx:NOPE@2026-01" not in ids(out)
 
 
 def test_refs_must_be_a_list_of_strings(data):

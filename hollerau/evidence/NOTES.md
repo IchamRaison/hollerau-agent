@@ -22,7 +22,7 @@ Nevil (avec Claude), samedi 10/10/2026. Branche locale `nevil/evidence` de `holl
 | `adapter.py` | `pegasus_claims(case, package, pegasus_claims_list, used=None, supplier=None, used_by_supplier=None)`, `remember(...)` et `planner_hints(case, data, standard=None)` pour l'agent de Vincent | fait, **pas encore branché** |
 | `index.py` | `index` : fenêtre de 12 mois, une série par claim ; hausse justifiée si pondéré ≥ demande − 1 point | fait |
 | `orders.py` | `orders` : première et dernière commande des 24 derniers mois si le prix a déjà monté de 3 % ou plus ; sinon, sans lettre de prix, la commande la moins chère et la dernière, toutes deux au prix courant ou en dessous ; jamais dans un kit ; sans les lignes `stale_condition` | fait |
-| `forecast_cost_news.py` | `forecast_cost_news` : should-cost (marge > 15 %), lettre du fournisseur « matière couverte » (`doc:`, sans lettre de prix, sans chiffre, `supports=price`), prévision en hausse ≥ 5 %, news qui affaiblissent le fournisseur | fait |
+| `forecast_cost_news.py` | `forecast_cost_news` : should-cost (sous le prix voulu par le fournisseur, sans marge), lettre du fournisseur « matière couverte » (`doc:`, sans lettre de prix, sans chiffre, `supports=price`), prévision en hausse ≥ 5 %, news qui affaiblissent le fournisseur | fait |
 | `compile.py` | `compile_evidence(case, data)` : notice, quote, scorecard, index, orders, forecast_cost_news, chaque claim vérifié, chaque ID une seule fois | fait |
 | `economics.py` | `compile_case(case, standard=None, data=None)`, `lever_price`, `estimate_supplier`, `relationship_risk` | fait, D3 appliquée |
 | `signals.py` | `signals(case, data)` pour le planificateur, jamais envoyé comme claim ; `price_floor_hint` (plafonné), `price_floor_confidence` = `low` et `price_floor_reason` en `stabilise` / `secure_supply` | fait |
@@ -35,7 +35,7 @@ Nevil (avec Claude), samedi 10/10/2026. Branche locale `nevil/evidence` de `holl
 
 ```bash
 cd ~/Projets/hollerau-agent
-PYTHONDONTWRITEBYTECODE=1 uv run --offline pytest -p no:cacheprovider hollerau/evidence/tests -q   # 279 passed
+PYTHONDONTWRITEBYTECODE=1 uv run --offline pytest -p no:cacheprovider hollerau/evidence/tests -q   # 300 passed
 uv run --offline ruff check hollerau/evidence && uv run --offline ruff format --check hollerau/evidence   # propres
 ```
 
@@ -189,6 +189,10 @@ Source : X9 dans `03 Build/Expériences.md` du vault, verdict du fournisseur par
   - Ce claim disparaît de P04 (+2,3 %), P09, P10, P11, P12 et P16.
   - P08 (5,17 → 5,45) et P18 (5,26 → 5,84) gardent l'historique en hausse, qui passe en tête.
 - **Filtre `_rising`** (adaptateur) : les lignes sont lues par date, quel que soit l'ordre des IDs, et doivent être d'un seul fournisseur et d'une seule pièce. Il écarte un historique plat, en baisse ou mélangé, d'où qu'il vienne, par exemple du dossier `intel`.
+- **Should-cost, plus de marge de 15 %** (régression P01 du candidat, `PEGASUS_TEAM_CLAIMS=1`). Il est cité s'il est comparable et **sous le prix voulu par le fournisseur** (`supplier_price` : le prix demandé par sa lettre, sinon le prix courant).
+  - La règle est la même pour nos claims et ceux de Pegasus (`forecast_cost_news.citable_cost`).
+  - Preuves : X9 (should-cost pris en compte 11 fois sur 13) et le replay de P01 à 0,998 (`3a0b48ea4e9dae20`). Il citait `cost:310010` à 132,64 contre 138,55 demandé, `verified`, « a fair point », alors que le prix courant est de 126,53.
+  - Le should-cost ouvre désormais le mail de P01. P10 le garde. Il est nouveau sur P03, P09 et P14, et reste écarté sur P02, P05 et P17 (au-dessus du prix voulu).
 - **Lecture du point 2** : la hausse se mesure entre les deux commandes **citées**. La plus ancienne commande de la fenêtre de 24 mois est à 5,45 sur P08, comme la dernière : une lecture littérale aurait supprimé l'argument de P08.
 - **Effet de bord** : sur P01, le préavis passe derrière l'historique et le should-cost s'il y en a. Il n'y en a pas sur P01, donc il reste en tête.
 - **Tests** (279) :

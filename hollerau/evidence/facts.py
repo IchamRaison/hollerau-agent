@@ -81,6 +81,12 @@ def price_letter(case: dict, facts: dict) -> bool:
     return isinstance(doc, dict) and (doc.get("asked_price") is not None or doc.get("asked_pct") is not None)
 
 
+def supplier_price(case: dict, facts: dict) -> float | None:
+    """The price the supplier wants: its letter's asked price, else today's price (what it charges us now)."""
+    price = asked_price(case, facts) or (case.get("buyer") or {}).get("current_unit_price")
+    return price if isinstance(price, int | float) and price > 0 else None
+
+
 def stake_price(case: dict, facts: dict) -> float | None:
     """The price a rival quote or our should-cost must beat to be worth citing: the lower of the current price and
     the asked price. A rival above today's price would anchor the supplier there."""

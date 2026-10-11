@@ -6,7 +6,7 @@ pegasus_claims(case, package, pegasus_claims_list, used=None, supplier=None, use
     history, should-cost, notice (provisional), ppm, index, rival quote, volume forecast, the rest, OTD last; in an
     RFQ a rival's offer or quote second): the caller keeps the first three, and the first leads the e-mail. Never
     an order history at the same price, nor another supplier's orders. Our filters apply to the Pegasus ones: no
-    should-cost unless clearly below the price at stake, no volume growth in a capacity case or to a saturated
+    should-cost unless below the price the supplier wants, no volume growth in a capacity case or to a saturated
     supplier, scorecards only past our thresholds, no index claim when the increase is justified, and
     every claim must pass `check()` - except a rival's session offer (`offer:`), which the arena checks itself.
     At most 3 per message: the caller slices.
@@ -30,8 +30,8 @@ from hollerau.contracts import Claim
 
 from .compile import compile_evidence
 from .economics import compile_case
-from .facts import check, comparable, facts_of, has, price_letter, stake_price
-from .forecast_cost_news import CAPACITY_TYPES, COST_ERROR, FC_GROWTH_PCT, NEWS_TOPICS
+from .facts import check, facts_of, has, price_letter
+from .forecast_cost_news import CAPACITY_TYPES, FC_GROWTH_PCT, NEWS_TOPICS, citable_cost
 from .index import asked_pct, driver_moves, increase_justified, weighted_move_pct
 from .scorecard import dimension_ok
 from .signals import saturated, signals
@@ -143,13 +143,7 @@ def _keep(case: dict, data, facts: dict, claim: Claim, justified: bool) -> bool:
     prefix = claim.ids[0].split(":", 1)[0]
     row = facts.get(claim.ids[0])
     if prefix == "cost":
-        stake = stake_price(case, facts)
-        return (
-            has(row, "unit_cost")
-            and stake is not None
-            and comparable(case, data, row)
-            and row["unit_cost"] * (1 + COST_ERROR) < stake
-        )
+        return citable_cost(case, data, facts, row)
     if prefix == "fc":
         if case.get("type") in CAPACITY_TYPES or any(saturated(case, data, facts, s) for s in case["suppliers"]):
             return False

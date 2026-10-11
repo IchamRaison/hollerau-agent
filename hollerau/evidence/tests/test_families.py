@@ -138,12 +138,20 @@ def test_orders_check_needs_one_part():
 # --- forecast_cost_news
 
 
-def test_should_cost_cited_only_with_room(data):
-    p06 = [c for c in run(forecast_cost_news_claims, "case:P06", data) if c.ids[0].startswith("cost:")]
-    assert [c.ids for c in p06] == [["cost:310070"]] and p06[0].figure == 194.18
-    for case_id in ("case:P01", "case:P02", "case:P03", "case:P14"):  # within the should-cost's 15 % error
-        claims = run(forecast_cost_news_claims, case_id, data)
-        assert not [c for c in claims if c.ids[0].startswith("cost:")], case_id
+def test_should_cost_cited_below_the_price_the_supplier_wants(data):
+    """No margin any more (X9: should-cost taken into account 11/13; P01's 0.998 cited 132.64 against 138.55)."""
+    cited = {
+        case_id: [
+            (c.ids[0], c.figure) for c in run(forecast_cost_news_claims, case_id, data) if c.ids[0].startswith("cost:")
+        ]
+        for case_id in ("case:P01", "case:P02", "case:P03", "case:P05", "case:P06", "case:P10", "case:P14", "case:P17")
+    }
+    assert cited["case:P01"] == [("cost:310010", 132.64)]  # asked 138.55 (today 126.53)
+    assert cited["case:P06"] == [("cost:310070", 194.18)]
+    assert cited["case:P10"] == [("cost:340010", 24.31)]
+    assert cited["case:P03"] == [("cost:350020", 403.21)] and cited["case:P14"] == [("cost:350040", 304.49)]
+    for case_id in ("case:P02", "case:P05", "case:P17"):  # above what the supplier wants: 374.95, 36.87, 37.24
+        assert cited[case_id] == [], case_id
 
 
 def test_forecast_growth_is_cited(data):
