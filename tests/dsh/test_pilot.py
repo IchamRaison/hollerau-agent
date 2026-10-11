@@ -94,6 +94,18 @@ def test_the_relationship_charge_is_unknown_without_an_estimate_and_u_shaped_wit
     assert min(s["terms"]["unit_price"] for s in floor["sheets"]) > 40.0  # and never goes under the bottom of the U
 
 
+def test_the_state_shows_what_the_suppliers_cost_would_buy_on_other_terms(sim):
+    """S03's supplier quotes on its standard terms (12 months, ex works): the same cost for us buys
+    a higher unit price on a two-year delivered contract - the trade the model has to see."""
+    _, state = opened(sim, "case:S03")
+    view = state.snapshot()["threads"][0]
+    its = view["supplier_sheets"][0]
+    trades = view["what_its_standing_sheet_costs_us_would_buy_on_other_terms"]
+    assert trades and all(t["terms"]["unit_price"] > its["terms"]["unit_price"] for t in trades)
+    cent = state.case["buyer"]["need_per_year"] * 0.01 * 2.2
+    assert all(abs(t["costs_us_eur"] - its["cost_eur"]) <= cent for t in trades)
+
+
 def test_movement_is_read_from_the_offers_in_our_cost_units():
     state = d01(with_reply=True)
     m = economics.movement(state.case, state.threads["sup:DEMO-F1"], state.std["sup:DEMO-F1"])

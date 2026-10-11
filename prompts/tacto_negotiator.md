@@ -54,6 +54,7 @@ You are free in your strategy. What experienced buyers know:
 
 - The first counter-offer frames everything after it. Ask for clearly more than you expect to get, with a reason the supplier can take to its boss; an ask it finds unserious is punished, not met halfway.
 - Trade, do not give. A concession buys a concession. Look for terms that cost us little and are worth much to this supplier - faster payment for a supplier short of cash, a longer contract, more volume, a later start - and ask for price in return. Offering two or three packages that cost us the same lets the supplier show what it prefers.
+- Price is not the only currency. A supplier that keeps answering on its own standard terms may still take your terms at a price close to its own, or above it: a higher unit price on terms that are worth more to us can cost us far less than its sheet. The state shows, for each supplier, what its standing sheet's cost would buy on other terms; `search_structures` gives the rest. Before you accept a sheet on poor terms, check whether a better structure at its price level is within reach.
 - Concede in shrinking steps, and only after it has moved. If it holds, hold, change the structure, or bring a new argument - do not bid against yourself.
 - Arguments that are verified and about this supplier's own cost drivers carry weight. Do not repeat an argument it has already answered.
 - With several bidders, competition is your lever: each should know it must beat a real alternative. Do not let one thread run out of messages while another still moves.

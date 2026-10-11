@@ -125,6 +125,22 @@ class CaseState:
                     out = e["total_eur"] if out is None else min(out, e["total_eur"])
         return out
 
+    def _same_cost_on_other_terms(self, sid, sheets, limit=3):
+        """The supplier's standing sheet costs us C. On which other combinations of terms could we
+        pay a HIGHER unit price than its own and still not pay more than C? Each entry is a sheet
+        that costs us the same as its offer: any price below it on those terms is better for us
+        than its offer, and a price above its own is something to offer it."""
+        if not sheets or sheets[0]["cost_eur"] is None:
+            return []
+        its_price = (sheets[0]["terms"] or {}).get("unit_price")
+        found = economics.structures_for_target(
+            self.case, sheets[0]["cost_eur"], self.std.get(sid), self.estimate.get(sid), limit=200
+        )
+        better = [
+            x for x in found["sheets"] if x["reached"] and its_price and x["terms"]["unit_price"] > its_price * 1.002
+        ]
+        return [{"terms": x["terms"], "costs_us_eur": x["total_eur"]} for x in better[:limit]]
+
     def _thread_view(self, sid):
         events = self.threads[sid]
         last = latest(events)
@@ -157,6 +173,9 @@ class CaseState:
             "attachments_of_its_last_email": [a.get("name") for a in last.get("attachments") or []],
             "movement": economics.movement(self.case, events, self.std.get(sid), self.estimate.get(sid)),
         }
+        trades = self._same_cost_on_other_terms(sid, sheets)
+        if trades:
+            view["what_its_standing_sheet_costs_us_would_buy_on_other_terms"] = trades
         if sid in self.errors:
             view["arena_refused_your_last_message"] = self.errors[sid]
         direct = direct_cost(events)
