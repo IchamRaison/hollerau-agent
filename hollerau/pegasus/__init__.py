@@ -10,5 +10,12 @@ Modules
 - play: one worker per supplier thread; play_waves for the Live Final
 - guard: fail-closed pre-send check (IDs, figures, leaks); prose: optional LLM narrator (off)
 - preflight / dryrun_final / bench / cli: checks, offline rehearsal of the final, sandbox bench, runner
-Switches (env): PEGASUS_READER=1 (LLM reader), PEGASUS_TEAM_CLAIMS=1 (Nevil's adapter), PEGASUS_FINAL_TRADE, PEGASUS_RFQ_BAFO, ...
+- runconfig: the resolved configuration of a run, written before it starts, and the decision journal
+- dossier / evaluation: one preparation of the case (facts, statements, estimates, unknowns) and one
+  evaluation of an offer (commercial cost; relationship risk per hypothesis, kept apart)
+- state: what a thread taught us, with its standing and condition; withdrawn when taken back or contradicted
+- actions / policy / strategist: the action policy (PEGASUS_POLICY=actions) and its optional LLM chooser
+- outbox: the one gate every move passes before it is sent; replay / inspect: offline reading of a case
+Switches (env): PEGASUS_POLICY=schedule|actions, PEGASUS_READER=1 (LLM reader), PEGASUS_TEAM_CLAIMS=1 (Nevil's adapter),
+PEGASUS_STRATEGIST=1, PEGASUS_FINAL_TRADE, PEGASUS_RFQ_BAFO, ... - all recorded by runconfig before a run starts.
 """
