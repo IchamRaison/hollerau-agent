@@ -1,0 +1,399 @@
+# P11 session 3ee54cc7c382ca6a — score 0.794 — end accepted — deal terms {"payment_days": 60, "lead_time_days": 56, "volume_per_year": 15900, "contract_months": 12, "effective_date": "2027-01-01", "index_clause": null, "incoterm": "FCA", "tooling_eur": 0.0, "ppm_commitment": 300, "chargeback_eur_per_complaint": 0.0, "unit_price": 45.0} — c_open 817578.0 c_deal 742132.5 c_best 722500.02 — cost_breakdown {"price": 715500, "uncovered_need": 0, "fallback_risk": 0, "payment_terms": 0, "freight": 24486, "late_delivery": 0, "quality": 2146, "tooling": 0, "index_clause": 0, "index_risk": 0, "relationship": 0}
+
+Replay - Kalwisz: bearing brackets in red
+Kalwisz: bearing brackets in red
+pegasus · case:P11 · quality · practice
+47.00
+37.60
+◀
+▶
+all
+keys: ← → space, a = all
+sup:70140
+open
+round 0
+unit_price
+47.00
+ppm_commitment
+6400
+Hello,
+here is our price.
+Our terms: a price of €47.00 per unit, a quality commitment of 6400 ppm.
+We are ready when you are!
+Kind regards
+Marek Lis
+Export Manager, Odlewnia Kalwisz Sp. z o.o.
+Buyer
+message
+round 1
+ppm_commitment
+1500
+chargeback_eur_per_complaint
+500.00
+unit_price
+37.60
+Claim
+index_change
+idx:PPI-D351@2025-08
+idx:PPI-D351@2026-08
+{"change_pct": -3.7226}
+Claim
+quality_record
+sc:70140@2026Q3
+{"ppm": 2376.0}
+Claim
+volume_change
+fc:310020@2026-09
+{"change_pct": 20.0}
+Dear Sir or Madam,
+thank you for your offer regarding kalwisz: bearing brackets in red.
+Your recorded quality record is 2376 ppm (sc:70140@2026Q3).
+The recorded demand forecast for part:310020 changed by +20% (fc:310020@2026-09).
+PPI-D351 changed by -3.7226% over the referenced annual window (idx:PPI-D351@2025-08, idx:PPI-D351@2026-08).
+The enquiry fixes payment at 60 days net; the attached packages therefore trade only the negotiable terms.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 15,900 pcs per year over 12 months.
+Could you send us a cost breakdown for this part?
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70140
+open
+round 1
+unit_price
+47.00
+ppm_commitment
+300
+chargeback_eur_per_complaint
+0.00
+Checked claim
+index_change
+:
+verified
+Checked claim
+quality_record
+:
+verified
+Checked claim
+volume_change
+:
+verified
+Hello,
+thank you for your mail, we are very happy to hear from you!
+we can move a bit:
+Our terms: a price of €47.00 per unit, a quality commitment of 300 ppm, a chargeback of €0.00 per complaint.
+To be fully transparent with you:
+We checked the index change data you cited; it holds and we took it into account.
+We checked the quality record data you cited; it holds and we took it into account.
+We checked the volume change data you cited; it holds and we took it into account.
+We see your figures, but we cannot give up margin right now. Faster payment would help us more than anything.
+Hi, thanks for the email. We don't share cost breakdowns, it's just not how we work.
+We see the volume increase and the index drop, so we can do 1500 ppm with 0 chargeback at €46.50.
+Let's get this sorted quickly, we are ready to produce.
+Material accounts for about 30 % of our cost; more detail we do not share.
+We are ready when you are!
+Kind regards
+Marek Lis
+Export Manager, Odlewnia Kalwisz Sp. z o.o.
+We checked the index change data you cited; it holds and we took it into account.
+We checked the quality record data you cited; it holds and we took it into account.
+We checked the volume change data you cited; it holds and we took it into account.
+We see your figures, but we cannot give up margin right now. Faster payment would help us more than anything.
+Hi, thanks for the email. We don't share cost breakdowns, it's just not how we work.
+We see the volume increase and the index drop, so we can do … ppm with … chargeback at €….
+Let's get this sorted quickly, we are ready to produce.
+Material accounts for about … of our cost; more detail we do not share.
+Buyer
+message
+round 2
+ppm_commitment
+300
+chargeback_eur_per_complaint
+500.00
+unit_price
+39.69
++2.09
+Claim
+price_history
+po:4500014429-10
+po:4500014373-10
+po:4500014306-10
+po:4500014246-10
+po:4500014214-10
+po:4500014185-10
+po:4500014143-10
+po:4500014091-10
+{"prices": [45.15, 45.15, 45.15, 45.15, 45.15, 45.15, 45.15, 45.15]}
+Dear Sir or Madam,
+thank you for your offer regarding kalwisz: bearing brackets in red.
+The referenced orders for part:310020 each record a price of EUR 45.15 per price unit (po:4500014429-10, po:4500014373-10, po:4500014306-10, po:4500014246-10, po:4500014214-10, po:4500014185-10, po:4500014143-10, po:4500014091-10).
+We understand your position on list prices, so we have structured the packages below around chargebacks, quality commitment.
+The enquiry fixes payment at 60 days net; the attached packages therefore trade only the negotiable terms.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 15,900 pcs per year over 12 months.
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70140
+open
+round 2
+unit_price
+46.50
+-0.50
+ppm_commitment
+300
+chargeback_eur_per_complaint
+0.00
+Checked claim
+price_history
+:
+verified
+Hello,
+thank you for your mail, we are very happy to hear from you!
+we can move a bit:
+Our terms: a price of €46.50 per unit, a quality commitment of 300 ppm, a chargeback of €0.00 per complaint.
+Please let me explain.
+We checked the price history data you cited; it holds, but it does not change our calculation.
+We see your figures, but we cannot give up margin right now. Faster payment would help us more than anything.
+I can drop the price to 46.00 EUR for 1500 ppm and 0 chargeback to keep things moving.
+If you want to see more movement on price, we really need to talk about faster payment, 60 days is just too long for us right now.
+We really want this business - let's make it happen!
+Kind regards
+Marek Lis
+Export Manager, Odlewnia Kalwisz Sp. z o.o.
+We checked the price history data you cited; it holds, but it does not change our calculation.
+We see your figures, but we cannot give up margin right now. Faster payment would help us more than anything.
+I can drop the price to … EUR for … ppm and … chargeback to keep things moving.
+If you want to see more movement on price, we really need to talk about faster payment, … days is just too long for us right now.
+Buyer
+message
+round 3
+ppm_commitment
+300
+chargeback_eur_per_complaint
+500.00
+unit_price
+41.03
++1.34
+Dear Sir or Madam,
+thank you for your offer regarding kalwisz: bearing brackets in red.
+We understand your position on list prices, so we have structured the packages below around chargebacks, quality commitment.
+The enquiry fixes payment at 60 days net; the attached packages therefore trade only the negotiable terms.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 15,900 pcs per year over 12 months.
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70140
+open
+round 3
+unit_price
+46.00
+-0.50
+ppm_commitment
+300
+chargeback_eur_per_complaint
+0.00
+Hello,
+thank you for your mail, we are very happy to hear from you!
+we can move a bit:
+Our terms: a price of €46.00 per unit, a quality commitment of 300 ppm, a chargeback of €0.00 per complaint.
+Please let me explain.
+Hi again, thanks for the new numbers. I can do €46.00 for 300 ppm and 0 chargeback.
+You say 60 days payment is fixed, but that really hurts our cash flow and limits what we can do on price.
+If we have to stick to 60 days, this is pretty much where we need to be.
+Which figures is that based on? Please send us the data.
+Our standard Zahlungsziel is 60 days net.
+Faster payment is welcome; we can reflect it in the price.
+We are ready when you are!
+Kind regards
+Marek Lis
+Export Manager, Odlewnia Kalwisz Sp. z o.o.
+Hi again, thanks for the new numbers. I can do €… for … ppm and … chargeback.
+You say … days payment is fixed, but that really hurts our cash flow and limits what we can do on price.
+If we have to stick to … days, this is pretty much where we need to be.
+Which figures is that based on? Please send us the data.
+Our standard Zahlungsziel is … days net.
+Faster payment is welcome; we can reflect it in the price.
+Buyer
+message
+round 4
+ppm_commitment
+300
+chargeback_eur_per_complaint
+500.00
+unit_price
+42.03
++1.00
+Dear Sir or Madam,
+thank you for your offer regarding kalwisz: bearing brackets in red.
+We understand your position on list prices, so we have structured the packages below around chargebacks, quality commitment.
+The enquiry fixes payment at 60 days net; the attached packages therefore trade only the negotiable terms.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 15,900 pcs per year over 12 months.
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70140
+open
+round 4
+unit_price
+46.00
+ppm_commitment
+300
+chargeback_eur_per_complaint
+0.00
+Hello,
+many thanks, good to have your reply!
+we can move a bit:
+Our terms: a price of €46.00 per unit, a quality commitment of 300 ppm, a chargeback of €0.00 per complaint.
+Please let me explain.
+Thanks for the updated offer, it's good to see we are getting closer.
+Because the 60 days payment term is fixed, our flexibility on price is very restricted due to cash flow.
+I can drop the price to €45.50 for 1500 ppm and 0 chargeback, which is as far as we can go under these terms.
+Our standard Zahlungsziel is 60 days net.
+Faster payment is welcome; we can reflect it in the price.
+We really want this business - let's make it happen!
+Kind regards
+Marek Lis
+Export Manager, Odlewnia Kalwisz Sp. z o.o.
+Thanks for the updated offer, it's good to see we are getting closer.
+Because the … days payment term is fixed, our flexibility on price is very restricted due to cash flow.
+I can drop the price to €… for … ppm and … chargeback, which is as far as we can go under these terms.
+Our standard Zahlungsziel is … days net.
+Faster payment is welcome; we can reflect it in the price.
+Buyer
+message
+round 5
+ppm_commitment
+300
+chargeback_eur_per_complaint
+500.00
+unit_price
+42.97
++0.94
+Dear Sir or Madam,
+thank you for your offer regarding kalwisz: bearing brackets in red.
+We understand your position on list prices, so we have structured the packages below around chargebacks, quality commitment.
+The enquiry fixes payment at 60 days net; the attached packages therefore trade only the negotiable terms.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 15,900 pcs per year over 12 months.
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70140
+open
+round 5
+unit_price
+45.50
+-0.50
+ppm_commitment
+300
+chargeback_eur_per_complaint
+0.00
+Hello,
+many thanks, good to have your reply!
+we can move a bit:
+Our terms: a price of €45.50 per unit, a quality commitment of 300 ppm, a chargeback of €0.00 per complaint.
+Please let me explain.
+Thanks for the new numbers, it's good to see we are getting closer.
+I can drop the price to €45.00 for 1500 ppm and 0 chargeback.
+Since payment terms are fixed at 60 days, this is really the best we can do to keep our cash flow manageable.
+We really want this business - let's make it happen!
+Kind regards
+Marek Lis
+Export Manager, Odlewnia Kalwisz Sp. z o.o.
+Thanks for the new numbers, it's good to see we are getting closer.
+I can drop the price to €… for … ppm and … chargeback.
+Since payment terms are fixed at … days, this is really the best we can do to keep our cash flow manageable.
+Buyer
+message
+round 6
+ppm_commitment
+300
+chargeback_eur_per_complaint
+500.00
+unit_price
+43.38
++0.41
+Dear Sir or Madam,
+thank you for your offer regarding kalwisz: bearing brackets in red.
+We understand your position on list prices, so we have structured the packages below around chargebacks, quality commitment.
+The enquiry fixes payment at 60 days net; the attached packages therefore trade only the negotiable terms.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 15,900 pcs per year over 12 months.
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70140
+final_offer
+round 6
+unit_price
+45.00
+-0.50
+ppm_commitment
+300
+chargeback_eur_per_complaint
+0.00
+Hello,
+thank you for your mail, we are very happy to hear from you!
+this is our last price, take it or leave it.
+Our terms: a price of €45.00 per unit, a quality commitment of 300 ppm, a chargeback of €0.00 per complaint.
+To be fully transparent with you:
+Hi, thanks for the new numbers, good to see we are getting closer.
+I can do €45.00 for 300 ppm and 0 chargeback.
+With the 60 days payment fixed, this is really the bottom line for us because cash is tight.
+We are a competitive and flexible partner.
+We really want this business - let's make it happen!
+Kind regards
+Marek Lis
+Export Manager, Odlewnia Kalwisz Sp. z o.o.
+Hi, thanks for the new numbers, good to see we are getting closer.
+I can do €… for … ppm and … chargeback.
+With the … days payment fixed, this is really the bottom line for us because cash is tight.
+Buyer
+accept
+round 6
+Result
+Deal with
+sup:70140
+: payment_days 60, lead_time_days 56, volume_per_year 15900, contract_months 12, effective_date 2027-01-01, index_clause None, incoterm FCA, tooling_eur 0.00, ppm_commitment 300, chargeback_eur_per_complaint 0.00, unit_price 45.00
+Total cost at the best opening offer
+€817,578
+Total cost of this outcome
+€742,132
+Best achievable total cost
+€722,500
+79.4
+score out of 100
+Back office
+Export Manager
+ quote attached (quote-offer-70140-0.pdf)
+Export Manager
+ My call: counter.
+Export Manager
+ Read the buyer's e-mail: … term sheets and … cited facts to check; we answer with our offer.
+Export Manager
+ My call: counter.
+Export Manager
+ Read the buyer's e-mail: … term sheets and … cited fact to check; we answer with our offer.
+Export Manager
+ My call: counter.
+Export Manager
+ Read the buyer's e-mail: … term sheets; we answer with our offer.
+Export Manager
+ My call: counter.
+Export Manager
+ Read the buyer's e-mail: … term sheets; we answer with our offer.
+Export Manager
+ My call: counter.
+Export Manager
+ Read the buyer's e-mail: … term sheets; we answer with our offer.
+Export Manager
+ My call: counter.
+Export Manager
+ Read the buyer's e-mail: … term sheets; we answer with our final offer.
+Export Manager
+ quote attached (quote-offer-70140-6.pdf)
+Export Manager
+ order confirmation attached (order-confirmation-offer-70140-6.pdf)

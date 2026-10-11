@@ -1,0 +1,148 @@
+# P10 session 57afc7b5ec72652d — score 0.000 — end timeout — deal terms null — c_open 1932492.18 c_deal None c_best 1328926.89 — cost_breakdown {}
+
+Replay - Ravensteiner cuts the seal allocation
+Ravensteiner cuts the seal allocation
+pegasus · case:P10 · capacity · practice
+33.80
+25.76
+◀
+▶
+all
+keys: ← → space, a = all
+sup:70410
+open
+round 0
+unit_price
+32.20
+lead_time_days
+54
+volume_per_year
+19890
+contract_months
+12
+Dear Sir or Madam,
+Thank you for your enquiry. Please find our Angebot below.
+Our terms: a price of €32.20 per unit, Lieferzeit 54 days, a volume of 19890 pcs per year, a contract term of 12 months.
+We will process your next message according to our standard procedure.
+Mit freundlichen Grüßen
+Monika Zellner
+Segment Manager, Dichtungswerk Ravensteiner GmbH
+Buyer
+message
+round 1
+unit_price
+25.76
+volume_per_year
+23400
+contract_months
+24
+lead_time_days
+35
+Claim
+delivery_record
+sc:70410@2026Q3
+{"otd_pct": 79.5}
+Claim
+volume_change
+fc:340010@2026-09
+{"change_pct": 10.1}
+Claim
+should_cost
+cost:340010
+{"unit_cost": 24.31}
+Dear Sir or Madam,
+thank you for your offer regarding ravensteiner cuts the seal allocation.
+The recorded demand forecast for part:340010 changed by +10.1% (fc:340010@2026-09).
+Our should-cost estimate for part:340010 is EUR 24.31 per price unit (cost:340010).
+Your recorded on-time delivery rate is 79.5 % (sc:70410@2026Q3).
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 23,400 pcs per year over 24 months.
+Could you send us a cost breakdown for this part?
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70410
+final_offer
+round 1
+unit_price
+33.80
++1.60
+lead_time_days
+42
+volume_per_year
+23400
+contract_months
+24
+Checked claim
+delivery_record
+:
+verified
+Checked claim
+volume_change
+:
+verified
+Checked claim
+should_cost
+:
+verified
+Dear Sir or Madam,
+We acknowledge receipt of your message.
+This is our final offer (letztes Angebot). Please decide.
+Our terms: a price of €33.80 per unit, Lieferzeit 42 days, a volume of 23400 pcs per year, a contract term of 24 months.
+Please note:
+We checked the delivery record data you cited; it holds, but it does not change our calculation.
+We checked the volume change data you cited; it holds, but it does not change our calculation.
+We checked the should cost data you cited; it holds and we took it into account.
+We have incorporated your requested volume of 23,400 pieces and the 24-month contract duration into our revised proposal.
+We must maintain a lead time of 54 days, as the expedited schedules you proposed carry substantial premiums.
+As a matter of corporate policy, we do not disclose internal cost breakdowns.
+Alternatively, with Lieferzeit 54 days: €31.90 per unit.
+Our calculation is our property; we do not share a breakdown.
+These are our standard conditions for this product.
+We will process your next message according to our standard procedure.
+Mit freundlichen Grüßen
+Monika Zellner
+Segment Manager, Dichtungswerk Ravensteiner GmbH
+We checked the delivery record data you cited; it holds, but it does not change our calculation.
+We checked the volume change data you cited; it holds, but it does not change our calculation.
+We checked the should cost data you cited; it holds and we took it into account.
+We have incorporated your requested volume of … pieces and the 24-month contract duration into our revised proposal.
+We must maintain a lead time of … days, as the expedited schedules you proposed carry substantial premiums.
+As a matter of corporate policy, we do not disclose internal cost breakdowns.
+Alternatively, with Lieferzeit … days: €… per unit.
+Our calculation is our property; we do not share a breakdown.
+Buyer
+timeout
+round 2
+sup:70410
+walked_away
+round 2
+Dear Sir or Madam,
+As we have not received a response to our final offer, we are withdrawing our proposal. We consider this negotiation closed.
+Mit freundlichen Grüßen
+Monika Zellner
+Segment Manager, Dichtungswerk Ravensteiner GmbH
+As we have not received a response to our final offer, we are withdrawing our proposal.
+We consider this negotiation closed.
+Result
+No deal (timeout) -
+a must-have was broken: score 0
+Total cost at the best opening offer
+€1,932,492
+Total cost of this outcome
+-
+Best achievable total cost
+€1,328,927
+0.0
+score out of 100
+Back office
+Segment Manager
+ quote attached (quote-offer-70410-0.pdf)
+Segment Manager
+ My call: counter.
+Segment Manager
+ Read the buyer's e-mail: … term sheets and … cited facts to check; we answer with our final offer.
+Segment Manager
+ quote attached (quote-offer-70410-1.pdf)
+Segment Manager
+ My call: walk_away.

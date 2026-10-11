@@ -1,0 +1,264 @@
+# P18 session b6224b1c69314cd5 — score 0.575 — end accepted — deal terms {"payment_days": 60, "lead_time_days": 14, "volume_per_year": 23700, "contract_months": 24, "effective_date": "2027-01-01", "index_clause": {"series": "AS-14404", "material_share": 0.45, "deadband_pct": 5.0, "base_month": "2026-08"}, "incoterm": "DAP", "tooling_eur": 0.0, "ppm_commitment": 70, "chargeback_eur_per_complaint": 0.0, "unit_price": 5.3} — c_open 295173.23 c_deal 253480.98 c_best 222651.27 — cost_breakdown {"price": 251220, "uncovered_need": 0, "fallback_risk": 0, "payment_terms": 0, "freight": 0, "late_delivery": 0, "quality": 0, "tooling": 0, "index_clause": 1130, "index_risk": 1130, "relationship": 0}
+
+Replay - Alloy surcharge and base price for 1.4404 bar (Werdenfels)
+Alloy surcharge and base price for 1.4404 bar (Werdenfels)
+pegasus · case:P18 · raw_material · practice
+6.10
+4.88
+◀
+▶
+all
+keys: ← → space, a = all
+sup:70740
+open
+round 0
+unit_price
+6.10
+payment_days
+30
+index_clause
+None
+contract_months
+12
+Dear customer,
+Thank you for your enquiry. Please find our Angebot below.
+Our terms: a price of €6.10 per unit, Zahlungsziel 30 days net, a contract term of 12 months, no Preisgleitklausel.
+A few words on this from our side.
+AS-14404 rose 5.9 % in twelve months and is 45 % of our cost.
+LCI-C rose 2.7 % in twelve months and is 5 % of our cost.
+PPI-C2431 rose 12.3 % in twelve months and is 38 % of our cost.
+And while we are at it: our whole range is at your disposal, so if there is anything else on your list, just send it over - we are happy to quote.
+Mit freundlichen Grüßen
+Franz Seidl
+Inside Sales, Blankstahl Werdenfels GmbH
+AS-14404 rose … in twelve months and is … of our cost.
+LCI-C rose … in twelve months and is … of our cost.
+PPI-C2431 rose … in twelve months and is … of our cost.
+Buyer
+message
+round 1
+unit_price
+4.88
+index_clause
+None
+payment_days
+90
+contract_months
+24
+Claim
+price_history
+po:4500013373-10
+po:4500014427-10
+{"prices": [5.26, 5.84]}
+Dear Sir or Madam,
+thank you for your offer regarding alloy surcharge and base price for 1.4404 bar (werdenfels).
+Our orders of part:370010 were placed at 5.26 (po:4500013373-10, 2026-01) and 5.84 EUR (po:4500014427-10, 2026-09).
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 23,700 kg per year over 24 months.
+Could you send us a cost breakdown for this part?
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70740
+open
+round 1
+unit_price
+5.50
+-0.60
+payment_days
+30
+index_clause
+{"series": "AS-14404", "material_share": 0.45, "deadband_pct": 5.0, "base_month": "2026-08"}
+contract_months
+24
+Checked claim
+price_history
+:
+verified
+Dear customer,
+Many thanks for your e-mail, and great to hear from you; I went through it right away with our team.
+We have reviewed your offer and can adjust our Angebot as follows.
+Our terms: a price of €5.50 per unit, Zahlungsziel 30 days net, a contract term of 24 months, a Preisgleitklausel on AS-14404.
+Here is the background.
+We appreciate your offer to pay faster, your commitment to a binding volume, and the verified price history from your previous orders.
+We can accept the 14-day payment terms and 24-month contract, provided we include the AS-14404 index clause to manage material risks over this extended period.
+With these terms in place, we can reduce our price to €5.40 per unit.
+Alternatively, with Zahlungsziel 14 days net: €5.40 per unit.
+Material accounts for about 45 % of our cost; more detail we do not share.
+We look forward to doing good business together, and our team is always there for you.
+Mit freundlichen Grüßen
+Franz Seidl
+Inside Sales, Blankstahl Werdenfels GmbH
+We appreciate your offer to pay faster, your commitment to a binding volume, and the verified price history from your previous orders.
+We can accept the 14-day payment terms and 24-month contract, provided we include the AS-14404 index clause to manage material risks over this extended period.
+With these terms in place, we can reduce our price to €… per unit.
+Alternatively, with Zahlungsziel … days net: €… per unit.
+Material accounts for about … of our cost; more detail we do not share.
+Buyer
+message
+round 2
+unit_price
+5.02
++0.14
+index_clause
+None
+payment_days
+90
+contract_months
+24
+Dear Sir or Madam,
+thank you for your offer regarding alloy surcharge and base price for 1.4404 bar (werdenfels).
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 23,700 kg per year over 24 months.
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70740
+open
+round 2
+unit_price
+5.40
+-0.10
+payment_days
+90
+index_clause
+{"series": "AS-14404", "material_share": 0.45, "deadband_pct": 5.0, "base_month": "2026-08"}
+contract_months
+24
+Dear customer,
+We have reviewed your offer and can adjust our Angebot as follows. We are pleased to present our updated offer at a price of €5.40 per unit, Zahlungsziel 90 days net, a contract term of 24 months, and a Preisgleitklausel on AS-14404. Our offer stays valid for 30 days.
+We appreciate your increased offer and your willingness to pay within 14 days, but we must insist on the AS-14404 index clause for a 24-month contract. As an alternative option: with this clause and the 14-day payment terms, we can reduce our price to a price of €5.30 per unit, Zahlungsziel 14 days net, a contract term of 24 months, a Preisgleitklausel on AS-14404.
+Regarding your volume commitment of 23,700 kg per year, please provide the corresponding consumption data or forecasts so we can factor this into our calculations. Which volume can you commit to?
+Mit freundlichen Grüßen
+Franz Seidl
+Inside Sales, Blankstahl Werdenfels GmbH
+We appreciate your increased offer and your willingness to pay within … days, but we must insist on the AS-14404 index clause for a 24-month contract.
+With this clause and the 14-day payment terms, we can reduce our price to €… per unit.
+Regarding your volume commitment of … kg per year, please provide the corresponding consumption data or forecasts so we can factor this into our calculations.
+Which volume can you commit to?
+Buyer
+message
+round 3
+unit_price
+5.04
++0.02
+index_clause
+{"series": "AS-14404", "material_share": 0.45, "deadband_pct": 5, "base_month": "2026-08"}
+payment_days
+90
+contract_months
+24
+Dear Sir or Madam,
+thank you for your offer regarding alloy surcharge and base price for 1.4404 bar (werdenfels).
+We accept the AS-14404 index clause on the material share with a 5% deadband; the attached base price reflects the price risk this removes for you.
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 23,700 kg per year over 24 months.
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70740
+final_offer
+round 3
+unit_price
+5.40
+payment_days
+90
+index_clause
+{"series": "AS-14404", "material_share": 0.45, "deadband_pct": 5.0, "base_month": "2026-08"}
+contract_months
+24
+Dear customer,
+Thank you for the ongoing discussions. We appreciate your acceptance of the AS-14404 index clause, which provides stability for both parties over the contract term.
+As a strong distributor, we always strive to offer you the best service and options from our extensive range. For our current Angebot, we present a price of €5.40 per unit, Zahlungsziel 90 days net, a contract term of 24 months, and a Preisgleitklausel on AS-14404.
+Building on your proposal for 60-day payment terms, we are pleased to reduce our price to €5.30 per unit under an alternative option featuring a price of €5.30 per unit, Zahlungsziel 60 days net, a contract term of 24 months, a Preisgleitklausel on AS-14404.
+This is our final offer (letztes Angebot). Please decide. This offer stays valid for 7 days.
+To fully incorporate your volume commitment of 23,700 kg per year into our calculations, we kindly request that you share the corresponding consumption data or forecasts. Which volume can you commit to? Our price follows our main cost drivers: AS-14404, PPI-C2431, LCI-C. A binding higher volume would help us and can improve the price. Please note that our standard Zahlungsziel is 30 days net.
+Mit freundlichen Grüßen
+Franz Seidl
+Inside Sales, Blankstahl Werdenfels GmbH
+We appreciate your acceptance of the AS-14404 index clause, which provides stability for both parties over the contract term.
+Building on your proposal for 60-day payment terms, we are pleased to reduce our price to €… per unit.
+To fully incorporate your volume commitment of … kg per year into our calculations, we kindly request that you share the corresponding consumption data or forecasts.
+Which volume can you commit to?
+Our price follows our main cost drivers: AS-14404, PPI-C2431, LCI-C.
+A binding higher volume would help us and can improve the price.
+Our standard Zahlungsziel is … days net.
+Buyer
+message
+round 4
+unit_price
+5.30
++0.26
+index_clause
+{"series": "AS-14404", "material_share": 0.45, "deadband_pct": 5.0, "base_month": "2026-08"}
+payment_days
+60
+contract_months
+24
+Thank you for your offer. We are ready to accept your alternative package as attached. Please confirm it.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70740
+agreed
+round 4
+unit_price
+5.30
+-0.10
+payment_days
+60
+index_clause
+{"series": "AS-14404", "material_share": 0.45, "deadband_pct": 5.0, "base_month": "2026-08"}
+contract_months
+24
+Dear customer,
+We are pleased to confirm the acceptance of this package. We can accept your terms and await your order.
+Our current Angebot stands at a price of €5.30 per unit, a Zahlungsziel 60 days net, a contract term of 24 months, and a Preisgleitklausel on AS-14404. This Angebot remains valid for 14 days.
+Thank you for your business and we look forward to a successful cooperation.
+Mit freundlichen Grüßen
+Franz Seidl
+Inside Sales, Blankstahl Werdenfels GmbH
+We are pleased to confirm the acceptance of this package.
+Thank you for your business and we look forward to a successful cooperation.
+Buyer
+accept
+round 4
+Result
+Deal with
+sup:70740
+: payment_days 60, lead_time_days 14, volume_per_year 23700, contract_months 24, effective_date 2027-01-01, index_clause {"series": "AS-14404", "material_share": 0.45, "deadband_pct": 5.0, "base_month": "2026-08"}, incoterm DAP, tooling_eur 0.00, ppm_commitment 70, chargeback_eur_per_complaint 0.00, unit_price 5.30
+Total cost at the best opening offer
+€295,173
+Total cost of this outcome
+€253,481
+Best achievable total cost
+€222,651
+57.5
+score out of 100
+Back office
+Inside Sales
+ quote attached (quote-offer-70740-0.pdf)
+Inside Sales
+ My call: counter.
+Inside Sales
+ Read the buyer's e-mail: … term sheets and … cited fact to check; we answer with our offer.
+Inside Sales
+ My call: counter.
+Inside Sales
+ Read the buyer's e-mail: … term sheets; we answer with our offer.
+Inside Sales
+ My call: counter.
+Inside Sales
+ Read the buyer's e-mail: … term sheets; we answer with our final offer.
+Inside Sales
+ quote attached (quote-offer-70740-3.pdf)
+Inside Sales
+ My call: accept.
+Inside Sales
+ Read the buyer's e-mail: … term sheet; we agree.
+Inside Sales
+ quote attached (quote-offer-70740-4.pdf)
+Inside Sales
+ order confirmation attached (order-confirmation-offer-70740-4.pdf)

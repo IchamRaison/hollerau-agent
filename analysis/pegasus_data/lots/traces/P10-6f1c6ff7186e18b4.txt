@@ -1,0 +1,168 @@
+# P10 session 6f1c6ff7186e18b4 — score 0.679 — end accepted — deal terms {"payment_days": 30, "lead_time_days": 56, "volume_per_year": 23400, "contract_months": 24, "effective_date": "2027-01-01", "index_clause": null, "incoterm": "DAP", "tooling_eur": 0.0, "ppm_commitment": 300, "chargeback_eur_per_complaint": 0.0, "unit_price": 31.5} — c_open 1932492.18 c_deal 1522963.2 c_best 1328926.89 — cost_breakdown {"price": 1474200, "uncovered_need": 0, "fallback_risk": 0, "payment_terms": 9828, "freight": 0, "late_delivery": 33600, "quality": 5335, "tooling": 0, "index_clause": 0, "index_risk": 0, "relationship": 0}
+
+Replay - Ravensteiner cuts the seal allocation
+Ravensteiner cuts the seal allocation
+pegasus · case:P10 · capacity · practice
+32.20
+30.27
+◀
+▶
+all
+keys: ← → space, a = all
+sup:70410
+open
+round 0
+unit_price
+32.20
+lead_time_days
+54
+volume_per_year
+19890
+contract_months
+12
+Dear Sir or Madam,
+Thank you for your enquiry. Please find our Angebot below.
+Our terms: a price of €32.20 per unit, Lieferzeit 54 days, a volume of 19890 pcs per year, a contract term of 12 months.
+We will process your next message according to our standard procedure.
+Mit freundlichen Grüßen
+Monika Zellner
+Segment Manager, Dichtungswerk Ravensteiner GmbH
+Buyer
+message
+round 1
+unit_price
+30.27
+volume_per_year
+23400
+contract_months
+24
+lead_time_days
+42
+Claim
+price_history
+po:4500011517-10
+po:4500014436-10
+{"prices": [29.89, 29.89]}
+Claim
+should_cost
+cost:340010
+{"unit_cost": 24.31}
+Dear Sir or Madam,
+thank you for your offer regarding ravensteiner cuts the seal allocation.
+Our orders of part:340010 were placed at 29.89 (po:4500011517-10, 2024-10) and 29.89 EUR (po:4500014436-10, 2026-09).
+Our should-cost estimate for part:340010 is 24.31 EUR (cost:340010).
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 23,400 pcs per year over 24 months.
+Could you send us a cost breakdown for this part?
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70410
+open
+round 1
+unit_price
+31.70
+-0.50
+lead_time_days
+56
+volume_per_year
+23400
+contract_months
+24
+Checked claim
+price_history
+:
+verified
+Checked claim
+should_cost
+:
+verified
+Dear Sir or Madam,
+We have reviewed your offer and can adjust our Angebot as follows.
+We checked the price history data you cited; it holds, but it does not change our calculation. We checked the should cost data you cited; it holds and we took it into account. We note your should-cost estimate; however, it does not reflect our manufacturing realities. Our calculation is our property; we do not share a breakdown.
+We can accommodate the volume of 23,400 pieces over 24 months with a 56-day lead time. Under these parameters, we propose a revised unit price of €31.70.
+For clarity, our Angebot consists of a price of €31.70 per unit, Lieferzeit 56 days, a volume of 23400 pcs per year, and a contract term of 24 months. This offer remains valid for 30 days.
+Mit freundlichen Grüßen
+Monika Zellner
+Segment Manager, Dichtungswerk Ravensteiner GmbH
+We checked the price history data you cited; it holds, but it does not change our calculation.
+We checked the should cost data you cited; it holds and we took it into account.
+We note your should-cost estimate; however, it does not reflect our manufacturing realities.
+We can accommodate the volume of … pieces over … months with a 56-day lead time.
+Under these parameters, we propose a revised unit price of €….
+Our calculation is our property; we do not share a breakdown.
+Buyer
+message
+round 2
+unit_price
+30.74
++0.47
+volume_per_year
+23400
+contract_months
+24
+lead_time_days
+42
+Dear Sir or Madam,
+thank you for your offer regarding ravensteiner cuts the seal allocation.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 23,400 pcs per year over 24 months.
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70410
+final_offer
+round 2
+unit_price
+31.50
+-0.20
+lead_time_days
+56
+volume_per_year
+23400
+contract_months
+24
+Dear Sir or Madam,
+We acknowledge your revised offer.
+In response to your adjustment, we reduce our price to €31.50 per unit for the 56-day lead time. This is our final offer (letztes Angebot). Please decide.
+For this Angebot, our terms are a price of €31.50 per unit, Lieferzeit 56 days, a volume of 23400 pcs per year, and a contract term of 24 months.
+Please provide the underlying forecasts confirming your volume commitment. Which volume can you commit to? Which figures is that based on? Please send us the data.
+This offer remains valid for 7 days.
+Mit freundlichen Grüßen
+Monika Zellner
+Segment Manager, Dichtungswerk Ravensteiner GmbH
+We acknowledge your revised offer.
+Please provide the underlying forecasts confirming your volume commitment.
+In response to your adjustment, we reduce our price to €… per unit for the 56-day lead time.
+Which figures is that based on? Please send us the data.
+Which volume can you commit to?
+Buyer
+accept
+round 2
+Result
+Deal with
+sup:70410
+: payment_days 30, lead_time_days 56, volume_per_year 23400, contract_months 24, effective_date 2027-01-01, index_clause None, incoterm DAP, tooling_eur 0.00, ppm_commitment 300, chargeback_eur_per_complaint 0.00, unit_price 31.50
+Total cost at the best opening offer
+€1,932,492
+Total cost of this outcome
+€1,522,963
+Best achievable total cost
+€1,328,927
+67.9
+score out of 100
+Back office
+Segment Manager
+ quote attached (quote-offer-70410-0.pdf)
+Segment Manager
+ My call: counter.
+Segment Manager
+ Read the buyer's e-mail: … term sheets and … cited facts to check; we answer with our offer.
+Segment Manager
+ My call: counter.
+Segment Manager
+ Read the buyer's e-mail: … term sheets; we answer with our final offer.
+Segment Manager
+ quote attached (quote-offer-70410-2.pdf)
+Segment Manager
+ order confirmation attached (order-confirmation-offer-70410-2.pdf)

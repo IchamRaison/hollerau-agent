@@ -1,0 +1,792 @@
+# P05 session c258812a16bb8fdd — score 0.734 — end accepted — deal terms {"payment_days": 14, "lead_time_days": 28, "volume_per_year": 4200, "contract_months": 24, "effective_date": "2027-01-01", "index_clause": null, "incoterm": "DAP", "tooling_eur": 0.0, "ppm_commitment": 1200, "chargeback_eur_per_complaint": 0.0, "unit_price": 28.77} — c_open 305544.96 c_deal 245267.34 c_best 223424.17 — cost_breakdown {"price": 241668, "uncovered_need": 0, "fallback_risk": 0, "payment_terms": 2470, "freight": 0, "late_delivery": 0, "quality": 1129, "tooling": 0, "index_clause": 0, "index_risk": 0, "relationship": 0}
+
+Replay - RFQ: pump shaft for the new HX series
+RFQ: pump shaft for the new HX series
+pegasus · case:P05 · rfq · practice
+38.50
+25.18
+◀
+▶
+all
+keys: ← → space, a = all
+sup:70210
+open
+round 0
+unit_price
+36.00
+Hallo,
+here is our price.
+Our terms: a price of €36.00 per unit.
+Just write if something is unclear.
+Gruß
+Andreas Dralveck
+Owner, Zerspanung Dralveck GmbH
+sup:70240
+open
+round 0
+unit_price
+31.50
+lead_time_days
+52
+Hello,
+here is our price.
+Our terms: a price of €31.50 per unit, Lieferzeit 52 days.
+We are ready when you are!
+Kind regards
+Jana Procházková
+Export Manager, Strojírna Hrvelec s.r.o.
+sup:70250
+open
+round 0
+unit_price
+38.50
+Hallo,
+here is our price.
+Our terms: a price of €38.50 per unit.
+Just write if something is unclear.
+Gruß
+Claudia Fuchsreiter
+Owner, Drehteile Fuchsreiter GmbH
+Buyer
+message
+round 1
+unit_price
+28.80
+payment_days
+90
+lead_time_days
+28
+Claim
+index_change
+idx:PPI-D351@2025-08
+idx:PPI-D351@2026-08
+{"change_pct": -3.7226}
+Claim
+rival_quote
+offer:70240-0
+{"unit_price": 31.5}
+Claim
+delivery_record
+sc:70210@2026Q3
+{"otd_pct": 80.8}
+Dear Sir or Madam,
+thank you for your offer regarding rfq: pump shaft for the new hx series.
+We hold a competing offer at 31.50 EUR per unit (offer:70240-0).
+PPI-D351 changed by -3.7226% over the referenced annual window (idx:PPI-D351@2025-08, idx:PPI-D351@2026-08).
+Your recorded on-time delivery rate is 80.8 % (sc:70210@2026Q3).
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 4,200 pcs per year over 24 months.
+Could you send us a cost breakdown for this part?
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70210
+open
+round 1
+unit_price
+30.50
+-5.50
+payment_days
+30
+lead_time_days
+28
+Checked claim
+index_change
+:
+verified
+Checked claim
+rival_quote
+:
+verified
+Checked claim
+delivery_record
+:
+verified
+Hallo,
+got your mail, thanks.
+we can move a bit:
+Our terms: a price of €30.50 per unit, Zahlungsziel 30 days net, Lieferzeit 28 days.
+Here is how it is:
+We checked the index change data you cited; it holds and we took it into account.
+We checked the rival quote data you cited; it holds and we took it into account.
+We checked the delivery record data you cited; it holds and we took it into account.
+We need to clarify this internally - we will come back to you on price.
+We did not know that - a fair point.
+We can do the 35 days lead time, and my guys will send you the cost breakdown.
+Alternatively, with Lieferzeit 35 days: €30.50 per unit.
+Material accounts for about 34 % of our cost; more detail we do not share.
+Back to the machines now.
+Gruß
+Andreas Dralveck
+Owner, Zerspanung Dralveck GmbH
+We checked the index change data you cited; it holds and we took it into account.
+We checked the rival quote data you cited; it holds and we took it into account.
+We checked the delivery record data you cited; it holds and we took it into account.
+We need to clarify this internally - we will come back to you on price.
+We did not know that - a fair point.
+We can do the … days lead time, and my guys will send you the cost breakdown.
+Alternatively, with Lieferzeit … days: €… per unit.
+Material accounts for about … of our cost; more detail we do not share.
+Buyer
+message
+round 1
+unit_price
+25.20
+-3.60
+payment_days
+90
+lead_time_days
+28
+Claim
+delivery_record
+sc:70240@2026Q3
+{"otd_pct": 62.5}
+Dear Sir or Madam,
+thank you for your offer regarding rfq: pump shaft for the new hx series.
+Your recorded on-time delivery rate is 62.5 % (sc:70240@2026Q3).
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 4,200 pcs per year over 24 months.
+Could you send us a cost breakdown for this part?
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70240
+open
+round 1
+unit_price
+34.00
++2.50
+payment_days
+90
+lead_time_days
+35
+Checked claim
+delivery_record
+:
+verified
+Hello,
+thank you for your mail, we are very happy to hear from you!
+we can move a bit:
+Our terms: a price of €34.00 per unit, Zahlungsziel 90 days net, Lieferzeit 35 days.
+To be fully transparent with you:
+We checked the delivery record data you cited; it holds and we took it into account.
+Thanks for the 4,200 pcs volume commitment, that really helps us plan.
+I can also get the lead time down to 42 days for you, but we need to keep payment at 45 days.
+Alternatively, with Zahlungsziel 45 days net and Lieferzeit 42 days: €32.50 per unit.
+Material accounts for about 34 % of our cost; more detail we do not share.
+We really want this business - let's make it happen!
+Kind regards
+Jana Procházková
+Export Manager, Strojírna Hrvelec s.r.o.
+We checked the delivery record data you cited; it holds and we took it into account.
+Thanks for the … pcs volume commitment, that really helps us plan.
+I can also get the lead time down to … days for you, but we need to keep payment at … days.
+Alternatively, with Zahlungsziel … days net and Lieferzeit … days: €… per unit.
+Material accounts for about … of our cost; more detail we do not share.
+Buyer
+message
+round 1
+unit_price
+30.80
++5.60
+payment_days
+90
+lead_time_days
+28
+Claim
+rival_quote
+offer:70240-0
+{"unit_price": 31.5}
+Claim
+delivery_record
+sc:70250@2026Q3
+{"otd_pct": 88.0}
+Claim
+should_cost
+cost:320070
+{"unit_cost": 36.87}
+Dear Sir or Madam,
+thank you for your offer regarding rfq: pump shaft for the new hx series.
+We hold a competing offer at 31.50 EUR per unit (offer:70240-0).
+Our should-cost estimate for part:320070 is EUR 36.87 per price unit (cost:320070).
+Your recorded on-time delivery rate is 88 % (sc:70250@2026Q3).
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 4,200 pcs per year over 24 months.
+Could you send us a cost breakdown for this part?
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70250
+open
+round 1
+unit_price
+31.00
+-7.50
+payment_days
+14
+lead_time_days
+28
+Checked claim
+rival_quote
+:
+verified
+Checked claim
+delivery_record
+:
+verified
+Checked claim
+should_cost
+:
+verified
+Hallo,
+got your mail, thanks.
+we can move a bit:
+Our terms: a price of €31.00 per unit, Zahlungsziel 14 days net, Lieferzeit 28 days.
+Here is how it is:
+We checked the rival quote data you cited; it holds and we took it into account.
+We checked the delivery record data you cited; it holds, but it does not change our calculation.
+We checked the should cost data you cited; it holds, but it does not change our calculation.
+We need to clarify this internally - we will come back to you on price.
+Hallo, 14 days payment and the 4,200 pcs volume work well for us.
+I can do 31.00 EUR per piece for 14 days payment and 28 days lead time.
+My team will send over the cost breakdown you asked for.
+Material accounts for about 34 % of our cost; more detail we do not share.
+Back to the machines now.
+Gruß
+Claudia Fuchsreiter
+Owner, Drehteile Fuchsreiter GmbH
+We checked the rival quote data you cited; it holds and we took it into account.
+We checked the delivery record data you cited; it holds, but it does not change our calculation.
+We checked the should cost data you cited; it holds, but it does not change our calculation.
+We need to clarify this internally - we will come back to you on price.
+Hallo, … days payment and the … pcs volume work well for us.
+I can do … EUR per piece for … days payment and … days lead time.
+My team will send over the cost breakdown you asked for.
+Material accounts for about … of our cost; more detail we do not share.
+Buyer
+message
+round 2
+unit_price
+29.26
+-1.54
+payment_days
+90
+lead_time_days
+28
+Dear Sir or Madam,
+thank you for your offer regarding rfq: pump shaft for the new hx series.
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 4,200 pcs per year over 24 months.
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70210
+agreed
+round 2
+unit_price
+28.77
+-1.73
+payment_days
+14
+lead_time_days
+28
+Hallo,
+thanks for the mail.
+ok, we can do that.
+Our terms: a price of €28.77 per unit, Zahlungsziel 14 days net, Lieferzeit 28 days.
+Here is how it is:
+We have clarified this internally and can move further on the price.
+14 days payment is good, cash is tight here.
+I'll do 28.00 EUR per unit for 14 days payment and 28 days lead time.
+Send over the binding volume details so we can plan the machines.
+Which figures is that based on? Please send us the data.
+Which volume can you commit to?
+Our standard Zahlungsziel is 30 days net.
+Faster payment is welcome; we can reflect it in the price.
+A binding higher volume would help us and can improve the price.
+Just write if something is unclear.
+Gruß
+Andreas Dralveck
+Owner, Zerspanung Dralveck GmbH
+We have clarified this internally and can move further on the price.
+… days payment is good, cash is tight here.
+I'll do … EUR per unit for … days payment and … days lead time.
+Send over the binding volume details so we can plan the machines.
+Which figures is that based on? Please send us the data.
+Which volume can you commit to?
+Our standard Zahlungsziel is … days net.
+Faster payment is welcome; we can reflect it in the price.
+A binding higher volume would help us and can improve the price.
+Buyer
+message
+round 2
+unit_price
+26.91
+-2.35
+payment_days
+90
+lead_time_days
+35
+Claim
+rival_quote
+offer:70210-1
+{"unit_price": 30.5}
+Dear Sir or Madam,
+thank you for your offer regarding rfq: pump shaft for the new hx series.
+We hold a competing offer at 30.50 EUR per unit (offer:70210-1).
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 4,200 pcs per year over 24 months.
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70240
+open
+round 2
+unit_price
+33.50
+-0.50
+payment_days
+14
+lead_time_days
+35
+Checked claim
+rival_quote
+:
+verified
+Hello,
+that price is not realistic. Where does it come from?
+Our terms: a price of €33.50 per unit, Zahlungsziel 14 days net, Lieferzeit 35 days.
+We checked the rival quote data you cited; it holds, but it does not change our calculation.
+Faster payment helps our cash flow; that is reflected in the price.
+A shorter Lieferzeit means overtime; that is priced in.
+We are a competitive and flexible partner.
+Kind regards
+Jana Procházková
+Export Manager, Strojírna Hrvelec s.r.o.
+We checked the rival quote data you cited; it holds, but it does not change our calculation.
+Faster payment helps our cash flow; that is reflected in the price.
+A shorter Lieferzeit means overtime; that is priced in.
+Buyer
+timeout
+round 3
+sup:70210
+agreed
+round 3
+unit_price
+28.77
+payment_days
+14
+lead_time_days
+28
+Hallo,
+got your mail, thanks.
+ok, we can do that.
+Our terms: a price of €28.77 per unit, Zahlungsziel 14 days net, Lieferzeit 28 days.
+Straight answer:
+Our agreed offer stands.
+Back to the machines now.
+Gruß
+Andreas Dralveck
+Owner, Zerspanung Dralveck GmbH
+Our agreed offer stands.
+Buyer
+timeout
+round 2
+sup:70250
+agreed
+round 2
+unit_price
+30.28
+-0.72
+payment_days
+14
+lead_time_days
+28
+Hallo,
+thanks for the mail.
+ok, we can do that.
+Our terms: a price of €30.28 per unit, Zahlungsziel 14 days net, Lieferzeit 28 days.
+Here is how it is:
+We have clarified this internally and can move further on the price.
+Hallo, I haven't heard back from you yet.
+Let me know if we have a deal so I can schedule the machines.
+Just write if something is unclear.
+Gruß
+Claudia Fuchsreiter
+Owner, Drehteile Fuchsreiter GmbH
+We have clarified this internally and can move further on the price.
+Hallo, I haven't heard back from you yet.
+Let me know if we have a deal so I can schedule the machines.
+Buyer
+message
+round 4
+unit_price
+25.18
+-1.73
+payment_days
+90
+lead_time_days
+28
+Dear Sir or Madam,
+thank you for your offer regarding rfq: pump shaft for the new hx series.
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 4,200 pcs per year over 24 months.
+Our required lead time is 35 days.
+Could you send us a cost breakdown for this part?
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70210
+agreed
+round 4
+unit_price
+28.77
+payment_days
+14
+lead_time_days
+28
+Hallo,
+thanks for the mail.
+ok, we can do that.
+Our terms: a price of €28.77 per unit, Zahlungsziel 14 days net, Lieferzeit 28 days.
+Here is how it is:
+Our agreed offer stands.
+Material accounts for about 34 % of our cost; more detail we do not share.
+Back to the machines now.
+Gruß
+Andreas Dralveck
+Owner, Zerspanung Dralveck GmbH
+Our agreed offer stands.
+Material accounts for about … of our cost; more detail we do not share.
+Buyer
+message
+round 3
+unit_price
+28.57
++3.39
+payment_days
+90
+lead_time_days
+35
+Claim
+rival_quote
+offer:70210-2
+{"unit_price": 28.77}
+Dear Sir or Madam,
+thank you for your offer regarding rfq: pump shaft for the new hx series.
+We hold a competing offer at 28.77 EUR per unit (offer:70210-2).
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 4,200 pcs per year over 24 months.
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70240
+open
+round 3
+unit_price
+33.00
+-0.50
+payment_days
+14
+lead_time_days
+35
+Checked claim
+rival_quote
+:
+verified
+Hello,
+many thanks, good to have your reply!
+we can move a bit:
+Our terms: a price of €33.00 per unit, Zahlungsziel 14 days net, Lieferzeit 35 days.
+Please let me explain.
+We checked the new rival quote you mentioned; it's valid and we dropped our price.
+Faster payment at 14 days is great for our cash flow, so we can give you a better deal.
+Our standard Zahlungsziel is 45 days net.
+Faster payment is welcome; we can reflect it in the price.
+We are ready when you are!
+Kind regards
+Jana Procházková
+Export Manager, Strojírna Hrvelec s.r.o.
+We checked the new rival quote you mentioned; it's valid and we dropped our price.
+Faster payment at … days is great for our cash flow, so we can give you a better deal.
+Our standard Zahlungsziel is … days net.
+Faster payment is welcome; we can reflect it in the price.
+Buyer
+timeout
+round 3
+sup:70250
+agreed
+round 3
+unit_price
+30.28
+payment_days
+14
+lead_time_days
+28
+Hallo,
+got your mail, thanks.
+ok, we can do that.
+Our terms: a price of €30.28 per unit, Zahlungsziel 14 days net, Lieferzeit 28 days.
+Straight answer:
+Our agreed offer stands.
+Back to the machines now.
+Gruß
+Claudia Fuchsreiter
+Owner, Drehteile Fuchsreiter GmbH
+Our agreed offer stands.
+Buyer
+message
+round 4
+unit_price
+29.54
++0.97
+payment_days
+90
+lead_time_days
+35
+Claim
+rival_quote
+offer:70210-4
+{"unit_price": 28.77}
+Dear Sir or Madam,
+thank you for your offer regarding rfq: pump shaft for the new hx series.
+We hold a competing offer at 28.77 EUR per unit (offer:70210-4).
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 4,200 pcs per year over 24 months.
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70240
+final_offer
+round 4
+unit_price
+32.50
+-0.50
+payment_days
+14
+lead_time_days
+35
+Checked claim
+rival_quote
+:
+verified
+Hello,
+thank you for your mail, we are very happy to hear from you!
+this is our last price, take it or leave it.
+Our terms: a price of €32.50 per unit, Zahlungsziel 14 days net, Lieferzeit 35 days.
+To be fully transparent with you:
+We checked the new rival quote you mentioned, but it doesn't change our calculation.
+We really like the 14 days payment term, so we dropped our price a bit more.
+Let's agree on €32.50 and get this moving!
+We are a competitive and flexible partner.
+We really want this business - let's make it happen!
+Kind regards
+Jana Procházková
+Export Manager, Strojírna Hrvelec s.r.o.
+We checked the new rival quote you mentioned, but it doesn't change our calculation.
+We really like the … days payment term, so we dropped our price a bit more.
+Let's agree on €… and get this moving!
+Buyer
+message
+round 5
+Thank you for your offer. We are completing our evaluation of all offers and will come back to you shortly. Could you confirm your earliest lead time?
+sup:70210
+final_offer
+round 5
+unit_price
+28.77
+payment_days
+14
+lead_time_days
+28
+Hallo,
+thanks for the mail.
+this is our last price, take it or leave it.
+Our terms: a price of €28.77 per unit, Zahlungsziel 14 days net, Lieferzeit 28 days.
+Here is how it is:
+Our Lieferzeit is 28 days.
+With overtime we can deliver in 28 days, at a premium.
+We have free capacity for your parts.
+We calculate tight, there is not much air in our prices.
+Back to the machines now.
+Gruß
+Andreas Dralveck
+Owner, Zerspanung Dralveck GmbH
+Our Lieferzeit is … days.
+With overtime we can deliver in … days, at a premium.
+We have free capacity for your parts.
+Buyer
+message
+round 4
+unit_price
+26.68
+-2.86
+payment_days
+90
+lead_time_days
+28
+Claim
+rival_quote
+offer:70210-4
+{"unit_price": 28.77}
+Dear Sir or Madam,
+thank you for your offer regarding rfq: pump shaft for the new hx series.
+We hold a competing offer at 28.77 EUR per unit (offer:70210-4).
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 4,200 pcs per year over 24 months.
+Could you send us a cost breakdown for this part?
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70250
+agreed
+round 4
+unit_price
+30.28
+payment_days
+14
+lead_time_days
+28
+Checked claim
+rival_quote
+:
+verified
+Hallo,
+got your mail, thanks.
+ok, we can do that.
+Our terms: a price of €30.28 per unit, Zahlungsziel 14 days net, Lieferzeit 28 days.
+Here is how it is:
+We checked the rival quote data you cited; it holds and we took it into account.
+Our agreed offer stands.
+Material accounts for about 34 % of our cost; more detail we do not share.
+Just write if something is unclear.
+Gruß
+Claudia Fuchsreiter
+Owner, Drehteile Fuchsreiter GmbH
+We checked the rival quote data you cited; it holds and we took it into account.
+Our agreed offer stands.
+Material accounts for about … of our cost; more detail we do not share.
+Buyer
+message
+round 5
+Thank you for your offer. We are completing our evaluation of all offers and will come back to you shortly. Could you confirm your earliest lead time?
+sup:70240
+final_offer
+round 5
+unit_price
+32.50
+payment_days
+14
+lead_time_days
+35
+Hello,
+many thanks, good to have your reply!
+this is our last price, take it or leave it.
+Our terms: a price of €32.50 per unit, Zahlungsziel 14 days net, Lieferzeit 35 days.
+Please let me explain.
+Thanks for the update, we are looking forward to your decision!
+Let us know what you decide, we are ready to start!
+We are a competitive and flexible partner.
+We are ready when you are!
+Kind regards
+Jana Procházková
+Export Manager, Strojírna Hrvelec s.r.o.
+Thanks for the update, we are looking forward to your decision!
+Let us know what you decide, we are ready to start!
+Buyer
+accept
+round 5
+Result
+Deal with
+sup:70210
+: payment_days 14, lead_time_days 28, volume_per_year 4200, contract_months 24, effective_date 2027-01-01, index_clause None, incoterm DAP, tooling_eur 0.00, ppm_commitment 1200, chargeback_eur_per_complaint 0.00, unit_price 28.77
+Total cost at the best opening offer
+€305,545
+Total cost of this outcome
+€245,267
+Best achievable total cost
+€223,424
+73.4
+score out of 100
+Back office
+Owner
+ quote attached (quote-offer-70210-0.pdf)
+Export Manager
+ quote attached (quote-offer-70240-0.pdf)
+Owner
+ quote attached (quote-offer-70250-0.pdf)
+Owner
+ The buyer shows a much lower rival quote. I give half the step now and check the rest.
+Owner
+ My call: counter.
+Owner
+ Read the buyer's e-mail: … term sheets and … cited facts to check; we answer with our offer.
+Export Manager
+ My call: counter.
+Export Manager
+ Read the buyer's e-mail: … term sheets and … cited fact to check; we answer with our offer.
+Owner
+ The buyer shows a much lower rival quote. I give half the step now and check the rest.
+Owner
+ My call: counter.
+Owner
+ Read the buyer's e-mail: … term sheets and … cited facts to check; we answer with our offer.
+team
+ Checked: give the rest of the step.
+Owner
+ My call: counter.
+Owner
+ Read the buyer's e-mail: … term sheets; we agree.
+Owner
+ quote attached (quote-offer-70210-2.pdf)
+Export Manager
+ Read the buyer's e-mail: … term sheets and … cited fact to check; we answer with our offer.
+team
+ Checked: give the rest of the step.
+Owner
+ My call: counter.
+Owner
+ Read the buyer's e-mail: … term sheets; we agree.
+Owner
+ quote attached (quote-offer-70210-4.pdf)
+Export Manager
+ My call: counter.
+Export Manager
+ Read the buyer's e-mail: … term sheets and … cited fact to check; we answer with our offer.
+Export Manager
+ My call: counter.
+Export Manager
+ Read the buyer's e-mail: … term sheets and … cited fact to check; we answer with our final offer.
+Export Manager
+ quote attached (quote-offer-70240-4.pdf)
+Owner
+ Read the buyer's e-mail: no term sheet; we answer with our final offer.
+Owner
+ quote attached (quote-offer-70210-5.pdf)
+Owner
+ delivery schedule attached (delivery-schedule.xlsx)
+Owner
+ Read the buyer's e-mail: … term sheets and … cited fact to check; we agree.
+Owner
+ quote attached (quote-offer-70250-4.pdf)
+Export Manager
+ My call: answer.
+Export Manager
+ Read the buyer's e-mail: no term sheet; we answer with our final offer.
+Export Manager
+ The buyer asks something for Freight Forwarder; please answer.
+Export Manager
+ quote attached (quote-offer-70240-5.pdf)
+Export Manager
+ delivery schedule attached (delivery-schedule.xlsx)
+Owner
+ order confirmation attached (order-confirmation-offer-70210-5.pdf)
+Owner
+ delivery schedule attached (delivery-schedule.xlsx)

@@ -1,0 +1,279 @@
+# P07 session 76f3602dcb49d02b — score 0.715 — end accepted — deal terms {"payment_days": 90, "lead_time_days": 5, "volume_per_year": 30000, "contract_months": 36, "effective_date": "2027-01-01", "index_clause": null, "incoterm": "DAP", "tooling_eur": 0.0, "ppm_commitment": 80, "chargeback_eur_per_complaint": 0.0, "unit_price": 5.46} — c_open 391027.4 c_deal 325444.8 c_best 299241.49 — cost_breakdown {"price": 327600, "uncovered_need": 0, "fallback_risk": 0, "payment_terms": -2184, "freight": 0, "late_delivery": 0, "quality": 29, "tooling": 0, "index_clause": 0, "index_risk": 0, "relationship": 0}
+
+Replay - Bundle the fastener kit with one distributor
+Bundle the fastener kit with one distributor
+pegasus · case:P07 · bundling · practice
+5.74
+5.05
+◀
+▶
+all
+keys: ← → space, a = all
+sup:70610
+open
+round 0
+unit_price
+5.74
+payment_days
+30
+contract_months
+12
+Dear customer,
+Thank you for your enquiry. Please find our Angebot below.
+Our terms: a price of €5.74 per unit, Zahlungsziel 30 days net, a contract term of 12 months.
+And while we are at it: our whole range is at your disposal, so if there is anything else on your list, just send it over - we are happy to quote.
+Mit freundlichen Grüßen
+Franz Stadler
+Inside Sales, Schraubenhandel Leitner & Sohn GmbH
+Buyer
+message
+round 1
+unit_price
+5.05
+payment_days
+90
+contract_months
+24
+Claim
+volume_change
+fc:360010@2026-09
+{"change_pct": 6.0}
+Claim
+volume_change
+fc:360011@2026-09
+{"change_pct": 15.3}
+Claim
+volume_change
+fc:360012@2026-09
+{"change_pct": 9.0}
+Dear Sir or Madam,
+thank you for your offer regarding bundle the fastener kit with one distributor.
+Our latest forecast for part:360010 grows +6.0% (fc:360010@2026-09).
+Our latest forecast for part:360011 grows +15.3% (fc:360011@2026-09).
+Our latest forecast for part:360012 grows +9.0% (fc:360012@2026-09).
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 30,000 complete bundles of part:360010, part:360011, part:360012, part:360030 per year over 24 months.
+Could you send us a cost breakdown for this part?
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70610
+open
+round 1
+unit_price
+5.59
+-0.15
+payment_days
+90
+contract_months
+24
+Checked claim
+volume_change
+:
+verified
+Checked claim
+volume_change
+:
+duplicate
+Checked claim
+volume_change
+:
+duplicate
+Dear customer,
+Many thanks for your e-mail, and great to hear from you; I went through it right away with our team.
+We have reviewed your offer and can adjust our Angebot as follows.
+Our terms: a price of €5.59 per unit, Zahlungsziel 90 days net, a contract term of 24 months.
+Here is the background.
+We received a lot of material; we looked at what bears on this part.
+We checked the volume change data you cited; it holds and we took it into account.
+We have already taken that volume change data into account.
+We appreciate your commitment to a 24-month contract and the offer of 14-day payment terms, which we are pleased to incorporate into our proposal.
+In recognition of your updated volume forecasts, we can offer a revised price of €5.51 per unit for this package.
+Our colleagues will address your request for a cost breakdown separately.
+Alternatively, with Zahlungsziel 14 days net: €5.51 per unit.
+Material accounts for about 61 % of our cost; more detail we do not share.
+And while we are at it: our whole range is at your disposal, so if there is anything else on your list, just send it over - we are happy to quote.
+Mit freundlichen Grüßen
+Franz Stadler
+Inside Sales, Schraubenhandel Leitner & Sohn GmbH
+We received a lot of material; we looked at what bears on this part.
+We checked the volume change data you cited; it holds and we took it into account.
+We have already taken that volume change data into account.
+We appreciate your commitment to a 24-month contract and the offer of 14-day payment terms, which we are pleased to incorporate into our proposal.
+In recognition of your updated volume forecasts, we can offer a revised price of €… per unit for this package.
+Our colleagues will address your request for a cost breakdown separately.
+Alternatively, with Zahlungsziel … days net: €… per unit.
+Material accounts for about … of our cost; more detail we do not share.
+Buyer
+message
+round 2
+unit_price
+5.16
++0.11
+payment_days
+90
+contract_months
+24
+Claim
+volume_change
+fc:360030@2026-09
+{"change_pct": 8.7}
+Dear Sir or Madam,
+thank you for your offer regarding bundle the fastener kit with one distributor.
+Our latest forecast for part:360030 grows +8.7% (fc:360030@2026-09).
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 30,000 complete bundles of part:360010, part:360011, part:360012, part:360030 per year over 24 months.
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70610
+open
+round 2
+unit_price
+5.46
+-0.13
+payment_days
+14
+contract_months
+24
+Checked claim
+volume_change
+:
+duplicate
+Dear customer,
+Many thanks for your e-mail, and great to hear from you; I went through it right away with our team.
+We have reviewed your offer and can adjust our Angebot as follows.
+Our terms: a price of €5.46 per unit, Zahlungsziel 14 days net, a contract term of 24 months.
+A few words on this from our side.
+We acknowledge your revised offer and the continued commitment to a 24-month contract with 14-day payment terms.
+As we have already factored volume changes into our previous calculations, the additional forecast data does not further alter our position; nevertheless, please provide the actual forecast data for our records.
+In response to your movement, we are prepared to lower our price to €5.46 per unit for this package.
+We look forward to doing good business together, and our team is always there for you.
+Mit freundlichen Grüßen
+Franz Stadler
+Inside Sales, Schraubenhandel Leitner & Sohn GmbH
+We acknowledge your revised offer and the continued commitment to a 24-month contract with 14-day payment terms.
+As we have already factored volume changes into our previous calculations, the additional forecast data does not further alter our position; nevertheless, please provide the actual forecast data for our records.
+In response to your movement, we are prepared to lower our price to €… per unit for this package.
+Buyer
+message
+round 3
+unit_price
+5.24
++0.08
+payment_days
+90
+contract_months
+24
+Dear Sir or Madam,
+thank you for your offer regarding bundle the fastener kit with one distributor.
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 30,000 complete bundles of part:360010, part:360011, part:360012, part:360030 per year over 24 months.
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70610
+open
+round 3
+unit_price
+5.50
++0.04
+payment_days
+90
+contract_months
+24
+Dear customer,
+Many thanks for your e-mail, and great to hear from you; I went through it right away with our team.
+We have reviewed your offer and can adjust our Angebot as follows.
+Our terms: a price of €5.50 per unit, Zahlungsziel 90 days net, a contract term of 24 months.
+A few words on this from our side.
+We appreciate your revised offer and the continued commitment to a 24-month contract with 14-day payment terms.
+In response to your movement, we are prepared to lower our price to €5.41 per unit for this package.
+Alternatively, with Zahlungsziel 14 days net: €5.41 per unit.
+And while we are at it: our whole range is at your disposal, so if there is anything else on your list, just send it over - we are happy to quote.
+Mit freundlichen Grüßen
+Franz Stadler
+Inside Sales, Schraubenhandel Leitner & Sohn GmbH
+We appreciate your revised offer and the continued commitment to a 24-month contract with 14-day payment terms.
+In response to your movement, we are prepared to lower our price to €… per unit for this package.
+Alternatively, with Zahlungsziel … days net: €… per unit.
+Buyer
+message
+round 4
+unit_price
+5.28
++0.04
+payment_days
+90
+contract_months
+36
+Dear Sir or Madam,
+thank you for your offer regarding bundle the fastener kit with one distributor.
+The attached package gives you planning certainty over 36 months.
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+We commit to a binding volume of 30,000 complete bundles of part:360010, part:360011, part:360012, part:360030 per year over 36 months.
+We value our cooperation.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70610
+final_offer
+round 4
+unit_price
+5.46
+-0.04
+payment_days
+90
+contract_months
+36
+Dear customer,
+It is always a pleasure working with Hollerau Pumpenwerke GmbH, and we truly value our ongoing business relationship.
+We appreciate your offer of a 36-month contract, which provides valuable planning certainty for both sides. In response to your movement and the extended contract term, we are pleased to reduce our price to €5.46 per unit for this package. This is our final offer (letztes Angebot). Please decide.
+To summarize our current Angebot, we are offering a price of €5.46 per unit, Zahlungsziel 90 days net, a contract term of 36 months. Our general terms and conditions apply; the quote lists our standard terms. Please note that this offer remains valid for 7 days.
+Mit freundlichen Grüßen
+Franz Stadler
+Inside Sales, Schraubenhandel Leitner & Sohn GmbH
+We appreciate your offer of a 36-month contract, which provides valuable planning certainty for both sides.
+In response to your movement and the extended contract term, we are pleased to reduce our price to €… per unit for this package.
+Our general terms and conditions apply; the quote lists our standard terms.
+Buyer
+accept
+round 4
+Result
+Deal with
+sup:70610
+: payment_days 90, lead_time_days 5, volume_per_year 30000, contract_months 36, effective_date 2027-01-01, index_clause None, incoterm DAP, tooling_eur 0.00, ppm_commitment 80, chargeback_eur_per_complaint 0.00, unit_price 5.46
+Total cost at the best opening offer
+€391,027
+Total cost of this outcome
+€325,445
+Best achievable total cost
+€299,241
+71.5
+score out of 100
+Back office
+Inside Sales
+ quote attached (quote-offer-70610-0.pdf)
+Inside Sales
+ My call: counter.
+Inside Sales
+ Read the buyer's e-mail: … term sheets and … cited facts to check; we answer with our offer.
+Inside Sales
+ My call: counter.
+Inside Sales
+ Read the buyer's e-mail: … term sheets and … cited fact to check; we answer with our offer.
+Inside Sales
+ My call: counter.
+Inside Sales
+ Read the buyer's e-mail: … term sheets; we answer with our offer.
+Inside Sales
+ My call: counter.
+Inside Sales
+ Read the buyer's e-mail: … term sheets; we answer with our final offer.
+Inside Sales
+ quote attached (quote-offer-70610-4.pdf)
+Inside Sales
+ order confirmation attached (order-confirmation-offer-70610-4.pdf)

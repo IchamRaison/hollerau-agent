@@ -1,0 +1,360 @@
+{
+"sup:70510": {
+"supplier_id": "sup:70510",
+"offer_id": "offer:70510-3",
+"status": "agreed",
+"closed": null,
+"messages": [
+{
+"thread_id": "thread:P02:70510",
+"message_id": "msg:70510-0-0",
+"in_reply_to": null,
+"from": "sales@70510",
+"from_name": "Key Account Manager, Antriebstechnik Nordmark AG",
+"to": "Hollerau Pumpenwerke GmbH",
+"subject": "Quote from Antriebstechnik Nordmark AG: Nordmark passes on copper for the 7.5 kW motor",
+"body": "Dear Sir or Madam,\n\nThank you for your enquiry. Please find our Angebot below.\n\nWe offer a price of €370.96 per unit, Zahlungsziel 30 days net, no Preisgleitklausel. \n\nRegarding our cost structure, CU-NOTATION rose 47.7 % in twelve months and is 20 % of our cost. LCI-C rose 2.7 % in twelve months and is 20 % of our cost. PPI-C241 rose 6.5 % in twelve months and is 14 % of our cost.\n\nPlease note that this offer remains valid for 30 days.\n\nMit freundlichen Grüßen\nPetra Lechner\nKey Account Manager, Antriebstechnik Nordmark AG",
+"attachments": [
+{
+"attachment_id": "att:70510-0-quote",
+"name": "quote-offer-70510-0.pdf",
+"type": "pdf",
+"content_b64": null,
+"text": "Antriebstechnik Nordmark AG\nTo: Hollerau Pumpenwerke GmbH\nAngebot / Quote offer:70510-0\nOffered terms\nUnit price (EUR) 370.96\nPayment terms (days net) 30\nIndex clause none\nOur standard terms (apply to everything not stated above)\nQuality commitment (ppm) 250\nChargeback per complaint (EUR) 0.00\nTerms fixed by your enquiry\nLead time (days) 35\nVolume per year (pcs) 6110\nContract term (months) 12\nPrice valid from 2027-01-01\nIncoterm DAP\nTooling (EUR) 0.00\nPart(s): part:350011. Enquiry: Nordmark passes on copper for the 7.5 kW motor.\nValidity: 30 days."
+}
+],
+"term_sheets": [
+{
+"term_sheet_id": "offer:70510-0",
+"terms": {
+"unit_price": 370.96,
+"payment_days": 30,
+"index_clause": null
+}
+}
+],
+"refs": [],
+"action": null,
+"status": "open",
+"signals": {
+"reply_delay_days": 1,
+"validity_days": 30
+},
+"missing_fields": [],
+"claim_results": []
+},
+{
+"from": "buyer",
+"subject": "Re: Nordmark passes on copper for the 7.5 kW motor (1)",
+"body": "Dear Sir or Madam,\n\nthank you for your offer regarding nordmark passes on copper for the 7.5 kw motor.\nOur latest forecast for part:350011 grows +11.9% (fc:350011@2026-09).\nWe are happy to pay faster if that helps your cash flow, in exchange for a better price.\nEach of the attached packages works for us; please choose the one that suits you best.\nWe commit to a binding volume of 6,110 pcs per year over 12 months.\nCould you send us a cost breakdown for this part?\nWe value our cooperation.\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing",
+"term_sheets": [
+{
+"terms": {
+"unit_price": 362.11,
+"payment_days": 90,
+"index_clause": null
+}
+},
+{
+"terms": {
+"unit_price": 355.93,
+"payment_days": 14,
+"index_clause": {
+"series": "CU-NOTATION",
+"material_share": 0.2,
+"deadband_pct": 5,
+"base_month": "2026-08"
+}
+}
+},
+{
+"terms": {
+"unit_price": 356.01,
+"payment_days": 14,
+"index_clause": null
+}
+}
+],
+"refs": [
+"fc:350011@2026-09"
+]
+},
+{
+"thread_id": "thread:P02:70510",
+"message_id": "msg:70510-1-2",
+"in_reply_to": null,
+"from": "sales@70510",
+"from_name": "Key Account Manager, Antriebstechnik Nordmark AG",
+"to": "Hollerau Pumpenwerke GmbH",
+"subject": "Re: Nordmark passes on copper for the 7.5 kW motor (1)",
+"body": "Dear Sir or Madam,\n\nWe checked the volume change data you cited; it holds and we took it into account. We acknowledge your updated volume forecast of 6,110 pieces and welcome the proposed 14-day payment terms. Your request for a cost breakdown has been forwarded to our specialists for a separate reply, though our calculation is our property and we do not share a breakdown.\n\nWe can accept your terms and await your order. Ourangebot provides a price of €355.93 per unit, Zahlungsziel 14 days net, and a Preisgleitklausel on CU-NOTATION. This offer remains valid for 30 days.\n\nMit freundlichen Grüßen\nPetra Lechner\nKey Account Manager, Antriebstechnik Nordmark AG",
+"attachments": [
+{
+"attachment_id": "att:70510-1-quote",
+"name": "quote-offer-70510-1.pdf",
+"type": "pdf",
+"content_b64": null,
+"text": "Antriebstechnik Nordmark AG\nTo: Hollerau Pumpenwerke GmbH\nAngebot / Quote offer:70510-1\nOffered terms\nUnit price (EUR) 355.93\nPayment terms (days net) 14\nIndex clause CU-NOTATION, 20% material, deadband 5.0 %, base 2026-08\nOur standard terms (apply to everything not stated above)\nQuality commitment (ppm) 250\nChargeback per complaint (EUR) 0.00\nTerms fixed by your enquiry\nLead time (days) 35\nVolume per year (pcs) 6110\nContract term (months) 12\nPrice valid from 2027-01-01\nIncoterm DAP\nTooling (EUR) 0.00\nPart(s): part:350011. Enquiry: Nordmark passes on copper for the 7.5 kW motor.\nValidity: 30 days."
+}
+],
+"term_sheets": [
+{
+"term_sheet_id": "offer:70510-1",
+"terms": {
+"unit_price": 355.93,
+"payment_days": 14,
+"index_clause": {
+"series": "CU-NOTATION",
+"material_share": 0.2,
+"deadband_pct": 5.0,
+"base_month": "2026-08"
+}
+}
+}
+],
+"refs": [],
+"action": null,
+"status": "agreed",
+"signals": {
+"reply_delay_days": 1,
+"validity_days": 30
+},
+"missing_fields": [],
+"claim_results": [
+{
+"index": 0,
+"result": "verified"
+}
+]
+},
+{
+"from": "buyer",
+"subject": "Re: Nordmark passes on copper for the 7.5 kW motor (2)",
+"body": "Dear Sir or Madam,\n\nthank you for your offer regarding nordmark passes on copper for the 7.5 kw motor.\nWe accept the CU-NOTATION index clause on the material share with a 5% deadband; the attached base price reflects the price risk this removes for you.\nWe are happy to pay faster if that helps your cash flow, in exchange for a better price.\nEach of the attached packages works for us; please choose the one that suits you best.\nWe commit to a binding volume of 6,110 pcs per year over 12 months.\nCould you send us a cost breakdown for this part?\nWe value our cooperation.\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing",
+"term_sheets": [
+{
+"terms": {
+"unit_price": 355.93,
+"payment_days": 90,
+"index_clause": {
+"series": "CU-NOTATION",
+"material_share": 0.2,
+"deadband_pct": 5,
+"base_month": "2026-08"
+}
+}
+},
+{
+"terms": {
+"unit_price": 355.93,
+"payment_days": 90,
+"index_clause": {
+"series": "CU-NOTATION",
+"material_share": 0.2,
+"deadband_pct": 3,
+"base_month": "2026-08"
+}
+}
+},
+{
+"terms": {
+"unit_price": 355.93,
+"payment_days": 60,
+"index_clause": {
+"series": "CU-NOTATION",
+"material_share": 0.2,
+"deadband_pct": 5,
+"base_month": "2026-08"
+}
+}
+}
+]
+},
+{
+"thread_id": "thread:P02:70510",
+"message_id": "msg:70510-2-4",
+"in_reply_to": null,
+"from": "sales@70510",
+"from_name": "Key Account Manager, Antriebstechnik Nordmark AG",
+"to": "Hollerau Pumpenwerke GmbH",
+"subject": "Re: Nordmark passes on copper for the 7.5 kW motor (2)",
+"body": "Dear Sir or Madam,\n\nYour requested terms change our costs; our Angebot for them follows. That change is possible at the price below; our agreed offer stands too.\n\nWe can submit an Angebot featuring a price of €358.95 per unit, Zahlungsziel 60 days net, and a Preisgleitklausel on CU-NOTATION. This offer remains valid for 30 days.\n\nAlternatively, with Zahlungsziel 14 days net: €355.93 per unit, with a Preisgleitklausel on CU-NOTATION.\n\nWhich figures is that based on? Please send us the data. Please note that our calculation is our property; we do not share a breakdown.\n\nMit freundlichen Grüßen\nPetra Lechner\nKey Account Manager, Antriebstechnik Nordmark AG",
+"attachments": [],
+"term_sheets": [
+{
+"term_sheet_id": "offer:70510-2",
+"terms": {
+"unit_price": 358.95,
+"payment_days": 60,
+"index_clause": {
+"series": "CU-NOTATION",
+"material_share": 0.2,
+"deadband_pct": 5.0,
+"base_month": "2026-08"
+}
+}
+},
+{
+"term_sheet_id": "offer:70510-2-a",
+"terms": {
+"unit_price": 355.93,
+"payment_days": 14,
+"index_clause": {
+"series": "CU-NOTATION",
+"material_share": 0.2,
+"deadband_pct": 5.0,
+"base_month": "2026-08"
+}
+}
+}
+],
+"refs": [],
+"action": null,
+"status": "open",
+"signals": {
+"reply_delay_days": 1,
+"validity_days": 30
+},
+"missing_fields": [],
+"claim_results": []
+},
+{
+"from": "buyer",
+"subject": "Re: Nordmark passes on copper for the 7.5 kW motor (3)",
+"body": "Dear Sir or Madam,\n\nthank you for your offer regarding nordmark passes on copper for the 7.5 kw motor.\nWe accept the CU-NOTATION index clause on the material share with a 5% deadband; the attached base price reflects the price risk this removes for you.\nWe are happy to pay faster if that helps your cash flow, in exchange for a better price.\nEach of the attached packages works for us; please choose the one that suits you best.\nWe commit to a binding volume of 6,110 pcs per year over 12 months.\nWe value our cooperation.\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing",
+"term_sheets": [
+{
+"terms": {
+"unit_price": 358.95,
+"payment_days": 90,
+"index_clause": {
+"series": "CU-NOTATION",
+"material_share": 0.2,
+"deadband_pct": 5,
+"base_month": "2026-08"
+}
+}
+},
+{
+"terms": {
+"unit_price": 358.95,
+"payment_days": 90,
+"index_clause": {
+"series": "CU-NOTATION",
+"material_share": 0.2,
+"deadband_pct": 3,
+"base_month": "2026-08"
+}
+}
+},
+{
+"terms": {
+"unit_price": 358.95,
+"payment_days": 60,
+"index_clause": {
+"series": "CU-NOTATION",
+"material_share": 0.2,
+"deadband_pct": 5,
+"base_month": "2026-08"
+}
+}
+}
+]
+},
+{
+"thread_id": "thread:P02:70510",
+"message_id": "msg:70510-3-6",
+"in_reply_to": null,
+"from": "sales@70510",
+"from_name": "Key Account Manager, Antriebstechnik Nordmark AG",
+"to": "Hollerau Pumpenwerke GmbH",
+"subject": "Re: Nordmark passes on copper for the 7.5 kW motor (3)",
+"body": "Dear Sir or Madam,\n\nWe can accept your terms and await your order. Our Angebot stands at a price of €358.95 per unit, a Zahlungsziel 60 days net, and a Preisgleitklausel on CU-NOTATION. Please note that this offer remains valid for 30 days.\n\nMit freundlichen Grüßen\nPetra Lechner\nKey Account Manager, Antriebstechnik Nordmark AG",
+"attachments": [
+{
+"attachment_id": "att:70510-3-quote",
+"name": "quote-offer-70510-3.pdf",
+"type": "pdf",
+"content_b64": null,
+"text": "Antriebstechnik Nordmark AG\nTo: Hollerau Pumpenwerke GmbH\nAngebot / Quote offer:70510-3\nOffered terms\nUnit price (EUR) 358.95\nPayment terms (days net) 60\nIndex clause CU-NOTATION, 20% material, deadband 5.0 %, base 2026-08\nOur standard terms (apply to everything not stated above)\nQuality commitment (ppm) 250\nChargeback per complaint (EUR) 0.00\nTerms fixed by your enquiry\nLead time (days) 35\nVolume per year (pcs) 6110\nContract term (months) 12\nPrice valid from 2027-01-01\nIncoterm DAP\nTooling (EUR) 0.00\nPart(s): part:350011. Enquiry: Nordmark passes on copper for the 7.5 kW motor.\nValidity: 30 days."
+}
+],
+"term_sheets": [
+{
+"term_sheet_id": "offer:70510-3",
+"terms": {
+"unit_price": 358.95,
+"payment_days": 60,
+"index_clause": {
+"series": "CU-NOTATION",
+"material_share": 0.2,
+"deadband_pct": 5.0,
+"base_month": "2026-08"
+}
+}
+}
+],
+"refs": [],
+"action": null,
+"status": "agreed",
+"signals": {
+"reply_delay_days": 1,
+"validity_days": 30
+},
+"missing_fields": [],
+"claim_results": []
+},
+{
+"from": "buyer",
+"action": {
+"type": "accept",
+"term_sheet_id": "offer:70510-3"
+}
+},
+{
+"thread_id": "thread:P02:70510",
+"message_id": "msg:70510-3-8",
+"in_reply_to": null,
+"from": "sales@70510",
+"from_name": "Key Account Manager, Antriebstechnik Nordmark AG",
+"to": "Hollerau Pumpenwerke GmbH",
+"subject": "Re: Nordmark passes on copper for the 7.5 kW motor (3)",
+"body": "Dear Sir or Madam,\n\nThank you for your order. Our order confirmation is attached.\n\nMit freundlichen Grüßen\nPetra Lechner\nKey Account Manager, Antriebstechnik Nordmark AG",
+"attachments": [
+{
+"attachment_id": "att:70510-3-order_confirmation",
+"name": "order-confirmation-offer-70510-3.pdf",
+"type": "pdf",
+"content_b64": null,
+"text": "Antriebstechnik Nordmark AG\nTo: Hollerau Pumpenwerke GmbH\nAuftragsbestätigung / Order confirmation offer:70510-3\nAgreed terms\nPayment terms (days net) 60\nLead time (days) 35\nVolume per year (pcs) 6110\nContract term (months) 12\nPrice valid from 2027-01-01\nIndex clause CU-NOTATION, 20% material, deadband 5.0 %, base 2026-08\nIncoterm DAP\nTooling (EUR) 0.00\nQuality commitment (ppm) 250\nChargeback per complaint (EUR) 0.00\nUnit price (EUR) 358.95\nPart(s): part:350011. We confirm your order on the terms above."
+}
+],
+"term_sheets": [
+{
+"term_sheet_id": "offer:70510-3",
+"terms": {
+"unit_price": 358.95,
+"payment_days": 60,
+"index_clause": {
+"series": "CU-NOTATION",
+"material_share": 0.2,
+"deadband_pct": 5.0,
+"base_month": "2026-08"
+}
+}
+}
+],
+"refs": [],
+"action": null,
+"status": "agreed",
+"signals": {
+"reply_delay_days": 1,
+"validity_days": 30
+},
+"missing_fields": [],
+"claim_results": []
+}
+],
+"timeouts": []
+}
+}

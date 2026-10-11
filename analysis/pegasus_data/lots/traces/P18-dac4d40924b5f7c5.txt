@@ -1,0 +1,179 @@
+# P18 session dac4d40924b5f7c5 — score 0.000 — end no_deal — deal terms null — c_open 295173.23 c_deal None c_best 222651.27 — cost_breakdown {}
+
+Replay - Alloy surcharge and base price for 1.4404 bar (Werdenfels)
+Alloy surcharge and base price for 1.4404 bar (Werdenfels)
+pegasus · case:P18 · raw_material · practice
+6.10
+4.76
+◀
+▶
+all
+keys: ← → space, a = all
+sup:70740
+open
+round 0
+unit_price
+6.10
+payment_days
+30
+index_clause
+None
+contract_months
+12
+Dear customer,
+Thank you for your enquiry. Please find our Angebot below.
+Our terms: a price of €6.10 per unit, Zahlungsziel 30 days net, a contract term of 12 months, no Preisgleitklausel.
+A few words on this from our side.
+AS-14404 rose 5.9 % in twelve months and is 45 % of our cost.
+LCI-C rose 2.7 % in twelve months and is 5 % of our cost.
+PPI-C2431 rose 12.3 % in twelve months and is 38 % of our cost.
+And while we are at it: our whole range is at your disposal, so if there is anything else on your list, just send it over - we are happy to quote.
+Mit freundlichen Grüßen
+Franz Seidl
+Inside Sales, Blankstahl Werdenfels GmbH
+AS-14404 rose … in twelve months and is … of our cost.
+LCI-C rose … in twelve months and is … of our cost.
+PPI-C2431 rose … in twelve months and is … of our cost.
+Buyer
+message
+round 1
+unit_price
+4.76
+index_clause
+{"series": "AS-14404", "material_share": 0.45, "deadband_pct": 5, "base_month": "2026-08"}
+payment_days
+90
+contract_months
+24
+Claim
+price_history
+po:4500013373-10
+po:4500014427-10
+{"prices": [5.26, 5.84]}
+Thank you for your offer. We have reviewed the referenced records and weigh them in our decision. Our revised proposal follows; the referenced data and our volumes support this level. Our own orders for this exact part were placed at 5.26 EUR (po:4500013373-10) and 5.84 EUR (po:4500014427-10); our proposal reflects that record. We commit to a binding volume for the full term: 23,700 units per year over 24 months, firm. (doc:20260922-70740-P18)
+sup:70740
+open
+round 1
+unit_price
+5.60
+-0.50
+payment_days
+45
+index_clause
+{"series": "AS-14404", "material_share": 0.45, "deadband_pct": 5.0, "base_month": "2026-08"}
+contract_months
+24
+Checked claim
+price_history
+:
+verified
+Dear customer,
+Thank you very much for your message - it is always a pleasure to hear from you, and we are glad to help wherever we can.
+We have reviewed your offer and can adjust our Angebot as follows.
+Our terms: a price of €5.60 per unit, Zahlungsziel 45 days net, a contract term of 24 months, a Preisgleitklausel on AS-14404.
+A few words on this from our side.
+We checked the price history data you cited; it holds and we took it into account.
+We acknowledge your firm volume commitment of 23,700 units per year and the referenced historical orders.
+In return for the 24-month contract and the volume commitment, we agree to the AS-14404 index clause and 45 days payment terms.
+Under these revised parameters, we can offer a unit price of €5.60.
+Our price follows our main cost drivers: AS-14404, PPI-C2431, LCI-C.
+A binding higher volume would help us and can improve the price.
+Which volume can you commit to?
+We can offer a Preisgleitklausel on AS-14404, AS-14404, AS-14404.
+And while we are at it: our whole range is at your disposal, so if there is anything else on your list, just send it over - we are happy to quote.
+Mit freundlichen Grüßen
+Franz Seidl
+Inside Sales, Blankstahl Werdenfels GmbH
+We checked the price history data you cited; it holds and we took it into account.
+We acknowledge your firm volume commitment of … units per year and the referenced historical orders.
+In return for the 24-month contract and the volume commitment, we agree to the AS-14404 index clause and … days payment terms.
+Under these revised parameters, we can offer a unit price of €….
+Our price follows our main cost drivers: AS-14404, PPI-C2431, LCI-C.
+A binding higher volume would help us and can improve the price.
+Which volume can you commit to?
+We can offer a Preisgleitklausel on AS-14404, AS-14404, AS-14404.
+Buyer
+message
+round 2
+unit_price
+4.88
++0.12
+index_clause
+{"series": "AS-14404", "material_share": 0.45, "deadband_pct": 5, "base_month": "2026-08"}
+payment_days
+90
+contract_months
+24
+Thank you for your offer. Our revised proposal follows; our volumes and the referenced market data support this level.
+sup:70740
+final_offer
+round 2
+unit_price
+5.50
+-0.10
+payment_days
+45
+index_clause
+{"series": "AS-14404", "material_share": 0.45, "deadband_pct": 5.0, "base_month": "2026-08"}
+contract_months
+24
+Dear customer,
+We note your revised proposal and your reference to market data; however, as no figures were provided, we ask you to share this data for our review. Building on your second package, we agree to maintain the 45-day payment terms and the 24-month contract with the AS-14404 index clause. In response to your adjustment, we can offer a revised unit price of €5.50.
+Our price follows our main cost drivers: AS-14404, PPI-C2431, LCI-C. Please note that our offer includes a price of €5.50 per unit, Zahlungsziel 45 days net, a contract term of 24 months, a Preisgleitklausel on AS-14404.
+This is our final offer (letztes Angebot). Please decide. Please keep in mind that this Angebot remains valid for 7 days.
+Mit freundlichen Grüßen
+Franz Seidl
+Inside Sales, Blankstahl Werdenfels GmbH
+We note your revised proposal and your reference to market data; however, as no figures were provided, we ask you to share this data for our review.
+Building on your second package, we agree to maintain the 45-day payment terms and the 24-month contract with the AS-14404 index clause.
+In response to your adjustment, we can offer a revised unit price of €….
+Our price follows our main cost drivers: AS-14404, PPI-C2431, LCI-C.
+Buyer
+message
+round 3
+unit_price
+5.45
++0.57
+index_clause
+{"series": "AS-14404", "material_share": 0.45, "deadband_pct": 5, "base_month": "2026-08"}
+payment_days
+90
+contract_months
+24
+Thank you for your offer. Our revised proposal follows; our volumes and the referenced market data support this level.
+sup:70740
+walked_away
+round 3
+Dear customer,
+We are withdrawing from this negotiation. Please note that our offer stays valid for 14 days. We are always here to support you with our extensive range and high-quality service, and we look forward to serving you again in the future.
+Mit freundlichen Grüßen
+Franz Seidl
+Inside Sales, Blankstahl Werdenfels GmbH
+Result
+No deal (no_deal) -
+a must-have was broken: score 0
+Total cost at the best opening offer
+€295,173
+Total cost of this outcome
+€301,088
+Best achievable total cost
+€222,651
+0.0
+score out of 100
+Back office
+Inside Sales
+ quote attached (quote-offer-70740-0.pdf)
+Inside Sales
+ My call: counter.
+Inside Sales
+ Read the buyer's e-mail: … term sheets and … cited fact to check; we answer with our offer.
+Inside Sales
+ My call: counter.
+Inside Sales
+ Read the buyer's e-mail: … term sheets; we answer with our final offer.
+Inside Sales
+ quote attached (quote-offer-70740-2.pdf)
+Inside Sales
+ My call: hold.
+Inside Sales
+ Read the buyer's e-mail: … term sheets; we withdraw.

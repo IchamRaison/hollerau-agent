@@ -1,0 +1,314 @@
+{
+"sup:70530": {
+"supplier_id": "sup:70530",
+"offer_id": "offer:70530-3",
+"status": "agreed",
+"closed": null,
+"messages": [
+{
+"thread_id": "thread:P03:70530",
+"message_id": "msg:70530-0-0",
+"in_reply_to": null,
+"from": "sales@70530",
+"from_name": "Key Account Manager, Selvbrunn Drive Systems GmbH",
+"to": "Hollerau Pumpenwerke GmbH",
+"subject": "Quote from Selvbrunn Drive Systems GmbH: Frame agreement renewal for the 7.5 kW frequency converter",
+"body": "Dear Sir or Madam,\n\nThank you for your enquiry. Please find our Angebot below.\n\nWe offer a price of €438.21 per unit, a volume of 4580 pcs per year, a contract term of 12 months, and Zahlungsziel 30 days net. This proposal remains valid for 30 days.\n\nPlease note our cost context: CU-NOTATION rose 47.7 % in twelve months and is 5 % of our cost. Furthermore, LCI-C rose 2.7 % in twelve months and is 16 % of our cost. Additionally, PPI-C2611 rose 13.5 % in twelve months and is 42 % of our cost.\n\nMit freundlichen Grüßen\nBirgit Mayrhofer\nKey Account Manager, Selvbrunn Drive Systems GmbH",
+"attachments": [
+{
+"attachment_id": "att:70530-0-quote",
+"name": "quote-offer-70530-0.pdf",
+"type": "pdf",
+"content_b64": null,
+"text": "Selvbrunn Drive Systems GmbH\nTo: Hollerau Pumpenwerke GmbH\nAngebot / Quote offer:70530-0\nOffered terms\nUnit price (EUR) 438.21\nPayment terms (days net) 30\nContract term (months) 12\nVolume per year (pcs) 4580\nOur standard terms (apply to everything not stated above)\nQuality commitment (ppm) 350\nChargeback per complaint (EUR) 0.00\nTerms fixed by your enquiry\nLead time (days) 49\nPrice valid from 2027-01-01\nIndex clause none\nIncoterm DAP\nTooling (EUR) 0.00\nPart(s): part:350020. Enquiry: Frame agreement renewal for the 7.5 kW frequency converter.\nValidity: 30 days."
+}
+],
+"term_sheets": [
+{
+"term_sheet_id": "offer:70530-0",
+"terms": {
+"unit_price": 438.21,
+"payment_days": 30,
+"contract_months": 12,
+"volume_per_year": 4580
+}
+}
+],
+"refs": [],
+"action": null,
+"status": "open",
+"signals": {
+"reply_delay_days": 1,
+"validity_days": 30
+},
+"missing_fields": [],
+"claim_results": []
+},
+{
+"from": "buyer",
+"subject": "Re: Frame agreement renewal for the 7.5 kW frequency converter (1)",
+"body": "Dear Sir or Madam,\n\nthank you for your offer regarding frame agreement renewal for the 7.5 kw frequency converter.\nOur orders of part:350020 were placed at 400.19 (po:4500011931-10, 2025-01) and 412.74 EUR (po:4500014465-10, 2026-09).\nOur latest forecast for part:350020 grows +10.3% (fc:350020@2026-09).\nWe understand your position on list prices, so we have structured the packages below around payment, volume, contract length.\nWe are happy to pay faster if that helps your cash flow, in exchange for a better price.\nEach of the attached packages works for us; please choose the one that suits you best.\nWe commit to a binding volume of 4,580 pcs per year over 24 months.\nCould you send us a cost breakdown for this part?\nWe value our cooperation.\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing",
+"term_sheets": [
+{
+"terms": {
+"unit_price": 396.21,
+"payment_days": 90,
+"contract_months": 24,
+"volume_per_year": 4580
+}
+},
+{
+"terms": {
+"unit_price": 396.21,
+"payment_days": 90,
+"contract_months": 36,
+"volume_per_year": 4580
+}
+},
+{
+"terms": {
+"unit_price": 389.58,
+"payment_days": 14,
+"contract_months": 24,
+"volume_per_year": 4580
+}
+}
+],
+"refs": [
+"po:4500011931-10",
+"po:4500014465-10",
+"fc:350020@2026-09"
+]
+},
+{
+"thread_id": "thread:P03:70530",
+"message_id": "msg:70530-1-2",
+"in_reply_to": null,
+"from": "sales@70530",
+"from_name": "Key Account Manager, Selvbrunn Drive Systems GmbH",
+"to": "Hollerau Pumpenwerke GmbH",
+"subject": "Re: Frame agreement renewal for the 7.5 kW frequency converter (1)",
+"body": "Dear Sir or Madam,\n\nWe have reviewed your offer and can adjust our Angebot as follows. We checked the price history data you cited; it holds and we took it into account. As to the price history and volume change data you cited, our management has frozen all price reductions until December 2027. We can talk about the terms instead - payment, volume or contract length. We acknowledge your verified volume forecast and appreciate the proposed 24-month contract with 14-day payment terms. Please note that as a matter of corporate policy, we do not provide internal cost breakdowns. Material accounts for about 42 % of our cost; more detail we do not share.\n\nIn recognition of the extended contract duration and accelerated payment, we are pleased to revise our offer to €426.97 per unit. Alternatively, our Angebot stands at a price of €431.63 per unit, Zahlungsziel 90 days net, a volume of 4580 pcs per year, a contract term of 24 months. Alternatively, with Zahlungsziel 14 days net: €426.97 per unit, with a price of €426.97 per unit, Zahlungsziel 14 days net, a volume of 4580 pcs per year, a contract term of 24 months. This offer is valid for 30 days.\n\nMit freundlichen Grüßen\nBirgit Mayrhofer\nKey Account Manager, Selvbrunn Drive Systems GmbH",
+"attachments": [],
+"term_sheets": [
+{
+"term_sheet_id": "offer:70530-1",
+"terms": {
+"unit_price": 431.63,
+"payment_days": 90,
+"contract_months": 24,
+"volume_per_year": 4580
+}
+},
+{
+"term_sheet_id": "offer:70530-1-a",
+"terms": {
+"unit_price": 426.97,
+"payment_days": 14,
+"contract_months": 24,
+"volume_per_year": 4580
+}
+}
+],
+"refs": [],
+"action": null,
+"status": "open",
+"signals": {
+"reply_delay_days": 1,
+"validity_days": 30
+},
+"missing_fields": [],
+"claim_results": [
+{
+"index": 0,
+"result": "verified"
+},
+{
+"index": 1,
+"result": "verified"
+}
+]
+},
+{
+"from": "buyer",
+"subject": "Re: Frame agreement renewal for the 7.5 kW frequency converter (2)",
+"body": "Dear Sir or Madam,\n\nthank you for your offer regarding frame agreement renewal for the 7.5 kw frequency converter.\nThe attached package gives you planning certainty over 36 months.\nWe understand your position on list prices, so we have structured the packages below around payment, volume, contract length.\nWe are happy to pay faster if that helps your cash flow, in exchange for a better price.\nEach of the attached packages works for us; please choose the one that suits you best.\nWe commit to a binding volume of 4,580 pcs per year over 36 months.\nCould your commercial manager review and approve your best price on the attached terms, including our stated binding volume commitment?\nWe value our cooperation.\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing",
+"term_sheets": [
+{
+"terms": {
+"unit_price": 404.0,
+"payment_days": 90,
+"contract_months": 36,
+"volume_per_year": 4580
+}
+},
+{
+"terms": {
+"unit_price": 404.0,
+"payment_days": 90,
+"contract_months": 24,
+"volume_per_year": 4580
+}
+},
+{
+"terms": {
+"unit_price": 401.3,
+"payment_days": 60,
+"contract_months": 36,
+"volume_per_year": 4580
+}
+}
+]
+},
+{
+"thread_id": "thread:P03:70530",
+"message_id": "msg:70530-2-4",
+"in_reply_to": null,
+"from": "sales@70530",
+"from_name": "Key Account Manager, Selvbrunn Drive Systems GmbH",
+"to": "Hollerau Pumpenwerke GmbH",
+"subject": "Re: Frame agreement renewal for the 7.5 kW frequency converter (2)",
+"body": "Dear Sir or Madam,\n\nWe have reviewed your offer and can adjust our Angebot as follows. Our commercial management has reviewed your request; however, the corporate freeze on price reductions remains strictly in effect.\n\nOur current offer stands at a price of €431.63 per unit, Zahlungsziel 90 days net, a volume of 4580 pcs per year, a contract term of 36 months. We acknowledge the proposed 36-month contract duration and the 60-day payment terms, which allow us to adjust our offer to a price of €430.17 per unit, Zahlungsziel 60 days net, a volume of 4580 pcs per year, a contract term of 36 months.\n\nPlease provide the underlying data for your volume commitment to substantiate this planning certainty. Which volume can you commit to? A binding higher volume would help us and can improve the price. Our price follows our main cost drivers: PPI-C2611, LCI-C, CU-NOTATION. This proposal stays valid for 30 days.\n\nMit freundlichen Grüßen\nBirgit Mayrhofer\nKey Account Manager, Selvbrunn Drive Systems GmbH",
+"attachments": [],
+"term_sheets": [
+{
+"term_sheet_id": "offer:70530-2",
+"terms": {
+"unit_price": 431.63,
+"payment_days": 90,
+"contract_months": 36,
+"volume_per_year": 4580
+}
+},
+{
+"term_sheet_id": "offer:70530-2-a",
+"terms": {
+"unit_price": 430.17,
+"payment_days": 60,
+"contract_months": 36,
+"volume_per_year": 4580
+}
+}
+],
+"refs": [],
+"action": null,
+"status": "open",
+"signals": {
+"reply_delay_days": 1,
+"validity_days": 30
+},
+"missing_fields": [],
+"claim_results": []
+},
+{
+"from": "buyer",
+"subject": "Re: Frame agreement renewal for the 7.5 kW frequency converter (3)",
+"body": "Dear Sir or Madam,\n\nthank you for your offer regarding frame agreement renewal for the 7.5 kw frequency converter.\nThe attached package gives you planning certainty over 36 months.\nWe understand your position on list prices, so we have structured the packages below around payment, volume, contract length.\nWe are happy to pay faster if that helps your cash flow, in exchange for a better price.\nEach of the attached packages works for us; please choose the one that suits you best.\nWe commit to a binding volume of 4,580 pcs per year over 36 months.\nWe value our cooperation.\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing",
+"term_sheets": [
+{
+"terms": {
+"unit_price": 419.27,
+"payment_days": 90,
+"contract_months": 36,
+"volume_per_year": 4580
+}
+},
+{
+"terms": {
+"unit_price": 419.27,
+"payment_days": 90,
+"contract_months": 24,
+"volume_per_year": 4580
+}
+},
+{
+"terms": {
+"unit_price": 416.45,
+"payment_days": 60,
+"contract_months": 36,
+"volume_per_year": 4580
+}
+}
+]
+},
+{
+"thread_id": "thread:P03:70530",
+"message_id": "msg:70530-3-6",
+"in_reply_to": null,
+"from": "sales@70530",
+"from_name": "Key Account Manager, Selvbrunn Drive Systems GmbH",
+"to": "Hollerau Pumpenwerke GmbH",
+"subject": "Re: Frame agreement renewal for the 7.5 kW frequency converter (3)",
+"body": "Dear Sir or Madam,\n\nWe have reviewed your offer and can adjust our Angebot as follows. We acknowledge your revised offer and appreciate your commitment to a 36-month contract. As previously communicated, our corporate freeze on price reductions remains strictly in effect, preventing further concessions on these terms. \n\nOur current offer stands at a price of €431.63 per unit, Zahlungsziel 90 days net, a volume of 4580 pcs per year, and a contract term of 36 months. \n\nWhich volume can you commit to? A binding higher volume would help us and can improve the price. \n\nThis offer stays valid for 30 days.\n\nMit freundlichen Grüßen\nBirgit Mayrhofer\nKey Account Manager, Selvbrunn Drive Systems GmbH\n\nLegal Department: Please note that our general terms and conditions apply to this process, and the quote lists our standard terms accordingly.\n\nCredit Control: Please be advised that our standard Zahlungsziel is 30 days net.",
+"attachments": [],
+"term_sheets": [
+{
+"term_sheet_id": "offer:70530-3",
+"terms": {
+"unit_price": 431.63,
+"payment_days": 90,
+"contract_months": 36,
+"volume_per_year": 4580
+}
+}
+],
+"refs": [],
+"action": null,
+"status": "open",
+"signals": {
+"reply_delay_days": 1,
+"validity_days": 30
+},
+"missing_fields": [],
+"claim_results": []
+},
+{
+"from": "buyer",
+"action": {
+"type": "accept",
+"term_sheet_id": "offer:70530-3"
+}
+},
+{
+"thread_id": "thread:P03:70530",
+"message_id": "msg:70530-3-8",
+"in_reply_to": null,
+"from": "sales@70530",
+"from_name": "Key Account Manager, Selvbrunn Drive Systems GmbH",
+"to": "Hollerau Pumpenwerke GmbH",
+"subject": "Re: Frame agreement renewal for the 7.5 kW frequency converter (3)",
+"body": "Dear Sir or Madam,\n\nThank you for your order. Our order confirmation is attached.\n\nMit freundlichen Grüßen\nBirgit Mayrhofer\nKey Account Manager, Selvbrunn Drive Systems GmbH\n\nLegal Department: Please note that our general terms and conditions apply to this process, and the quote lists our standard terms accordingly.\n\nCredit Control: Please be advised that our standard Zahlungsziel is 30 days net.",
+"attachments": [
+{
+"attachment_id": "att:70530-3-order_confirmation",
+"name": "order-confirmation-offer-70530-3.pdf",
+"type": "pdf",
+"content_b64": null,
+"text": "Selvbrunn Drive Systems GmbH\nTo: Hollerau Pumpenwerke GmbH\nAuftragsbestätigung / Order confirmation offer:70530-3\nAgreed terms\nPayment terms (days net) 90\nLead time (days) 49\nVolume per year (pcs) 4580\nContract term (months) 36\nPrice valid from 2027-01-01\nIndex clause none\nIncoterm DAP\nTooling (EUR) 0.00\nQuality commitment (ppm) 350\nChargeback per complaint (EUR) 0.00\nUnit price (EUR) 431.63\nPart(s): part:350020. We confirm your order on the terms above."
+}
+],
+"term_sheets": [
+{
+"term_sheet_id": "offer:70530-3",
+"terms": {
+"unit_price": 431.63,
+"payment_days": 90,
+"contract_months": 36,
+"volume_per_year": 4580
+}
+}
+],
+"refs": [],
+"action": null,
+"status": "agreed",
+"signals": {
+"reply_delay_days": 1,
+"validity_days": 30
+},
+"missing_fields": [],
+"claim_results": []
+}
+],
+"timeouts": []
+}
+}
