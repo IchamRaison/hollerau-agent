@@ -41,7 +41,9 @@ def _thread(agent, case, sid, events):
 
     def read(text):
         cached = agent._observed.pop((sid, text[:200]), None)
-        signals = cached if cached is not None else reader.read(text)
+        deadline = getattr(agent, "_deadline", None)
+        left = None if deadline is None else deadline - time.monotonic()
+        signals = cached if cached is not None else reader.read(text, left)
         st.setdefault("signals_read", set()).update(signals)  # what `memory.remember` keeps
         return signals
 

@@ -6,7 +6,9 @@ cost us at the price that leaves the supplier indifferent (its cash value unchan
 we find trades that are cheap for it and valuable for us.
 """
 
+import json
 from itertools import product
+from math import prod
 
 from arena_kit.cost import closing_terms, complete_offer, must_haves_ok, supplier_value, total_cost
 
@@ -20,15 +22,21 @@ def fields(case):
 
 def grid(case):
     """Every allowed combination of the non-price negotiable fields (one plan value when a field
-    has no options)."""
+    has no options). Beyond MAX_GRID combinations only the first ones are kept: fields and options
+    are then put in a fixed order first, so the same case gives the same structures however its
+    file lists them. Below the cap nothing is reordered (no case of the package comes close: 75)."""
     plan = complete_offer(case, {"unit_price": 0.0})
-    choices = []
-    for f in fields(case):
+    names = fields(case)
+    choices = {}
+    for f in names:
         opts = case.get("term_options", {}).get(f)
-        choices.append(list(opts) if opts else [plan[f]])
+        choices[f] = list(opts) if opts else [plan[f]]
+    if prod(len(c) for c in choices.values()) > MAX_GRID:
+        names = sorted(names)
+        choices = {f: sorted(choices[f], key=lambda v: json.dumps(v, sort_keys=True, default=str)) for f in names}
     out = []
-    for combo in product(*choices):
-        out.append(dict(zip(fields(case), combo)))
+    for combo in product(*(choices[f] for f in names)):
+        out.append(dict(zip(names, combo)))
         if len(out) >= MAX_GRID:
             break
     return out

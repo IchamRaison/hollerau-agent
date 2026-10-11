@@ -6,6 +6,7 @@ share one agent under a lock; the first accept or walk-away ends the case for al
 """
 
 import logging
+import os
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -23,6 +24,15 @@ from arena_kit.play import (
 )
 
 log = logging.getLogger("pegasus")
+
+# A message later than 60 s after the supplier's last one is a timeout (kit: MOVE_LIMIT_S). The whole
+# of our side - reading, deciding, checking - gets this long; what is left is for the send itself.
+DECISION_BUDGET_S = float(os.environ.get("PEGASUS_DECISION_BUDGET_S", "40"))
+
+
+def timed(agent, received):
+    """The deadline argument for an agent that takes one (`PegasusAgent.deadlines`), else nothing."""
+    return {"deadline": received + DECISION_BUDGET_S} if getattr(agent, "deadlines", False) else {}
 
 
 def closing(agent, case, threads):
@@ -43,10 +53,14 @@ def play_case(table, case_id, agent, deadline=None):
     for events in threads.values():
         for m in events:
             fetch_documents(table, m)
+    opened = time.monotonic()
+    received = {s_id: opened for s_id in threads}  # when each supplier's latest message reached us
     if hasattr(agent, "observe"):
-        for s_id, events in threads.items():
-            for m in events:
-                agent.observe(s_id, m)
+        # the opening quotes are read side by side, on one budget: read one after the other, three
+        # bidders' readings added up before the first e-mail could leave
+        todo = [(s_id, m) for s_id, events in threads.items() for m in events]
+        with ThreadPoolExecutor(max_workers=max(len(todo), 1)) as pool:
+            list(pool.map(lambda x: agent.observe(x[0], x[1], **timed(agent, opened)), todo))
     lock, done = threading.Lock(), threading.Event()
     box, slowest, inflight = {}, [0.0], set()
 
@@ -74,7 +88,8 @@ def play_case(table, case_id, agent, deadline=None):
                     decision = closing(agent, case, threads)
                 else:
                     try:
-                        decision = agent.decide(case, threads, sid, busy=inflight - {sid})
+                        decision = agent.decide(case, threads, sid, busy=inflight - {sid},
+                                                **timed(agent, received.get(sid, t0)))
                     except Exception:
                         # a bug in the agent must not leave the session open (an open case scores 0)
                         log.exception("%s %s: decide failed, closing move", case_id, sid)
@@ -119,8 +134,9 @@ def play_case(table, case_id, agent, deadline=None):
                 box["result"] = reply["result"]
                 done.set()
                 return
-            if hasattr(agent, "observe"):
-                agent.observe(dsid, reply)  # the reader's LLM call runs outside the decision lock
+            received[dsid] = time.monotonic()
+            if hasattr(agent, "observe"):  # the reader's LLM call runs outside the decision lock
+                agent.observe(dsid, reply, **timed(agent, received[dsid]))
             with lock:
                 threads[dsid] += [{**msg, "from": "buyer"}, fetch_documents(table, reply)]
                 inflight.discard(dsid)  # only now may other threads act on this supplier's sheets

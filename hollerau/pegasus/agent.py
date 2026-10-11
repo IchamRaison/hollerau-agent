@@ -16,13 +16,14 @@ Per thread it
 import logging
 import os
 import re
+import time
 
 from arena_kit.docs import quote_terms, standard_terms
 from arena_kit.play import latest, live_threads, moves_left, standing
 
 from . import adapt as rules
 from . import economics as eco
-from . import guard, memory, prose, reader
+from . import guard, memory, outbox, prose, reader
 
 try:  # Nevil's evidence lane (hollerau/evidence, PR #4): filtered claim union + planner hints
     from hollerau.evidence import adapter as team_claims
@@ -125,7 +126,14 @@ def supplier_reference(case, events):
     return {**plan, **ref} if ref else (standard_terms(events) or plan)
 
 
+def time_left(deadline):
+    """Seconds until `deadline` (time.monotonic), None when there is none."""
+    return None if deadline is None else deadline - time.monotonic()
+
+
 class PegasusAgent:
+    deadlines = True  # `observe` and `decide` take the time by which the move must have left
+
     def __init__(self, package=None, playbook=None, push_after_final=False, journal=None):
         self.pkg, self.playbook, self.push_after_final = package, playbook or {}, push_after_final
         self.journal = journal  # runconfig.Journal: one line per decision, None = no trace
@@ -168,12 +176,12 @@ class PegasusAgent:
             return {"supplier_id": best[1], "message": {"action": {"type": "accept", "term_sheet_id": best[2]}}}
         return {"supplier_id": live[0], "message": {"action": {"type": "walk_away"}}} if live else None
 
-    def observe(self, sid, message):
+    def observe(self, sid, message, deadline=None):
         """Read a supplier reply (an LLM call) outside the decision lock; `decide` finds it here."""
         text = (message or {}).get("body") or ""
         if text and (message or {}).get("from") != "buyer":
             try:
-                self._observed[(sid, text[:200])] = reader.read(text)
+                self._observed[(sid, text[:200])] = reader.read(text, time_left(deadline))
             except Exception as e:  # reading is a bonus, never a reason to lose the round
                 log.warning("observe failed: %s", e)
 
@@ -229,7 +237,61 @@ class PegasusAgent:
                 st["std"]["_floor"] = sup  # floors our prices; counted in C only to decide acceptance
                 log.info("%s %s: supplier full cost estimate %.2f", case["case_id"], sid, sup["full_cost"])
             st["anchor"] = self._anchor(case, sid, st)
+            if any(m.get("from") == "buyer" for m in events):
+                self._resume(case, sid, st, events)
         return st
+
+    def _resume(self, case, sid, st, events):
+        """A thread we already wrote in - a restart in mid-negotiation. The arena hands the messages
+        back; what the schedule policy kept in memory is recovered from them: how many offers we
+        made and the last target, what the supplier showed and said, what we proposed and cited.
+        The anchor is recomputed from the opening, as on the first pass. Without this the schedule
+        restarted at its first step and conceded again from the opening anchor."""
+        std = st["std"]
+        offers = [[dict(ts.get("terms", ts)) for ts in m.get("term_sheets") or []]
+                  for m in events if m.get("from") == "buyer" and m.get("term_sheets")]
+        theirs = [(i, m) for i, m in enumerate(events) if m.get("from") != "buyer"]
+        for _, m in theirs[:-1]:  # the latest reply is read by the decision that follows
+            costs = [eco.standing_cost(case, ts["terms"], std) for ts in m.get("term_sheets") or []
+                     if ts.get("terms") and eco.ok(case, ts["terms"], std)]
+            if costs:
+                st["seen"].append(min(costs))
+            text = m.get("body") or ""
+            if text:
+                signals = reader.read(text, time_left(getattr(self, "_deadline", None)))
+                reader.apply(st, signals)
+                st["floor_hits"] = st.get("floor_hits", 0) + ("cost_floor" in signals)
+                st["cash"] = st.get("cash") or bool(CASH_RE.search(text))
+                st["freeze"] = st.get("freeze") or bool(FREEZE_RE.search(text))
+        agreed = next((i for i, m in theirs[:-1] if m.get("status") == "agreed"), None)
+        if agreed is not None and any(m.get("from") == "buyer" and m.get("term_sheets") for m in events[agreed + 1:]):
+            # we pushed once after an early agreement: from a lower anchor, the count started again
+            sheet = (events[agreed].get("term_sheets") or [{}])[0].get("terms") or {}
+            c_s, c_open = eco.standing_cost(case, sheet, std), eco.standing_cost(case, st["open"], std)
+            st["pushed_agreed"] = True
+            st["anchor"] = min(st["anchor"] or c_s, c_s) - 0.5 * max(c_open - c_s, 0)
+            offers = [[dict(ts.get("terms", ts)) for ts in m.get("term_sheets") or []]
+                      for m in events[agreed + 1:] if m.get("from") == "buyer" and m.get("term_sheets")]
+        st["pushed"] = any(m.get("status") == "final_offer" and any(x.get("from") == "buyer" for x in events[i + 1:])
+                           for i, m in theirs[:-1])
+        st["offers"] = len(offers)
+        if offers:
+            st["last_target"] = eco.cost(case, offers[-1][0], std)
+            st["last_sheets"] = [dict(t) for t in offers[-1]]
+        for m in events:
+            if m.get("from") != "buyer":
+                continue
+            for ts in m.get("term_sheets") or []:
+                structure = {f: ts.get("terms", ts).get(f) for f in eco.fields(case)}
+                st.setdefault("proposed", []).append(structure)
+                if structure not in st.setdefault("proposed_structures", []):
+                    st["proposed_structures"].append(structure)
+            for ref in m.get("refs") or []:  # the arena remembers what we cited: so must the ledger
+                self.fallback_claims.used.add((sid, (ref,)) if ref.startswith("offer:") else ref)
+            body = m.get("body") or ""
+            st["approval_requested"] = st.get("approval_requested") or "commercial manager review" in body
+            st["bafo_requested"] = st.get("bafo_requested") or "best and final terms" in body
+        log.info("%s %s: resumed after %d offer(s) of ours", case["case_id"], sid, st["offers"])
 
     def _ref_terms(self, case, st):
         return eco.sheet(case, {k: v for k, v in eco.closing_terms(case, st["open"], st["std"]).items()
@@ -278,8 +340,14 @@ class PegasusAgent:
 
     # -- decision ------------------------------------------------------------------------------
     def decide(self, case, threads, sid=None, busy=(), deadline=None):
-        """`deadline` (time.monotonic): when this decision must have left - optional work stops before."""
+        """`deadline` (time.monotonic): when this decision must have left - optional work stops before.
+        Whatever branch produced the move, it passes `outbox.validate` before it is returned."""
+        self._deadline = deadline
         out = self._decide(case, threads, sid, busy, deadline)
+        out, problems = outbox.validate(self, case, threads, out)
+        if self.journal and (problems or POLICY != "actions"):  # the action policy writes its own line
+            self.journal.write(policy=POLICY, case=case.get("case_id"), supplier=(out or {}).get("supplier_id") or sid,
+                               sent=outbox.describe(out), outbox=problems)
         if out and isinstance(out.get("message"), dict) and not out["message"].get("action") and out["message"].get("body"):
             who = out.get("supplier_id")
             n = sum(m.get("from") == "buyer" for m in threads.get(who, [])) + 1
@@ -334,7 +402,8 @@ class PegasusAgent:
         if text and st.get("read_key") != key:
             st["read_key"] = key
             cached = self._observed.pop((sid, text[:200]), None)
-            st["last_signals"] = cached if cached is not None else reader.read(text)
+            left = time_left(getattr(self, "_deadline", None))
+            st["last_signals"] = cached if cached is not None else reader.read(text, left)
             reader.apply(st, st["last_signals"])
             if "cost_floor" in st["last_signals"]:
                 st["floor_hits"] = st.get("floor_hits", 0) + 1

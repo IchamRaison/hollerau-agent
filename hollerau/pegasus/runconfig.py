@@ -85,16 +85,23 @@ def environment():
 def settings():
     """Every tunable as the modules resolved it (defaults included), not only what the
     environment overrides: two runs with the same values here take the same decisions."""
-    from . import agent, economics, memory, prose, reader
+    from . import actions, agent, economics, memory, play, prose, reader, strategist
 
     out = {}
-    for mod in (agent, economics, memory, prose, reader):
+    for mod in (actions, agent, economics, memory, play, prose, reader, strategist):
         name = mod.__name__.rsplit(".", 1)[1]
         for k, v in sorted(vars(mod).items()):
             if (k.isupper() and not k.startswith("_") and isinstance(v, SIMPLE) and not secret(k)
                     and len(repr(v)) <= 200):
                 out[f"{name}.{k}"] = list(v) if isinstance(v, tuple) else v
     return out
+
+
+def agent_policy():
+    """How the next move is decided, and who may choose it."""
+    from . import agent, strategist
+
+    return {"decides": agent.POLICY, "strategist": strategist.ENABLED, "strategist_prompt": strategist.VERSION}
 
 
 def resolve(kind, cases=(), parallel=None, playbook=None, data_dir=None):
@@ -120,6 +127,7 @@ def resolve(kind, cases=(), parallel=None, playbook=None, data_dir=None):
         "reader": {"enabled": reader.ENABLED, "prompt": reader.VERSION, "archive": str(archive),
                    "archive_sha256": sha(archive), "cache": getattr(reader_cache, "MODE", None)},
         "playbook": {"path": playbook, "sha256": sha(playbook) if playbook else None},
+        "policy": agent_policy(),
         "python": platform.python_version(),
     }
     canon = json.dumps(behaviour, sort_keys=True, default=str)
@@ -153,7 +161,8 @@ def describe(cfg):
     """One line for the terminal: what is about to play."""
     c = cfg["code"]
     commit = (c.get("commit") or "no-git")[:7] + ("+dirty" if c.get("dirty") else "")
-    return (f"run {cfg['fingerprint']}: code {commit}, data {str(cfg['data']['sha256'])[:8]} "
+    return (f"run {cfg['fingerprint']}: code {commit}, policy {cfg['policy']['decides']}"
+            f"{'+strategist' if cfg['policy']['strategist'] else ''}, data {str(cfg['data']['sha256'])[:8]} "
             f"({cfg['data']['files']} files), memory {cfg['memory']['suppliers']} supplier(s), "
             f"reader {'LLM' if cfg['reader']['enabled'] else 'keywords'}")
 

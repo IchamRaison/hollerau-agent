@@ -238,7 +238,7 @@ def denied(text):
     return {kind for kind, rx in DENIALS.items() if any(re.search(rx, phrase) for phrase in phrases)}
 
 
-def _llm(lines):
+def _llm(lines, timeout=None):
     base = os.environ.get("LLM_BASE_URL", "https://api.openai.com/v1").rstrip("/")
     body = {"model": os.environ["LLM_MODEL"], "temperature": 0, "max_tokens": 4000,
             "messages": [{"role": "system", "content": SYSTEM},
@@ -247,26 +247,30 @@ def _llm(lines):
                                                                        "schema": SCHEMA}}}
     if e := os.environ.get("LLM_REASONING_EFFORT"):
         body["reasoning_effort"] = e
-    r = httpx.post(f"{base}/chat/completions", json=body, timeout=BUDGET_S,
+    r = httpx.post(f"{base}/chat/completions", json=body, timeout=min(BUDGET_S, timeout or BUDGET_S),
                    headers={"Authorization": f"Bearer {os.environ.get('LLM_API_KEY', '')}"})
     r.raise_for_status()
     return json.loads(r.json()["choices"][0]["message"]["content"] or "{}")
 
 
-def read(text):
+MIN_LLM_S = 2.0  # with less time than this left for the decision, keywords only
+
+
+def read(text, timeout=None):
     """Signal types stated in a supplier e-mail (with the numbers they carry): LLM with verified
-    quotes, archived and replayed by fingerprint, else keywords."""
+    quotes, archived and replayed by fingerprint, else keywords. `timeout`: seconds this reading
+    may take (the time left for the decision it serves); too little, and the keywords stand."""
     found = Signals(keyword_signals(text))
     if "chargeback_too_high" in found and re.search(
             r"zero chargebacks?|no chargebacks?|(?:can't|cannot|do not|don't|won't) (?:accept|do|take|work with) (?:any )?chargebacks?",
             (text or "").lower()):
         found.values["chargeback_eur_per_complaint"] = 0.0  # it refuses them altogether
-    if not ENABLED or not text:
+    if not ENABLED or not text or (timeout is not None and timeout < MIN_LLM_S):
         return found
     lines = _lines(text)
     t0 = time.monotonic()
     try:
-        out, replayed = reader_cache.complete(lines, _llm, VERSION)
+        out, replayed = reader_cache.complete(lines, lambda x: _llm(x, timeout), VERSION)
     except Exception as e:
         log.warning("reader LLM failed (%s) - keywords only", e)
         return found
