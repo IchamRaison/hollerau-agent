@@ -25,7 +25,7 @@ Nevil (avec Claude), samedi 10/10/2026. Branche locale `nevil/evidence` de `holl
 | `forecast_cost_news.py` | `forecast_cost_news` : should-cost (sous le prix voulu par le fournisseur, sans marge), lettre du fournisseur « matière couverte » (`doc:`, sans lettre de prix, sans chiffre, `supports=price`), prévision en hausse ≥ 5 %, news qui affaiblissent le fournisseur | fait |
 | `compile.py` | `compile_evidence(case, data)` : notice, quote, scorecard, index, orders, forecast_cost_news, chaque claim vérifié, chaque ID une seule fois | fait |
 | `economics.py` | `compile_case(case, standard=None, data=None)`, `lever_price`, `estimate_supplier`, `relationship_risk` | fait, D3 appliquée |
-| `signals.py` | `signals(case, data)` pour le planificateur, jamais envoyé comme claim ; `price_floor_hint` (plafonné), `price_floor_confidence` = `low` et `price_floor_reason` en `stabilise` / `secure_supply` | fait |
+| `signals.py` | `signals(case, data)` pour le planificateur, jamais envoyé comme claim. Plus de plancher ici (11/10) : voir « Un seul calcul du plancher » | fait |
 | `tests/` | `test_evidence.py` (17), `test_compile_case.py` (61), `test_families.py` (74), `test_hardening.py` (22), `test_adapter.py` (56) | **230 verts** |
 | `PLAN-compile_case.md` | Plan de `compile_case` + rapport `/plan-eng-review` (D1, D2) | revu, codé |
 
@@ -111,21 +111,21 @@ Restent ouverts, hors de la liste demandée :
 - **Lettre « matière couverte »** (famille `forecast_cost_news`, le contrat reste intact) : P08 cite la lettre du fournisseur `doc:20260706-70710-M1` (« covered at fixed prices until March 2027 »), sans chiffre, `supports=other`. Les conditions : aucun `asked_price`, une lettre ou un e-mail du fournisseur (jamais nos notes d'appel : P14 n'a donc rien), et une couverture encore valable au début du cas.
 - **`orders` sans lettre de prix** : la commande la moins chère des 24 derniers mois et la dernière, toutes deux au prix courant ou en dessous. Concerne P03, P04, P08 à P12, P16 et P18. P14 et P19 gardent la hausse déjà subie. Plus aucun claim `orders` dans un kit (P07, P15).
 - **P08** : 2 claims (lettre + orders), contre 0 avant.
-- **`price_floor_hint`** (`signals`) : le prix qui minimise `cost + relationship_risk` sur une grille de 400 pas, affinée au centime, au meilleur paquet. Seulement en `stabilise` / `secure_supply`. **Plafonné** au prix demandé, ou au prix courant sans lettre de hausse. Toujours accompagné de `price_floor_confidence` = `"low"` et de `price_floor_reason`.
+- **`price_floor_hint`** (`signals`, **supprimé le 11/10**, voir « Un seul calcul du plancher ») : le prix qui minimise `cost + relationship_risk` sur une grille de 400 pas, affinée au centime, au meilleur paquet. Seulement en `stabilise` / `secure_supply`. **Plafonné** au prix demandé, ou au prix courant sans lettre de hausse. Toujours accompagné de `price_floor_confidence` = `"low"` et de `price_floor_reason`.
 
   | Cas | P01 | P02 | P03 | P06 | P09 | P10 | P14 | P17 |
   |---|---|---|---|---|---|---|---|---|
   | Plancher (€) | 137,42 | 366,87 | 412,74 (plafond ; 424,75 sans) | 196,31 (202,36 avant : c'était le bord de grille) | 15,74 | 26,31 | 308,83 | 36,43 |
 
   **Attention** : il hérite de l'estimation du fournisseur. Sur P01, il sort à 137,42 €, presque le prix demandé (138,55 €), alors que l'arène a facturé 0 € de relation pour le deal à 135,40 €. C'est une indication, pas une limite.
-- **Correction du chiffre de D1.** Avec l'estimation actuelle, la relation du deal P01 coûte **1 430,46 €**, et non 4 055 €. Les 4 055 € (4 055,21) supposent un délai de paiement standard du fournisseur à 30 jours ; notre estimation prend les 60 jours du plan acheteur. Les deux sont vérifiés par `test_price_floor_reason_figures_are_reproduced`. La conclusion de D1 ne change pas : l'arène a facturé 0 €.
+- **Correction du chiffre de D1.** Avec l'estimation actuelle, la relation du deal P01 coûte **1 430,46 €**, et non 4 055 €. Les 4 055 € (4 055,21) supposent un délai de paiement standard du fournisseur à 30 jours ; notre estimation prend les 60 jours du plan acheteur. Les deux sont vérifiés par `test_d1_relationship_figures_are_reproduced` (ex-`test_price_floor_reason_figures_are_reproduced`). La conclusion de D1 ne change pas : l'arène a facturé 0 €.
 
 ## Corrections après la deuxième `/review` (choix de Nevil)
 
 Chaque correctif a son test, dans `tests/test_families.py`, section « fixes after the second /review ». Contrôle par mutation : en réintroduisant l'ancien comportement (bord de grille, `asked_pct`, appel d'offres), 4 tests échouent.
 
-1. **Plancher sans coût calculable** : `price_floor_hint` vaut `None` si C n'est pas fini au prix courant. Ce contrôle passe par le kit **avant** de compiler le cas, ce qui supprime les 501 traces d'erreur (moins de 10 désormais). `price_floor_reason` commence alors par « cost: ».
-2. **Plancher au bord de la grille** : la borne basse descend de 0,8 à 0,5 puis 0,2 × le prix courant tant que le minimum reste au bord. S'il y est encore à 0,2 : `None`, avec une raison qui commence par « edge: ». La recherche au centime ne descend jamais sous la borne basse. **P06 passe de 202,36 € (faux plancher sous le bord à 202,55 €) à 196,31 €.** Les autres cas ne changent pas.
+1. *(supprimé le 11/10 avec notre plancher)* **Plancher sans coût calculable** : `price_floor_hint` vaut `None` si C n'est pas fini au prix courant. Ce contrôle passe par le kit **avant** de compiler le cas, ce qui supprime les 501 traces d'erreur (moins de 10 désormais). `price_floor_reason` commence alors par « cost: ».
+2. *(supprimé le 11/10 avec notre plancher)* **Plancher au bord de la grille** : la borne basse descend de 0,8 à 0,5 puis 0,2 × le prix courant tant que le minimum reste au bord. S'il y est encore à 0,2 : `None`, avec une raison qui commence par « edge: ». La recherche au centime ne descend jamais sous la borne basse. **P06 passe de 202,36 € (faux plancher sous le bord à 202,55 €) à 196,31 €.** Les autres cas ne changent pas.
 3. **Lettre de couverture** : `supports="price"` : tant que les coûts sont figés, aucune hausse n'est justifiée (plus de `other` ni de lien avec la clause). Elle n'est citée que si la couverture court au-delà de la date d'effet (`arena_kit.cost.horizon_start`, sinon le début du cas), et jamais si l'`index_path` d'une série de la clause d'index du cas baisse (n'importe quelle série si le cas n'en nomme aucune).
 4. **« Pas de lettre de hausse »** = ni `asked_price` ni `asked_pct` (`facts.price_letter`). Concerne la lettre de couverture et les commandes « au prix actuel ».
 5. **`orders`** : jamais dans un appel d'offres (`type == "rfq"`). Nos prix ne doivent pas arriver chez les concurrents.
@@ -158,7 +158,7 @@ Sans aucune session. Les deux meilleurs paquets sont évalués au même prix (pr
     - `remember(claims, supplier, used, used_by_supplier=None)` enregistre un message envoyé dans ce format.
     - L'appelant garde les 3 premiers claims.
   - Ne plante jamais : en cas d'échec, nos claims seuls.
-- **`planner_hints(case, data, standard=None) -> dict`** : `levers` (en €, triés), `best_package`, `reference_price`, `c_alt`, `price_floor_hint` / `confidence` / `reason`, `asked_pct`, `increase_justified`, et par fournisseur `committee_above_pct`, `cash_need`, `material_hedged_until`, `full_order_book`, `free_capacity`, `single_source`, avec les IDs sources (contexte, à ne pas citer en plus).
+- **`planner_hints(case, data, standard=None) -> dict`** : `levers` (en €, triés), `best_package`, `reference_price`, `c_alt`, `price_floor_hint` (celui de pegasus, ou `None`), `asked_pct`, `increase_justified`, et par fournisseur `committee_above_pct`, `cash_need`, `material_hedged_until`, `full_order_book`, `free_capacity`, `single_source`, avec les IDs sources (contexte, à ne pas citer en plus).
 
 **Intégration pour Vincent** (`hollerau/pegasus/agent.py`, à sa place dans `_message`, non modifié ici) : remplacer `chosen = self.claims.pick(sid, part, price, st["drivers"], rivals) if self.claims else []` par
 
@@ -204,18 +204,43 @@ Source : X9 dans `03 Build/Expériences.md` du vault, verdict du fournisseur par
   - `test_never_another_suppliers_orders`, `test_rising_is_read_by_date_one_supplier_one_part`, `test_p04_rise_below_three_percent_is_not_cited`.
   - Chaque correction de la revue a été retirée une fois pour contrôle : son test échoue à chaque fois.
 
+## Un seul calcul du plancher (11/10, demande d'Icham au Tableau de bord)
+
+- **Vérifié sur `origin/main`** : `hollerau/pegasus/` ne lit ni `planner_hints`, ni `price_floor_hint`. Il n'appelle que `pegasus_claims` et `remember` (`agent.py:749-751`). Son plancher vient de `economics.price_floor` / `relationship.floor_price`.
+- **Supprimés** : `signals.price_floor`, `signals.price_floor_hint`, les clés `price_floor_*` de `signals()`, les constantes `FLOOR_*`, `NO_COST`, `ON_EDGE`, `FLOOR_REASON`, et leurs 7 tests (14 avec la paramétrisation, `test_families.py`). `price_floor_confidence` et `price_floor_reason` disparaissent aussi de `planner_hints`.
+- **`planner_hints(...)["price_floor_hint"]`** = `relationship.floor_price` de pegasus, calculé sur notre `best_package` (sans le prix) avec l'estimation `relationship.estimate(case, data, standard)` (facteur 0,975). Il vaut `None` si pegasus n'a pas de plancher : `PEGASUS_REL` éteint (le défaut), aucun coût de relation dans le cas, ou pas de should-cost comparable. L'import se fait dans la fonction, parce que pegasus importe déjà l'adaptateur.
+- **P02, avec un standard fournisseur à 30 jours : 360,32 €**, le chiffre de pegasus dans `Décisions.md` (366,87 € avant). Sans `standard` : 357,97 €. P01 : 133,38 € (137,42 € avant). Test : `test_planner_hints_floor_is_pegasus_own`.
+
 ## À voir avec Icham
 
 - **D1, `cost` sans le coût de relation.** Dans les 8 cas `stabilise` / `secure_supply`, si le planificateur pousse le fournisseur sous sa marge soutenable, l'arène facture un poste `relationship` que `Economics.cost` ignore, donc `cost`, `best_package` et les leviers sous-estiment C. La décision ne repose que sur le deal P01, conclu au-dessus du prix courant. Proposition : le planificateur ajoute `relationship_risk(case, terms, standard, data=data)` dans ces cas, ou on calibre `full_cost` sur des sessions validées.
 - **`Claim` n'a pas de champ fournisseur.** Dans un appel d'offres à plusieurs fournisseurs (P05, P06), les claims `sc:` et `news:` concernent chacun un fournisseur précis : le planificateur doit les router d'après l'ID (`sc:<n°>@…`, `facts[news]["supplier"]`). Envoyé au mauvais fournisseur, un claim est `irrelevant`. Une modification du contrat (`Claim.supplier_id`) passe par `Décisions.md`.
 - **Lettre « matière couverte » citée seule** (dans `forecast_cost_news`) : l'arène ne prévoit aucune vérification d'un `doc:` seul. Le résultat est **non vérifié** (sans chiffre, au pire `irrelevant`, pas `contradicted`). À observer lors de la première session validée.
-- **`price_floor_hint` surestime probablement le plancher** quand le should-cost dépasse le prix courant (P01 : should-cost 132,64 € contre 126,53 € pour le prix courant). Même cause que D1 : `full_cost` n'est pas calibré sur l'arène.
+- **Plancher de pegasus au-dessus du prix courant** : sur P03 (renouvellement, sans lettre de hausse), `relationship.floor_price` sort à 417,20 € (standard à 30 jours) pour un prix courant de 412,74 €. Notre ancien calcul le plafonnait. Faut-il plafonner chez pegasus ?
 - **`c_alt` pour une alternative `kind: none`.** Ici, c'est l'infini dès que `kind == "none"`. Le kit (`arena_kit/play.py:130`, `closing_move`) coûte toute alternative qui a un `unit_price`, quel que soit son type. Aucun des 19 cas n'est concerné (une alternative `none` n'a jamais de prix). Laquelle des deux règles suit l'arène ?
 
-## Prochaine étape
+## État au 11/10, 03:10
 
-1. Revue `/review` (rapport seulement) faite le 10/10 soir, puis correctifs 1 à 8 ci-dessus.
-2. Reporter D3 et la correction de `price_unit` dans `Décisions.md` du vault.
-3. Remettre le tout à Icham pour l'intégration (il décide du merge).
+**PR du couloir et autour** (rien n'a été mergé par Nevil) :
+- **#12** `evidence: argument order by measured effect (X9) + review fixes`, ouverte, 4 commits, tête `bff2f44` sur `nevil/evidence`. Elle contient :
+  - l'ordre des arguments selon X9 ;
+  - jamais d'historique au même prix, ni de commandes d'un autre fournisseur ;
+  - l'offre rivale en 2e place en appel d'offres ;
+  - le seuil de 3 % ;
+  - le should-cost sous le prix voulu, sans marge (corrige la régression P01 du candidat) ;
+  - les correctifs des deux `/review`.
+  - 302 tests dans `hollerau/evidence/` après le plancher unique (315 avant : 14 retirés, 1 ajouté), 319 sur le dépôt ; ruff propre sur `hollerau/evidence/`. **À mesurer sur le candidat avant d'en faire le défaut.** Elle se fusionne sans conflit avec `icham/refonte-pegasus`.
+- **#9** (runner : un `DataPackage` par agent, index partagé, clôture si `decide` lève), **#10** (paquet par défaut propre à chaque fil) et **#8 + #11** (synchro pegasus, candidat) : mergées dans `main` (`4fabd57`).
+- **#14**, brouillon `draft: resume own open sessions after a runner crash (practice/sandbox)`, branche `nevil/resume-fix`, hors de ce couloir. Elle reprend les sessions ouvertes après un crash, une fois chacune. Test de crash : 0 session perdue. Elle s'applique aussi sur la refonte. La reprise en finale reste à confirmer par Icham, et rien ne doit être mergé sans Icham ou Vincent.
+
+**Constats hors du couloir, rapports dans `~/Projets/arena-watch/`** (`runner-repro/`, `unseen/`, `refonte/`) :
+- **Refonte d'Icham** : aucun plantage, aucune session ouverte, aucun timeout sur les 21 cas (horloge 60 s, `--parallel 10`) ni sur la série S01-S03. Avec sa politique par défaut, mêmes scores que `main`. `PEGASUS_POLICY=actions` est plus basse sur le simulateur (0,640 contre 0,751) : non mesuré sur l'arène.
+- **Propositions non appliquées** : `unseen/p10-no-alternative.diff`. Sans alternative, ne pas abandonner : proposer au fournisseur son prix sur les termes qui respectent nos exigences. P10 passe de 0 à 1,0 sur le simulateur.
+- **Lenteur dans notre couloir** : `signals.py:106` (`_documents`) lit sur disque les documents du fournisseur au premier `decide`, ce qui coûte jusqu'à 1,6 s à `--parallel 10`. Un cache serait à envisager si le budget de 40 s se resserre.
+
+**Prochaine étape**
+1. Icham ou Vincent décident pour la PR #12 (mesure sur le candidat) et pour la PR #14.
+2. Reporter dans `Décisions.md` du vault : D3, la correction de `price_unit`, l'ordre X9 et la règle du should-cost sans marge.
+3. Points ouverts ci-dessus (« À voir avec Icham »).
 
 Sources utiles : `~/Projets/fiches-fournisseurs.md` (fiches sourcées des 12 fournisseurs d'entraînement), `~/Projets/tacto-analyste/dossier-fournisseurs.md` (synthèse) et `fair_price_practice.csv` (prix juste par pièce).

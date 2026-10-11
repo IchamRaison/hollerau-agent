@@ -17,8 +17,10 @@ pegasus_claims(case, package, pegasus_claims_list, used=None, supplier=None, use
     quote already sent to it or its own. Only a candidate whose refs are all `offer:` strings skips `check()`; one
     whose refs are not a list of strings is rejected. `remember()` records a sent message.
 planner_hints(case, data, standard=None) -> dict
-    What the planner needs in one place: levers in EUR, best package, price floor and its confidence, and the
-    signals that change a move (pricing committee, cash need, material covered, increase justified).
+    What the planner needs in one place: levers in EUR, best package, price floor, and the signals that change a
+    move (pricing committee, cash need, material covered, increase justified). The floor is Pegasus's own
+    (`hollerau.pegasus.relationship`, calibrated on our ended deals), not a second calculation: None when it is not
+    available (`PEGASUS_REL` off, no relationship cost in the case, no comparable should-cost).
 
 Never raises (`remember` included): on any failure, our own claims (or empty hints), logged.
 """
@@ -330,8 +332,6 @@ def planner_hints(case: dict, data, standard=None) -> dict:
         "levers": [],
         "c_alt": None,
         "price_floor_hint": None,
-        "price_floor_confidence": None,
-        "price_floor_reason": None,
         "asked_pct": None,
         "increase_justified": None,
         "suppliers": {},
@@ -347,13 +347,7 @@ def planner_hints(case: dict, data, standard=None) -> dict:
         log.exception("%s: economics hints failed", case.get("case_id") if isinstance(case, dict) else None)
     try:
         s = signals(case, data)
-        for key in (
-            "price_floor_hint",
-            "price_floor_confidence",
-            "price_floor_reason",
-            "asked_pct",
-            "increase_justified",
-        ):
+        for key in ("asked_pct", "increase_justified"):
             out[key] = s.get(key)
         for sup, sig in (s.get("suppliers") or {}).items():
             out["suppliers"][sup] = {
@@ -367,4 +361,20 @@ def planner_hints(case: dict, data, standard=None) -> dict:
             }
     except Exception:
         log.exception("%s: signal hints failed", case.get("case_id") if isinstance(case, dict) else None)
+    try:
+        out["price_floor_hint"] = pegasus_floor(case, data, standard, out["best_package"])
+    except Exception:
+        log.exception("%s: pegasus floor failed", case.get("case_id") if isinstance(case, dict) else None)
     return out
+
+
+def pegasus_floor(case: dict, data, standard, best_package: dict) -> float | None:
+    """Pegasus's relationship floor for our best package, or None when it has none (see `planner_hints`)."""
+    from hollerau.pegasus import relationship  # here: pegasus imports this module
+
+    std = standard or {}
+    sup = relationship.estimate(case, data, std)
+    if not sup:
+        return None
+    structure = {k: v for k, v in best_package.items() if k != "unit_price"}
+    return relationship.floor_price(case, structure, std, sup)

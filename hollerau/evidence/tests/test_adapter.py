@@ -157,7 +157,6 @@ def test_planner_hints_p01(data):
     h = planner_hints(CASES["case:P01"], data)
     assert h["reference_price"] == 138.55
     assert h["levers"][0]["field"] == "effective_date" and h["levers"][0]["eur"] == pytest.approx(40256.98)
-    assert h["price_floor_hint"] == 137.42 and h["price_floor_confidence"] == "low"
     assert h["increase_justified"] is False and h["suppliers"]["sup:70110"]["cash_need"] is True
 
 
@@ -168,6 +167,18 @@ def test_planner_hints_signals(data):
     assert p08["material_hedged_until"] == "March 2027" and p08["sources"]["material_hedged"]
     assert planner_hints(CASES["case:P11"], data)["suppliers"]["sup:70140"]["cash_need"] is True
     assert planner_hints(CASES["case:P04"], data)["price_floor_hint"] is None  # routine
+
+
+def test_planner_hints_floor_is_pegasus_own(data, monkeypatch):
+    """One floor calculation, Pegasus's: 360.32 on P02 (supplier standard at 30 days), None with PEGASUS_REL off."""
+    from hollerau.pegasus import relationship
+
+    std = {"payment_days": 30}
+    monkeypatch.setattr(relationship, "ENABLED", False)
+    assert planner_hints(CASES["case:P02"], data, std)["price_floor_hint"] is None
+    monkeypatch.setattr(relationship, "ENABLED", True)
+    assert planner_hints(CASES["case:P02"], data, std)["price_floor_hint"] == 360.32
+    assert planner_hints(CASES["case:P04"], data, std)["price_floor_hint"] is None  # routine
 
 
 def test_compare_pegasus_runs(data):
