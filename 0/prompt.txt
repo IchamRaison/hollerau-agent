@@ -1,0 +1,58 @@
+<task-notification>
+<task-id>b5iww2y8a</task-id>
+<tool-use-id>toolu_014CA54YH6bKHv4eNUivkikY</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-nevil-Projets-hollerau-agent/eebaa3e6-a2f4-401c-8a9f-c8e1d48367f8/tasks/b5iww2y8a.output</output-file>
+<status>completed</status>
+<summary>Background command "Wait until 08:01 local time" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+<pasted_content id="7b7a">
+Bien. Suite, toujours sans aucune session :
+1. Push de nevil/evidence (la note OPPONENT_MODEL.md, b2b27bb) ; nevil/opponent-model reste locale.
+2. Lis et résume le mémo achats du 9/10 et les 4 lettres de la release : qu'est-ce qui change pour les cas cachés (consignes, priorités, budget, fournisseurs à éviter, nouvelles conditions) ?
+3. Vérifie que l'agent qui joue lit bien la release : sur origin/main (4fabd57), puis sur origin/vincent/pegasus-r35 et origin/icham/refonte-pegasus, construis hors ligne ce que pegasus voit (intel/dossier, claims, lecteur) pour P11, P02, P05 et P16, avec data/package contenant release-sunday. Est-ce que l'insolvabilité de 70140, la lettre « Price list 2027 », la lettre de 70250 sur les factures et la couverture de 70720 apparaissent ? Donne le fichier et la ligne si la release est ignorée.
+4. Rapport court, sans modifier le code de pegasus (un éventuel correctif en diff, NON appliqué).
+</pasted_content id="7b7a">
+
+---
+
+<pasted_content id="7b7a">
+Excellent. Mets le correctif en PR, sans merger :
+1. Branche nevil/intel-release depuis origin/main (4fabd57). Applique intel-release.diff (2 lignes, intel/dossier.py). Vérifie qu'il s'applique aussi sur origin/vincent/pegasus-r35 et origin/icham/refonte-pegasus (note-le).
+2. Ajoute un test : les lettres de la release (70510 « Price list 2027 », 70650 Strelvo) déclenchent price_frozen ; la news 70140 déclenche supply_risk ; sur les 447 fournisseurs, seuls 70140, 70510, 70650 changent.
+3. Vérifie hors ligne qu'avec le correctif, pegasus (main) sur P02 voit st["freeze"] et ne pousse plus le prix (agent.py:214-215) ; aucune session.
+4. Tests + ruff (sur les fichiers touchés), commit, push, puis gh pr create --base main (PAS brouillon), titre « intel: detect Sunday release signals (price list 2027 / no individual reductions, insolvency) ». Corps : le constat sur les 3 branches, le tableau de la release, le test des 447 fournisseurs, « supply_risk détecté mais pas encore branché dans l'agent :am/Vincent », « à merger avant le gel de 10:30 si validé ». Montre-moi l'URL.
+</pasted_content id="7b7a">
+
+---
+
+<pasted_content id="7b7a">
+Option « prix gelé → termes d'abord », derrière un drapeau éteint par défaut, sans aucune session :
+1. Branche nevil/frozen-terms depuis nevil/intel-release (PR #17). Lis comment agent.py fixe le prix des feuilles (st["freeze"] y est déjà, agent.py:316 et :788).
+2. Si PEGASUS_FROZEN_TERMS=1 ET st["freeze"] : les feuilles gardent le prix demandé par le fournisseur (pas de pression prix), et prennent le meilleur paquet hors prix (paiement, clause d'index, durée, appels) — réutilise economics/compile_case. Drapeau absent = comportement actuel, octet pour octet.
+3. Tests : drapeau éteint → feuilles identiques à main sur les 19 cas ; drapeau allumé → sur P02 avec la lettre « Price list 2027 », prix = demandé et termes = meilleur paquet hors prix ; aucun autre cas ne change.
+4. Simulateur local (ARENA_URL=127.0.0.1) : 21 cas, horloge 60 s, drapeau allumé : 0 plantage, 0 timeout.
+5. PR brouillon vers main, titre « draft: optional terms-first when the supplier's price list is frozenorps : le constat de la release, le contre-exemple R1 sur P02 (non prouvé, à mesurer), « Icham décide ». Montre-moi l'URL.
+</pasted_content id="7b7a">
+
+---
+
+<task-notification>
+<task-id>bahc7e21h</task-id>
+<tool-use-id>toolu_0166fXDq5nQCQmBdfmmTWqJ5</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-nevil-Projets-hollerau-agent/eebaa3e6-a2f4-401c-8a9f-c8e1d48367f8/tasks/bahc7e21h.output</output-file>
+<status>failed</status>
+<summary>Background command "Run the local 21-case simulator" failed with exit code 1</summary>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bgc7utlqx</task-id>
+<tool-use-id>toolu_01C5W1MpXsf1C2qZUqa3Pibx</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-nevil-Projets-hollerau-agent/eebaa3e6-a2f4-401c-8a9f-c8e1d48367f8/tasks/bgc7utlqx.output</output-file>
+<status>failed</status>
+<summary>Background command "Run the local 21-case simulator with sim extras" failed with exit code 143</summary>
+</task-notification>
