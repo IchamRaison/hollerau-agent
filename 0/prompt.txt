@@ -1,0 +1,33 @@
+<pasted_content id="7b7a">
+Contexte : lis hollerau/evidence/NOTES.md (état complet), puis le Tableau de bord du vault (~/ehl-finale-vault/01 Projet/Tableau de bord.md). Branche nevil/evidence = PR #12, ouverte. Règles : pas de session arena, pas de merge, freeze sur hollerau/evidence/ (/freeze), jamais de clé dans la conversation (Entire publie le texte intégral).
+
+Tâche demandée par Icham (Tableau de bord) : « Nevil : un seul calcul du plancher ». Notre price_floor_hint (signals.py) n'est pas calibré (P02 : 366,87 contre 360,32 côté pegasus/relationship.py).
+1. Vérifie si price_floor_hint / planner_hints est lu quelque part dans hollerau/pegasus/ sur origin/main.
+2. Fais en sorte qu'il n'y ait plus qu'un calcul : planner_hints renvoie le plancher de pegasus (relationship.py) s'il est disponible, sinon None ; supprime notre propre calcul et ses tests, mets NOTES.md à jour.
+3. pytest + ruff, commit (inclut aussi la modif en cours de NOTES.md), push sur nevil/evidence (met à jour la PR #12).
+4. Puis vérifie Entire n list, et git ls-remote origin | grep -i entire doit montrer une nouvelle référence refs/entire/checkpoints/… Montre-moi.
+</pasted_content id="7b7a">
+
+---
+
+<pasted_content id="7b7a">
+Deux tâches. Règles : aucune session arena (arena data est public, sans clé, ce n'est pas une session), pas de merge, freeze sur hollerau/evidence/, jamais de clé dans la conversation.
+
+TÂCHE 1 (maintenant, pendant l'attente) : note sur le papier, sans toucher à l'agent.
+Papier : Williams, Robu, Gerding, Jennings, « Negotiating concurrently with unknown opponents in complex, real-time domains », ECAI 2012 (https://research.tue.nl/en/publications/negotiating-concurrently-with-unknown-opponents-in-complex-real-t/). Le PDF de TU/e renvoie 403 ; versions lisibles de la même équipe : https://eprints.soton.ac.uk/271965/1/ijcai11.pdf (processus gaussien qui prédit la concession de l'adversaire, concession en meilleure réponse) et https://eprints.soton.ac.uk/273104/1/acan2011.pdf (IAMhaggler2011, 3e ANAC 2011).
+Écris hollerau/evidence/OPPONENT_MODEL.md (court) :
+- la méthode en 5 lignes ;
+- ce qui s'applique à l'arène tacto et ce qui ne s'applique pas (≤ 10 messages par fournisseur, ~5 toursserait trop bruité) ;
+- la version réaliste : modèle appris HORS LIGNE sur les sessions exportées (première contre-offre + type de fournisseur → plancher prédit), en lien avec X9 (80 % du score sur la 1re contre-offre ; plancher 74-99 %) et X9 « 4-6 % lâchés trop tôt » ;
+- la coordination concurrente appliquée aux RFQ (P05) ;
+- les données nécessaires : cherche si des exports de sessions existent sur cette machine (grep session_dump / exports / data/lab), sinon dis qu'ils sont chez Icham ;
+- comment le mesurer avant de le brancher (critère défini avant).
+Pas de code dans hollerau/pegasus/. Commit sur nevil/evidence, pas de push tant que je n'ai pas relu.
+
+TÂCHE 2 (à partir de 08:01, heure locale) : données du dimanche.
+1. Attends 08:01 (vérifie l'heure avec date ; sleep si besoin).
+2. À la racine de ~/Projets/hollerau-agent : ARENA_URL=https://arena.tacto.ai uv run arena data. Puis pareil dans ~/Projets/negotiation-arena-kit/starter-kit.
+3. Vérifie que la release est arrivée : ce quage (release-sunday/ ou nouveaux fichiers), nombre de nouveaux documents, news et commandes, dates les plus récentes. Si la release n'est pas encore publique, réessaie toutes les 5 min jusqu'à 08:30 et dis-le.
+4. Smoke test hors ligne avec la release : compile_case, compile_evidence, signals et planner_hints sur les 19 cas de practice + 2 de sandbox (data passé explicitement). 0 exception attendue ; signale tout claim qui cite un ID de la release (nouvelles lettres ou news).
+5. Rapport court. Ne commite pas data/ (ignoré par Git).
+</pasted_content id="7b7a">
