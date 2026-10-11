@@ -250,6 +250,19 @@ def test_a_suppliers_repeated_sentences_are_recognised_with_what_followed_them_e
     assert rec["replies_in_our_records"] < everywhere  # the games of the case being played are left out
 
 
+def test_the_state_says_where_the_floor_may_be_and_the_room_left_below_it():
+    state = d01(with_reply=True)
+    sid = "sup:DEMO-F1"
+    assert "where_its_floor_may_be" not in state.snapshot()["threads"][0]  # nothing known: nothing invented
+    state.set_estimate(sid, 48.0, source="its cost breakdown")
+    floor = state.snapshot()["threads"][0]["where_its_floor_may_be"][0]
+    assert floor["source"] == "its cost breakdown" and floor["unit_price"] == 48.0
+    ask = economics.movement(state.case, state.threads[sid], state.std[sid], state.estimate[sid])["our_asks_eur"][-1]
+    assert floor["room_above_our_last_ask_eur"] == round(
+        floor["its_standing_sheet_at_that_price_would_cost_us_eur"] - ask, 2
+    )
+
+
 def test_the_ledger_pairs_each_of_our_moves_with_the_step_that_answered_it():
     state = d01(with_reply=True)
     sid = "sup:DEMO-F1"

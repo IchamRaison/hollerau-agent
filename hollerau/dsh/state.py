@@ -142,6 +142,37 @@ class CaseState:
         ]
         return [{"terms": x["terms"], "costs_us_eur": x["total_eur"]} for x in better[:limit]]
 
+    def _floor_estimates(self, sid, sheets, direct, movement):
+        """What we hold about the supplier's cost floor, each as a unit price on its standing terms
+        and as what its sheet would cost us at that price - the same unit as our asks, so that the
+        room left between our last ask and its floor can be read off. Estimates with their source,
+        never a certainty: its floor is its full cost plus what it needs to live."""
+        if not sheets or not sheets[0]["terms"]:
+            return []
+        base, out = sheets[0]["terms"], []
+        candidates = []
+        if direct:
+            candidates.append(("the direct cost in its own cost breakdown (without overhead and profit)", direct))
+        est = self.estimate.get(sid)
+        if est:
+            candidates.append((est.get("_source") or "the part's should-cost and the correspondence", est["full_cost"]))
+        for part in self.case.get("parts") or []:
+            fact = self.facts.get(f"cost:{part.split(':')[-1]}") or self.facts.get(f"cost:{part}") or {}
+            if isinstance(fact, dict) and fact.get("unit_cost"):
+                candidates.append((f"our should-cost estimate of {part}", fact["unit_cost"]))
+        last_ask = (movement.get("our_asks_eur") or [None])[-1]
+        for source, price in candidates:
+            cost = self.evaluate(sid, {**base, "unit_price": round(float(price), 2)})["total_eur"]
+            item = {
+                "source": source,
+                "unit_price": round(float(price), 2),
+                "its_standing_sheet_at_that_price_would_cost_us_eur": cost,
+            }
+            if cost is not None and last_ask is not None:
+                item["room_above_our_last_ask_eur"] = round(cost - last_ask, 2)
+            out.append(item)
+        return out
+
     def _thread_view(self, sid):
         events = self.threads[sid]
         last = latest(events)
@@ -201,6 +232,9 @@ class CaseState:
         direct = direct_cost(events)
         if direct:
             view["direct_cost_per_unit_in_its_cost_breakdown"] = round(direct, 2)
+        floors = self._floor_estimates(sid, sheets, direct, view["movement"])
+        if floors:
+            view["where_its_floor_may_be"] = floors
         if self.estimate.get(sid):
             est = self.estimate[sid]
             view["our_estimate_of_this_supplier"] = {
