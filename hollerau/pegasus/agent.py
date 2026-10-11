@@ -58,6 +58,9 @@ MIN_TFT = float(os.environ.get("PEGASUS_MIN_TFT", "0.05"))  # plus this share of
 CAPACITY_ANCHOR = float(os.environ.get("PEGASUS_CAPACITY_ANCHOR", "0.94"))
 APPROVAL_REVIEW = os.environ.get("PEGASUS_APPROVAL_REVIEW", "1") == "1"
 RFQ_BAFO = os.environ.get("PEGASUS_RFQ_BAFO", "0") == "1"
+# Off by default, unproven on the arena: its price list is frozen -> its price on the best non-price
+# package. R1 on P02: asking for less, it conceded less; on the simulator P02 scored 0.59 -> 0.15.
+FROZEN_TERMS = os.environ.get("PEGASUS_FROZEN_TERMS", "0") == "1"
 # Share of the remaining gap (anchor -> supplier's standing C) we have conceded after k offers.
 SCHEDULE = [float(x) for x in os.environ.get(
     "PEGASUS_SCHEDULE", "0,0.22,0.38,0.52,0.63,0.72,0.80,0.86,0.90,0.93").split(",")]
@@ -649,6 +652,10 @@ class PegasusAgent:
         return picks
 
     def _sheets(self, case, st, target):
+        if FROZEN_TERMS and st.get("freeze"):
+            frozen = self._frozen_sheets(case, st)
+            if frozen:
+                return frozen
         current = {k: v for k, v in eco.closing_terms(case, st.get("last_terms") or st["open"], st["std"]).items()
                    if k in eco.fields(case)}
         if rules.active(st):  # the supplier stated a constraint: honour it in every sheet
@@ -723,6 +730,24 @@ class PegasusAgent:
             if eco.ok(case, t, st["std"]) and t not in out:
                 out.append(t)
         return out
+
+    def _frozen_sheets(self, case, st):
+        """Its price list is frozen: no pressure on the price - its own price on the package that costs
+        us least apart from the price (the evidence lane's `compile_case`). [] keeps the usual sheets."""
+        price = st.get("ask") or st["open"].get("unit_price")
+        if not price:
+            return []
+        if "frozen_package" not in st:
+            try:
+                from hollerau.evidence.economics import compile_case
+                std = {k: v for k, v in st["std"].items() if not k.startswith("_")}
+                best = compile_case(case, std, self.pkg).best_package
+            except Exception as e:  # the evidence lane is optional
+                log.warning("%s frozen terms: no package (%s)", case["case_id"], e)
+                best = {}
+            st["frozen_package"] = {f: best[f] for f in eco.fields(case) if f in best}
+        t = eco.sheet(case, st["frozen_package"], price)
+        return [t] if st["frozen_package"] and eco.ok(case, t, st["std"]) else []
 
     def _message(self, case, threads, sid, st, target, k, sheets=None, final_trade=False):
         preference = self._index_preference(case, threads[sid])
