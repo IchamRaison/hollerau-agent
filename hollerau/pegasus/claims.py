@@ -7,6 +7,7 @@ offer in an RFQ. Each ID is used once per case; at most three claims go into one
 """
 
 import re
+from datetime import date
 
 MAX_PER_MESSAGE = 3
 DRIVER_RE = re.compile(r"\b([A-Z][A-Z0-9]*(?:-[A-Z0-9]+)+) rose\b")
@@ -103,6 +104,93 @@ class Claims:
                         "sentence": f"Your quality was {f['ppm']:.0f} ppm ({ids[-1]})."})
         return out
 
+    def order_claim(self, supplier, part, price):
+        """Our order history for this part at this supplier, lowest paid against the latest: the one
+        order-history argument that moved a bot (P18: -0.60 instead of -0.40 at round 1), cited only
+        when the lowest price is clearly under the current one (else "costs have gone up")."""
+        if not self.pkg or not price:
+            return []
+        rows = [(k, v) for k, v in (getattr(self.pkg, 'facts', None) or {}).items() if k.startswith("po:") and isinstance(v, dict)
+                and v.get("supplier") == supplier and v.get("part") == part and v.get("unit_price")
+                and v.get("price_unit", 1) == 1]
+        if len(rows) < 2:
+            return []
+        rows.sort(key=lambda kv: kv[1].get("date") or "")
+        low = min(rows, key=lambda kv: kv[1]["unit_price"])
+        latest = rows[-1]
+        if (low[1]["unit_price"] >= 0.97 * price or low[0] == latest[0]
+                or low[1]["unit_price"] >= 0.97 * latest[1]["unit_price"]):  # a flat history reads "costs went up"
+            return []
+        return [{"refs": [low[0], latest[0]], "weight": 60,
+                 "sentence": (f"Our order history for this part shows {low[1]['unit_price']:.2f} EUR ({low[0]}) "
+                              f"against {latest[1]['unit_price']:.2f} EUR in the latest order ({latest[0]}).")}]
+
+    def own_quote_claim(self, supplier, part, price):
+        """Its own quotation for this part in the last twelve months, clearly under its ask (P08: its
+        quote:7300008 at 5.45 beside an ask of 6.05 - with its hedge letter, 0.689 for another team)."""
+        if not self.pkg or not price:
+            return []
+        rows = [(k, v) for k, v in (getattr(self.pkg, "facts", None) or {}).items() if k.startswith("quote:")
+                and isinstance(v, dict) and v.get("supplier") == supplier and v.get("part") == part
+                and v.get("unit_price") and v.get("price_unit", 1) == 1 and (v.get("date") or "") >= "2025-10"]
+        if not rows:
+            return []
+        k, v = min(rows, key=lambda kv: kv[1]["unit_price"])
+        if v["unit_price"] >= 0.97 * price:
+            return []
+        return [{"refs": [k], "weight": 80,
+                 "sentence": f"Your own quotation for this part offered {v['unit_price']:.2f} EUR ({k})."}]
+
+    def rival_quote_claim(self, supplier, part, price):
+        """Another approved supplier's recent quotation for the same part, clearly under this one's ask
+        (P18: the other bar supplier quoted 5.45 on 2026-09-10 against an ask of 6.10)."""
+        if not self.pkg or not price:
+            return []
+        rows = [(k, v) for k, v in (getattr(self.pkg, "facts", None) or {}).items() if k.startswith("quote:")
+                and isinstance(v, dict) and v.get("supplier") not in (None, supplier) and v.get("part") == part
+                and v.get("unit_price") and v.get("price_unit", 1) == 1 and (v.get("date") or "") >= "2026-01"]
+        if not rows:
+            return []
+        k, v = min(rows, key=lambda kv: kv[1]["unit_price"])
+        if v["unit_price"] >= 0.97 * price:
+            return []
+        return [{"refs": [k], "weight": 90, "rival": True,
+                 "sentence": f"Another approved supplier quoted {v['unit_price']:.2f} EUR for this part ({k})."}]
+
+    def quality_claim(self, supplier, part):
+        """Quality notifications we raised against this supplier on this part in the last twelve
+        months (three or more): the latest three cited, with their count."""
+        if not self.pkg:
+            return []
+        rows = sorted((v.get("date") or "", k) for k, v in (getattr(self.pkg, "facts", None) or {}).items()
+                      if k.startswith("qn:") and isinstance(v, dict) and v.get("supplier") == supplier
+                      and v.get("part") == part and (v.get("date") or "") >= "2025-09")
+        if len(rows) < 3:
+            return []
+        ids = [k for _, k in rows[-3:]]
+        return [{"refs": ids, "weight": 25 + len(rows),
+                 "sentence": f"We had to raise repeated quality notifications on this part this year ({', '.join(ids)})."}]
+
+    def contract_lead_claim(self, supplier, offered_lead, today="2026-10"):
+        """Our running contract with this supplier fixes a shorter delivery time than it now offers
+        (P10: 42 days in clause ctr:4600070410#5.1, valid to 2027-06-30, against 54-56 days asked -
+        its own letter admits 'lead times are currently longer than agreed')."""
+        if not self.pkg or not offered_lead:
+            return []
+        facts = getattr(self.pkg, "facts", None) or {}
+        for k, v in facts.items():
+            if not (k.startswith("ctr:") and "#" not in k and isinstance(v, dict) and v.get("supplier") == supplier):
+                continue
+            if (v.get("valid_to") or "") < today:
+                continue
+            for k2, v2 in facts.items():
+                if (k2.startswith(k + "#") and isinstance(v2, dict) and v2.get("type") == "delivery"
+                        and v2.get("days") and v2["days"] < offered_lead):
+                    return [{"refs": [k, k2], "weight": 95, "contract_lead": v2["days"],
+                             "sentence": (f"Our running contract {k} is valid until {v['valid_to']} and fixes "
+                                          f"delivery at {v2['days']} days ({k2}).")}]
+        return []
+
     def rival_claim(self, rival_offer_id, price):
         return [{"refs": [rival_offer_id], "weight": 100, "rival": True,
                  "sentence": f"We hold a competing offer at {price:.2f} EUR per unit ({rival_offer_id})."}]
@@ -111,7 +199,8 @@ class Claims:
     def candidates(self, supplier, part, price, drivers_text=""):
         extra = DRIVER_RE.findall(drivers_text or "")
         out = (self.notice_claim() + self.index_claims(part, extra) + self.should_cost_claim(part, price)
-               + self.forecast_claim(part) + self.scorecard_claim(supplier))
+               + self.forecast_claim(part) + self.scorecard_claim(supplier) + self.order_claim(supplier, part, price))
+        # quality notifications (quality_claim) are not candidates: they lowered P08/P10 (lot V)
         return sorted(out, key=lambda c: -c["weight"])
 
     def pick(self, supplier, part, price, drivers_text="", rivals=(), rivals_only=False, limit=MAX_PER_MESSAGE):

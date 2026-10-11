@@ -1,0 +1,201 @@
+# P02 session 32b3b929898650f8 — score 0.264 — end accepted — deal terms {"payment_days": 90, "lead_time_days": 35, "volume_per_year": 6110, "contract_months": 12, "effective_date": "2027-01-01", "index_clause": null, "incoterm": "DAP", "tooling_eur": 0.0, "ppm_commitment": 250, "chargeback_eur_per_complaint": 0.0, "unit_price": 373.88} — c_open 2282867.49 c_deal 2270368.87 c_best 2235514.05 — cost_breakdown {"price": 2284407, "uncovered_need": 0, "fallback_risk": 0, "payment_terms": -15229, "freight": 0, "late_delivery": 0, "quality": 1191, "tooling": 0, "index_clause": 0, "index_risk": 0, "relationship": 0}
+
+Replay - Nordmark passes on copper for the 7.5 kW motor
+Nordmark passes on copper for the 7.5 kW motor
+pegasus · case:P02 · price_increase · practice
+373.88
+360.32
+◀
+▶
+all
+keys: ← → space, a = all
+sup:70510
+open
+round 0
+unit_price
+370.96
+payment_days
+30
+index_clause
+None
+Dear Sir or Madam,
+Thank you for your enquiry. Please find our Angebot below.
+Our terms: a price of €370.96 per unit, Zahlungsziel 30 days net, no Preisgleitklausel.
+Please note:
+CU-NOTATION rose 47.7 % in twelve months and is 20 % of our cost.
+LCI-C rose 2.7 % in twelve months and is 20 % of our cost.
+PPI-C241 rose 6.5 % in twelve months and is 14 % of our cost.
+This offer is subject to our general terms of sale.
+Mit freundlichen Grüßen
+Petra Lechner
+Key Account Manager, Antriebstechnik Nordmark AG
+CU-NOTATION rose … in twelve months and is … of our cost.
+LCI-C rose … in twelve months and is … of our cost.
+PPI-C241 rose … in twelve months and is … of our cost.
+Buyer
+message
+round 1
+unit_price
+360.32
+payment_days
+90
+index_clause
+None
+Claim
+volume_change
+fc:350011@2026-09
+{"change_pct": 11.9}
+Dear Sir or Madam,
+thank you for your offer regarding nordmark passes on copper for the 7.5 kw motor.
+Our volume forecast for this part is up 11.9% (fc:350011@2026-09).
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+Could you send us a cost breakdown for this part?
+We value our cooperation and would like an agreement that covers our full need.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70510
+open
+round 1
+unit_price
+373.88
++2.92
+payment_days
+90
+index_clause
+None
+Checked claim
+volume_change
+:
+verified
+Dear Sir or Madam,
+Thank you for your e-mail, which we have reviewed internally.
+We have reviewed your offer and can adjust our Angebot as follows.
+Our terms: a price of €373.88 per unit, Zahlungsziel 90 days net, no Preisgleitklausel.
+For your information:
+We have verified the increased volume forecast and incorporated this into our revised calculation.
+We welcome your offer of faster payment and have selected the 14-day payment term to support a more competitive rate.
+Based on these adjustments, we propose a unit price of €368.68.
+Alternatively, with Zahlungsziel 14 days net: €368.68 per unit.
+Our calculation is our property; we do not share a breakdown.
+Should you require further information, please let us know.
+Mit freundlichen Grüßen
+Petra Lechner
+Key Account Manager, Antriebstechnik Nordmark AG
+We have verified the increased volume forecast and incorporated this into our revised calculation.
+We welcome your offer of faster payment and have selected the 14-day payment term to support a more competitive rate.
+Based on these adjustments, we propose a unit price of €….
+Alternatively, with Zahlungsziel … days net: €… per unit.
+Our calculation is our property; we do not share a breakdown.
+Buyer
+message
+round 2
+unit_price
+360.32
+payment_days
+90
+index_clause
+None
+Dear Sir or Madam,
+thank you for your offer regarding nordmark passes on copper for the 7.5 kw motor.
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+We value our cooperation and would like an agreement that covers our full need.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70510
+open
+round 2
+unit_price
+373.88
+payment_days
+90
+index_clause
+None
+Dear Sir or Madam,
+Thank you for your message.
+We have reviewed your offer and hold our Angebot.
+Our terms: a price of €373.88 per unit, Zahlungsziel 90 days net, no Preisgleitklausel.
+Please note:
+We note that your proposed term sheets remain unchanged from your previous communication.
+We kindly request that you review our proposal and provide a revised offer that reflects our previous adjustments.
+Our pricing follows our approval process.
+Should you require further information, please let us know.
+Mit freundlichen Grüßen
+Petra Lechner
+Key Account Manager, Antriebstechnik Nordmark AG
+We note that your proposed term sheets remain unchanged from your previous communication.
+We kindly request that you review our proposal and provide a revised offer that reflects our previous adjustments.
+Buyer
+message
+round 3
+unit_price
+360.32
+payment_days
+90
+index_clause
+None
+Dear Sir or Madam,
+thank you for your offer regarding nordmark passes on copper for the 7.5 kw motor.
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+We value our cooperation and would like an agreement that covers our full need.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70510
+open
+round 3
+unit_price
+373.88
+payment_days
+90
+index_clause
+None
+Dear Sir or Madam,
+Thank you for your e-mail, which we have reviewed internally.
+We have reviewed your offer and hold our Angebot.
+Our terms: a price of €373.88 per unit, Zahlungsziel 90 days net, no Preisgleitklausel.
+For your information:
+We note that your proposed term sheets remain unchanged from your previous communication.
+We kindly request that you review our proposal and provide a revised offer.
+We cannot proceed without a step from your side.
+Our pricing follows our approval process.
+This offer is subject to our general terms of sale.
+Mit freundlichen Grüßen
+Petra Lechner
+Key Account Manager, Antriebstechnik Nordmark AG
+We note that your proposed term sheets remain unchanged from your previous communication.
+We kindly request that you review our proposal and provide a revised offer.
+We cannot proceed without a step from your side.
+Buyer
+accept
+round 3
+Result
+Deal with
+sup:70510
+: payment_days 90, lead_time_days 35, volume_per_year 6110, contract_months 12, effective_date 2027-01-01, index_clause None, incoterm DAP, tooling_eur 0.00, ppm_commitment 250, chargeback_eur_per_complaint 0.00, unit_price 373.88
+Total cost at the best opening offer
+€2,282,867
+Total cost of this outcome
+€2,270,369
+Best achievable total cost
+€2,235,514
+26.4
+score out of 100
+Back office
+Key Account Manager
+ quote attached (quote-offer-70510-0.pdf)
+Key Account Manager
+ My call: counter.
+Key Account Manager
+ Read the buyer's e-mail: … term sheets and … cited fact to check; we answer with our offer.
+Key Account Manager
+ My call: hold.
+Key Account Manager
+ Read the buyer's e-mail: … term sheets; we answer with our offer.
+Key Account Manager
+ My call: hold.
+Key Account Manager
+ Read the buyer's e-mail: … term sheets; we answer with our offer.
+Key Account Manager
+ order confirmation attached (order-confirmation-offer-70510-3.pdf)

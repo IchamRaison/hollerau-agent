@@ -16,7 +16,7 @@ from .reader_cache import write_atomic
 
 FILE = Path(os.environ.get("PEGASUS_MEMORY", "data/supplier_memory.json"))
 _lock, _mem = threading.Lock(), {}
-PRIOR_MIN = int(os.environ.get("PEGASUS_PRIOR_MIN", "2"))  # one refusal is not a law (P11: chargeback 500 was accepted in another run)
+PRIOR_MIN = int(os.environ.get("PEGASUS_PRIOR_MIN", "3"))  # one refusal is not a law (P11: chargeback 500 was accepted in another run)
 PRIOR_FLAGS = {"wants_faster_payment": "cash", "price_frozen": "freeze", "requires_index_clause": "wants_index",
                "lead_time_firm": "lead_firm", "chargeback_too_high": "cb_too_high",
                "wants_longer_contract": "wants_duration", "wants_volume_commitment": "wants_volume"}
@@ -63,6 +63,10 @@ def remember(sid, st, case, result=None):
         for sig in st.get("signals_read") or []:
             m["signals"][sig] = m["signals"].get(sig, 0) + 1
         m["stated"].update({k: v for k, v in (st.get("stated") or {}).items()})
+        if st.get("final_seen"):
+            # the reply that carried its final offer (1 = its first answer): it closes at a fixed point
+            prev = m.get("final_rounds") or []
+            m["final_rounds"] = (prev + [st["final_seen"]])[-10:]
         if result and result.get("deal") and result.get("supplier_id") == sid:
             m["deals"].append({"case": case.get("case_id"), "type": case.get("type"), "parts": case.get("parts"),
                                "opening": (st.get("open") or {}).get("unit_price"), "terms": result.get("terms"),
@@ -73,3 +77,10 @@ def remember(sid, st, case, result=None):
             write_atomic(FILE, _mem)
         except OSError:
             pass
+
+
+def final_round(sid):
+    """The reply at which this supplier usually sent its final offer (lower median of our earlier
+    negotiations with it)."""
+    r = sorted(recall(sid).get("final_rounds") or [])
+    return r[(len(r) - 1) // 2] if r else None

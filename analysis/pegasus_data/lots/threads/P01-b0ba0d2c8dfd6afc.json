@@ -1,0 +1,91 @@
+{
+"sup:70110": {
+"supplier_id": "sup:70110",
+"offer_id": "offer:70110-2",
+"status": "open",
+"closed": null,
+"messages": [
+{
+"thread_id": "thread:P01:70110",
+"message_id": "msg:70110-0-0",
+"in_reply_to": null,
+"from": "sales@70110",
+"from_name": "Owner, Gießerei Brandlhuber GmbH & Co. KG",
+"to": "Hollerau Pumpenwerke GmbH",
+"subject": "Quote from Gießerei Brandlhuber GmbH & Co. KG: Brandlhuber announces +9.5 % on HN volute casings",
+"body": "Guten Tag,\n\nThank you for your enquiry. Please find our Angebot below.\n\nFor generations, our foundry has taken great pride in supplying our regional partners with the utmost care and quality. To continue serving you with the craftsmanship you expect from us, we must account for our rising expenses. Over the past twelve months, LCI-C rose 2.7 % in twelve months and is 30 % of our cost. Furthermore, PPI-C241 rose 6.5 % in twelve months and is 24 % of our cost.\n\nTaking these developments into consideration, we are pleased to present our offer for a price of €138.55 per unit, valid from 1 November 2026. This offer remains valid for 30 days.\n\nWe value our long-standing relationship deeply and look forward to continuing our successful cooperation.\n\nViele Grüße aus der Gießerei\nThomas Brandlhuber\nOwner, Gießerei Brandlhuber GmbH & Co. KG",
+"attachments": [
+{
+"attachment_id": "att:70110-0-quote",
+"name": "quote-offer-70110-0.pdf",
+"type": "pdf",
+"content_b64": null,
+"text": "Gießerei Brandlhuber GmbH & Co. KG\nTo: Hollerau Pumpenwerke GmbH\nAngebot / Quote offer:70110-0\nOffered terms\nUnit price (EUR) 138.55\nPrice valid from 2026-11-01\nOur standard terms (apply to everything not stated above)\nPayment terms (days net) 30\nQuality commitment (ppm) 900\nChargeback per complaint (EUR) 0.00\nTerms fixed by your enquiry\nLead time (days) 42\nVolume per year (pcs) 8150\nContract term (months) 12\nIndex clause none\nIncoterm FCA\nTooling (EUR) 0.00\nPart(s): part:310010. Enquiry: Brandlhuber announces +9.5 % on HN volute casings.\nValidity: 30 days."
+}
+],
+"term_sheets": [
+{
+"term_sheet_id": "offer:70110-0",
+"terms": {
+"unit_price": 138.55,
+"effective_date": "2026-11-01"
+}
+}
+],
+"refs": [],
+"action": null,
+"status": "open",
+"signals": {
+"reply_delay_days": 2,
+"validity_days": 30
+},
+"missing_fields": [
+"payment_days"
+],
+"claim_results": []
+}
+],
+"timeouts": [
+{
+"offer_id": "offer:70110-1",
+"round": 1,
+"status": "open",
+"terms": {
+"unit_price": 138.55,
+"effective_date": "2026-11-01"
+},
+"alternatives": [],
+"missing_fields": [
+"payment_days"
+],
+"claims": [],
+"claim_results": [],
+"signals": {
+"reply_delay_days": 2,
+"validity_days": 30
+},
+"text": "Guten Tag,\n\nIt is always a pleasure to reflect on the long-standing relationship our foundry has shared with Hollerau Pumpenwerke GmbH over the years. We take immense pride in the craftsmanship of our people and the high-quality castings we deliver from our region.\n\nRegarding our current Angebot, we are offering a price of €138.55 per unit, valid from 1 November 2026. Please keep in mind that this offer stays valid for 30 days.\n\nWithout movement from your side we cannot move either. We value our partnership deeply and hope we can find a good way forward together.\n\nViele Grüße aus der Gießerei\nThomas Brandlhuber\nOwner, Gießerei Brandlhuber GmbH & Co. KG"
+},
+{
+"offer_id": "offer:70110-2",
+"round": 2,
+"status": "open",
+"terms": {
+"unit_price": 138.55,
+"effective_date": "2026-11-01"
+},
+"alternatives": [],
+"missing_fields": [
+"payment_days"
+],
+"claims": [],
+"claim_results": [],
+"signals": {
+"reply_delay_days": 2,
+"validity_days": 30
+},
+"text": "Guten Tag,\n\nIt is always a pleasure to reflect on the long-standing relationship our foundry has shared with Hollerau Pumpenwerke GmbH over the years. We take immense pride in the craftsmanship of our people and the high-quality castings we deliver from our region.\n\nRegarding our current Angebot, we are offering a price of €138.55 per unit, valid from 1 November 2026. Please keep in mind that this offer stays valid for 30 days.\n\nWithout movement from your side we cannot move either. We value our partnership deeply and hope we can find a good way forward together.\n\nViele Grüße aus der Gießerei\nThomas Brandlhuber\nOwner, Gießerei Brandlhuber GmbH & Co. KG"
+}
+]
+}
+}

@@ -1,0 +1,8 @@
+**NO-GO — r15 / 3584ef7 vérifié** : mêmes 94 archives P01/P02/P03/P11/P18, mêmes 388 décisions, hors réseau ; [rejeu complet](../intel/generated/ROUND15_REPLAY.json).  
+**Correctifs confirmés** : 0 cycle/exception, 0 offre sous plancher ou au-dessus du C fournisseur, 0 mail vide, 0 recul de cible C ; 21/21 « agreed » acceptés immédiatement.  
+**Nudge incohérent P02** (`32b3b929`, trace 7) : texte **373,13 €**, mais sortie **361,28 €/90 j avec CU** ; le second `_floored` supprime le paquet annoncé après l’insertion de la clause.  
+**Indexation répétée et hors MESO** : 38 décisions P02 touchées ; `20fdbb9b`, traces 1/3/5/7, repropose la clause ; à l’ouverture, surcoût C de 17 658 € contre 2 130 € autorisés. L’ajout intervient après le filtre, sans garde « une fois ».  
+**CSV** : 66 pièces jointes conformes aux 12 lignes sources ; toutefois les 41 réponses P18 annoncent « 118500 pcs per year » alors que `part:370010` est en **kg**.  
+**Nudges déclenchés** : 9, chacun une seule fois, tous sur `open`, aucun après finale ni sous plancher ; ces réponses historiques imposées ne prouvent aucun gain de score.  
+**Prix effectivement envoyés (€/unité)** : P01 **131,44** ×1 ; P02 **361,28** ×1 ; P03 **426,63** ×1, **430,77** ×4, **431,29** ×2 ; aucun sur P11/P18 ([liste des neuf archives et paquets](../intel/generated/ROUND15_NUDGES.csv)).  
+**Avant GO** : protéger le paquet du nudge et synchroniser son texte avec la sortie, borner l’ajout d’indexation puis appliquer MESO, corriger l’unité forecast ; [preuves](../intel/generated/ROUND15_REVIEW.json). Limites inchangées : repli keyword, standards par fixtures, mémoire initiale vierge.

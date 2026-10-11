@@ -1,0 +1,234 @@
+# P08 session f55ad06be81419b1 — score 0.151 — end accepted — deal terms {"payment_days": 90, "lead_time_days": 10, "volume_per_year": 94800, "contract_months": 12, "effective_date": "2027-01-01", "index_clause": null, "incoterm": "DAP", "tooling_eur": 0.0, "ppm_commitment": 50, "chargeback_eur_per_complaint": 0.0, "unit_price": 5.85} — c_open 1135887.28 c_deal 1109406.48 c_best 960309.33 — cost_breakdown {"price": 554580, "uncovered_need": 542256, "fallback_risk": 16268, "payment_terms": -3697, "freight": 0, "late_delivery": 0, "quality": 0, "tooling": 0, "index_clause": 0, "index_risk": 0, "relationship": 0}
+
+Replay - Alloy surcharge and base price for 1.4404 bar
+Alloy surcharge and base price for 1.4404 bar
+pegasus · case:P08 · raw_material · practice
+6.05
+4.84
+◀
+▶
+all
+keys: ← → space, a = all
+sup:70710
+open
+round 0
+unit_price
+6.05
+payment_days
+30
+index_clause
+None
+contract_months
+12
+Dear customer,
+Thank you for your enquiry. Please find our Angebot below.
+Our terms: a price of €6.05 per unit, Zahlungsziel 30 days net, a contract term of 12 months, no Preisgleitklausel.
+Here is the background.
+AS-14404 rose 5.9 % in twelve months and is 45 % of our cost.
+LCI-C rose 2.7 % in twelve months and is 5 % of our cost.
+PPI-C2431 rose 12.3 % in twelve months and is 38 % of our cost.
+And while we are at it: our whole range is at your disposal, so if there is anything else on your list, just send it over - we are happy to quote.
+Mit freundlichen Grüßen
+Georg Aigner
+Inside Sales, Edelstahl-Service Donautal GmbH
+AS-14404 rose … in twelve months and is … of our cost.
+LCI-C rose … in twelve months and is … of our cost.
+PPI-C2431 rose … in twelve months and is … of our cost.
+Buyer
+message
+round 1
+unit_price
+4.84
+index_clause
+None
+payment_days
+90
+contract_months
+12
+Claim
+delivery_record
+sc:70710@2026Q3
+{"otd_pct": 88.0}
+Claim
+price_history
+po:4500014455-10
+po:4500014391-10
+po:4500014305-10
+po:4500014284-20
+po:4500014284-10
+po:4500014155-10
+{"prices": [5.45, 5.45, 5.45, 5.45, 5.45, 5.45]}
+Claim
+volume_change
+fc:370010@2026-09
+{"change_pct": 1.9}
+Dear Sir or Madam,
+thank you for your offer regarding alloy surcharge and base price for 1.4404 bar.
+The recorded demand forecast for part:370010 changed by +1.9% (fc:370010@2026-09).
+Your recorded on-time delivery rate is 88 % (sc:70710@2026Q3).
+The referenced orders for part:370010 each record a price of EUR 5.45 per price unit (po:4500014455-10, po:4500014391-10, po:4500014305-10, po:4500014284-20, po:4500014284-10, po:4500014155-10).
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+Could you send us a cost breakdown for this part?
+We value our cooperation and would like an agreement that covers our full need.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70710
+open
+round 1
+unit_price
+5.98
+-0.07
+payment_days
+90
+index_clause
+None
+contract_months
+12
+Checked claim
+delivery_record
+:
+verified
+Checked claim
+price_history
+:
+verified
+Checked claim
+volume_change
+:
+verified
+Dear customer,
+We have reviewed your offer and can adjust our Angebot as follows.
+We checked the delivery record data you cited; it holds, but it does not change our calculation. We checked the price history data you cited; it holds, but it does not change our calculation. Furthermore, we checked the volume change data you cited; it holds and we took it into account. Regarding your request for a cost breakdown, please understand that our internal cost structures are confidential and cannot be disclosed. Material accounts for about 45 % of our cost; more detail we do not share. Our standard Zahlungsziel is 30 days net.
+Our main offer is a price of €5.98 per unit, Zahlungsziel 90 days net, a contract term of 12 months, no Preisgleitklausel.
+We appreciate your willingness to accelerate payment and have selected the 14-day payment package to provide our most competitive rate. Alternatively, with Zahlungsziel 14 days net: a price of €5.89 per unit, a contract term of 12 months, no Preisgleitklausel.
+This offer is valid for 30 days.
+Mit freundlichen Grüßen
+Georg Aigner
+Inside Sales, Edelstahl-Service Donautal GmbH
+We checked the delivery record data you cited; it holds, but it does not change our calculation.
+We checked the price history data you cited; it holds, but it does not change our calculation.
+We checked the volume change data you cited; it holds and we took it into account.
+We appreciate your willingness to accelerate payment and have selected the 14-day payment package to provide our most competitive rate.
+Regarding your request for a cost breakdown, please understand that our internal cost structures are confidential and cannot be disclosed.
+Alternatively, with Zahlungsziel … days net: €… per unit.
+Material accounts for about … of our cost; more detail we do not share.
+Our standard Zahlungsziel is … days net.
+Buyer
+message
+round 2
+unit_price
+5.09
++0.25
+index_clause
+None
+payment_days
+90
+contract_months
+12
+Dear Sir or Madam,
+thank you for your offer regarding alloy surcharge and base price for 1.4404 bar.
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+We value our cooperation and would like an agreement that covers our full need.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70710
+open
+round 2
+unit_price
+5.90
+-0.08
+payment_days
+90
+index_clause
+None
+contract_months
+12
+Dear customer,
+We have reviewed your offer and can adjust our Angebot as follows. We appreciate your improved offer and your continued willingness to support faster payment terms. This step reflects our commitment to finding a mutually beneficial agreement that covers your full need.
+Our offer stands at a price of €5.90 per unit, Zahlungsziel 90 days net, a contract term of 12 months, no Preisgleitklausel. In response to your movement, we are pleased to lower our price for the 14-day payment package to €5.82 per unit. This alternative package offers a price of €5.82 per unit, Zahlungsziel 14 days net, a contract term of 12 months, no Preisgleitklausel.
+Please note that our offer remains valid for 30 days. We always strive to deliver the best service and support from our extensive range to keep your operations running smoothly.
+Mit freundlichen Grüßen
+Georg Aigner
+Inside Sales, Edelstahl-Service Donautal GmbH
+We appreciate your improved offer and your continued willingness to support faster payment terms.
+In response to your movement, we are pleased to lower our price for the 14-day payment package to €… per unit.
+This step reflects our commitment to finding a mutually beneficial agreement that covers your full need.
+Buyer
+message
+round 3
+unit_price
+5.24
++0.15
+index_clause
+None
+payment_days
+90
+contract_months
+12
+Dear Sir or Madam,
+thank you for your offer regarding alloy surcharge and base price for 1.4404 bar.
+We are happy to pay faster if that helps your cash flow, in exchange for a better price.
+Each of the attached packages works for us; please choose the one that suits you best.
+We value our cooperation and would like an agreement that covers our full need.
+Best regards
+Hollerau Pumpenwerke GmbH, Purchasing
+sup:70710
+final_offer
+round 3
+unit_price
+5.85
+-0.05
+payment_days
+90
+index_clause
+None
+contract_months
+12
+Dear customer,
+Thank you for reaching out to us again. We appreciate your continued movement and your willingness to support faster payment terms. This step reflects our commitment to finding a mutually beneficial agreement that covers your full need.
+This is our final offer (letztes Angebot). Please decide.
+Our offer stands at a price of €5.85 per unit, Zahlungsziel 90 days net, a contract term of 12 months, no Preisgleitklausel.
+In response to your improved offer, we have selected the 14-day payment package and reduced our price to €5.76 per unit. As an alternative, this package provides a price of €5.76 per unit, Zahlungsziel 14 days net, a contract term of 12 months, no Preisgleitklausel.
+Please note that our offer stays valid for 7 days. We look forward to hearing from you soon.
+Mit freundlichen Grüßen
+Georg Aigner
+Inside Sales, Edelstahl-Service Donautal GmbH
+We appreciate your continued movement and your willingness to support faster payment terms.
+In response to your improved offer, we have selected the 14-day payment package and reduced our price to €… per unit.
+This step reflects our commitment to finding a mutually beneficial agreement that covers your full need.
+Buyer
+accept
+round 3
+Result
+Deal with
+sup:70710
+: payment_days 90, lead_time_days 10, volume_per_year 94800, contract_months 12, effective_date 2027-01-01, index_clause None, incoterm DAP, tooling_eur 0.00, ppm_commitment 50, chargeback_eur_per_complaint 0.00, unit_price 5.85
+Total cost at the best opening offer
+€1,135,887
+Total cost of this outcome
+€1,109,406
+Best achievable total cost
+€960,309
+15.1
+score out of 100
+Back office
+Inside Sales
+ quote attached (quote-offer-70710-0.pdf)
+Inside Sales
+ My call: counter.
+Inside Sales
+ Read the buyer's e-mail: … term sheets and … cited facts to check; we answer with our offer.
+Inside Sales
+ My call: counter.
+Inside Sales
+ Read the buyer's e-mail: … term sheets; we answer with our offer.
+Inside Sales
+ My call: counter.
+Inside Sales
+ Read the buyer's e-mail: … term sheets; we answer with our final offer.
+Inside Sales
+ quote attached (quote-offer-70710-3.pdf)
+Inside Sales
+ order confirmation attached (order-confirmation-offer-70710-3.pdf)

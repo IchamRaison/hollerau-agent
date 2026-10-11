@@ -1,0 +1,117 @@
+# P04 session c8387f214ee53bc5 — score 0.000 — end accepted — deal terms {"payment_days": 30, "lead_time_days": 7, "volume_per_year": 20000, "contract_months": 12, "effective_date": "2027-01-01", "index_clause": null, "incoterm": "DAP", "tooling_eur": 0.0, "ppm_commitment": 150, "chargeback_eur_per_complaint": 0.0, "unit_price": 4.96} — c_open 198846.33 c_deal 198846.33 c_best 196529.32 — cost_breakdown {"price": 99200, "uncovered_need": 94000, "fallback_risk": 4700, "payment_terms": 661, "freight": 0, "late_delivery": 0, "quality": 285, "tooling": 0, "index_clause": 0, "index_risk": 0, "relationship": 0}
+
+Replay - Renewal of the ball bearing 6306 agreement
+Renewal of the ball bearing 6306 agreement
+pegasus · case:P04 · renewal · practice
+4.96
+4.79
+◀
+▶
+all
+keys: ← → space, a = all
+sup:70620
+open
+round 0
+unit_price
+4.96
+payment_days
+30
+contract_months
+12
+Dear customer,
+Thank you for your enquiry. Please find our Angebot below.
+Our terms: a price of €4.96 per unit, Zahlungsziel 30 days net, a contract term of 12 months.
+A few words on this from our side.
+LCI-C rose 2.7 % in twelve months and is 10 % of our cost.
+PPI-C2815 rose 0.8 % in twelve months and is 65 % of our cost.
+We look forward to doing good business together, and our team is always there for you.
+Mit freundlichen Grüßen
+Florian Gruber
+Inside Sales, Wälzlager-Zentrum Süd GmbH
+LCI-C rose … in twelve months and is … of our cost.
+PPI-C2815 rose … in twelve months and is … of our cost.
+Buyer
+timeout
+round 1
+sup:70620
+open
+round 1
+unit_price
+4.96
+payment_days
+30
+contract_months
+12
+Dear customer,
+Many thanks for your e-mail, and great to hear from you; I went through it right away with our team.
+Without movement from your side we cannot move either.
+Our terms: a price of €4.96 per unit, Zahlungsziel 30 days net, a contract term of 12 months.
+Here is the background.
+Without movement from your side we cannot move either.
+Our conditions follow our Preisliste and discount tiers.
+And while we are at it: our whole range is at your disposal, so if there is anything else on your list, just send it over - we are happy to quote.
+Mit freundlichen Grüßen
+Florian Gruber
+Inside Sales, Wälzlager-Zentrum Süd GmbH
+Without movement from your side we cannot move either.
+Buyer
+message
+round 2
+unit_price
+4.79
+payment_days
+30
+contract_months
+12
+Thank you for your offer. We need a better price to go ahead.
+sup:70620
+final_offer
+round 2
+unit_price
+4.96
+payment_days
+30
+contract_months
+12
+Dear customer,
+Thank you very much for your message - it is always a pleasure to hear from you, and we are glad to help wherever we can.
+This is our final offer (letztes Angebot). Please decide.
+Our terms: a price of €4.96 per unit, Zahlungsziel 30 days net, a contract term of 12 months.
+A few words on this from our side.
+Thank you for your feedback regarding our offer.
+Unfortunately, we are unable to accommodate a price reduction for this renewal.
+Our initial offer of €4.96 per unit must stand as our final position.
+Our conditions follow our Preisliste and discount tiers.
+And while we are at it: our whole range is at your disposal, so if there is anything else on your list, just send it over - we are happy to quote.
+Mit freundlichen Grüßen
+Florian Gruber
+Inside Sales, Wälzlager-Zentrum Süd GmbH
+Thank you for your feedback regarding our offer.
+Unfortunately, we are unable to accommodate a price reduction for this renewal.
+Our initial offer of €… per unit must stand as our final position.
+Buyer
+accept
+round 2
+Result
+Deal with
+sup:70620
+: payment_days 30, lead_time_days 7, volume_per_year 20000, contract_months 12, effective_date 2027-01-01, index_clause None, incoterm DAP, tooling_eur 0.00, ppm_commitment 150, chargeback_eur_per_complaint 0.00, unit_price 4.96
+Total cost at the best opening offer
+€198,846
+Total cost of this outcome
+€198,846
+Best achievable total cost
+€196,529
+0.0
+score out of 100
+Back office
+Inside Sales
+ quote attached (quote-offer-70620-0.pdf)
+Inside Sales
+ My call: final_offer.
+Inside Sales
+ Read the buyer's e-mail: … term sheet; we answer with our final offer.
+Inside Sales
+ quote attached (quote-offer-70620-2.pdf)
+Inside Sales
+ order confirmation attached (order-confirmation-offer-70620-2.pdf)
