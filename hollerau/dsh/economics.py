@@ -9,6 +9,8 @@ the supplier's full cost, which we only estimate - it is reported apart, with wh
 comes from, and as unknown when we hold none.
 """
 
+import json
+
 from arena_kit.cost import RELATIONSHIP_GOALS, cost_breakdown, must_haves_ok, supplier_value
 
 from ..pegasus import economics as eco
@@ -146,6 +148,36 @@ def structures_for_target(case, target_eur, std=None, estimate=None, restrict=No
         "matching": len(out),
         "sheets": out[:limit],
     }
+
+
+def levers(case, base_terms, std=None, estimate=None):
+    """What each option of each non-price term costs the buyer, the other terms held as in
+    `base_terms` (the supplier's standing sheet): EUR more than the cheapest option of that term.
+    A term that costs us little may be worth much to the supplier - that is what a trade is made of.
+    An option that breaks a must-have is marked: a deal on it scores 0."""
+    std = clean(std)
+    base = {k: v for k, v in clean(base_terms).items() if k in case["negotiable"]}
+    if base.get("unit_price") is None:
+        return {}
+    out = {}
+    for field in eco.fields(case):
+        options = case.get("term_options", {}).get(field)
+        if not options or len(options) < 2:
+            continue
+        costs = {}
+        for option in options:
+            e = evaluate(case, {**base, field: option}, std, estimate)
+            key = json.dumps(option) if isinstance(option, dict | list) or option is None else str(option)
+            if e["must_haves_ok"] is False:
+                costs[key] = "breaks a must-have"
+            elif e["total_eur"] is not None:
+                costs[key] = e["total_eur"]
+        numbers = [v for v in costs.values() if isinstance(v, int | float)]
+        if len(numbers) < 2:
+            continue
+        low = min(numbers)
+        out[field] = {k: (round(v - low, 2) if isinstance(v, int | float) else v) for k, v in costs.items()}
+    return out
 
 
 def _asked(case, msg, std, estimate):

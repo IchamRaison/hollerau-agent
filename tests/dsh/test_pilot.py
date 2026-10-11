@@ -129,6 +129,103 @@ def test_a_counter_worth_less_to_the_supplier_than_our_offer_contradicts_the_est
     assert check["contradicted"] is True
 
 
+# -- what the model is given to argue and to trade ----------------------------------------------------
+def d02():
+    """Sandbox D02: an RFQ with two bidders, a must-have on lead time, an alternative dearer than both."""
+    case = copy.deepcopy(CASES["case:D02"])
+    threads = {
+        "sup:DEMO-J1": [
+            {
+                "from": "owner@DEMO-J1",
+                "status": "open",
+                "body": "here is our price.",
+                "attachments": [],
+                "term_sheets": [
+                    {
+                        "term_sheet_id": "offer:DEMO-J1-0",
+                        "terms": {"unit_price": 17.1, "payment_days": 30, "lead_time_days": 28},
+                    }
+                ],
+            }
+        ],
+        "sup:DEMO-C1": [
+            {
+                "from": "export@DEMO-C1",
+                "status": "open",
+                "body": "Please find our Angebot.",
+                "attachments": [],
+                "term_sheets": [
+                    {
+                        "term_sheet_id": "offer:DEMO-C1-0",
+                        "terms": {"unit_price": 16.0, "payment_days": 45, "incoterm": "EXW"},
+                    }
+                ],
+            }
+        ],
+    }
+    return CaseState(case, threads)
+
+
+def test_the_state_says_what_each_option_of_each_term_costs_us():
+    view = d02().snapshot()["threads"][0]
+    levers = view["what_each_term_option_costs_us_eur"]
+    assert levers["lead_time_days"]["35"] == 0 and levers["lead_time_days"]["42"] == 1050.0  # 7 days at EUR 150
+    assert levers["lead_time_days"]["49"] == "breaks a must-have"
+    assert levers["incoterm"]["DAP"] == 0 and levers["incoterm"]["EXW"] == 7200.0
+    assert levers["payment_days"]["60"] == 0 and levers["payment_days"]["14"] > levers["payment_days"]["45"] > 0
+
+
+def test_ids_the_case_names_are_citable_without_a_figure_and_only_those_about_this_supplier():
+    j1, c1 = d02().snapshot()["threads"]
+    ids = {i["id"]: i for i in j1["data_you_can_cite"]["ids_the_case_points_to"]}
+    assert "sc:DEMO-J1@2026Q3" in ids and "sc:DEMO-C1@2026Q3" not in ids  # the other bidder's scorecard is irrelevant
+    assert "without a figure" in ids["cost:part:SH-220"]["value"]
+    assert "MORE than its own price" in ids["quote:D02-ALT"]["this_is_our_alternative_without_a_deal"]
+    rivals = j1["data_you_can_cite"]["standing_offers_of_the_other_bidders"]
+    assert [r["id"] for r in rivals] == ["offer:DEMO-C1-0"] and rivals[0]["unit_price"] == 16.0
+    state = d01()
+    state.sent(
+        "sup:DEMO-F1",
+        {"body": "Your letter (doc:D01-LETTER) against our contract (ctr:D01-FRAMEWORK).", "term_sheets": []},
+    )
+    cited = {
+        i["id"]
+        for i in state.snapshot()["threads"][0]["data_you_can_cite"]["ids_the_case_points_to"]
+        if i.get("already_cited_in_this_case")
+    }
+    assert cited == {"doc:D01-LETTER", "ctr:D01-FRAMEWORK"}  # an ID counts once per case
+
+
+def test_a_suppliers_own_cost_drivers_are_added_up_against_the_increase_it_asks():
+    from hollerau.dsh import evidence
+
+    events = [
+        {
+            "from": "owner@DEMO-F1",
+            "body": "WAGES-METAL rose 3.1 % in twelve months and is 28 % of our cost. "
+            "GAS-TTF fell 10 % in twelve months and is 5 % of our cost.",
+            "term_sheets": [{"terms": {"unit_price": 52.9}}],
+        }
+    ]
+    out = evidence.stated_drivers(events, current_price=48.6)
+    assert [d["explains_pct_of_price"] for d in out["drivers_it_stated"]] == [0.87, -0.5]
+    assert out["together_they_explain_pct"] == 0.37 and out["increase_its_opening_quote_asks_pct"] == 8.85
+    assert evidence.stated_drivers([{"from": "x", "body": "Our costs went up."}]) is None
+
+
+def test_other_cases_of_the_same_kind_are_a_prior_and_never_include_the_case_played():
+    from hollerau.dsh import evidence
+
+    rows = json.loads(evidence.OBSERVATIONS.read_text())
+    mine = next(r for r in rows if r["case_id"] == "case:D02")
+    seen = evidence.similar_cases(CASES["case:D02"])
+    assert (
+        seen["category_goal"] == "leverage"
+        and len(seen["cases_of_this_category_goal"]) == sum(r["category_goal"] == "leverage" for r in rows) - 1
+    )
+    assert all("case_id" not in r for r in seen["cases_of_this_category_goal"]) and mine["games"] > 0
+
+
 # -- validation -------------------------------------------------------------------------------------
 def mail(sid, price=50.0, body=None, **over):
     terms = {"unit_price": price, "payment_days": 60, "contract_months": 24, "effective_date": "2026-12-01", **over}

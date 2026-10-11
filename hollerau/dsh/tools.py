@@ -333,8 +333,9 @@ def build_server(desk):
     ) -> dict:
         """You choose the total cost you aim at for us (EUR, same unit as cost_eur); this returns,
         for every allowed combination of the non-price terms, the exact unit price that makes it
-        cost us that - sorted by price, highest first: at equal cost for us, the supplier prefers
-        the higher price. `restrict` narrows the combinations, e.g. {"payment_days": [30, 45]}."""
+        cost us that. Sorted by price, highest first: a higher price at the same cost means terms
+        that cost us less - which are not always the terms the supplier likes; read what it said
+        it values. `restrict` narrows the combinations, e.g. {"payment_days": [14, 30]}."""
         return desk.search_structures(decision_id, supplier_id, target_cost_eur, restrict, limit)
 
     @mcp.tool(annotations=ro)

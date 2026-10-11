@@ -9,7 +9,7 @@ from arena_kit.play import ENDED, MOVE_LIMIT_S, latest
 
 from ..pegasus import economics as eco
 from ..pegasus.agent import direct_cost, supplier_reference
-from . import economics
+from . import economics, evidence
 
 BODY_CHARS = 3000  # of a supplier e-mail shown in the snapshot; `read_thread` gives all of it
 
@@ -28,6 +28,7 @@ class CaseState:
         self.std, self.estimate = {}, {}
         facts = getattr(package, "facts", None) or {}
         self.facts = {**facts, **(case.get("facts") or {})}
+        self.records = evidence.Records(case, package)
         for sid, events in threads.items():
             self._model_supplier(sid, events)
 
@@ -176,6 +177,22 @@ class CaseState:
         trades = self._same_cost_on_other_terms(sid, sheets)
         if trades:
             view["what_its_standing_sheet_costs_us_would_buy_on_other_terms"] = trades
+        if sheets:
+            base = economics.clean({**(self.std.get(sid) or {}), **(sheets[0]["terms"] or {})})
+            view["what_each_term_option_costs_us_eur"] = economics.levers(
+                self.case, base, self.std.get(sid), self.estimate.get(sid)
+            )
+        price = (sheets[0]["terms"] or {}).get("unit_price") if sheets else None
+        drivers = " ".join(m.get("body") or "" for m in events if m.get("from") != "buyer")
+        view["data_you_can_cite"] = evidence.citable(
+            self, sid, self.records.arguments(sid, price, drivers) if price else []
+        )
+        signals = self.records.signals(sid)
+        if signals:
+            view["what_our_records_say_about_this_supplier"] = signals
+        arithmetic = evidence.stated_drivers(events, self.case["buyer"].get("current_unit_price"))
+        if arithmetic:
+            view["its_own_cost_arithmetic"] = arithmetic
         if sid in self.errors:
             view["arena_refused_your_last_message"] = self.errors[sid]
         direct = direct_cost(events)
@@ -234,6 +251,7 @@ class CaseState:
                 "cheapest_sheet_you_could_accept_now": (
                     {"cost_eur": best[0], "supplier_id": best[1], "term_sheet_id": best[2]} if best else None
                 ),
+                "what_other_cases_of_this_kind_showed": evidence.similar_cases(case),
                 "threads": [self._thread_view(s) for s in self.threads],
                 "your_notes": self.hypotheses,
             }
