@@ -38,6 +38,15 @@ arena unless the launch was validated by the team lead: `hollerau`, `lab.experim
 run without `HOLLERAU_VALIDATED="<who validated, for what>"`. The local simulator is free.
 Do not call `uv run arena play|run` directly against arena.tacto.ai: it bypasses this check.
 
+## Entire (session capture)
+
+- Entire is enabled in this repo (`.entire/settings.json`, agent hooks under `.claude/` and `.codex/`).
+- An agent session is only captured when the agent is launched from the repository root or from a git worktree of it.
+- With Codex, approve the hooks once with `/hooks`.
+- Each teammate needs the CLI in their own clone, because git hooks are per clone: `curl -fsSL https://entire.io/install.sh | bash`, then `entire enable`.
+- To check: `entire status`, `entire session list`, `entire checkpoint list`.
+- After a push, run `git ls-remote origin | grep -i entire`.
+
 ## Approach
 
 `docs/approach.md` (the short description for the submission) and the team vault design doc.
