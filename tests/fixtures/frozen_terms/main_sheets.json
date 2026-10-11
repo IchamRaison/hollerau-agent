@@ -1,0 +1,2245 @@
+{
+ "case:P01": [
+  {
+   "action": null,
+   "sheets": [
+    {
+     "effective_date": "2027-04-01",
+     "payment_days": 90,
+     "unit_price": 125.71
+    },
+    {
+     "effective_date": "2026-11-01",
+     "payment_days": 90,
+     "unit_price": 126.04
+    },
+    {
+     "effective_date": "2027-04-01",
+     "payment_days": 14,
+     "unit_price": 122.11
+    }
+   ],
+   "supplier": "sup:70110"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "effective_date": "2027-04-01",
+     "payment_days": 90,
+     "unit_price": 129.93
+    },
+    {
+     "effective_date": "2027-01-01",
+     "payment_days": 90,
+     "unit_price": 128.92
+    },
+    {
+     "effective_date": "2027-04-01",
+     "payment_days": 14,
+     "unit_price": 126.27
+    }
+   ],
+   "supplier": "sup:70110"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "effective_date": "2027-04-01",
+     "payment_days": 90,
+     "unit_price": 133.03
+    },
+    {
+     "effective_date": "2027-01-01",
+     "payment_days": 90,
+     "unit_price": 131.11
+    },
+    {
+     "effective_date": "2027-04-01",
+     "payment_days": 14,
+     "unit_price": 129.32
+    }
+   ],
+   "supplier": "sup:70110"
+  },
+  {
+   "action": {
+    "term_sheet_id": "offer:70110-3",
+    "type": "accept"
+   },
+   "sheets": [],
+   "supplier": "sup:70110"
+  }
+ ],
+ "case:P02": [
+  {
+   "action": null,
+   "sheets": [
+    {
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 339.96
+    },
+    {
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 337.69
+    },
+    {
+     "index_clause": {
+      "base_month": "2026-08",
+      "deadband_pct": 5,
+      "material_share": 0.2,
+      "series": "CU-NOTATION"
+     },
+     "payment_days": 90,
+     "unit_price": 337.24
+    }
+   ],
+   "supplier": "sup:70510"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 348.33
+    },
+    {
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 346.0
+    },
+    {
+     "index_clause": {
+      "base_month": "2026-08",
+      "deadband_pct": 5,
+      "material_share": 0.2,
+      "series": "CU-NOTATION"
+     },
+     "payment_days": 90,
+     "unit_price": 345.54
+    }
+   ],
+   "supplier": "sup:70510"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 359.75
+    },
+    {
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 357.35
+    },
+    {
+     "index_clause": {
+      "base_month": "2026-08",
+      "deadband_pct": 5,
+      "material_share": 0.2,
+      "series": "CU-NOTATION"
+     },
+     "payment_days": 90,
+     "unit_price": 359.66
+    }
+   ],
+   "supplier": "sup:70510"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 359.75
+    },
+    {
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 357.35
+    },
+    {
+     "index_clause": {
+      "base_month": "2026-08",
+      "deadband_pct": 5,
+      "material_share": 0.2,
+      "series": "CU-NOTATION"
+     },
+     "payment_days": 90,
+     "unit_price": 359.66
+    }
+   ],
+   "supplier": "sup:70510"
+  },
+  {
+   "action": {
+    "term_sheet_id": "offer:70510-4",
+    "type": "accept"
+   },
+   "sheets": [],
+   "supplier": "sup:70510"
+  }
+ ],
+ "case:P03": [
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 393.64,
+     "volume_per_year": 4580
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 393.64,
+     "volume_per_year": 4580
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 391.01,
+     "volume_per_year": 4580
+    }
+   ],
+   "supplier": "sup:70530"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 405.58,
+     "volume_per_year": 4580
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 405.58,
+     "volume_per_year": 4580
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 402.87,
+     "volume_per_year": 4580
+    }
+   ],
+   "supplier": "sup:70530"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 416.55,
+     "volume_per_year": 4580
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 416.55,
+     "volume_per_year": 4580
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 413.77,
+     "volume_per_year": 4580
+    }
+   ],
+   "supplier": "sup:70530"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 416.55,
+     "volume_per_year": 4580
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 416.55,
+     "volume_per_year": 4580
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 413.77,
+     "volume_per_year": 4580
+    }
+   ],
+   "supplier": "sup:70530"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 416.55,
+     "volume_per_year": 4580
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 416.55,
+     "volume_per_year": 4580
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 413.77,
+     "volume_per_year": 4580
+    }
+   ],
+   "supplier": "sup:70530"
+  },
+  {
+   "action": {
+    "term_sheet_id": "offer:70530-5",
+    "type": "accept"
+   },
+   "sheets": [],
+   "supplier": "sup:70530"
+  }
+ ],
+ "case:P04": [
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 3.86
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 3.86
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 3.83
+    }
+   ],
+   "supplier": "sup:70620"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 4.05
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 4.05
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 4.03
+    }
+   ],
+   "supplier": "sup:70620"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 4.16
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 4.16
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 4.13
+    }
+   ],
+   "supplier": "sup:70620"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 4.22
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 4.22
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 4.19
+    }
+   ],
+   "supplier": "sup:70620"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 4.25
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 4.25
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 4.23
+    }
+   ],
+   "supplier": "sup:70620"
+  },
+  {
+   "action": {
+    "term_sheet_id": "offer:70620-5",
+    "type": "accept"
+   },
+   "sheets": [],
+   "supplier": "sup:70620"
+  }
+ ],
+ "case:P05": [
+  {
+   "action": null,
+   "sheets": [
+    {
+     "lead_time_days": 35,
+     "payment_days": 90,
+     "unit_price": 32.02
+    },
+    {
+     "lead_time_days": 28,
+     "payment_days": 90,
+     "unit_price": 32.02
+    },
+    {
+     "lead_time_days": 35,
+     "payment_days": 60,
+     "unit_price": 31.8
+    }
+   ],
+   "supplier": "sup:70210"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "lead_time_days": 35,
+     "payment_days": 90,
+     "unit_price": 33.66
+    },
+    {
+     "lead_time_days": 28,
+     "payment_days": 90,
+     "unit_price": 33.66
+    },
+    {
+     "lead_time_days": 35,
+     "payment_days": 60,
+     "unit_price": 33.43
+    }
+   ],
+   "supplier": "sup:70210"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "lead_time_days": 35,
+     "payment_days": 90,
+     "unit_price": 34.55
+    },
+    {
+     "lead_time_days": 28,
+     "payment_days": 90,
+     "unit_price": 34.55
+    },
+    {
+     "lead_time_days": 35,
+     "payment_days": 60,
+     "unit_price": 34.32
+    }
+   ],
+   "supplier": "sup:70210"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "lead_time_days": 35,
+     "payment_days": 90,
+     "unit_price": 35.06
+    },
+    {
+     "lead_time_days": 28,
+     "payment_days": 90,
+     "unit_price": 35.06
+    },
+    {
+     "lead_time_days": 35,
+     "payment_days": 60,
+     "unit_price": 34.83
+    }
+   ],
+   "supplier": "sup:70210"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "lead_time_days": 35,
+     "payment_days": 90,
+     "unit_price": 35.36
+    },
+    {
+     "lead_time_days": 28,
+     "payment_days": 90,
+     "unit_price": 35.36
+    },
+    {
+     "lead_time_days": 35,
+     "payment_days": 60,
+     "unit_price": 35.13
+    }
+   ],
+   "supplier": "sup:70210"
+  },
+  {
+   "action": null,
+   "sheets": [],
+   "supplier": "sup:70210"
+  },
+  {
+   "action": null,
+   "sheets": [],
+   "supplier": "sup:70210"
+  },
+  {
+   "action": null,
+   "sheets": [],
+   "supplier": "sup:70210"
+  },
+  {
+   "action": {
+    "term_sheet_id": "offer:70210-8",
+    "type": "accept"
+   },
+   "sheets": [],
+   "supplier": "sup:70210"
+  }
+ ],
+ "case:P06": [
+  {
+   "action": null,
+   "sheets": [
+    {
+     "lead_time_days": 56,
+     "payment_days": 90,
+     "tooling_eur": 0,
+     "unit_price": 222.81
+    },
+    {
+     "lead_time_days": 49,
+     "payment_days": 90,
+     "tooling_eur": 0,
+     "unit_price": 222.81
+    },
+    {
+     "lead_time_days": 56,
+     "payment_days": 90,
+     "tooling_eur": 7500,
+     "unit_price": 221.91
+    }
+   ],
+   "supplier": "sup:70120"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "lead_time_days": 56,
+     "payment_days": 90,
+     "tooling_eur": 0,
+     "unit_price": 234.24
+    },
+    {
+     "lead_time_days": 49,
+     "payment_days": 90,
+     "tooling_eur": 0,
+     "unit_price": 234.24
+    },
+    {
+     "lead_time_days": 56,
+     "payment_days": 90,
+     "tooling_eur": 7500,
+     "unit_price": 233.34
+    }
+   ],
+   "supplier": "sup:70120"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "lead_time_days": 56,
+     "payment_days": 90,
+     "tooling_eur": 0,
+     "unit_price": 240.42
+    },
+    {
+     "lead_time_days": 49,
+     "payment_days": 90,
+     "tooling_eur": 0,
+     "unit_price": 240.42
+    },
+    {
+     "lead_time_days": 56,
+     "payment_days": 90,
+     "tooling_eur": 7500,
+     "unit_price": 239.52
+    }
+   ],
+   "supplier": "sup:70120"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "lead_time_days": 56,
+     "payment_days": 90,
+     "tooling_eur": 0,
+     "unit_price": 243.99
+    },
+    {
+     "lead_time_days": 49,
+     "payment_days": 90,
+     "tooling_eur": 0,
+     "unit_price": 243.99
+    },
+    {
+     "lead_time_days": 56,
+     "payment_days": 90,
+     "tooling_eur": 7500,
+     "unit_price": 243.09
+    }
+   ],
+   "supplier": "sup:70120"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "lead_time_days": 56,
+     "payment_days": 90,
+     "tooling_eur": 0,
+     "unit_price": 246.09
+    },
+    {
+     "lead_time_days": 49,
+     "payment_days": 90,
+     "tooling_eur": 0,
+     "unit_price": 246.09
+    },
+    {
+     "lead_time_days": 56,
+     "payment_days": 90,
+     "tooling_eur": 7500,
+     "unit_price": 245.19
+    }
+   ],
+   "supplier": "sup:70120"
+  },
+  {
+   "action": null,
+   "sheets": [],
+   "supplier": "sup:70120"
+  },
+  {
+   "action": null,
+   "sheets": [],
+   "supplier": "sup:70120"
+  },
+  {
+   "action": null,
+   "sheets": [],
+   "supplier": "sup:70120"
+  },
+  {
+   "action": {
+    "term_sheet_id": "offer:70120-8",
+    "type": "accept"
+   },
+   "sheets": [],
+   "supplier": "sup:70120"
+  }
+ ],
+ "case:P07": [
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 5.54
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 5.54
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 5.5
+    }
+   ],
+   "supplier": "sup:70610"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 5.82
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 5.82
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 5.78
+    }
+   ],
+   "supplier": "sup:70610"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 5.97
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 5.97
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 5.93
+    }
+   ],
+   "supplier": "sup:70610"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 6.06
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 6.06
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 6.02
+    }
+   ],
+   "supplier": "sup:70610"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 6.11
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 6.11
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 6.07
+    }
+   ],
+   "supplier": "sup:70610"
+  },
+  {
+   "action": {
+    "term_sheet_id": "offer:70610-5",
+    "type": "accept"
+   },
+   "sheets": [],
+   "supplier": "sup:70610"
+  }
+ ],
+ "case:P08": [
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 4.8
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 4.8
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 4.76
+    }
+   ],
+   "supplier": "sup:70710"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 5.04
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 5.04
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 5.01
+    }
+   ],
+   "supplier": "sup:70710"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 5.17
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 5.17
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 5.14
+    }
+   ],
+   "supplier": "sup:70710"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 5.25
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 5.25
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 5.22
+    }
+   ],
+   "supplier": "sup:70710"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 5.3
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 5.3
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 5.26
+    }
+   ],
+   "supplier": "sup:70710"
+  },
+  {
+   "action": {
+    "term_sheet_id": "offer:70710-5",
+    "type": "accept"
+   },
+   "sheets": [],
+   "supplier": "sup:70710"
+  }
+ ],
+ "case:P09": [
+  {
+   "action": null,
+   "sheets": [
+    {
+     "lead_time_days": 28,
+     "payment_days": 90,
+     "unit_price": 14.59,
+     "volume_per_year": 15600
+    },
+    {
+     "lead_time_days": 21,
+     "payment_days": 90,
+     "unit_price": 14.59,
+     "volume_per_year": 15600
+    },
+    {
+     "lead_time_days": 28,
+     "payment_days": 14,
+     "unit_price": 14.34,
+     "volume_per_year": 15600
+    }
+   ],
+   "supplier": "sup:70220"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "lead_time_days": 28,
+     "payment_days": 90,
+     "unit_price": 15.2,
+     "volume_per_year": 15600
+    },
+    {
+     "lead_time_days": 21,
+     "payment_days": 90,
+     "unit_price": 15.2,
+     "volume_per_year": 15600
+    },
+    {
+     "lead_time_days": 28,
+     "payment_days": 14,
+     "unit_price": 14.95,
+     "volume_per_year": 15600
+    }
+   ],
+   "supplier": "sup:70220"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "lead_time_days": 28,
+     "payment_days": 90,
+     "unit_price": 15.51,
+     "volume_per_year": 15600
+    },
+    {
+     "lead_time_days": 21,
+     "payment_days": 90,
+     "unit_price": 15.51,
+     "volume_per_year": 15600
+    },
+    {
+     "lead_time_days": 28,
+     "payment_days": 14,
+     "unit_price": 15.25,
+     "volume_per_year": 15600
+    }
+   ],
+   "supplier": "sup:70220"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "lead_time_days": 28,
+     "payment_days": 90,
+     "unit_price": 15.69,
+     "volume_per_year": 15600
+    },
+    {
+     "lead_time_days": 21,
+     "payment_days": 90,
+     "unit_price": 15.69,
+     "volume_per_year": 15600
+    },
+    {
+     "lead_time_days": 28,
+     "payment_days": 14,
+     "unit_price": 15.43,
+     "volume_per_year": 15600
+    }
+   ],
+   "supplier": "sup:70220"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "lead_time_days": 28,
+     "payment_days": 90,
+     "unit_price": 15.78,
+     "volume_per_year": 15600
+    },
+    {
+     "lead_time_days": 21,
+     "payment_days": 90,
+     "unit_price": 15.78,
+     "volume_per_year": 15600
+    },
+    {
+     "lead_time_days": 28,
+     "payment_days": 14,
+     "unit_price": 15.52,
+     "volume_per_year": 15600
+    }
+   ],
+   "supplier": "sup:70220"
+  },
+  {
+   "action": {
+    "term_sheet_id": "offer:70220-5",
+    "type": "accept"
+   },
+   "sheets": [],
+   "supplier": "sup:70220"
+  }
+ ],
+ "case:P10": [
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "lead_time_days": 42,
+     "unit_price": 26.3,
+     "volume_per_year": 23400
+    },
+    {
+     "contract_months": 24,
+     "lead_time_days": 35,
+     "unit_price": 26.3,
+     "volume_per_year": 23400
+    },
+    {
+     "contract_months": 36,
+     "lead_time_days": 42,
+     "unit_price": 26.3,
+     "volume_per_year": 23400
+    }
+   ],
+   "supplier": "sup:70410"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "lead_time_days": 42,
+     "unit_price": 27.6,
+     "volume_per_year": 23400
+    },
+    {
+     "contract_months": 24,
+     "lead_time_days": 35,
+     "unit_price": 27.6,
+     "volume_per_year": 23400
+    },
+    {
+     "contract_months": 36,
+     "lead_time_days": 42,
+     "unit_price": 27.6,
+     "volume_per_year": 23400
+    }
+   ],
+   "supplier": "sup:70410"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "lead_time_days": 42,
+     "unit_price": 28.29,
+     "volume_per_year": 23400
+    },
+    {
+     "contract_months": 24,
+     "lead_time_days": 35,
+     "unit_price": 28.29,
+     "volume_per_year": 23400
+    },
+    {
+     "contract_months": 36,
+     "lead_time_days": 42,
+     "unit_price": 28.29,
+     "volume_per_year": 23400
+    }
+   ],
+   "supplier": "sup:70410"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "lead_time_days": 42,
+     "unit_price": 28.69,
+     "volume_per_year": 23400
+    },
+    {
+     "contract_months": 24,
+     "lead_time_days": 35,
+     "unit_price": 28.69,
+     "volume_per_year": 23400
+    },
+    {
+     "contract_months": 36,
+     "lead_time_days": 42,
+     "unit_price": 28.69,
+     "volume_per_year": 23400
+    }
+   ],
+   "supplier": "sup:70410"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "lead_time_days": 42,
+     "unit_price": 28.92,
+     "volume_per_year": 23400
+    },
+    {
+     "contract_months": 24,
+     "lead_time_days": 35,
+     "unit_price": 28.92,
+     "volume_per_year": 23400
+    },
+    {
+     "contract_months": 36,
+     "lead_time_days": 42,
+     "unit_price": 28.92,
+     "volume_per_year": 23400
+    }
+   ],
+   "supplier": "sup:70410"
+  },
+  {
+   "action": {
+    "term_sheet_id": "offer:70410-5",
+    "type": "accept"
+   },
+   "sheets": [],
+   "supplier": "sup:70410"
+  }
+ ],
+ "case:P11": [
+  {
+   "action": null,
+   "sheets": [
+    {
+     "chargeback_eur_per_complaint": 500,
+     "ppm_commitment": 300,
+     "unit_price": 39.73
+    },
+    {
+     "chargeback_eur_per_complaint": 300,
+     "ppm_commitment": 300,
+     "unit_price": 39.68
+    },
+    {
+     "chargeback_eur_per_complaint": 0,
+     "ppm_commitment": 1500,
+     "unit_price": 39.05
+    }
+   ],
+   "supplier": "sup:70140"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "chargeback_eur_per_complaint": 500,
+     "ppm_commitment": 300,
+     "unit_price": 41.69
+    },
+    {
+     "chargeback_eur_per_complaint": 300,
+     "ppm_commitment": 300,
+     "unit_price": 41.65
+    },
+    {
+     "chargeback_eur_per_complaint": 0,
+     "ppm_commitment": 1500,
+     "unit_price": 41.02
+    }
+   ],
+   "supplier": "sup:70140"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "chargeback_eur_per_complaint": 500,
+     "ppm_commitment": 300,
+     "unit_price": 42.75
+    },
+    {
+     "chargeback_eur_per_complaint": 300,
+     "ppm_commitment": 300,
+     "unit_price": 42.7
+    },
+    {
+     "chargeback_eur_per_complaint": 0,
+     "ppm_commitment": 1500,
+     "unit_price": 42.07
+    }
+   ],
+   "supplier": "sup:70140"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "chargeback_eur_per_complaint": 500,
+     "ppm_commitment": 300,
+     "unit_price": 43.34
+    },
+    {
+     "chargeback_eur_per_complaint": 300,
+     "ppm_commitment": 300,
+     "unit_price": 43.3
+    },
+    {
+     "chargeback_eur_per_complaint": 0,
+     "ppm_commitment": 1500,
+     "unit_price": 42.67
+    }
+   ],
+   "supplier": "sup:70140"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "chargeback_eur_per_complaint": 500,
+     "ppm_commitment": 300,
+     "unit_price": 43.7
+    },
+    {
+     "chargeback_eur_per_complaint": 300,
+     "ppm_commitment": 300,
+     "unit_price": 43.65
+    },
+    {
+     "chargeback_eur_per_complaint": 0,
+     "ppm_commitment": 1500,
+     "unit_price": 43.02
+    }
+   ],
+   "supplier": "sup:70140"
+  },
+  {
+   "action": {
+    "type": "walk_away"
+   },
+   "sheets": [],
+   "supplier": "sup:70140"
+  }
+ ],
+ "case:P12": [
+  {
+   "action": null,
+   "sheets": [
+    {
+     "chargeback_eur_per_complaint": 300,
+     "lead_time_days": 23,
+     "ppm_commitment": 300,
+     "unit_price": 88.12
+    },
+    {
+     "chargeback_eur_per_complaint": 150,
+     "lead_time_days": 23,
+     "ppm_commitment": 300,
+     "unit_price": 88.08
+    },
+    {
+     "chargeback_eur_per_complaint": 0,
+     "lead_time_days": 23,
+     "ppm_commitment": 2500,
+     "unit_price": 87.43
+    }
+   ],
+   "supplier": "sup:70310"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "chargeback_eur_per_complaint": 300,
+     "lead_time_days": 23,
+     "ppm_commitment": 300,
+     "unit_price": 92.48
+    },
+    {
+     "chargeback_eur_per_complaint": 150,
+     "lead_time_days": 23,
+     "ppm_commitment": 300,
+     "unit_price": 92.44
+    },
+    {
+     "chargeback_eur_per_complaint": 0,
+     "lead_time_days": 23,
+     "ppm_commitment": 2500,
+     "unit_price": 91.79
+    }
+   ],
+   "supplier": "sup:70310"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "chargeback_eur_per_complaint": 300,
+     "lead_time_days": 23,
+     "ppm_commitment": 300,
+     "unit_price": 94.81
+    },
+    {
+     "chargeback_eur_per_complaint": 150,
+     "lead_time_days": 23,
+     "ppm_commitment": 300,
+     "unit_price": 94.78
+    },
+    {
+     "chargeback_eur_per_complaint": 0,
+     "lead_time_days": 23,
+     "ppm_commitment": 2500,
+     "unit_price": 94.13
+    }
+   ],
+   "supplier": "sup:70310"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "chargeback_eur_per_complaint": 300,
+     "lead_time_days": 23,
+     "ppm_commitment": 300,
+     "unit_price": 96.14
+    },
+    {
+     "chargeback_eur_per_complaint": 150,
+     "lead_time_days": 23,
+     "ppm_commitment": 300,
+     "unit_price": 96.1
+    },
+    {
+     "chargeback_eur_per_complaint": 0,
+     "lead_time_days": 23,
+     "ppm_commitment": 2500,
+     "unit_price": 95.45
+    }
+   ],
+   "supplier": "sup:70310"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "chargeback_eur_per_complaint": 300,
+     "lead_time_days": 23,
+     "ppm_commitment": 300,
+     "unit_price": 96.92
+    },
+    {
+     "chargeback_eur_per_complaint": 150,
+     "lead_time_days": 23,
+     "ppm_commitment": 300,
+     "unit_price": 96.88
+    },
+    {
+     "chargeback_eur_per_complaint": 0,
+     "lead_time_days": 23,
+     "ppm_commitment": 2500,
+     "unit_price": 96.23
+    }
+   ],
+   "supplier": "sup:70310"
+  },
+  {
+   "action": {
+    "term_sheet_id": "offer:70310-5",
+    "type": "accept"
+   },
+   "sheets": [],
+   "supplier": "sup:70310"
+  }
+ ],
+ "case:P13": [
+  {
+   "action": null,
+   "sheets": [
+    {
+     "effective_date": "2027-04-01",
+     "payment_days": 90,
+     "unit_price": 15.32
+    },
+    {
+     "effective_date": "2026-11-01",
+     "payment_days": 90,
+     "unit_price": 15.72
+    },
+    {
+     "effective_date": "2027-04-01",
+     "payment_days": 14,
+     "unit_price": 14.87
+    }
+   ],
+   "supplier": "sup:70230"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "effective_date": "2027-04-01",
+     "payment_days": 90,
+     "unit_price": 16.05
+    },
+    {
+     "effective_date": "2026-11-01",
+     "payment_days": 90,
+     "unit_price": 16.15
+    },
+    {
+     "effective_date": "2027-04-01",
+     "payment_days": 14,
+     "unit_price": 15.59
+    }
+   ],
+   "supplier": "sup:70230"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "effective_date": "2027-04-01",
+     "payment_days": 90,
+     "unit_price": 16.35
+    },
+    {
+     "effective_date": "2027-01-01",
+     "payment_days": 90,
+     "unit_price": 16.34
+    },
+    {
+     "effective_date": "2027-04-01",
+     "payment_days": 14,
+     "unit_price": 15.89
+    }
+   ],
+   "supplier": "sup:70230"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "effective_date": "2027-04-01",
+     "payment_days": 90,
+     "unit_price": 16.51
+    },
+    {
+     "effective_date": "2027-01-01",
+     "payment_days": 90,
+     "unit_price": 16.45
+    },
+    {
+     "effective_date": "2027-04-01",
+     "payment_days": 14,
+     "unit_price": 16.04
+    }
+   ],
+   "supplier": "sup:70230"
+  },
+  {
+   "action": {
+    "term_sheet_id": "offer:70230-4",
+    "type": "accept"
+   },
+   "sheets": [],
+   "supplier": "sup:70230"
+  }
+ ],
+ "case:P14": [
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 278.39
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 278.39
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 276.53
+    }
+   ],
+   "supplier": "sup:70560"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 292.67
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 292.67
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 290.72
+    }
+   ],
+   "supplier": "sup:70560"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 300.4
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 300.4
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 298.39
+    }
+   ],
+   "supplier": "sup:70560"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 304.86
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 304.86
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 302.83
+    }
+   ],
+   "supplier": "sup:70560"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 307.48
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 307.48
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 305.43
+    }
+   ],
+   "supplier": "sup:70560"
+  },
+  {
+   "action": {
+    "term_sheet_id": "offer:70560-5",
+    "type": "accept"
+   },
+   "sheets": [],
+   "supplier": "sup:70560"
+  }
+ ],
+ "case:P15": [
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 4.98
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 4.98
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 4.94
+    }
+   ],
+   "supplier": "sup:70430"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 5.23
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 5.23
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 5.2
+    }
+   ],
+   "supplier": "sup:70430"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 5.37
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 5.37
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 5.34
+    }
+   ],
+   "supplier": "sup:70430"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 5.46
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 5.46
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 5.42
+    }
+   ],
+   "supplier": "sup:70430"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 5.51
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 5.51
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 5.47
+    }
+   ],
+   "supplier": "sup:70430"
+  },
+  {
+   "action": {
+    "term_sheet_id": "offer:70430-5",
+    "type": "accept"
+   },
+   "sheets": [],
+   "supplier": "sup:70430"
+  }
+ ],
+ "case:P16": [
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 74.22
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 74.22
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 73.72
+    }
+   ],
+   "supplier": "sup:70720"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 78.02
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 78.02
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 77.5
+    }
+   ],
+   "supplier": "sup:70720"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 80.08
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 80.08
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 79.54
+    }
+   ],
+   "supplier": "sup:70720"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 81.26
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 81.26
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 80.72
+    }
+   ],
+   "supplier": "sup:70720"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 81.96
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 81.96
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 81.41
+    }
+   ],
+   "supplier": "sup:70720"
+  },
+  {
+   "action": {
+    "term_sheet_id": "offer:70720-5",
+    "type": "accept"
+   },
+   "sheets": [],
+   "supplier": "sup:70720"
+  }
+ ],
+ "case:P17": [
+  {
+   "action": null,
+   "sheets": [
+    {
+     "payment_days": 90,
+     "unit_price": 33.76,
+     "volume_per_year": 19900
+    },
+    {
+     "payment_days": 60,
+     "unit_price": 33.53,
+     "volume_per_year": 19900
+    },
+    {
+     "payment_days": 90,
+     "unit_price": 31.92,
+     "volume_per_year": 15920
+    }
+   ],
+   "supplier": "sup:70550"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "payment_days": 90,
+     "unit_price": 34.53,
+     "volume_per_year": 19900
+    },
+    {
+     "payment_days": 60,
+     "unit_price": 34.3,
+     "volume_per_year": 19900
+    },
+    {
+     "payment_days": 90,
+     "unit_price": 32.89,
+     "volume_per_year": 15920
+    }
+   ],
+   "supplier": "sup:70550"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "payment_days": 90,
+     "unit_price": 35.72,
+     "volume_per_year": 19900
+    },
+    {
+     "payment_days": 60,
+     "unit_price": 35.48,
+     "volume_per_year": 19900
+    },
+    {
+     "payment_days": 90,
+     "unit_price": 35.94,
+     "volume_per_year": 15920
+    }
+   ],
+   "supplier": "sup:70550"
+  },
+  {
+   "action": {
+    "term_sheet_id": "offer:70550-3",
+    "type": "accept"
+   },
+   "sheets": [],
+   "supplier": "sup:70550"
+  }
+ ],
+ "case:P18": [
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 5.14
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 5.14
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 5.1
+    }
+   ],
+   "supplier": "sup:70740"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 5.4
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 5.4
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 5.36
+    }
+   ],
+   "supplier": "sup:70740"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 5.54
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 5.54
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 5.5
+    }
+   ],
+   "supplier": "sup:70740"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 5.62
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 5.62
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 5.58
+    }
+   ],
+   "supplier": "sup:70740"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 5.67
+    },
+    {
+     "contract_months": 36,
+     "index_clause": null,
+     "payment_days": 90,
+     "unit_price": 5.67
+    },
+    {
+     "contract_months": 24,
+     "index_clause": null,
+     "payment_days": 60,
+     "unit_price": 5.63
+    }
+   ],
+   "supplier": "sup:70740"
+  },
+  {
+   "action": {
+    "term_sheet_id": "offer:70740-5",
+    "type": "accept"
+   },
+   "sheets": [],
+   "supplier": "sup:70740"
+  }
+ ],
+ "case:P19": [
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 3.7
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 3.7
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 3.67
+    }
+   ],
+   "supplier": "sup:70640"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 3.88
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 3.88
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 3.86
+    }
+   ],
+   "supplier": "sup:70640"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 3.99
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 3.99
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 3.96
+    }
+   ],
+   "supplier": "sup:70640"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 4.05
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 4.05
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 4.02
+    }
+   ],
+   "supplier": "sup:70640"
+  },
+  {
+   "action": null,
+   "sheets": [
+    {
+     "contract_months": 24,
+     "payment_days": 90,
+     "unit_price": 4.08
+    },
+    {
+     "contract_months": 36,
+     "payment_days": 90,
+     "unit_price": 4.08
+    },
+    {
+     "contract_months": 24,
+     "payment_days": 60,
+     "unit_price": 4.06
+    }
+   ],
+   "supplier": "sup:70640"
+  },
+  {
+   "action": {
+    "term_sheet_id": "offer:70640-5",
+    "type": "accept"
+   },
+   "sheets": [],
+   "supplier": "sup:70640"
+  }
+ ]
+}
