@@ -506,12 +506,13 @@ SIGNAL_RULES = {
     "capacity_tight": (r"very high capacity utilisation|binding 12-month commitment|full_order_book|order backlog|most of its turning capacity|allocated in line|chip_shortage|shortages of power semiconductors", "probable", "Capacité contrainte/allocation ; engagement ferme probablement utile."),
     "outdated_cost_view": (r"spreadsheet, last updated two years ago|not followed his material and energy prices closely", "probable", "Chiffrage ancien déclaré ; indices récents susceptibles d'éclairer la discussion."),
     "hedged_inputs": (r"bought (?:their|our) .* forward|covered at fixed prices|material covered until|electricity supply.*long-term contract", "probable", "Achats couverts ; transmission du spot différée."),
-    "price_frozen": (r"frozen all price reductions|price list applies to all customers without exception|discounts not possible this year", "probable", "Gel tarifaire déclaré ; explorer les conditions non tarifaires."),
+    "price_frozen": (r"frozen all price reductions|price list(?: \d{4})? applies to all customers without exception|ruled out individual price reductions|no longer grant individual price reductions|discounts not possible this year", "probable", "Gel tarifaire déclaré ; explorer les conditions non tarifaires."),
     "approval_ladder": (r"pricing committee|approval of their", "probable", "Concessions tarifaires soumises à une approbation interne."),
     "account_exit": (r"not strategic|individual agreements will not be extended|refocus|concentrate on larger key accounts|list conditions; supply from stock only", "probable", "Désengagement des petits comptes ; risque de non-renouvellement."),
     "volume_focus": (r"focus on customers with volume|only multi-year volume agreements change prices|expected volumes", "probable", "Volumes/durée à explorer, sans supposer que le gel de prix peut être levé."),
     "relationship_memory": (r"expects partnership in return|important reference customer", "probable", "Réciprocité ou valeur de référence commerciale déclarée."),
     "open_costing": (r"walk us through their calculation", "probable", "Ouverture déclarée à expliquer le calcul de coût."),
+    "supply_risk": (r"insolvency|provisional administrator|withdraws cover|secure their supply", "probable", "Risque de continuité (insolvabilité, assurance-crédit retirée) : sécuriser la livraison avant de serrer le prix."),
     "buyer_late_payment": (r"invoices are overdue again", "prouvé", "Le fournisseur reproche des retards de paiement à Hollerau."),
 }
 
