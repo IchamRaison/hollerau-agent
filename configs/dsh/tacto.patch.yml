@@ -1,0 +1,74 @@
+# DeepSeek Harness profile patch for the tacto negotiator (applied over the shipped `sdk` profile).
+# The harness keeps its agent loop, session log and model adapters; everything a coding agent needs
+# and a buyer must not have (shell, files, web, sub-agents, plan mode, local instruction files) is
+# switched off. The model reaches the negotiation only through our MCP tools (TACTO_MCP_URL).
+- id: llm-pi-ai
+  config:
+    providers:
+      tacto-openai:
+        apiKeyEnv: OPENAI_API_KEY
+        # gpt-6.1-sol refuses function tools with reasoning on /v1/chat/completions (HTTP 400):
+        # the Responses protocol is the one that works.
+        api: openai-responses
+        baseURL: !!js process.env.TACTO_LLM_BASE_URL || 'https://api.openai.com/v1'
+        reasoning: medium
+        models:
+          - id: !!js process.env.TACTO_LLM_MODEL || 'gpt-6.1-sol'
+            reasoningEfforts:
+              low: low
+              medium: medium
+              high: high
+- id: system-prompt
+  config:
+    includeHarnessIdentity: false
+    includeRuntimeContext: false
+    # the prompt text itself (prompts/tacto_negotiator.md): `require` is not available in a patch expression
+    personaPrefix: !!js process.env.TACTO_PROMPT
+- id: session-telemetry-otel
+  disabled: true
+- id: session-log-deepseek
+  disabled: true
+- id: agent-instructions
+  disabled: true
+- id: tool-bash
+  disabled: true
+- id: tool-jobs
+  disabled: true
+- id: tool-fs
+  disabled: true
+- id: tool-fs-search
+  disabled: true
+- id: tool-skill
+  disabled: true
+- id: tool-subagent
+  disabled: true
+- id: tool-subagent-fork
+  disabled: true
+- id: tool-subagent-control
+  disabled: true
+- id: tool-subagent-list-agents
+  disabled: true
+- id: tool-workflow
+  disabled: true
+- id: tool-todo
+  disabled: true
+- id: tool-goal
+  disabled: true
+- id: tool-ralph
+  disabled: true
+- id: tool-web
+  disabled: true
+- id: plan-mode
+  disabled: true
+- id: user-questions
+  disabled: true
+- insert:
+    - id: mcp-tacto
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: tacto
+        transport: streamable-http
+        url: !!js process.env.TACTO_MCP_URL
+        headers: {}
+        toolCallTimeoutMs: 20000
+        failOnStartupError: true
