@@ -2151,12 +2151,13 @@
  },
  "sup:70410": {
   "signals": {
-   "cost_floor": 3,
-   "lead_time_firm": 5,
+   "cost_floor": 5,
+   "lead_time_firm": 6,
    "price_frozen": 2,
    "wants_volume_commitment": 9,
    "capacity_tight": 8,
-   "arguments_rejected": 3
+   "arguments_rejected": 5,
+   "wants_longer_contract": 1
   },
   "stated": {
    "lead_time_days": 56.0
@@ -2460,9 +2461,55 @@
     },
     "score": 0.7097389248477162,
     "at": 1791685594
+   },
+   {
+    "case": "case:P10",
+    "type": "capacity",
+    "parts": [
+     "part:340010"
+    ],
+    "opening": 32.2,
+    "terms": {
+     "payment_days": 30,
+     "lead_time_days": 56,
+     "volume_per_year": 23400,
+     "contract_months": 24,
+     "effective_date": "2027-01-01",
+     "index_clause": null,
+     "incoterm": "DAP",
+     "tooling_eur": 0.0,
+     "ppm_commitment": 300,
+     "chargeback_eur_per_complaint": 0.0,
+     "unit_price": 31.4
+    },
+    "score": 0.6863220713040008,
+    "at": 1791685958
+   },
+   {
+    "case": "case:P10",
+    "type": "capacity",
+    "parts": [
+     "part:340010"
+    ],
+    "opening": 32.2,
+    "terms": {
+     "payment_days": 30,
+     "lead_time_days": 56,
+     "volume_per_year": 23400,
+     "contract_months": 36,
+     "effective_date": "2027-01-01",
+     "index_clause": null,
+     "incoterm": "DAP",
+     "tooling_eur": 0.0,
+     "ppm_commitment": 300,
+     "chargeback_eur_per_complaint": 0.0,
+     "unit_price": 31.3
+    },
+    "score": 0.6941276891519058,
+    "at": 1791686250
    }
   ],
-  "updated": 1791685594,
+  "updated": 1791686250,
   "final_rounds": [
    2,
    2,
