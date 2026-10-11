@@ -65,10 +65,13 @@ def _restore_claims(agent, sid, events):
             agent.fallback_claims.used.add((sid, (ref,)) if ref.startswith("offer:") else ref)
 
 
-def _fresh_claim(agent, case, sid, st, price):
-    """An argument we have not cited yet is available for this supplier."""
+def _fresh_claim(agent, case, sid, st, price, rival=None):
+    """An argument we have not cited yet is available for this supplier: a claim on the data, or
+    another bidder's standing offer below its price."""
     from .agent import TEAM_CLAIMS, team_claims
 
+    if rival and price and rival[1] < price and (sid, (rival[0],)) not in agent.fallback_claims.used:
+        return True
     try:
         cands = agent.fallback_claims.candidates(sid, case["parts"][0], price, st["drivers"])
         if TEAM_CLAIMS:
@@ -110,14 +113,16 @@ def situation(agent, case, threads, sid, busy=()):
             table.append((s, oid, e, latest(threads[s]).get("status") in ("final_offer", "agreed")))
             if s != sid and e.valid and (rival is None or ot["unit_price"] < rival[1]):
                 rival = (oid, ot["unit_price"])
+    # another bidder can still improve: live, messages left, not at its last word, not given up on
     others = [s for s in live_threads(threads) if s != sid and not (agent.state.get(s) or {}).get("done")
-              and moves_left(case, threads[s]) > 1]
+              and moves_left(case, threads[s]) > 1
+              and latest(threads[s]).get("status") not in ("final_offer", "agreed")]
     price = st.get("ask") or (st.get("open") or {}).get("unit_price")
     return st, moves.Situation(
         case=case, supplier_id=sid, std=std, dossier=d, state=st["notes"], hypotheses=d.hypotheses, offers=offers,
         status=last.get("status") or "open", moves_left=moves_left(case, events), c_alt=agent.c_alt, c_open=c_open,
         table=table, others_moving=bool(others), busy=tuple(busy), rival=rival,
-        fresh_claim=_fresh_claim(agent, case, sid, st, price), ask=price,
+        fresh_claim=_fresh_claim(agent, case, sid, st, price, rival), ask=price,
         default_demand=st.get("anchor"), default_structure=st.get("anchor_structure"))
 
 
@@ -129,10 +134,15 @@ def _to_message(agent, case, threads, sid, st, sit, action):
     if action.kind == "walk":
         return {"supplier_id": sid, "message": {"action": {"type": "walk_away"}}}
     if action.kind == "wait":
+        st["done"] = True  # this thread has gone as far as it will; the others may still improve
         return {"wait": True}
     if action.kind == "keep":
-        st["done"] = True  # this thread has gone as far as it will; the others may still improve
+        st["done"] = True
         return {"supplier_id": sid, "message": {"subject": f"Re: {case['title']}", "body": KEEP_ALIVE}}
+    if action.kind == "ask":
+        body = ("Thank you for your offer. " + " ".join(action.lines)
+                + "\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing")
+        return {"supplier_id": sid, "message": {"subject": f"Re: {case['title']}", "body": body}}
     if action.kind == "mirror":
         body = ("Thank you for your offer. " + " ".join(action.lines)
                 + "\n\nBest regards\nHollerau Pumpenwerke GmbH, Purchasing")
@@ -159,7 +169,9 @@ def decide(agent, case, threads, sid=None, busy=(), deadline=None):
         if index is not None:
             chosen, by = options[index], "strategist"
     out = _to_message(agent, case, threads, sid, st, sit, chosen)
-    if agent.journal:
+    repeated = chosen.kind == "wait" and st.get("waiting")  # the runner asks again every second: one line
+    st["waiting"] = chosen.kind == "wait"
+    if agent.journal and not repeated:
         agent.journal.write(policy="actions", case=case["case_id"], supplier=sid, status=sit.status,
                             offer=len(sit.state.ours) + 1, moves_left=sit.moves_left,
                             considered=[a.to_dict() for a in options], chosen=chosen.kind, by=by, reason=reason,

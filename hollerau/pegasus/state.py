@@ -165,9 +165,10 @@ class ThreadState:
 
     def said(self, message):
         """One of our own messages."""
+        if message.get("action"):
+            return
         sheets = [dict(ts.get("terms", ts)) for ts in message.get("term_sheets") or []]
-        if sheets or message.get("refs"):
-            self.ours.append({"sheets": sheets, "refs": list(message.get("refs") or [])})
+        self.ours.append({"sheets": sheets, "refs": list(message.get("refs") or [])})
 
     def heard(self, message, signals=None, denials=None):
         """A supplier message: what it did (its sheets), then what it said, then what it took back."""

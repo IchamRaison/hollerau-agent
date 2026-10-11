@@ -211,21 +211,86 @@ def test_its_better_alternative_is_sent_back_because_only_a_standing_sheet_can_b
     assert main_sheet(out) == cheap and "alternative package" in out["message"]["body"]
 
 
-def test_in_an_rfq_the_deal_goes_to_the_best_sheet_on_the_whole_table():
+def sent(message):
+    """Our message as it sits in the thread, with its first sheet only."""
+    return {"from": "buyer", "subject": "Re", "body": "x", "term_sheets": message["message"]["term_sheets"][:1]}
+
+
+def rfq():
     a, b, _ = P05["suppliers"]
     case = {**P05, "suppliers": [a, b]}
-    agent = PegasusAgent(journal=Journal())
     base = {"payment_days": 30, "lead_time_days": 35}
     threads = {a: [supplier(a, 0, {**base, "unit_price": 36.0})], b: [supplier(b, 0, {**base, "unit_price": 31.5})]}
+    return case, threads, a, b, base
+
+
+def test_a_thread_with_nothing_left_to_say_never_closes_an_rfq_while_another_bidder_still_moves():
+    case, threads, a, b, base = rfq()
+    agent = PegasusAgent(journal=Journal())
     first = agent.decide(case, threads, a)
-    assert agent.journal.lines[-1]["considered"][0]["evaluation"]["basis"]["reference"] == "rival.offer"
     threads[a].append({**first["message"], "from": "buyer"})
     threads[a].append(supplier(a, 1, {**base, "unit_price": 33.0}, "final_offer", "This is our final offer."))
-    out = agent.decide(case, threads, a)  # a's last word is dearer than b's standing quote
-    assert out == {"supplier_id": b, "message": {"action": {"type": "accept", "term_sheet_id": f"offer:{b[4:]}-0"}}}
-    busy = PegasusAgent(journal=Journal())
-    # b's reply is on its way: do not take a dearer sheet meanwhile
-    assert busy.decide(case, threads, a, busy={b}) == {"wait": True}
+    out = agent.decide(case, threads, a)  # a's last word; b has not even been answered yet
+    assert agent.journal.lines[-1]["chosen"] == "keep" and out["supplier_id"] == a
+    assert "action" not in out["message"] and "term_sheets" not in out["message"]  # a question, not b's sheet taken
+    threads[a].append({**out["message"], "from": "buyer"})
+    threads[a].append(supplier(a, 2, {**base, "unit_price": 33.0}, "final_offer", "Our final offer stands."))
+    # b reaches its last word too: now the case is closed, on the best sheet of the whole table
+    threads[b].append(sent(first))
+    threads[b].append(supplier(b, 1, {**base, "unit_price": 31.0}, "final_offer", "This is our final offer."))
+    assert agent.decide(case, threads, a, busy={b}) == {"wait": True}  # b's reply is on its way
+    assert agent.decide(case, threads, a) == {"supplier_id": b, "message": {
+        "action": {"type": "accept", "term_sheet_id": f"offer:{b[4:]}-1"}}}
+
+
+def test_another_bidders_lower_offer_is_an_argument_worth_holding_for():
+    a, b, _ = P05["suppliers"]
+    case = {**P05, "suppliers": [a, b]}
+    base = {"payment_days": 30, "lead_time_days": 35}
+    threads = {a: [supplier(a, 0, {**base, "unit_price": 30.0})], b: [supplier(b, 0, {**base, "unit_price": 36.0})]}
+    agent = PegasusAgent(journal=Journal())
+    first = agent.decide(case, threads, a)  # a is the cheapest: no rival below it yet
+    threads[a].append({**first["message"], "from": "buyer"})
+    threads[a].append(supplier(a, 1, {**base, "unit_price": 29.9}, body="We made a step."))
+    second = agent.decide(case, threads, a)
+    threads[a].append({**second["message"], "from": "buyer"})
+    threads[a].append(supplier(a, 2, {**base, "unit_price": 29.9}, body="Our offer stands."))  # it stopped moving
+    threads[b].append(sent(first))
+    threads[b].append(supplier(b, 1, {**base, "unit_price": 28.0}, body="We can do better."))  # b undercuts a
+    out = agent.decide(case, threads, a)
+    line = agent.journal.lines[-1]
+    assert line["chosen"] == "hold" and "argument not made yet" in line["considered"][0]["why"]
+    assert f"offer:{b[4:]}-1" in out["message"]["body"]  # the rival's offer, cited to the bidder it undercuts
+
+
+def test_an_offer_no_better_than_its_opening_gets_a_step_then_one_question_then_a_decision():
+    agent = PegasusAgent(journal=Journal())
+    threads, kinds = {SID: [opening(P08, SID, 6.05)]}, []
+    for n in range(1, 7):
+        out = agent.decide(P08, threads, SID)
+        kinds.append(agent.journal.lines[-1]["chosen"])
+        if out["message"].get("action"):
+            break
+        threads[SID].append({**out["message"], "from": "buyer"})
+        worse = {**threads[SID][0]["term_sheets"][0]["terms"], "unit_price": 6.30}  # dearer than its own opening
+        threads[SID].append(supplier(SID, n, worse, body="Our price went up."))
+    assert kinds == ["open", "hold", "ask", "walk"]
+    asks = [m for m in threads[SID] if m.get("from") == "buyer" and not m.get("term_sheets")]
+    assert len(asks) == 1 and "does not yet improve on your opening quote" in asks[0]["body"]
+
+
+def test_the_journal_keeps_one_line_for_a_wait_the_runner_repeats_every_second():
+    case, threads, a, b, base = rfq()
+    agent = PegasusAgent(journal=Journal())
+    first = agent.decide(case, threads, a)
+    threads[a].append({**first["message"], "from": "buyer"})
+    threads[a].append(supplier(a, 1, {**base, "unit_price": 33.0}, "final_offer", "This is our final offer."))
+    threads[b].append(sent(first))
+    threads[b].append(supplier(b, 1, {**base, "unit_price": 31.0}, "final_offer", "This is our final offer."))
+    before = len(agent.journal.lines)
+    for _ in range(5):
+        assert agent.decide(case, threads, a, busy={b}) == {"wait": True}
+    assert len(agent.journal.lines) == before + 1
 
 
 def test_a_restarted_agent_takes_the_same_next_decision_from_the_messages_alone():

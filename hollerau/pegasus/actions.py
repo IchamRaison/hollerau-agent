@@ -8,8 +8,9 @@ Here every round compares a few moves that differ in substance:
   trade        give a term it asked for, at the price that pays us back - our cost unchanged
   reciprocate  move towards it by no more than it just moved towards us
   hold         keep the demand and show something new: a fresh argument, a fresh package
+  ask          a question, when its offer is no better than its opening and we have nothing new
   keep         an RFQ thread kept alive with a question while another bidder still moves
-  wait         nothing to send yet: the best sheet is on a thread whose reply is on its way
+  wait         nothing to send yet: another bidder's reply is on its way, or it is still moving
   walk         leave: nothing on the table beats the alternative
 A concession needs a counterpart or a move of the supplier; the round number is not a reason.
 Every number comes from `evaluation` (the published cost function, hypotheses kept apart) and
@@ -285,6 +286,14 @@ def closing(sit, final):
             return Action("mirror", sheets=[back], supplier_id=sit.supplier_id, evaluation=e.summary(),
                           why=f"its alternative {i} costs us less than any standing sheet: sent back to be confirmed",
                           lines=["We are ready to accept your alternative package as attached. Please confirm it."])
+    if sit.others_moving:
+        # An RFQ is closed by the last thread that can still improve, never by one that has run out
+        # of things to say: closing now would take another bidder's sheet in the middle of its
+        # negotiation (sandbox D02, 11/10: only the reply in flight kept that from happening).
+        if sit.moves_left > 2 and sit.supplier_id not in sit.busy:
+            return Action("keep", supplier_id=sit.supplier_id,
+                          why="another bidder is still moving: this offer is our lever on it")
+        return Action("wait", supplier_id=sit.supplier_id, why="another bidder is still moving")
     if best is not None:
         sid, sheet_id, e, _ = best
         ok, weak = eligible(sit, e, final)
@@ -295,9 +304,6 @@ def closing(sit, final):
             return Action("accept", sheet_id=sheet_id, supplier_id=sid, evaluation=e.summary(), fragile=weak,
                           why="the best standing sheet beats the alternative and the opening"
                           + (" only under the favourable hypothesis" if weak else ""))
-    if sit.others_moving and sit.moves_left > 2:
-        return Action("keep", supplier_id=sit.supplier_id,
-                      why="another bidder is still moving: this offer is our lever on it")
     return Action("walk", supplier_id=sit.supplier_id, why="nothing on the table beats the alternative or the opening")
 
 
@@ -347,7 +353,7 @@ def build(sit):
         c_s = sit.cost(eco.sheet(sit.case, ours, sit.ask)).commercial
     gap = max((c_s if c_s is not None else demand) - demand, 0.0)
     moved = max(theirs[-2] - theirs[-1], 0.0) if len(theirs) >= 2 else 0.0
-    last = sit.state.ours[-1]["sheets"] if sit.state.ours else []
+    last = next((o["sheets"] for o in reversed(sit.state.ours) if o["sheets"]), [])  # our last offer, not a question
     last_main = sit.structure(last[0]) if last else None
 
     moves = []
@@ -370,6 +376,20 @@ def build(sit):
                                 evaluation=sit.cost(sheets[0]).summary(),
                                 why=("a package it has not seen yet" if fresh else "an argument not made yet")
                                 + ": the demand stands, but for a visible step"))
+    if not moves and close.kind == "walk" and sit.moves_left > 2:
+        # Nothing new to show and nothing on the table worth closing: leaving now scores nothing better
+        # than staying. First a visible step, to see whether it moves; then the question, once; then out.
+        asked = bool(sit.state.ours) and not sit.state.ours[-1]["sheets"]  # our last message was a question
+        if main is not None and gap > EPS and stalled(theirs) < HOLDS_MAX:
+            sheets, gives, lines = package(sit, demand + INSIST_STEP * gap, main)
+            moves.append(Action("hold", sheets=sheets, supplier_id=sit.supplier_id, demand=demand + INSIST_STEP * gap,
+                                gives=gives, asks=[f"EUR {sheets[0]['unit_price']:.2f} per unit"], lines=lines,
+                                evaluation=sit.cost(sheets[0]).summary(),
+                                why="nothing on the table is worth closing: a visible step, to see whether it moves"))
+        elif not asked:
+            moves.append(Action("ask", supplier_id=sit.supplier_id, why="its offer is no better than its opening quote",
+                                lines=["Your offer does not yet improve on your opening quote for us. "
+                                       "Could you review your price on the terms of our last package?"]))
     return moves + [close]
 
 
