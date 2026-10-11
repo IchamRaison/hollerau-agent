@@ -94,9 +94,14 @@ def threads():
             steps, reasons = [], []
             for w, e, m in events:
                 if w == "B":
+                    kind = m.get("type") or "message"
+                    if kind not in ("message", "timeout"):
+                        continue  # our accept or walk-away closes the thread: not an e-mail it answers
                     sheets = m.get("term_sheets") if isinstance(m.get("term_sheets"), list) else []
                     costs = [c for t in sheets if (c := _cost(case, t.get("terms") or t, fill)) is not None]
-                    steps.append({"who": "B", "cost": min(costs) if costs else None, "sheets": len(sheets)})
+                    steps.append(
+                        {"who": "B", "cost": min(costs) if costs else None, "sheets": len(sheets), "kind": kind}
+                    )
                 else:
                     terms = m.get("terms") or {}
                     fill = {**fill, **{k: v for k, v in terms.items() if k != "unit_price" and v is not None}}
@@ -164,6 +169,23 @@ def _law(rows):
     return out
 
 
+def _bins(rows, key, edges, extra=None):
+    """Rows cut by `key` (a share of its quote) into bands: for each band with enough replies, how
+    many, the median step, and whatever `extra` adds."""
+    out = []
+    for lo, hi in zip(edges, edges[1:], strict=False):
+        v = [r for r in rows if r.get(key) is not None and lo <= r[key] < hi]
+        steps = [r["step"] for r in v if "step" in r]
+        if len(v) < 4 or not steps:
+            continue
+        label = f"{100 * lo:g} to {100 * hi:g} %" if hi < 9 else f"over {100 * lo:g} %"
+        row = {"band": label, "replies": len(v), "its_step_pct_of_its_quote": round(100 * median(steps), 2)}
+        if extra:
+            row.update(extra(v))
+        out.append(row)
+    return out
+
+
 def record(games):
     """One supplier's record from all its threads."""
     from hollerau.dsh.recognition import how_we_answered, replies, sentences, signature, spread
@@ -195,9 +217,47 @@ def record(games):
         rec["first_reply"]["our_asks_were_pct_below_its_quote"] = spread(asks, 1)
         if rec["first_reply"].get("law") and max(asks) - min(asks) < 3:
             rec["first_reply"]["law"] = "our first asks were all alike: its rule is not told apart"
-    later = [r for r in flat if r["k"] >= 2 and r["prev_status"] == "open"]
+    by_depth = _bins(first, "ask_below_quote", [0, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.40, 9.9])
+    if len(by_depth) > 1:
+        rec["first_reply"]["by_how_far_below_its_quote_we_asked"] = by_depth
+    later = [r for r in flat if r["k"] >= 2 and r["prev_status"] == "open" and not r.get("timeout")]
     rec["later_replies"] = _law([r for r in later if r.get("our_move", 1) > 1e-6])
+    by_gap = _bins(
+        [r for r in later if r.get("our_move", 1) > 1e-6], "gap", [0.005, 0.02, 0.04, 0.06, 0.08, 0.10, 0.15, 0.20, 9.9]
+    )
+    if len(by_gap) > 1:
+        rec["later_replies"]["by_gap_between_its_offer_and_our_ask"] = by_gap
+    by_move = _bins(
+        [r for r in later if "our_move" in r and r.get("gap", 0) > 0.005],
+        "our_move",
+        [-9.9, 1e-6, 0.003, 0.01, 0.03, 9.9],
+        lambda v: {
+            "it_moved": round(sum(1 for r in v if r.get("step", 0) > 1e-6) / len(v), 2),
+            "answered_with_its_final_offer": round(sum(1 for r in v if r["status"] == "final_offer") / len(v), 2),
+        },
+    )
+    labels = {"-990 to 0.0001 %": "we did not move", "0.0001 to 0.3 %": "under 0.3 %", "over 3 %": "over 3 %"}
+    for row in by_move:
+        row["band"] = labels.get(row["band"], row["band"])
+    if by_move:
+        rec["later_replies"]["by_size_of_our_move"] = by_move
     still = [r for r in later if "step" in r and r.get("gap", 0) > 0.005 and r.get("our_move", 1) <= 1e-6]
+    depth = []
+    for g, rr in rows:
+        asks_ = [r["ask_below_quote"] for r in rr if "ask_below_quote" in r]
+        offers = [r["offer_below_quote"] for r in rr if "offer_below_quote" in r]
+        if asks_ and offers:
+            depth.append({"ask_below_quote": sum(asks_) / len(asks_), "step": max(offers), "score": g["score"]})
+    by_ask = _bins(depth, "ask_below_quote", [0, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.40, 9.9])
+    if len(by_ask) > 1:
+        rec["games_by_depth_of_our_asks"] = [
+            {
+                "our_asks_averaged_below_its_quote": b["band"],
+                "games": b["replies"],
+                "its_deepest_offer_pct_below_its_quote": b["its_step_pct_of_its_quote"],
+            }
+            for b in by_ask
+        ]
     if still:
         rec["later_replies"]["when_we_did_not_move"] = {
             "replies": len(still),
@@ -281,6 +341,32 @@ def record(games):
     return rec
 
 
+def across(games):
+    """What held whoever the supplier was: when suppliers left, and when they never did."""
+    from hollerau.dsh.recognition import how_we_answered, replies
+
+    left, sheet_while_open, timeouts = Counter(), 0, 0
+    for g in games:
+        for r in replies(g["steps"]):
+            timeouts += bool(r.get("timeout"))
+            if r["prev_status"] == "open" and "gap" in r:
+                sheet_while_open += 1
+            if r["status"] in ("walked_away", "no_bid"):
+                left[f"its status was {r['prev_status']}; {how_we_answered(r)}"] += 1
+    return {
+        "threads": len(games),
+        "suppliers": len({(g["case"], g["supplier"]) for g in games}),
+        "e_mails_with_a_term_sheet_sent_while_its_status_was_open": sheet_while_open,
+        "of_which_it_answered_by_leaving": sum(
+            c
+            for k, c in left.items()
+            if k.startswith("its status was open") and "60 seconds" not in k and "note" not in k
+        ),
+        "turns_we_let_time_out": timeouts,
+        "when_suppliers_left": dict(left.most_common()),
+    }
+
+
 def build(games=None):
     games = games or threads()
     by = defaultdict(list)
@@ -359,7 +445,9 @@ if __name__ == "__main__":
         print("\n".join(check(games)))
     else:
         recs = build(games)
-        OUT.write_text(json.dumps(recs, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+        doc = {"suppliers": recs, "across_all_suppliers": across(games)}
+        OUT.write_text(json.dumps(doc, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+        print(json.dumps(doc["across_all_suppliers"], indent=1))
         print(f"{len(recs)} suppliers from {len(games)} threads -> {OUT.relative_to(ROOT)}")
         for r in recs:
             print(

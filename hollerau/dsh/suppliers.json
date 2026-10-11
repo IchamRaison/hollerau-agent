@@ -1,3638 +1,4699 @@
-[
- {
-  "supplier": "DEMO-F1",
-  "case": "D01",
-  "who_signs": "Owner",
-  "company": "Demo Gießerei GmbH",
-  "case_type": "price_increase",
-  "category_goal": "stabilise",
-  "bidders": 1,
-  "negotiable": [
-   "unit_price",
-   "payment_days",
-   "contract_months",
-   "effective_date"
-  ],
-  "games": 202,
-  "replies": 723,
-  "best_deal_possible_below_cheapest_quote_pct": 9.0,
-  "first_reply": {
-   "replies": 182,
-   "it_moved": 1.0,
-   "share_of_gap": [
-    0.35,
-    0.44,
-    0.81
+{
+ "suppliers": [
+  {
+   "supplier": "DEMO-F1",
+   "case": "D01",
+   "who_signs": "Owner",
+   "company": "Demo Gießerei GmbH",
+   "case_type": "price_increase",
+   "category_goal": "stabilise",
+   "bidders": 1,
+   "negotiable": [
+    "unit_price",
+    "payment_days",
+    "contract_months",
+    "effective_date"
    ],
-   "step_pct_of_its_quote": [
-    4.82,
-    5.53,
-    5.81
-   ],
-   "law": "a share of the gap",
-   "our_asks_were_pct_below_its_quote": [
-    5.5,
-    8.3,
-    16.5
-   ]
-  },
-  "later_replies": {
-   "replies": 348,
-   "it_moved": 0.99,
-   "share_of_gap": [
-    0.13,
-    0.15,
-    0.17
-   ],
-   "step_pct_of_its_quote": [
-    0.45,
-    0.54,
-    0.74
-   ],
-   "law": "a share of the gap",
-   "when_we_did_not_move": {
-    "replies": 116,
-    "it_moved": 0.02
-   }
-  },
-  "status_by_reply": {
-   "1": {
-    "open": 192,
-    "agreed": 2
-   },
-   "2": {
-    "open": 156,
-    "final_offer": 1,
-    "agreed": 3
-   },
-   "3": {
-    "open": 114,
-    "final_offer": 28,
-    "walked_away": 8
-   },
-   "4": {
-    "open": 82,
-    "walked_away": 7,
-    "final_offer": 10,
-    "agreed": 2
-   },
-   "5": {
-    "final_offer": 59,
-    "open": 21,
-    "walked_away": 1,
-    "agreed": 2
-   },
-   "6": {
-    "agreed": 9,
-    "final_offer": 21
-   },
-   "7": {
-    "agreed": 2,
-    "walked_away": 1
-   },
-   "8": {
-    "walked_away": 2
-   }
-  },
-  "final_offer_came_at_reply": {
-   "2": 1,
-   "3": 28,
-   "4": 8,
-   "5": 59,
-   "6": 20
-  },
-  "after_its_final_offer": {
-   "we asked below its offer without moving": {
-    "walked_away": 6,
-    "final_offer": 1
-   },
-   "we asked below its offer and had moved": {
-    "agreed": 8
-   },
-   "a note without a term sheet": {
-    "walked_away": 3,
-    "final_offer": 2,
-    "agreed": 1
-   }
-  },
-  "it_left": {
-   "games": 19,
-   "at_reply": {
-    "3": 8,
-    "4": 7,
-    "5": 1,
-    "7": 1,
-    "8": 2
-   },
-   "after": {
-    "its status was final_offer; we asked below its offer without moving": 6,
-    "its status was open; a note without a term sheet": 8,
-    "its status was final_offer; a note without a term sheet": 3,
-    "its status was agreed; a note without a term sheet": 2
-   }
-  },
-  "it_agreed_to_our_ask": {
-   "replies": 20,
-   "at_pct_below_its_quote": [
-    1.2,
-    7.4,
-    8.5
-   ],
-   "note": "it took our number as it stood: that ask was within what it accepts"
-  },
-  "deepest_offer_below_its_quote_pct": 9.9,
-  "arguments": {
-   "delivery record": {
-    "already counted": 1,
-    "true, but it changed nothing": 1
-   },
-   "notice period": {
-    "took it into account": 12,
-    "already counted": 13,
-    "wrong figure: it cost trust": 1
-   },
-   "price history": {
-    "took it into account": 2
-   },
-   "rival quote": {
-    "wrong figure: it cost trust": 6
-   },
-   "should cost": {
-    "took it into account": 2
-   }
-  },
-  "inside_notes": {},
-  "best_games": [
-   {
-    "score": 1.0,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     14.8,
-     12.6,
-     12.0,
-     11.5,
-     11.2,
-     10.7
-    ],
-    "its_offers_pct_below_its_quote": [
-     8.4,
-     8.9,
-     9.3,
-     9.6,
-     9.8,
-     9.9
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "open",
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     1,
-     3,
-     1,
-     1,
-     1
-    ]
-   },
-   {
-    "score": 0.987,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     16.5,
-     14.1,
-     13.0,
-     12.2,
-     11.7
-    ],
-    "its_offers_pct_below_its_quote": [
-     5.8,
-     7.4,
-     8.3,
-     8.9,
-     9.2
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3,
-     3,
-     3
-    ]
-   },
-   {
-    "score": 0.979,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     16.5,
-     14.1,
-     13.0,
-     12.0,
-     11.5
-    ],
-    "its_offers_pct_below_its_quote": [
-     5.8,
-     7.2,
-     8.0,
-     8.5,
-     9.0
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3,
-     3,
-     3
-    ]
-   }
-  ],
-  "our_scores": {
    "games": 202,
-   "median": 0.0,
-   "best": 1.0
-  },
-  "writes": {
-   "Andreas Moser": 1.0,
-   "Viele Grüße aus der Gießerei": 0.5,
-   "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
-   "A few words from the foundry on this.": 0.5,
-   "Please give my regards to your colleagues - a good relationship has always mattered more to us than a single order, and I hope it stays that way.": 0.5,
-   "We have worked together for many years, and I am confident that we will find a fair way forward, as we always have between our two houses.": 0.5,
-   "Many thanks for your message; I have read it carefully together with my people here at the foundry, and we have given it the attention it deserves.": 0.5,
-   "Thank you for your enquiry.": 0.1,
-   "Please find our Angebot below.": 0.1,
-   "Let me tell you how we see it from our side.": 0.5,
-   "Which volume can you commit to?": 0.11,
-   "Thank you for your letter - it is always good to hear from you, and I answer it myself, as I do for all the customers we have known for a long time.": 0.5,
-   "Please note that this offer remains valid for # days.": 0.2
-  }
- },
- {
-  "supplier": "DEMO-C1",
-  "case": "D02",
-  "who_signs": "Export Manager",
-  "company": "Demo Machining Sp. z o.o.",
-  "case_type": "rfq",
-  "category_goal": "leverage",
-  "bidders": 2,
-  "negotiable": [
-   "unit_price",
-   "payment_days",
-   "lead_time_days",
-   "incoterm"
-  ],
-  "games": 104,
-  "replies": 436,
-  "best_deal_possible_below_cheapest_quote_pct": 26.9,
-  "first_reply": {
-   "replies": 90,
-   "it_moved": 0.03,
-   "step_pct_of_its_quote": [
-    -9.29,
-    -3.73,
-    -3.73
-   ],
-   "law": "its sheet came back dearer for us than its previous one: it priced the terms we asked",
-   "our_asks_were_pct_below_its_quote": [
-    18.3,
-    23.1,
-    23.1
-   ]
-  },
-  "later_replies": {
-   "replies": 233,
-   "it_moved": 0.91,
-   "share_of_gap": [
-    0.14,
-    0.17,
-    0.2
-   ],
-   "step_pct_of_its_quote": [
-    1.82,
-    2.43,
-    3.03
-   ],
-   "law": "a share of the gap",
-   "when_we_did_not_move": {
-    "replies": 15,
-    "it_moved": 0.53
-   }
-  },
-  "status_by_reply": {
-   "1": {
-    "open": 94,
-    "agreed": 3
-   },
-   "2": {
-    "open": 92,
-    "agreed": 3
-   },
-   "3": {
-    "open": 84,
-    "walked_away": 5,
-    "agreed": 3,
-    "final_offer": 1
-   },
-   "4": {
-    "final_offer": 69,
-    "open": 7,
-    "agreed": 2
-   },
-   "5": {
-    "final_offer": 43,
-    "walked_away": 8,
-    "open": 1
-   },
-   "6": {
-    "final_offer": 13,
-    "walked_away": 2
-   },
-   "7": {
-    "final_offer": 5
-   },
-   "8": {
-    "final_offer": 1
-   }
-  },
-  "final_offer_came_at_reply": {
-   "3": 1,
-   "4": 69,
-   "5": 5
-  },
-  "after_its_final_offer": {
-   "a note without a term sheet": {
-    "final_offer": 57,
-    "walked_away": 8
-   }
-  },
-  "it_left": {
-   "games": 15,
-   "at_reply": {
-    "3": 5,
-    "5": 8,
-    "6": 2
-   },
-   "after": {
-    "its status was open; a note without a term sheet": 5,
-    "its status was final_offer; a note without a term sheet": 8,
-    "its status was agreed; a note without a term sheet": 2
-   }
-  },
-  "it_agreed_to_our_ask": {
-   "replies": 11,
-   "at_pct_below_its_quote": [
-    -1095.0,
-    -1095.0,
-    0.4
-   ],
-   "note": "it took our number as it stood: that ask was within what it accepts"
-  },
-  "deepest_offer_below_its_quote_pct": 9.1,
-  "arguments": {
-   "quality record": {
-    "took it into account": 1
-   },
-   "rival quote": {
-    "took it into account": 80,
-    "true, but it changed nothing": 28,
-    "not about this part or company": 8,
-    "already counted": 1
-   },
-   "should cost": {
-    "already counted": 1
-   },
-   "volume change": {
-    "already counted": 1
-   }
-  },
-  "inside_notes": {
-   "The buyer asks something for Freight Forwarder; please answer.": 126,
-   "The buyer shows a much lower rival quote. I give half the step now and check the rest.": 14,
-   "The buyer wants more than my band allows. Approve a further step?": 13,
-   "Checked: give the rest of the step.": 12,
-   "Approved: you may go further, within our rules.": 9,
-   "The buyer asks something for Quality; please answer.": 3,
-   "eight d attached": 3,
-   "The buyer wants more than my band allows . Approve a further step?": 1
-  },
-  "best_games": [
-   {
-    "score": 0.325,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     10.3,
-     4.6,
-     3.5,
-     5.2,
-     4.0
+   "replies": 718,
+   "best_deal_possible_below_cheapest_quote_pct": 9.0,
+   "first_reply": {
+    "replies": 182,
+    "it_moved": 1.0,
+    "share_of_gap": [
+     0.35,
+     0.44,
+     0.81
     ],
-    "its_offers_pct_below_its_quote": [
-     1.3,
-     2.5,
-     3.1,
-     2.8,
-     2.8
+    "step_pct_of_its_quote": [
+     4.82,
+     5.53,
+     5.81
     ],
-    "its_status": [
-     "open",
-     "open",
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     2,
-     1,
-     1,
-     2,
-     1
-    ]
-   },
-   {
-    "score": 0.22,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     23.1,
-     17.0,
-     13.6,
-     10.6
-    ],
-    "its_offers_pct_below_its_quote": [
-     -5.1,
-     -2.1,
-     -0.9,
-     -0.3
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3,
-     3
-    ]
-   },
-   {
-    "score": 0.22,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     9.6,
-     5.4,
-     7.5,
-     5.7
-    ],
-    "its_offers_pct_below_its_quote": [
-     -2.4,
-     -0.9,
-     -0.3,
-     -0.3
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     1,
-     2,
-     3,
-     3
-    ]
-   }
-  ],
-  "our_scores": {
-   "games": 4,
-   "median": 0.22,
-   "best": 0.325
-  },
-  "writes": {
-   "Joanna Kaczmarek": 1.0,
-   "Best regards": 1.0,
-   "Dear partner,": 1.0,
-   "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
-   "We are fully committed to winning your business and to becoming a long-term partner for your team.": 1.0,
-   "To be fully transparent with you:": 0.33,
-   "Many thanks for your reply; we really appreciate the chance to work with you.": 1.0,
-   "Please let me explain.": 0.33,
-   "Thank you very much for your message - we are very glad about your interest in our company.": 1.0,
-   "Which volume can you commit to?": 0.11,
-   "Please decide.": 0.11,
-   "This is our final offer (letztes Angebot).": 0.11,
-   "Thank you for your enquiry.": 0.1,
-   "Please find our Angebot below.": 0.1,
-   "We are a competitive and flexible partner.": 0.5,
-   "Material accounts for about # % of our cost; more detail we do not share.": 0.12
-  }
- },
- {
-  "supplier": "DEMO-J1",
-  "case": "D02",
-  "who_signs": "Owner",
-  "company": "Demo Drehteile GmbH",
-  "case_type": "rfq",
-  "category_goal": "leverage",
-  "bidders": 2,
-  "negotiable": [
-   "unit_price",
-   "payment_days",
-   "lead_time_days",
-   "incoterm"
-  ],
-  "games": 104,
-  "replies": 459,
-  "best_deal_possible_below_cheapest_quote_pct": 26.9,
-  "first_reply": {
-   "replies": 91,
-   "it_moved": 1.0,
-   "share_of_gap": [
-    0.5,
-    0.5,
-    0.63
-   ],
-   "step_pct_of_its_quote": [
-    11.53,
-    11.53,
-    11.53
-   ],
-   "law": "a fixed step",
-   "our_asks_were_pct_below_its_quote": [
-    18.4,
-    23.2,
-    23.2
-   ]
-  },
-  "later_replies": {
-   "replies": 249,
-   "it_moved": 0.98,
-   "share_of_gap": [
-    0.29,
-    0.45,
-    0.56
-   ],
-   "step_pct_of_its_quote": [
-    0.57,
-    1.13,
-    3.97
-   ],
-   "law": "a share of the gap",
-   "when_we_did_not_move": {
-    "replies": 29,
-    "it_moved": 0.31
-   }
-  },
-  "status_by_reply": {
-   "1": {
-    "open": 101
-   },
-   "2": {
-    "open": 97,
-    "agreed": 4
-   },
-   "3": {
-    "open": 65,
-    "walked_away": 6,
-    "final_offer": 23,
-    "agreed": 3
-   },
-   "4": {
-    "open": 50,
-    "walked_away": 3,
-    "final_offer": 23
-   },
-   "5": {
-    "final_offer": 56,
-    "walked_away": 3
-   },
-   "6": {
-    "final_offer": 15,
-    "walked_away": 1
-   },
-   "7": {
-    "final_offer": 5,
-    "walked_away": 1
-   },
-   "8": {
-    "final_offer": 3
-   }
-  },
-  "final_offer_came_at_reply": {
-   "3": 23,
-   "4": 15,
-   "5": 50
-  },
-  "after_its_final_offer": {
-   "a note without a term sheet": {
-    "walked_away": 8,
-    "final_offer": 31
-   },
-   "we asked below its offer without moving": {
-    "final_offer": 4
-   },
-   "we came up to its offer": {
-    "final_offer": 1
-   },
-   "we asked below its offer and had moved": {
-    "final_offer": 1
-   }
-  },
-  "it_left": {
-   "games": 14,
-   "at_reply": {
-    "3": 6,
-    "4": 3,
-    "5": 3,
-    "6": 1,
-    "7": 1
-   },
-   "after": {
-    "its status was open; a note without a term sheet": 6,
-    "its status was final_offer; a note without a term sheet": 8
-   }
-  },
-  "it_agreed_to_our_ask": {
-   "replies": 7,
-   "at_pct_below_its_quote": [
-    13.6,
-    13.6,
-    13.6
-   ],
-   "note": "it took our number as it stood: that ask was within what it accepts"
-  },
-  "deepest_offer_below_its_quote_pct": 21.2,
-  "arguments": {
-   "delivery record": {
-    "took it into account": 1
-   },
-   "rival quote": {
-    "took it into account": 86,
-    "true, but it changed nothing": 13,
-    "not about this part or company": 1,
-    "already counted": 1
-   },
-   "should cost": {
-    "took it into account": 2
-   },
-   "volume change": {
-    "took it into account": 1
-   }
-  },
-  "inside_notes": {
-   "cost breakdown attached": 91,
-   "The buyer shows a much lower rival quote. I give half the step now and check the rest.": 86,
-   "Checked: give the rest of the step.": 86
-  },
-  "best_games": [
-   {
-    "score": 0.788,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     32.5,
-     30.1,
-     28.3
-    ],
-    "its_offers_pct_below_its_quote": [
-     13.3,
-     20.1,
-     21.2
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     1,
-     2
-    ]
-   },
-   {
-    "score": 0.723,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     23.2,
-     20.7,
-     20.1,
-     19.8,
-     19.7
-    ],
-    "its_offers_pct_below_its_quote": [
-     11.5,
-     16.6,
-     18.3,
-     18.9,
-     19.5
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3,
-     3,
-     3
-    ]
-   },
-   {
-    "score": 0.723,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     23.2,
-     20.7,
-     20.1,
-     19.8,
-     19.7,
-     null
-    ],
-    "its_offers_pct_below_its_quote": [
-     11.5,
-     16.6,
-     18.3,
-     18.9,
-     19.5,
-     19.5
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "open",
-     "open",
-     "final_offer",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3,
-     3,
-     3,
-     0
-    ]
-   }
-  ],
-  "our_scores": {
-   "games": 75,
-   "median": 0.702,
-   "best": 0.788
-  },
-  "writes": {
-   "Claudia Aigner": 1.0,
-   "Back to the machines now.": 0.33,
-   "we can move a bit:": 0.33,
-   "got your mail, thanks.": 0.33,
-   "Straight answer:": 0.33,
-   "Here is how it is:": 0.33,
-   "Which volume can you commit to?": 0.11,
-   "thanks for the mail.": 0.33,
-   "With overtime we can deliver in # days, at a premium.": 0.33,
-   "Our Lieferzeit is # days.": 0.33,
-   "Just write if something is unclear.": 0.33,
-   "We have free capacity for your parts.": 0.33,
-   "here is our price.": 1.0,
-   "A binding higher volume would help us and can improve the price.": 0.17,
-   "Please find our cost breakdown attached.": 1.0,
-   "We checked the rival quote data you cited; it holds and we took it into account.": 0.5,
-   "We have clarified this internally and can move further on the price.": 1.0,
-   "Faster payment is welcome; we can reflect it in the price.": 0.5,
-   "We need to clarify this internally - we will come back to you on price.": 1.0
-  }
- },
- {
-  "supplier": "70110",
-  "case": "P01",
-  "who_signs": "Owner",
-  "company": "Gießerei Brandlhuber GmbH & Co. KG",
-  "case_type": "price_increase",
-  "category_goal": "stabilise",
-  "bidders": 1,
-  "negotiable": [
-   "unit_price",
-   "effective_date",
-   "payment_days"
-  ],
-  "games": 23,
-  "replies": 91,
-  "best_deal_possible_below_cheapest_quote_pct": 4.9,
-  "first_reply": {
-   "replies": 22,
-   "it_moved": 1.0,
-   "share_of_gap": [
-    0.24,
-    0.26,
-    0.33
-   ],
-   "step_pct_of_its_quote": [
-    2.6,
-    2.91,
-    2.97
-   ],
-   "law": "a fixed step",
-   "our_asks_were_pct_below_its_quote": [
-    8.9,
-    11.0,
-    11.0
-   ]
-  },
-  "later_replies": {
-   "replies": 60,
-   "it_moved": 0.93,
-   "share_of_gap": [
-    0.2,
-    0.21,
-    0.36
-   ],
-   "step_pct_of_its_quote": [
-    0.51,
-    0.84,
-    1.15
-   ],
-   "law": "a share of the gap",
-   "when_we_did_not_move": {
-    "replies": 6,
-    "it_moved": 0.17
-   }
-  },
-  "status_by_reply": {
-   "1": {
-    "open": 23
-   },
-   "2": {
-    "open": 23
-   },
-   "3": {
-    "open": 21
-   },
-   "4": {
-    "open": 6,
-    "final_offer": 14,
-    "agreed": 1
-   },
-   "5": {
-    "final_offer": 3
-   }
-  },
-  "final_offer_came_at_reply": {
-   "4": 14,
-   "5": 3
-  },
-  "after_its_final_offer": {},
-  "it_agreed_to_our_ask": {
-   "replies": 1,
-   "at_pct_below_its_quote": [
-    5.0,
-    5.0,
-    5.0
-   ],
-   "note": "it took our number as it stood: that ask was within what it accepts"
-  },
-  "deepest_offer_below_its_quote_pct": 5.7,
-  "arguments": {
-   "delivery record": {
-    "took it into account": 17
-   },
-   "forecast": {
-    "took it into account": 1
-   },
-   "index change": {
-    "took it into account": 17
-   },
-   "notice period": {
-    "took it into account": 19,
-    "already counted": 1
-   },
-   "price history": {
-    "true, but it changed nothing": 3
-   },
-   "rival quote": {
-    "not about this part or company": 1
-   },
-   "should cost": {
-    "took it into account": 3
-   },
-   "volume change": {
-    "already counted": 11,
-    "took it into account": 17
-   }
-  },
-  "inside_notes": {},
-  "best_games": [
-   {
-    "score": 0.998,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     10.7,
-     9.1,
-     8.5,
-     8.0
-    ],
-    "its_offers_pct_below_its_quote": [
-     3.5,
-     5.2,
+    "law": "a share of the gap",
+    "our_asks_were_pct_below_its_quote": [
      5.5,
-     5.7
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3,
-     3
-    ]
-   },
-   {
-    "score": 0.998,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     11.0,
-     8.5,
-     7.7,
-     7.0
-    ],
-    "its_offers_pct_below_its_quote": [
-     2.9,
-     4.1,
-     4.8,
-     5.6
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3,
-     3
-    ]
-   },
-   {
-    "score": 0.995,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     12.3,
-     10.3,
-     9.4,
-     8.6
-    ],
-    "its_offers_pct_below_its_quote": [
-     3.0,
-     4.8,
-     5.2,
-     5.5
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3,
-     3
-    ]
-   }
-  ],
-  "our_scores": {
-   "games": 23,
-   "median": 0.975,
-   "best": 0.998
-  },
-  "writes": {
-   "Thomas Brandlhuber": 1.0,
-   "Viele Grüße aus der Gießerei": 0.5,
-   "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
-   "We have worked together for many years, and I am confident that we will find a fair way forward, as we always have between our two houses.": 0.5,
-   "A few words from the foundry on this.": 0.5,
-   "LCI-C rose # % in twelve months and is # % of our cost.": 0.33,
-   "PPI-C# rose # % in twelve months and is # % of our cost.": 0.33,
-   "Let me tell you how we see it from our side.": 0.5,
-   "Please give my regards to your colleagues - a good relationship has always mattered more to us than a single order, and I hope it stays that way.": 0.5,
-   "We did not know that - a fair point.": 1.0,
-   "Many thanks for your message; I have read it carefully together with my people here at the foundry, and we have given it the attention it deserves.": 0.5,
-   "Thank you for your letter - it is always good to hear from you, and I answer it myself, as I do for all the customers we have known for a long time.": 0.5,
-   "Thank you for your enquiry.": 0.1,
-   "Please find our Angebot below.": 0.1,
-   "Which volume can you commit to?": 0.11,
-   "A binding higher volume would help us and can improve the price.": 0.17,
-   "Our costs move with LCI-C, PPI-C#, PPI-D#; the figures stay with us.": 1.0,
-   "That remains.": 1.0,
-   "We checked the notice period data you cited; it holds and we took it into account.": 1.0
-  }
- },
- {
-  "supplier": "70510",
-  "case": "P02",
-  "who_signs": "Key Account Manager",
-  "company": "Antriebstechnik Nordmark AG",
-  "case_type": "price_increase",
-  "category_goal": "stabilise",
-  "bidders": 1,
-  "negotiable": [
-   "unit_price",
-   "payment_days",
-   "index_clause"
-  ],
-  "games": 32,
-  "replies": 102,
-  "best_deal_possible_below_cheapest_quote_pct": 2.1,
-  "first_reply": {
-   "replies": 32,
-   "it_moved": 1.0,
-   "share_of_gap": [
-    0.11,
-    0.8,
-    1.0
-   ],
-   "step_pct_of_its_quote": [
-    0.75,
-    3.14,
-    5.36
-   ],
-   "law": "a share of the gap",
-   "our_asks_were_pct_below_its_quote": [
-    3.7,
-    5.4,
-    6.8
-   ]
-  },
-  "later_replies": {
-   "replies": 38,
-   "it_moved": 0.82,
-   "share_of_gap": [
-    0.02,
-    0.03,
-    0.12
-   ],
-   "step_pct_of_its_quote": [
-    0.08,
-    0.14,
-    0.28
-   ],
-   "law": "a share of the gap",
-   "when_we_did_not_move": {
-    "replies": 4,
-    "it_moved": 0.25
-   }
-  },
-  "status_by_reply": {
-   "1": {
-    "open": 17,
-    "agreed": 15
-   },
-   "2": {
-    "open": 18,
-    "agreed": 10
-   },
-   "3": {
-    "open": 11,
-    "agreed": 10
-   },
-   "4": {
-    "walked_away": 1,
-    "agreed": 6,
-    "final_offer": 6,
-    "open": 2
-   },
-   "5": {
-    "final_offer": 2,
-    "agreed": 1,
-    "walked_away": 1
-   },
-   "6": {
-    "walked_away": 2
-   }
-  },
-  "final_offer_came_at_reply": {
-   "4": 6,
-   "5": 2
-  },
-  "after_its_final_offer": {
-   "a note without a term sheet": {
-    "walked_away": 1
-   },
-   "we asked below its offer and had moved": {
-    "walked_away": 1
-   }
-  },
-  "it_left": {
-   "games": 4,
-   "at_reply": {
-    "4": 1,
-    "5": 1,
-    "6": 2
-   },
-   "after": {
-    "its status was open; a note without a term sheet": 1,
-    "its status was final_offer; a note without a term sheet": 1,
-    "its status was agreed; a note without a term sheet": 1,
-    "its status was final_offer; we asked below its offer and had moved": 1
-   }
-  },
-  "it_agreed_to_our_ask": {
-   "replies": 42,
-   "at_pct_below_its_quote": [
-    3.1,
-    3.1,
-    3.1
-   ],
-   "note": "it took our number as it stood: that ask was within what it accepts"
-  },
-  "deepest_offer_below_its_quote_pct": 6.4,
-  "arguments": {
-   "delivery record": {
-    "true, but it changed nothing": 5
-   },
-   "notice period": {
-    "true, but it changed nothing": 1
-   },
-   "price history": {
-    "true, but it changed nothing": 5
-   },
-   "quality record": {
-    "already counted": 2
-   },
-   "rival quote": {
-    "not about this part or company": 2
-   },
-   "volume change": {
-    "took it into account": 15,
-    "already counted": 2
-   }
-  },
-  "inside_notes": {
-   "The buyer asks something for Credit Control; please answer.": 29,
-   "The buyer asks something for Legal Department; please answer.": 8,
-   "The buyer asks something for Logistics; please answer.": 4,
-   "The buyer asks something for Application Engineering; please answer.": 2
-  },
-  "best_games": [
-   {
-    "score": 0.735,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     6.8,
-     5.4,
-     4.5,
-     1.6
-    ],
-    "its_offers_pct_below_its_quote": [
-     0.7,
-     0.8,
-     3.1,
-     3.1
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "agreed",
-     "agreed"
-    ],
-    "sheets_per_mail": [
-     1,
-     1,
-     2,
-     1
-    ]
-   },
-   {
-    "score": 0.735,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     6.8,
-     5.9,
-     5.1,
-     1.6
-    ],
-    "its_offers_pct_below_its_quote": [
-     0.7,
-     0.9,
-     3.1,
-     3.1
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "agreed",
-     "agreed"
-    ],
-    "sheets_per_mail": [
-     1,
-     1,
-     2,
-     1
-    ]
-   },
-   {
-    "score": 0.735,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     6.8,
-     5.4,
-     5.1,
-     1.6
-    ],
-    "its_offers_pct_below_its_quote": [
-     0.7,
-     0.8,
-     3.1,
-     3.1
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "agreed",
-     "agreed"
-    ],
-    "sheets_per_mail": [
-     1,
-     1,
-     2,
-     1
-    ]
-   }
-  ],
-  "our_scores": {
-   "games": 32,
-   "median": 0.709,
-   "best": 0.735
-  },
-  "writes": {
-   "Dear Sir or Madam,": 0.33,
-   "Mit freundlichen Grüßen": 0.14,
-   "Petra Lechner": 1.0,
-   "Please note:": 0.5,
-   "This offer is subject to our general terms of sale.": 0.5,
-   "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
-   "We can accept your terms and await your order.": 1.0,
-   "Thank you for your enquiry.": 0.1,
-   "LCI-C rose # % in twelve months and is # % of our cost.": 0.33,
-   "Please find our Angebot below.": 0.1,
-   "PPI-C# rose # % in twelve months and is # % of our cost.": 0.33,
-   "Thank you for your message.": 0.5,
-   "Thank you for your e-mail, which we have reviewed internally.": 0.5,
-   "Which volume can you commit to?": 0.11,
-   "A binding higher volume would help us and can improve the price.": 0.17,
-   "Our price reflects our costs; our calculation stays internal.": 1.0,
-   "Our calculation is our property; we do not share a breakdown.": 0.5,
-   "For your information:": 0.5
-  }
- },
- {
-  "supplier": "70530",
-  "case": "P03",
-  "who_signs": "Key Account Manager",
-  "company": "Selvbrunn Drive Systems GmbH",
-  "case_type": "renewal",
-  "category_goal": "stabilise",
-  "bidders": 1,
-  "negotiable": [
-   "unit_price",
-   "payment_days",
-   "contract_months",
-   "volume_per_year"
-  ],
-  "games": 24,
-  "replies": 69,
-  "best_deal_possible_below_cheapest_quote_pct": 7.9,
-  "first_reply": {
-   "replies": 23,
-   "it_moved": 1.0,
-   "share_of_gap": [
-    0.4,
-    0.4,
-    0.58
-   ],
-   "step_pct_of_its_quote": [
-    7.38,
-    7.49,
-    7.49
-   ],
-   "law": "a fixed step",
-   "our_asks_were_pct_below_its_quote": [
-    12.8,
-    18.5,
-    18.5
-   ]
-  },
-  "later_replies": {
-   "replies": 38,
-   "it_moved": 0.05,
-   "share_of_gap": [
-    0.04,
-    0.89,
-    0.89
-   ],
-   "step_pct_of_its_quote": [
-    0.31,
-    6.17,
-    6.17
-   ],
-   "law": "it holds its price",
-   "when_we_did_not_move": {
-    "replies": 3,
-    "it_moved": 0.0
-   }
-  },
-  "status_by_reply": {
-   "1": {
-    "open": 24
-   },
-   "2": {
-    "open": 23,
-    "agreed": 1
-   },
-   "3": {
-    "open": 11,
-    "final_offer": 2
-   },
-   "4": {
-    "final_offer": 1,
-    "agreed": 1,
-    "open": 2
-   },
-   "5": {
-    "agreed": 1,
-    "open": 1,
-    "final_offer": 1
-   },
-   "6": {
-    "agreed": 1
-   }
-  },
-  "final_offer_came_at_reply": {
-   "3": 2,
-   "4": 1,
-   "5": 1
-  },
-  "after_its_final_offer": {},
-  "it_agreed_to_our_ask": {
-   "replies": 4,
-   "at_pct_below_its_quote": [
-    6.2,
-    6.2,
-    6.2
-   ],
-   "note": "it took our number as it stood: that ask was within what it accepts"
-  },
-  "deepest_offer_below_its_quote_pct": 7.6,
-  "arguments": {
-   "delivery record": {
-    "true, but it changed nothing": 5,
-    "already counted": 1
-   },
-   "price history": {
-    "took it into account": 15,
-    "true, but it changed nothing": 3
-   },
-   "rival quote": {
-    "not about this part or company": 4
-   },
-   "should cost": {
-    "took it into account": 8
-   },
-   "volume change": {
-    "took it into account": 19,
-    "already counted": 4
-   }
-  },
-  "inside_notes": {
-   "The buyer asks something for Logistics; please answer.": 9,
-   "The buyer asks something for Legal Department; please answer.": 8,
-   "The buyer asks something for Credit Control; please answer.": 7
-  },
-  "best_games": [
-   {
-    "score": 0.952,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     18.5,
-     13.9
-    ],
-    "its_offers_pct_below_its_quote": [
-     7.6,
-     7.6
-    ],
-    "its_status": [
-     "open",
-     "open"
-    ],
-    "sheets_per_mail": [
-     3,
-     3
-    ]
-   },
-   {
-    "score": 0.935,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     12.8,
-     11.7,
-     10.1
-    ],
-    "its_offers_pct_below_its_quote": [
-     7.5,
-     7.5,
-     7.5
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "open"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3
-    ]
-   },
-   {
-    "score": 0.935,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     18.5,
-     14.2
-    ],
-    "its_offers_pct_below_its_quote": [
-     7.5,
-     7.5
-    ],
-    "its_status": [
-     "open",
-     "open"
-    ],
-    "sheets_per_mail": [
-     3,
-     3
-    ]
-   }
-  ],
-  "our_scores": {
-   "games": 24,
-   "median": 0.935,
-   "best": 0.952
-  },
-  "writes": {
-   "Dear Sir or Madam,": 0.33,
-   "Mit freundlichen Grüßen": 0.14,
-   "Birgit Mayrhofer": 1.0,
-   "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
-   "For your information:": 0.5,
-   "We can talk about the terms instead - payment, volume or contract length.": 1.0,
-   "Material accounts for about # % of our cost; more detail we do not share.": 0.12,
-   "Thank you for your enquiry.": 0.1,
-   "Please find our Angebot below.": 0.1,
-   "Our management has frozen all price reductions until December #.": 1.0,
-   "Please note:": 0.5,
-   "LCI-C rose # % in twelve months and is # % of our cost.": 0.33,
-   "CU-NOTATION rose # % in twelve months and is # % of our cost.": 1.0,
-   "PPI-C# rose # % in twelve months and is # % of our cost.": 0.33,
-   "Thank you for your e-mail, which we have reviewed internally.": 0.5,
-   "Which figures is that based on?": 0.5,
-   "Please send us the data.": 0.5,
-   "We checked the volume change data you cited; it holds and we took it into account.": 1.0,
-   "We checked the price history data you cited; it holds and we took it into account.": 0.25,
-   "This offer stays valid for # days.": 0.33,
-   "Thank you for your message.": 0.5,
-   "This offer is subject to our general terms of sale.": 0.5
-  }
- },
- {
-  "supplier": "70620",
-  "case": "P04",
-  "who_signs": "Inside Sales",
-  "company": "Wälzlager-Zentrum Süd GmbH",
-  "case_type": "renewal",
-  "category_goal": "routine",
-  "bidders": 1,
-  "negotiable": [
-   "unit_price",
-   "payment_days",
-   "contract_months"
-  ],
-  "games": 30,
-  "replies": 88,
-  "best_deal_possible_below_cheapest_quote_pct": 1.2,
-  "first_reply": {
-   "replies": 29,
-   "it_moved": 1.0,
-   "share_of_gap": [
-    0.06,
-    0.06,
-    0.06
-   ],
-   "step_pct_of_its_quote": [
-    1.15,
-    1.15,
-    1.15
-   ],
-   "law": "a fixed step",
-   "our_asks_were_pct_below_its_quote": [
-    20.6,
-    20.6,
-    20.6
-   ]
-  },
-  "later_replies": {
-   "replies": 43,
-   "it_moved": 0.0,
-   "law": "it holds its price"
-  },
-  "status_by_reply": {
-   "1": {
-    "open": 30
-   },
-   "2": {
-    "open": 26,
-    "final_offer": 4
-   },
-   "3": {
-    "final_offer": 26,
-    "walked_away": 1
-   },
-   "4": {
-    "walked_away": 1
-   }
-  },
-  "final_offer_came_at_reply": {
-   "2": 4,
-   "3": 26
-  },
-  "after_its_final_offer": {
-   "a note without a term sheet": {
-    "walked_away": 2
-   }
-  },
-  "it_left": {
-   "games": 2,
-   "at_reply": {
-    "3": 1,
-    "4": 1
-   },
-   "after": {
-    "its status was final_offer; a note without a term sheet": 2
-   }
-  },
-  "deepest_offer_below_its_quote_pct": 1.1,
-  "arguments": {
-   "delivery record": {
-    "true, but it changed nothing": 12
-   },
-   "price history": {
-    "true, but it changed nothing": 25
-   },
-   "quality record": {
-    "true, but it changed nothing": 1
-   },
-   "rival quote": {
-    "not about this part or company": 1
-   },
-   "volume change": {
-    "true, but it changed nothing": 25,
-    "already counted": 6
-   }
-  },
-  "inside_notes": {},
-  "best_games": [
-   {
-    "score": 0.86,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     20.6,
-     16.4,
-     13.4
-    ],
-    "its_offers_pct_below_its_quote": [
-     1.1,
-     1.1,
-     1.1
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3
-    ]
-   },
-   {
-    "score": 0.86,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     20.6,
-     18.8,
-     17.0
-    ],
-    "its_offers_pct_below_its_quote": [
-     1.1,
-     1.1,
-     1.1
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3
-    ]
-   },
-   {
-    "score": 0.86,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     20.6,
-     18.8,
-     1.3
-    ],
-    "its_offers_pct_below_its_quote": [
-     1.1,
-     1.1,
-     1.1
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     1
-    ]
-   }
-  ],
-  "our_scores": {
-   "games": 30,
-   "median": 0.86,
-   "best": 0.86
-  },
-  "writes": {
-   "Dear customer,": 0.25,
-   "Mit freundlichen Grüßen": 0.14,
-   "Florian Gruber": 1.0,
-   "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
-   "That does not change our position.": 1.0,
-   "A few words on this from our side.": 0.33,
-   "Thank you for your enquiry.": 0.1,
-   "Please find our Angebot below.": 0.1,
-   "Material accounts for about # % of our cost; more detail we do not share.": 0.12,
-   "We look forward to doing good business together, and our team is always there for you.": 1.0,
-   "Please decide.": 0.11,
-   "We checked the price history data you cited; it holds, but it does not change our calculation.": 1.0,
-   "Which volume can you commit to?": 0.11,
-   "This offer stays valid for # days.": 0.33,
-   "This is our final offer (letztes Angebot).": 0.11,
-   "We checked the volume change data you cited; it holds, but it does not change our calculation.": 1.0,
-   "And while we are at it: our whole range is at your disposal, so if there is anything else on your list, just send it over - we are happy to quote.": 0.25,
-   "Thank you very much for your message - it is always a pleasure to hear from you, and we are glad to help wherever we can.": 1.0
-  }
- },
- {
-  "supplier": "70210",
-  "case": "P05",
-  "who_signs": "Owner",
-  "company": "Zerspanung Dralveck GmbH",
-  "case_type": "rfq",
-  "category_goal": "leverage",
-  "bidders": 3,
-  "negotiable": [
-   "unit_price",
-   "payment_days",
-   "lead_time_days"
-  ],
-  "games": 33,
-  "replies": 210,
-  "best_deal_possible_below_cheapest_quote_pct": 26.9,
-  "first_reply": {
-   "replies": 31,
-   "it_moved": 1.0,
-   "share_of_gap": [
-    0.7,
-    0.72,
-    0.72
-   ],
-   "step_pct_of_its_quote": [
-    14.41,
-    14.71,
-    14.71
-   ],
-   "law": "a fixed step",
-   "our_asks_were_pct_below_its_quote": [
-    20.6,
-    20.6,
-    20.6
-   ]
-  },
-  "later_replies": {
-   "replies": 32,
-   "it_moved": 0.91,
-   "share_of_gap": [
-    1.0,
-    1.0,
-    1.53
-   ],
-   "step_pct_of_its_quote": [
-    4.55,
-    5.22,
-    6.99
-   ],
-   "law": "it meets our ask"
-  },
-  "status_by_reply": {
-   "1": {
-    "open": 32,
-    "agreed": 1
-   },
-   "2": {
-    "agreed": 16,
-    "open": 17
-   },
-   "3": {
-    "agreed": 10,
-    "walked_away": 1,
-    "final_offer": 15,
-    "open": 7
-   },
-   "4": {
-    "open": 13,
-    "final_offer": 14,
-    "walked_away": 3,
-    "agreed": 1
-   },
-   "5": {
-    "agreed": 4,
-    "final_offer": 21
-   },
-   "6": {
-    "final_offer": 16,
-    "agreed": 2
-   },
-   "7": {
-    "final_offer": 15,
-    "agreed": 1
-   },
-   "8": {
-    "final_offer": 21
-   }
-  },
-  "final_offer_came_at_reply": {
-   "3": 15,
-   "4": 2,
-   "5": 10,
-   "6": 1
-  },
-  "after_its_final_offer": {
-   "a note without a term sheet": {
-    "final_offer": 72,
-    "agreed": 2,
-    "walked_away": 3
-   }
-  },
-  "it_left": {
-   "games": 4,
-   "at_reply": {
-    "3": 1,
-    "4": 3
-   },
-   "after": {
-    "its status was open; a note without a term sheet": 1,
-    "its status was final_offer; a note without a term sheet": 3
-   }
-  },
-  "it_agreed_to_our_ask": {
-   "replies": 35,
-   "at_pct_below_its_quote": [
-    19.2,
-    19.3,
-    19.3
-   ],
-   "note": "it took our number as it stood: that ask was within what it accepts"
-  },
-  "deepest_offer_below_its_quote_pct": 21.7,
-  "arguments": {
-   "delivery record": {
-    "took it into account": 5
-   },
-   "index change": {
-    "took it into account": 29
-   },
-   "quality record": {
-    "took it into account": 26
-   },
-   "rival quote": {
-    "took it into account": 29,
-    "true, but it changed nothing": 3
-   },
-   "volume change": {
-    "wrong figure: it cost trust": 11
-   }
-  },
-  "inside_notes": {
-   "The buyer shows a much lower rival quote. I give half the step now and check the rest.": 32,
-   "Checked: give the rest of the step.": 31,
-   "eight d attached": 1
-  },
-  "best_games": [
-   {
-    "score": 0.824,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     20.6,
-     19.3,
-     21.9,
-     null,
-     null,
-     null,
-     null,
-     null
-    ],
-    "its_offers_pct_below_its_quote": [
-     14.7,
-     21.7,
-     21.7,
-     21.7,
-     21.7,
-     21.7,
-     21.7,
-     21.7
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "final_offer",
-     "final_offer",
-     "final_offer",
-     "final_offer",
-     "final_offer",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     1,
-     0,
-     0,
-     0,
-     0,
-     0
-    ]
-   },
-   {
-    "score": 0.824,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     20.6,
-     19.3,
-     21.9,
-     null,
-     null,
-     null,
-     null,
-     null,
-     null
-    ],
-    "its_offers_pct_below_its_quote": [
-     14.7,
-     21.7,
-     21.7,
-     21.7,
-     21.7,
-     21.7,
-     21.7,
-     21.7,
-     21.7
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "final_offer",
-     "final_offer",
-     "final_offer",
-     "final_offer",
-     "final_offer",
-     "final_offer",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     1,
-     0,
-     0,
-     0,
-     0,
-     0,
-     0
-    ]
-   },
-   {
-    "score": 0.824,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     20.6,
-     19.3,
-     21.9,
-     null,
-     null,
-     null
-    ],
-    "its_offers_pct_below_its_quote": [
-     14.7,
-     21.7,
-     21.7,
-     21.7,
-     21.7,
-     21.7
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "final_offer",
-     "final_offer",
-     "final_offer",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     1,
-     0,
-     0,
-     0
-    ]
-   }
-  ],
-  "our_scores": {
-   "games": 28,
-   "median": 0.747,
-   "best": 0.824
-  },
-  "writes": {
-   "Andreas Dralveck": 1.0,
-   "Just write if something is unclear.": 0.33,
-   "Our Lieferzeit is # days.": 0.33,
-   "With overtime we can deliver in # days, at a premium.": 0.33,
-   "We have free capacity for your parts.": 0.33,
-   "Please decide.": 0.11,
-   "Here is how it is:": 0.33,
-   "thanks for the mail.": 0.33,
-   "this is our last price, take it or leave it.": 1.0,
-   "got your mail, thanks.": 0.33,
-   "This is our final offer (letztes Angebot).": 0.11,
-   "Straight answer:": 0.33,
-   "Back to the machines now.": 0.33,
-   "Which volume can you commit to?": 0.11,
-   "A binding higher volume would help us and can improve the price.": 0.17
-  }
- },
- {
-  "supplier": "70240",
-  "case": "P05",
-  "who_signs": "Export Manager",
-  "company": "Strojírna Hrvelec s.r.o.",
-  "case_type": "rfq",
-  "category_goal": "leverage",
-  "bidders": 3,
-  "negotiable": [
-   "unit_price",
-   "payment_days",
-   "lead_time_days"
-  ],
-  "games": 33,
-  "replies": 159,
-  "best_deal_possible_below_cheapest_quote_pct": 26.9,
-  "first_reply": {
-   "replies": 32,
-   "it_moved": 0.03,
-   "step_pct_of_its_quote": [
-    -7.66,
-    -7.66,
-    -3.96
-   ],
-   "law": "its sheet came back dearer for us than its previous one: it priced the terms we asked",
-   "our_asks_were_pct_below_its_quote": [
-    21.5,
-    21.6,
-    21.6
-   ]
-  },
-  "later_replies": {
-   "replies": 90,
-   "it_moved": 0.74,
-   "share_of_gap": [
-    0.09,
-    0.12,
-    0.15
-   ],
-   "step_pct_of_its_quote": [
-    1.57,
-    1.58,
-    2.47
-   ],
-   "law": "a share of the gap",
-   "when_we_did_not_move": {
-    "replies": 1,
-    "it_moved": 0.0
-   }
-  },
-  "status_by_reply": {
-   "1": {
-    "open": 33
-   },
-   "2": {
-    "open": 33
-   },
-   "3": {
-    "open": 31
-   },
-   "4": {
-    "final_offer": 31
-   },
-   "5": {
-    "walked_away": 2,
-    "final_offer": 12
-   },
-   "6": {
-    "final_offer": 7
-   },
-   "7": {
-    "final_offer": 6
-   },
-   "8": {
-    "final_offer": 3,
-    "walked_away": 1
-   }
-  },
-  "final_offer_came_at_reply": {
-   "4": 31
-  },
-  "after_its_final_offer": {
-   "a note without a term sheet": {
-    "walked_away": 2,
-    "final_offer": 28
-   },
-   "we asked below its offer and had moved": {
-    "walked_away": 1
-   }
-  },
-  "it_left": {
-   "games": 3,
-   "at_reply": {
-    "5": 2,
-    "8": 1
-   },
-   "after": {
-    "its status was final_offer; a note without a term sheet": 2,
-    "its status was final_offer; we asked below its offer and had moved": 1
-   }
-  },
-  "deepest_offer_below_its_quote_pct": 2.3,
-  "arguments": {
-   "competing offer": {
-    "took it into account": 1
-   },
-   "delivery record": {
-    "took it into account": 32
-   },
-   "rival quote": {
-    "not about this part or company": 2,
-    "true, but it changed nothing": 21,
-    "took it into account": 19
-   },
-   "volume change": {
-    "wrong figure: it cost trust": 7
-   }
-  },
-  "inside_notes": {
-   "The buyer asks something for Freight Forwarder; please answer.": 17,
-   "The buyer asks something for Quality; please answer.": 1,
-   "eight d attached": 1
-  },
-  "best_games": [],
-  "writes": {
-   "Kind regards": 0.5,
-   "Jana Procházková": 1.0,
-   "We are ready when you are!": 0.5,
-   "we can move a bit:": 0.33,
-   "To be fully transparent with you:": 0.33,
-   "Our price follows our main cost drivers: LCI-C, PPI-C#, AS-#, PPI-D#.": 0.5,
-   "many thanks, good to have your reply!": 0.5,
-   "thank you for your mail, we are very happy to hear from you!": 0.5,
-   "We really want this business - let's make it happen!": 0.5,
-   "We are a competitive and flexible partner.": 0.5,
-   "Please decide.": 0.11,
-   "Material accounts for about # % of our cost; more detail we do not share.": 0.12,
-   "We checked the delivery record data you cited; it holds and we took it into account.": 1.0,
-   "Please let me explain.": 0.33,
-   "This is our final offer (letztes Angebot).": 0.11
-  }
- },
- {
-  "supplier": "70250",
-  "case": "P05",
-  "who_signs": "Owner",
-  "company": "Drehteile Fuchsreiter GmbH",
-  "case_type": "rfq",
-  "category_goal": "leverage",
-  "bidders": 3,
-  "negotiable": [
-   "unit_price",
-   "payment_days",
-   "lead_time_days"
-  ],
-  "games": 33,
-  "replies": 194,
-  "best_deal_possible_below_cheapest_quote_pct": 26.9,
-  "first_reply": {
-   "replies": 31,
-   "it_moved": 1.0,
-   "share_of_gap": [
-    0.92,
-    0.92,
-    0.97
-   ],
-   "step_pct_of_its_quote": [
-    18.94,
-    18.94,
-    19.97
-   ],
-   "law": "it meets our ask",
-   "our_asks_were_pct_below_its_quote": [
-    20.5,
-    20.5,
-    20.5
-   ]
-  },
-  "later_replies": {
-   "replies": 20,
-   "it_moved": 0.9,
-   "share_of_gap": [
-    2.03,
-    3.04,
-    3.04
-   ],
-   "step_pct_of_its_quote": [
-    2.61,
-    3.92,
-    3.92
-   ],
-   "law": "it meets our ask",
-   "when_we_did_not_move": {
-    "replies": 14,
-    "it_moved": 0.93
-   }
-  },
-  "status_by_reply": {
-   "1": {
-    "open": 33
-   },
-   "2": {
-    "agreed": 13,
-    "open": 20
-   },
-   "3": {
-    "agreed": 14,
-    "walked_away": 1,
-    "open": 12,
-    "final_offer": 4
-   },
-   "4": {
-    "open": 6,
-    "agreed": 10,
-    "final_offer": 11
-   },
-   "5": {
-    "agreed": 2,
-    "final_offer": 20
-   },
-   "6": {
-    "final_offer": 18
-   },
-   "7": {
-    "final_offer": 13
-   },
-   "8": {
-    "final_offer": 17
-   }
-  },
-  "final_offer_came_at_reply": {
-   "3": 4,
-   "4": 9,
-   "5": 10,
-   "6": 1
-  },
-  "after_its_final_offer": {
-   "a note without a term sheet": {
-    "final_offer": 59
-   }
-  },
-  "it_left": {
-   "games": 1,
-   "at_reply": {
-    "3": 1
-   },
-   "after": {
-    "its status was open; a note without a term sheet": 1
-   }
-  },
-  "it_agreed_to_our_ask": {
-   "replies": 39,
-   "at_pct_below_its_quote": [
-    20.1,
-    20.4,
-    21.7
-   ],
-   "note": "it took our number as it stood: that ask was within what it accepts"
-  },
-  "deepest_offer_below_its_quote_pct": 24.3,
-  "arguments": {
-   "delivery record": {
-    "true, but it changed nothing": 7
-   },
-   "news": {
-    "took it into account": 28
-   },
-   "rival quote": {
-    "took it into account": 47,
-    "true, but it changed nothing": 28
-   },
-   "should cost": {
-    "true, but it changed nothing": 12
-   },
-   "volume change": {
-    "wrong figure: it cost trust": 8
-   }
-  },
-  "inside_notes": {
-   "The buyer shows a much lower rival quote. I give half the step now and check the rest.": 32,
-   "Checked: give the rest of the step.": 32
-  },
-  "best_games": [
-   {
-    "score": 0.631,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     20.5,
-     20.2,
-     21.7,
-     null,
-     null,
-     null,
-     null,
-     null,
-     null
-    ],
-    "its_offers_pct_below_its_quote": [
-     18.9,
-     21.6,
-     21.7,
-     21.7,
-     21.7,
-     21.7,
-     21.7,
-     21.7,
-     21.7
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "agreed",
-     "final_offer",
-     "final_offer",
-     "final_offer",
-     "final_offer",
-     "final_offer",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     1,
-     0,
-     0,
-     0,
-     0,
-     0,
-     0
-    ]
-   },
-   {
-    "score": 0.58,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     20.5,
-     21.3,
-     31.1,
-     null,
-     null,
-     null
-    ],
-    "its_offers_pct_below_its_quote": [
-     20.0,
-     20.4,
-     20.4,
-     20.4,
-     20.4,
-     20.4
-    ],
-    "its_status": [
-     "open",
-     "agreed",
-     "agreed",
-     "agreed",
-     "final_offer",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3,
-     0,
-     0,
-     0
-    ]
-   },
-   {
-    "score": 0.367,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     9.9,
-     11.0
-    ],
-    "its_offers_pct_below_its_quote": [
-     9.5,
-     15.0
-    ],
-    "its_status": [
-     "open",
-     "open"
-    ],
-    "sheets_per_mail": [
-     2,
-     1
-    ]
-   }
-  ],
-  "our_scores": {
-   "games": 4,
-   "median": 0.605,
-   "best": 0.631
-  },
-  "writes": {
-   "Claudia Fuchsreiter": 1.0,
-   "Just write if something is unclear.": 0.33,
-   "With overtime we can deliver in # days, at a premium.": 0.33,
-   "Our Lieferzeit is # days.": 0.33,
-   "We have free capacity for your parts.": 0.33,
-   "Back to the machines now.": 0.33,
-   "got your mail, thanks.": 0.33,
-   "Here is how it is:": 0.33,
-   "Please decide.": 0.11,
-   "We checked the rival quote data you cited; it holds and we took it into account.": 0.5,
-   "thanks for the mail.": 0.33,
-   "Straight answer:": 0.33,
-   "Without movement from your side we cannot move either.": 1.0,
-   "Material accounts for about # % of our cost; more detail we do not share.": 0.12,
-   "Our final offer stands.": 1.0,
-   "Our price follows our main cost drivers: LCI-C, PPI-C#, AS-#, PPI-D#.": 0.5,
-   "This is our final offer (letztes Angebot).": 0.11
-  }
- },
- {
-  "supplier": "70610",
-  "case": "P07",
-  "who_signs": "Inside Sales",
-  "company": "Schraubenhandel Leitner & Sohn GmbH",
-  "case_type": "bundling",
-  "category_goal": "routine",
-  "bidders": 1,
-  "negotiable": [
-   "unit_price",
-   "payment_days",
-   "contract_months"
-  ],
-  "games": 39,
-  "replies": 108,
-  "best_deal_possible_below_cheapest_quote_pct": 23.5,
-  "first_reply": {
-   "replies": 39,
-   "it_moved": 1.0,
-   "share_of_gap": [
-    0.49,
-    0.49,
-    0.49
-   ],
-   "step_pct_of_its_quote": [
-    14.79,
-    14.79,
-    14.79
-   ],
-   "law": "a fixed step",
-   "our_asks_were_pct_below_its_quote": [
-    30.1,
-    30.1,
-    30.2
-   ]
-  },
-  "later_replies": {
-   "replies": 50,
-   "it_moved": 1.0,
-   "share_of_gap": [
-    0.08,
-    0.09,
-    0.39
-   ],
-   "step_pct_of_its_quote": [
-    0.76,
-    1.07,
-    1.07
-   ],
-   "law": "a share of the gap",
-   "when_we_did_not_move": {
-    "replies": 2,
-    "it_moved": 1.0
-   }
-  },
-  "status_by_reply": {
-   "1": {
-    "open": 39
-   },
-   "2": {
-    "open": 12,
-    "final_offer": 26,
-    "agreed": 1
-   },
-   "3": {
-    "final_offer": 11,
-    "open": 2,
-    "agreed": 5
-   },
-   "4": {
-    "walked_away": 1,
-    "agreed": 7,
-    "final_offer": 1
-   },
-   "5": {
-    "agreed": 2
-   },
-   "6": {
-    "walked_away": 1
-   }
-  },
-  "final_offer_came_at_reply": {
-   "2": 26,
-   "3": 11,
-   "4": 1
-  },
-  "after_its_final_offer": {
-   "a note without a term sheet": {
-    "walked_away": 1
-   },
-   "we asked below its offer and had moved": {
-    "agreed": 9
-   }
-  },
-  "it_left": {
-   "games": 2,
-   "at_reply": {
-    "4": 1,
-    "6": 1
-   },
-   "after": {
-    "its status was final_offer; a note without a term sheet": 1,
-    "its status was agreed; a note without a term sheet": 1
-   }
-  },
-  "it_agreed_to_our_ask": {
-   "replies": 15,
-   "at_pct_below_its_quote": [
-    15.6,
-    15.8,
-    16.4
-   ],
-   "note": "it took our number as it stood: that ask was within what it accepts"
-  },
-  "deepest_offer_below_its_quote_pct": 16.8,
-  "arguments": {
-   "delivery record": {
-    "true, but it changed nothing": 3
-   },
-   "price history": {
-    "true, but it changed nothing": 4
-   },
-   "rival quote": {
-    "not about this part or company": 3
-   },
-   "volume change": {
-    "already counted": 43,
-    "took it into account": 22
-   }
-  },
-  "inside_notes": {
-   "The buyer asks something for Logistics; please answer.": 15
-  },
-  "best_games": [
-   {
-    "score": 0.715,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     23.1,
-     21.3,
-     20.2,
-     19.6
-    ],
-    "its_offers_pct_below_its_quote": [
-     14.8,
-     15.4,
-     16.2,
-     16.8
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3,
-     3
-    ]
-   },
-   {
-    "score": 0.715,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     30.1,
-     17.8,
-     16.9
-    ],
-    "its_offers_pct_below_its_quote": [
-     14.8,
-     16.5,
-     16.8
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     2,
-     2
-    ]
-   },
-   {
-    "score": 0.71,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     30.2,
-     17.9,
-     17.0,
-     16.7
-    ],
-    "its_offers_pct_below_its_quote": [
-     14.8,
-     16.5,
-     16.6,
-     16.7
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "final_offer",
-     "agreed"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3,
-     1
-    ]
-   }
-  ],
-  "our_scores": {
-   "games": 39,
-   "median": 0.676,
-   "best": 0.715
-  },
-  "writes": {
-   "Franz Stadler": 1.0,
-   "Dear customer,": 0.25,
-   "Mit freundlichen Grüßen": 0.14,
-   "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
-   "And while we are at it: our whole range is at your disposal, so if there is anything else on your list, just send it over - we are happy to quote.": 0.25,
-   "Thank you for your enquiry.": 0.1,
-   "Please find our Angebot below.": 0.1,
-   "Please decide.": 0.11,
-   "Please note that this offer remains valid for # days.": 0.2,
-   "We have already taken that volume change data into account.": 1.0,
-   "Material accounts for about # % of our cost; more detail we do not share.": 0.12,
-   "This is our final offer (letztes Angebot).": 0.11,
-   "We received a lot of material; we looked at what bears on this part.": 1.0,
-   "Here is the background.": 0.33
-  }
- },
- {
-  "supplier": "70710",
-  "case": "P08",
-  "who_signs": "Inside Sales",
-  "company": "Edelstahl-Service Donautal GmbH",
-  "case_type": "raw_material",
-  "category_goal": "leverage",
-  "bidders": 1,
-  "negotiable": [
-   "unit_price",
-   "index_clause",
-   "payment_days",
-   "contract_months"
-  ],
-  "games": 33,
-  "replies": 117,
-  "best_deal_possible_below_cheapest_quote_pct": 15.5,
-  "first_reply": {
-   "replies": 33,
-   "it_moved": 1.0,
-   "share_of_gap": [
-    0.36,
-    0.37,
-    0.37
-   ],
-   "step_pct_of_its_quote": [
-    6.77,
-    7.27,
-    7.31
-   ],
-   "law": "a share of the gap",
-   "our_asks_were_pct_below_its_quote": [
-    19.9,
-    19.9,
-    19.9
-   ]
-  },
-  "later_replies": {
-   "replies": 66,
-   "it_moved": 0.92,
-   "share_of_gap": [
-    0.14,
-    0.2,
-    0.24
-   ],
-   "step_pct_of_its_quote": [
-    0.67,
-    1.03,
-    2.17
-   ],
-   "law": "a share of the gap",
-   "when_we_did_not_move": {
-    "replies": 2,
-    "it_moved": 0.5
-   }
-  },
-  "status_by_reply": {
-   "1": {
-    "open": 33
-   },
-   "2": {
-    "open": 32,
-    "final_offer": 1
-   },
-   "3": {
-    "final_offer": 30,
-    "open": 2
-   },
-   "4": {
-    "agreed": 16,
-    "open": 1,
-    "final_offer": 1
-   },
-   "5": {
-    "final_offer": 1
-   }
-  },
-  "final_offer_came_at_reply": {
-   "2": 1,
-   "3": 30,
-   "4": 1,
-   "5": 1
-  },
-  "after_its_final_offer": {
-   "we asked below its offer and had moved": {
-    "agreed": 16
-   }
-  },
-  "it_agreed_to_our_ask": {
-   "replies": 16,
-   "at_pct_below_its_quote": [
-    10.1,
-    10.4,
-    11.2
-   ],
-   "note": "it took our number as it stood: that ask was within what it accepts"
-  },
-  "deepest_offer_below_its_quote_pct": 11.8,
-  "arguments": {
-   "delivery record": {
-    "true, but it changed nothing": 6
-   },
-   "price history": {
-    "took it into account": 25,
-    "true, but it changed nothing": 3
-   },
-   "rival quote": {
-    "not about this part or company": 4,
-    "true, but it changed nothing": 1
-   },
-   "volume change": {
-    "already counted": 4,
-    "took it into account": 12
-   }
-  },
-  "inside_notes": {
-   "The buyer asks something for Logistics; please answer.": 15
-  },
-  "best_games": [
-   {
-    "score": 0.765,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     19.9,
-     17.3,
+     8.3,
      16.5
     ],
-    "its_offers_pct_below_its_quote": [
-     7.3,
-     10.9,
-     11.8
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3
+    "by_how_far_below_its_quote_we_asked": [
+     {
+      "band": "0 to 5 %",
+      "replies": 22,
+      "its_step_pct_of_its_quote": 0.9
+     },
+     {
+      "band": "5 to 10 %",
+      "replies": 80,
+      "its_step_pct_of_its_quote": 4.99
+     },
+     {
+      "band": "10 to 15 %",
+      "replies": 18,
+      "its_step_pct_of_its_quote": 5.86
+     },
+     {
+      "band": "15 to 20 %",
+      "replies": 61,
+      "its_step_pct_of_its_quote": 5.81
+     }
     ]
    },
-   {
-    "score": 0.748,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     19.9,
-     17.3,
-     14.2,
-     11.6
+   "later_replies": {
+    "replies": 348,
+    "it_moved": 0.99,
+    "share_of_gap": [
+     0.13,
+     0.15,
+     0.17
     ],
-    "its_offers_pct_below_its_quote": [
-     7.3,
-     10.9,
-     11.3,
-     11.6
+    "step_pct_of_its_quote": [
+     0.45,
+     0.54,
+     0.74
     ],
-    "its_status": [
-     "open",
-     "open",
-     "final_offer",
-     "agreed"
+    "law": "a share of the gap",
+    "by_gap_between_its_offer_and_our_ask": [
+     {
+      "band": "0.5 to 2 %",
+      "replies": 42,
+      "its_step_pct_of_its_quote": 0.27
+     },
+     {
+      "band": "2 to 4 %",
+      "replies": 114,
+      "its_step_pct_of_its_quote": 0.45
+     },
+     {
+      "band": "4 to 6 %",
+      "replies": 123,
+      "its_step_pct_of_its_quote": 0.72
+     },
+     {
+      "band": "6 to 8 %",
+      "replies": 21,
+      "its_step_pct_of_its_quote": 1.05
+     },
+     {
+      "band": "8 to 10 %",
+      "replies": 47,
+      "its_step_pct_of_its_quote": 1.44
+     }
     ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3,
-     1
+    "by_size_of_our_move": [
+     {
+      "band": "we did not move",
+      "replies": 116,
+      "its_step_pct_of_its_quote": 0.0,
+      "it_moved": 0.02,
+      "answered_with_its_final_offer": 0.28
+     },
+     {
+      "band": "under 0.3 %",
+      "replies": 32,
+      "its_step_pct_of_its_quote": 0.15,
+      "it_moved": 0.91,
+      "answered_with_its_final_offer": 0.41
+     },
+     {
+      "band": "0.3 to 1 %",
+      "replies": 165,
+      "its_step_pct_of_its_quote": 0.54,
+      "it_moved": 1.0,
+      "answered_with_its_final_offer": 0.36
+     },
+     {
+      "band": "1 to 3 %",
+      "replies": 145,
+      "its_step_pct_of_its_quote": 0.9,
+      "it_moved": 1.0,
+      "answered_with_its_final_offer": 0.02
+     },
+     {
+      "band": "over 3 %",
+      "replies": 5,
+      "its_step_pct_of_its_quote": 1.05,
+      "it_moved": 1.0,
+      "answered_with_its_final_offer": 0.0
+     }
+    ],
+    "when_we_did_not_move": {
+     "replies": 116,
+     "it_moved": 0.02
+    }
+   },
+   "games_by_depth_of_our_asks": [
+    {
+     "our_asks_averaged_below_its_quote": "0 to 5 %",
+     "games": 20,
+     "its_deepest_offer_pct_below_its_quote": 0.94
+    },
+    {
+     "our_asks_averaged_below_its_quote": "5 to 10 %",
+     "games": 83,
+     "its_deepest_offer_pct_below_its_quote": 4.99
+    },
+    {
+     "our_asks_averaged_below_its_quote": "10 to 15 %",
+     "games": 79,
+     "its_deepest_offer_pct_below_its_quote": 8.86
+    }
+   ],
+   "status_by_reply": {
+    "1": {
+     "open": 190,
+     "agreed": 2
+    },
+    "2": {
+     "open": 155,
+     "final_offer": 1,
+     "agreed": 3
+    },
+    "3": {
+     "open": 113,
+     "final_offer": 28,
+     "walked_away": 8
+    },
+    "4": {
+     "open": 82,
+     "walked_away": 7,
+     "final_offer": 9,
+     "agreed": 2
+    },
+    "5": {
+     "final_offer": 59,
+     "open": 21,
+     "walked_away": 1,
+     "agreed": 2
+    },
+    "6": {
+     "agreed": 9,
+     "final_offer": 21
+    },
+    "7": {
+     "agreed": 2,
+     "walked_away": 1
+    },
+    "8": {
+     "walked_away": 2
+    }
+   },
+   "final_offer_came_at_reply": {
+    "2": 1,
+    "3": 28,
+    "4": 7,
+    "5": 59,
+    "6": 20
+   },
+   "after_its_final_offer": {
+    "we asked below its offer without moving": {
+     "walked_away": 6,
+     "final_offer": 1
+    },
+    "we asked below its offer and had moved": {
+     "agreed": 8
+    },
+    "we let the 60 seconds pass": {
+     "walked_away": 3,
+     "final_offer": 2,
+     "agreed": 1
+    }
+   },
+   "it_left": {
+    "games": 19,
+    "at_reply": {
+     "3": 8,
+     "4": 7,
+     "5": 1,
+     "7": 1,
+     "8": 2
+    },
+    "after": {
+     "its status was final_offer; we asked below its offer without moving": 6,
+     "its status was open; we let the 60 seconds pass": 8,
+     "its status was final_offer; we let the 60 seconds pass": 3,
+     "its status was agreed; we let the 60 seconds pass": 2
+    }
+   },
+   "it_agreed_to_our_ask": {
+    "replies": 20,
+    "at_pct_below_its_quote": [
+     1.2,
+     7.4,
+     8.5
+    ],
+    "note": "it took our number as it stood: that ask was within what it accepts"
+   },
+   "deepest_offer_below_its_quote_pct": 9.9,
+   "arguments": {
+    "delivery record": {
+     "already counted": 1,
+     "true, but it changed nothing": 1
+    },
+    "notice period": {
+     "took it into account": 12,
+     "already counted": 13,
+     "wrong figure: it cost trust": 1
+    },
+    "price history": {
+     "took it into account": 2
+    },
+    "rival quote": {
+     "wrong figure: it cost trust": 6
+    },
+    "should cost": {
+     "took it into account": 2
+    }
+   },
+   "inside_notes": {},
+   "best_games": [
+    {
+     "score": 1.0,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      14.8,
+      12.6,
+      12.0,
+      11.5,
+      11.2,
+      10.7
+     ],
+     "its_offers_pct_below_its_quote": [
+      8.4,
+      8.9,
+      9.3,
+      9.6,
+      9.8,
+      9.9
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "open",
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      1,
+      3,
+      1,
+      1,
+      1
+     ]
+    },
+    {
+     "score": 0.987,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      16.5,
+      14.1,
+      13.0,
+      12.2,
+      11.7
+     ],
+     "its_offers_pct_below_its_quote": [
+      5.8,
+      7.4,
+      8.3,
+      8.9,
+      9.2
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "score": 0.979,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      16.5,
+      14.1,
+      13.0,
+      12.0,
+      11.5
+     ],
+     "its_offers_pct_below_its_quote": [
+      5.8,
+      7.2,
+      8.0,
+      8.5,
+      9.0
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3,
+      3,
+      3
+     ]
+    }
+   ],
+   "our_scores": {
+    "games": 202,
+    "median": 0.0,
+    "best": 1.0
+   },
+   "writes": {
+    "Andreas Moser": 1.0,
+    "Viele Grüße aus der Gießerei": 0.5,
+    "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
+    "A few words from the foundry on this.": 0.5,
+    "Please give my regards to your colleagues - a good relationship has always mattered more to us than a single order, and I hope it stays that way.": 0.5,
+    "We have worked together for many years, and I am confident that we will find a fair way forward, as we always have between our two houses.": 0.5,
+    "Many thanks for your message; I have read it carefully together with my people here at the foundry, and we have given it the attention it deserves.": 0.5,
+    "Thank you for your enquiry.": 0.1,
+    "Please find our Angebot below.": 0.1,
+    "Let me tell you how we see it from our side.": 0.5,
+    "Which volume can you commit to?": 0.11,
+    "Thank you for your letter - it is always good to hear from you, and I answer it myself, as I do for all the customers we have known for a long time.": 0.5,
+    "Please note that this offer remains valid for # days.": 0.2
+   }
+  },
+  {
+   "supplier": "DEMO-C1",
+   "case": "D02",
+   "who_signs": "Export Manager",
+   "company": "Demo Machining Sp. z o.o.",
+   "case_type": "rfq",
+   "category_goal": "leverage",
+   "bidders": 2,
+   "negotiable": [
+    "unit_price",
+    "payment_days",
+    "lead_time_days",
+    "incoterm"
+   ],
+   "games": 104,
+   "replies": 436,
+   "best_deal_possible_below_cheapest_quote_pct": 26.9,
+   "first_reply": {
+    "replies": 90,
+    "it_moved": 0.03,
+    "step_pct_of_its_quote": [
+     -9.29,
+     -3.73,
+     -3.73
+    ],
+    "law": "its sheet came back dearer for us than its previous one: it priced the terms we asked",
+    "our_asks_were_pct_below_its_quote": [
+     18.3,
+     23.1,
+     23.1
+    ],
+    "by_how_far_below_its_quote_we_asked": [
+     {
+      "band": "5 to 10 %",
+      "replies": 10,
+      "its_step_pct_of_its_quote": -1.95
+     },
+     {
+      "band": "10 to 15 %",
+      "replies": 6,
+      "its_step_pct_of_its_quote": -3.84
+     },
+     {
+      "band": "15 to 20 %",
+      "replies": 7,
+      "its_step_pct_of_its_quote": -9.29
+     },
+     {
+      "band": "20 to 25 %",
+      "replies": 61,
+      "its_step_pct_of_its_quote": -3.73
+     }
     ]
    },
-   {
-    "score": 0.726,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     19.9,
-     17.3,
-     16.5,
-     11.2
+   "later_replies": {
+    "replies": 233,
+    "it_moved": 0.91,
+    "share_of_gap": [
+     0.14,
+     0.17,
+     0.2
     ],
-    "its_offers_pct_below_its_quote": [
-     7.3,
-     10.9,
-     11.2,
-     11.2
+    "step_pct_of_its_quote": [
+     1.82,
+     2.43,
+     3.03
     ],
-    "its_status": [
-     "open",
-     "open",
-     "final_offer",
-     "agreed"
+    "law": "a share of the gap",
+    "by_gap_between_its_offer_and_our_ask": [
+     {
+      "band": "4 to 6 %",
+      "replies": 6,
+      "its_step_pct_of_its_quote": 2.1
+     },
+     {
+      "band": "6 to 8 %",
+      "replies": 5,
+      "its_step_pct_of_its_quote": 0.61
+     },
+     {
+      "band": "8 to 10 %",
+      "replies": 8,
+      "its_step_pct_of_its_quote": 1.81
+     },
+     {
+      "band": "10 to 15 %",
+      "replies": 84,
+      "its_step_pct_of_its_quote": 2.43
+     },
+     {
+      "band": "15 to 20 %",
+      "replies": 39,
+      "its_step_pct_of_its_quote": 2.42
+     },
+     {
+      "band": "over 20 %",
+      "replies": 87,
+      "its_step_pct_of_its_quote": 3.03
+     }
     ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3,
-     1
-    ]
-   }
-  ],
-  "our_scores": {
-   "games": 33,
-   "median": 0.657,
-   "best": 0.765
-  },
-  "writes": {
-   "Dear customer,": 0.25,
-   "Mit freundlichen Grüßen": 0.14,
-   "Georg Aigner": 1.0,
-   "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
-   "And while we are at it: our whole range is at your disposal, so if there is anything else on your list, just send it over - we are happy to quote.": 0.25,
-   "Here is the background.": 0.33,
-   "Many thanks for your e-mail, and great to hear from you; I went through it right away with our team.": 0.5,
-   "Thank you for your enquiry.": 0.1,
-   "Please find our Angebot below.": 0.1,
-   "Material accounts for about # % of our cost; more detail we do not share.": 0.12,
-   "Which volume can you commit to?": 0.11,
-   "Please note that this offer remains valid for # days.": 0.2,
-   "Please decide.": 0.11,
-   "Which figures is that based on?": 0.5,
-   "Please send us the data.": 0.5,
-   "This is our final offer (letztes Angebot).": 0.11,
-   "A few words on this from our side.": 0.33,
-   "We checked the price history data you cited; it holds and we took it into account.": 0.25,
-   "A binding higher volume would help us and can improve the price.": 0.17
-  }
- },
- {
-  "supplier": "70410",
-  "case": "P10",
-  "who_signs": "Segment Manager",
-  "company": "Dichtungswerk Ravensteiner GmbH",
-  "case_type": "capacity",
-  "category_goal": "secure_supply",
-  "bidders": 1,
-  "negotiable": [
-   "unit_price",
-   "volume_per_year",
-   "contract_months",
-   "lead_time_days"
-  ],
-  "games": 40,
-  "replies": 83,
-  "best_deal_possible_below_cheapest_quote_pct": 31.2,
-  "first_reply": {
-   "replies": 40,
-   "it_moved": 1.0,
-   "share_of_gap": [
-    0.7,
-    0.8,
-    0.82
+    "by_size_of_our_move": [
+     {
+      "band": "we did not move",
+      "replies": 15,
+      "its_step_pct_of_its_quote": 0.6,
+      "it_moved": 0.53,
+      "answered_with_its_final_offer": 0.13
+     },
+     {
+      "band": "0.3 to 1 %",
+      "replies": 5,
+      "its_step_pct_of_its_quote": 3.03,
+      "it_moved": 0.8,
+      "answered_with_its_final_offer": 0.4
+     },
+     {
+      "band": "1 to 3 %",
+      "replies": 98,
+      "its_step_pct_of_its_quote": 1.82,
+      "it_moved": 0.86,
+      "answered_with_its_final_offer": 0.61
+     },
+     {
+      "band": "over 3 %",
+      "replies": 129,
+      "its_step_pct_of_its_quote": 3.03,
+      "it_moved": 0.96,
+      "answered_with_its_final_offer": 0.06
+     }
+    ],
+    "when_we_did_not_move": {
+     "replies": 15,
+     "it_moved": 0.53
+    }
+   },
+   "games_by_depth_of_our_asks": [
+    {
+     "our_asks_averaged_below_its_quote": "0 to 5 %",
+     "games": 4,
+     "its_deepest_offer_pct_below_its_quote": -0.28
+    },
+    {
+     "our_asks_averaged_below_its_quote": "5 to 10 %",
+     "games": 10,
+     "its_deepest_offer_pct_below_its_quote": 0.04
+    },
+    {
+     "our_asks_averaged_below_its_quote": "10 to 15 %",
+     "games": 9,
+     "its_deepest_offer_pct_below_its_quote": -3.28
+    },
+    {
+     "our_asks_averaged_below_its_quote": "15 to 20 %",
+     "games": 59,
+     "its_deepest_offer_pct_below_its_quote": 2.94
+    },
+    {
+     "our_asks_averaged_below_its_quote": "20 to 25 %",
+     "games": 7,
+     "its_deepest_offer_pct_below_its_quote": -4.48
+    }
    ],
-   "step_pct_of_its_quote": [
-    18.48,
-    20.89,
-    21.38
+   "status_by_reply": {
+    "1": {
+     "open": 94,
+     "agreed": 3
+    },
+    "2": {
+     "open": 92,
+     "agreed": 3
+    },
+    "3": {
+     "open": 84,
+     "walked_away": 5,
+     "agreed": 3,
+     "final_offer": 1
+    },
+    "4": {
+     "final_offer": 69,
+     "open": 7,
+     "agreed": 2
+    },
+    "5": {
+     "final_offer": 43,
+     "walked_away": 8,
+     "open": 1
+    },
+    "6": {
+     "final_offer": 13,
+     "walked_away": 2
+    },
+    "7": {
+     "final_offer": 5
+    },
+    "8": {
+     "final_offer": 1
+    }
+   },
+   "final_offer_came_at_reply": {
+    "3": 1,
+    "4": 69,
+    "5": 5
+   },
+   "after_its_final_offer": {
+    "a note without a term sheet": {
+     "final_offer": 57
+    },
+    "we let the 60 seconds pass": {
+     "walked_away": 8
+    }
+   },
+   "it_left": {
+    "games": 15,
+    "at_reply": {
+     "3": 5,
+     "5": 8,
+     "6": 2
+    },
+    "after": {
+     "its status was open; we let the 60 seconds pass": 5,
+     "its status was final_offer; we let the 60 seconds pass": 8,
+     "its status was agreed; we let the 60 seconds pass": 2
+    }
+   },
+   "it_agreed_to_our_ask": {
+    "replies": 11,
+    "at_pct_below_its_quote": [
+     -1095.0,
+     -1095.0,
+     0.4
+    ],
+    "note": "it took our number as it stood: that ask was within what it accepts"
+   },
+   "deepest_offer_below_its_quote_pct": 9.1,
+   "arguments": {
+    "quality record": {
+     "took it into account": 1
+    },
+    "rival quote": {
+     "took it into account": 80,
+     "true, but it changed nothing": 28,
+     "not about this part or company": 8,
+     "already counted": 1
+    },
+    "should cost": {
+     "already counted": 1
+    },
+    "volume change": {
+     "already counted": 1
+    }
+   },
+   "inside_notes": {
+    "The buyer asks something for Freight Forwarder; please answer.": 126,
+    "The buyer shows a much lower rival quote. I give half the step now and check the rest.": 14,
+    "The buyer wants more than my band allows. Approve a further step?": 13,
+    "Checked: give the rest of the step.": 12,
+    "Approved: you may go further, within our rules.": 9,
+    "The buyer asks something for Quality; please answer.": 3,
+    "eight d attached": 3,
+    "The buyer wants more than my band allows . Approve a further step?": 1
+   },
+   "best_games": [
+    {
+     "score": 0.325,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      10.3,
+      4.6,
+      3.5,
+      5.2,
+      4.0
+     ],
+     "its_offers_pct_below_its_quote": [
+      1.3,
+      2.5,
+      3.1,
+      2.8,
+      2.8
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      2,
+      1,
+      1,
+      2,
+      1
+     ]
+    },
+    {
+     "score": 0.22,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      23.1,
+      17.0,
+      13.6,
+      10.6
+     ],
+     "its_offers_pct_below_its_quote": [
+      -5.1,
+      -2.1,
+      -0.9,
+      -0.3
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "score": 0.22,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      9.6,
+      5.4,
+      7.5,
+      5.7
+     ],
+     "its_offers_pct_below_its_quote": [
+      -2.4,
+      -0.9,
+      -0.3,
+      -0.3
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      1,
+      2,
+      3,
+      3
+     ]
+    }
    ],
-   "law": "a fixed step",
-   "our_asks_were_pct_below_its_quote": [
-    26.1,
-    26.1,
-    26.1
-   ]
-  },
-  "later_replies": {
-   "replies": 30,
-   "it_moved": 0.97,
-   "share_of_gap": [
-    0.12,
-    0.2,
-    0.2
-   ],
-   "step_pct_of_its_quote": [
-    0.49,
-    0.73,
-    0.73
-   ],
-   "law": "a share of the gap"
-  },
-  "status_by_reply": {
-   "1": {
-    "final_offer": 7,
-    "open": 33
+   "our_scores": {
+    "games": 4,
+    "median": 0.22,
+    "best": 0.325
    },
-   "2": {
-    "final_offer": 32,
-    "walked_away": 3,
-    "agreed": 1
-   },
-   "3": {
-    "walked_away": 2,
-    "agreed": 5
-   }
-  },
-  "final_offer_came_at_reply": {
-   "1": 7,
-   "2": 32
-  },
-  "after_its_final_offer": {
-   "a note without a term sheet": {
-    "walked_away": 3
-   },
-   "we asked below its offer and had moved": {
-    "agreed": 3,
-    "walked_away": 1
-   },
-   "we came up to its offer": {
-    "agreed": 2
-   }
-  },
-  "it_left": {
-   "games": 5,
-   "at_reply": {
-    "2": 3,
-    "3": 2
-   },
-   "after": {
-    "its status was final_offer; a note without a term sheet": 3,
-    "its status was open; a note without a term sheet": 1,
-    "its status was final_offer; we asked below its offer and had moved": 1
-   }
-  },
-  "it_agreed_to_our_ask": {
-   "replies": 6,
-   "at_pct_below_its_quote": [
-    20.4,
-    21.6,
-    21.6
-   ],
-   "note": "it took our number as it stood: that ask was within what it accepts"
-  },
-  "deepest_offer_below_its_quote_pct": 22.4,
-  "arguments": {
-   "delivery": {
-    "true, but it changed nothing": 1
-   },
-   "delivery record": {
-    "true, but it changed nothing": 8,
-    "already counted": 1
-   },
-   "price history": {
-    "took it into account": 26,
-    "true, but it changed nothing": 5
-   },
-   "should cost": {
-    "took it into account": 39
-   },
-   "volume change": {
-    "true, but it changed nothing": 17,
-    "already counted": 1
-   }
-  },
-  "inside_notes": {
-   "The buyer asks something for Legal Department; please answer.": 17
-  },
-  "best_games": [
-   {
-    "score": 0.71,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     26.1,
-     24.2
-    ],
-    "its_offers_pct_below_its_quote": [
-     21.4,
-     22.4
-    ],
-    "its_status": [
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     2,
-     2
-    ]
-   },
-   {
-    "score": 0.702,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     26.1,
-     25.1
-    ],
-    "its_offers_pct_below_its_quote": [
-     21.4,
-     22.1
-    ],
-    "its_status": [
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     2,
-     2
-    ]
-   },
-   {
-    "score": 0.695,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     24.2,
-     23.3
-    ],
-    "its_offers_pct_below_its_quote": [
-     21.7,
-     21.9
-    ],
-    "its_status": [
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3
-    ]
-   }
-  ],
-  "our_scores": {
-   "games": 40,
-   "median": 0.682,
-   "best": 0.71
-  },
-  "writes": {
-   "Monika Zellner": 1.0,
-   "Dear Sir or Madam,": 0.33,
-   "Mit freundlichen Grüßen": 0.14,
-   "Our calculation is our property; we do not share a breakdown.": 0.5,
-   "Thank you for your enquiry.": 0.1,
-   "Please find our Angebot below.": 0.1,
-   "Please decide.": 0.11,
-   "We checked the should cost data you cited; it holds and we took it into account.": 1.0,
-   "This is our final offer (letztes Angebot).": 0.11,
-   "We will process your next message according to our standard procedure.": 1.0,
-   "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
-   "We checked the price history data you cited; it holds and we took it into account.": 0.25,
-   "Please note that this offer remains valid for # days.": 0.2,
-   "The requested contract term is # months, and our Lieferzeit is # days.": 1.0,
-   "We offer a volume of # pcs per year at a price of €# per unit.": 1.0,
-   "We look forward to proceeding according to our standard commercial procedure upon receipt of your confirmation.": 1.0
-  }
- },
- {
-  "supplier": "70140",
-  "case": "P11",
-  "who_signs": "Export Manager",
-  "company": "Odlewnia Kalwisz Sp. z o.o.",
-  "case_type": "quality",
-  "category_goal": "quality_first",
-  "bidders": 1,
-  "negotiable": [
-   "ppm_commitment",
-   "chargeback_eur_per_complaint",
-   "unit_price"
-  ],
-  "games": 28,
-  "replies": 149,
-  "best_deal_possible_below_cheapest_quote_pct": 11.6,
-  "first_reply": {
-   "replies": 28,
-   "it_moved": 0.96,
-   "share_of_gap": [
-    0.22,
-    0.22,
-    0.26
-   ],
-   "step_pct_of_its_quote": [
-    5.34,
-    5.34,
-    6.31
-   ],
-   "law": "a share of the gap",
-   "our_asks_were_pct_below_its_quote": [
-    23.9,
-    23.9,
-    23.9
-   ]
-  },
-  "later_replies": {
-   "replies": 102,
-   "it_moved": 0.66,
-   "share_of_gap": [
-    0.07,
-    0.08,
-    0.11
-   ],
-   "step_pct_of_its_quote": [
-    0.97,
-    0.97,
-    0.97
-   ],
-   "law": "a fixed step"
-  },
-  "status_by_reply": {
-   "1": {
-    "open": 28
-   },
-   "2": {
-    "open": 28
-   },
-   "3": {
-    "open": 27,
-    "agreed": 1
-   },
-   "4": {
-    "open": 22,
-    "final_offer": 4,
-    "agreed": 1,
-    "walked_away": 1
-   },
-   "5": {
-    "open": 9,
-    "final_offer": 13,
-    "agreed": 1
-   },
-   "6": {
-    "final_offer": 6,
-    "agreed": 7
-   },
-   "7": {
-    "walked_away": 1
+   "writes": {
+    "Dear partner,": 1.0,
+    "Joanna Kaczmarek": 1.0,
+    "Best regards": 1.0,
+    "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
+    "We are fully committed to winning your business and to becoming a long-term partner for your team.": 1.0,
+    "To be fully transparent with you:": 0.33,
+    "Many thanks for your reply; we really appreciate the chance to work with you.": 1.0,
+    "Please let me explain.": 0.33,
+    "Thank you very much for your message - we are very glad about your interest in our company.": 1.0,
+    "Which volume can you commit to?": 0.11,
+    "This is our final offer (letztes Angebot).": 0.11,
+    "Please decide.": 0.11,
+    "Thank you for your enquiry.": 0.1,
+    "Please find our Angebot below.": 0.1,
+    "We are a competitive and flexible partner.": 0.5,
+    "Material accounts for about # % of our cost; more detail we do not share.": 0.12
    }
   },
-  "final_offer_came_at_reply": {
-   "4": 4,
-   "5": 13,
-   "6": 5
-  },
-  "after_its_final_offer": {
-   "we asked below its offer and had moved": {
-    "agreed": 8
-   },
-   "a note without a term sheet": {
-    "final_offer": 1,
-    "walked_away": 1
-   }
-  },
-  "it_left": {
-   "games": 2,
-   "at_reply": {
-    "4": 1,
-    "7": 1
-   },
-   "after": {
-    "its status was final_offer; a note without a term sheet": 1,
-    "its status was open; a note without a term sheet": 1
-   }
-  },
-  "it_agreed_to_our_ask": {
-   "replies": 10,
-   "at_pct_below_its_quote": [
-    8.8,
-    9.8,
-    9.8
+  {
+   "supplier": "DEMO-J1",
+   "case": "D02",
+   "who_signs": "Owner",
+   "company": "Demo Drehteile GmbH",
+   "case_type": "rfq",
+   "category_goal": "leverage",
+   "bidders": 2,
+   "negotiable": [
+    "unit_price",
+    "payment_days",
+    "lead_time_days",
+    "incoterm"
    ],
-   "note": "it took our number as it stood: that ask was within what it accepts"
-  },
-  "deepest_offer_below_its_quote_pct": 9.8,
-  "arguments": {
-   "delivery record": {
-    "already counted": 2
-   },
-   "forecast": {
-    "took it into account": 4
-   },
-   "index change": {
-    "took it into account": 26,
-    "already counted": 1
-   },
-   "price history": {
-    "true, but it changed nothing": 5
-   },
-   "quality record": {
-    "took it into account": 28,
-    "already counted": 3
-   },
-   "rival quote": {
-    "not about this part or company": 5
-   },
-   "volume change": {
-    "took it into account": 14,
-    "already counted": 10
-   }
-  },
-  "inside_notes": {
-   "The buyer asks something for Freight Forwarder; please answer.": 3
-  },
-  "best_games": [
-   {
-    "score": 0.84,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     23.9,
-     22.3,
-     20.6,
-     19.0,
-     11.9,
-     9.8
+   "games": 104,
+   "replies": 457,
+   "best_deal_possible_below_cheapest_quote_pct": 26.9,
+   "first_reply": {
+    "replies": 91,
+    "it_moved": 1.0,
+    "share_of_gap": [
+     0.5,
+     0.5,
+     0.63
     ],
-    "its_offers_pct_below_its_quote": [
-     6.3,
-     6.3,
-     7.3,
-     8.3,
-     9.2,
-     9.8
+    "step_pct_of_its_quote": [
+     11.53,
+     11.53,
+     11.53
     ],
-    "its_status": [
-     "open",
-     "open",
-     "open",
-     "open",
-     "final_offer",
-     "agreed"
+    "law": "a fixed step",
+    "our_asks_were_pct_below_its_quote": [
+     18.4,
+     23.2,
+     23.2
     ],
-    "sheets_per_mail": [
-     2,
-     2,
-     2,
-     2,
-     2,
-     1
+    "by_how_far_below_its_quote_we_asked": [
+     {
+      "band": "5 to 10 %",
+      "replies": 10,
+      "its_step_pct_of_its_quote": 6.76
+     },
+     {
+      "band": "15 to 20 %",
+      "replies": 11,
+      "its_step_pct_of_its_quote": 11.53
+     },
+     {
+      "band": "20 to 25 %",
+      "replies": 61,
+      "its_step_pct_of_its_quote": 11.53
+     }
     ]
    },
-   {
-    "score": 0.84,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     23.9,
-     22.3,
-     20.6,
-     19.0,
-     17.2,
-     9.8
+   "later_replies": {
+    "replies": 249,
+    "it_moved": 0.98,
+    "share_of_gap": [
+     0.29,
+     0.45,
+     0.56
     ],
-    "its_offers_pct_below_its_quote": [
-     6.3,
-     6.3,
-     7.3,
-     8.3,
-     9.2,
-     9.8
+    "step_pct_of_its_quote": [
+     0.57,
+     1.13,
+     3.97
     ],
-    "its_status": [
-     "open",
-     "open",
-     "open",
-     "open",
-     "final_offer",
-     "agreed"
+    "law": "a share of the gap",
+    "by_gap_between_its_offer_and_our_ask": [
+     {
+      "band": "0.5 to 2 %",
+      "replies": 93,
+      "its_step_pct_of_its_quote": 0.57
+     },
+     {
+      "band": "2 to 4 %",
+      "replies": 68,
+      "its_step_pct_of_its_quote": 1.13
+     },
+     {
+      "band": "4 to 6 %",
+      "replies": 14,
+      "its_step_pct_of_its_quote": 3.97
+     },
+     {
+      "band": "6 to 8 %",
+      "replies": 7,
+      "its_step_pct_of_its_quote": 1.7
+     },
+     {
+      "band": "8 to 10 %",
+      "replies": 57,
+      "its_step_pct_of_its_quote": 5.1
+     },
+     {
+      "band": "10 to 15 %",
+      "replies": 7,
+      "its_step_pct_of_its_quote": 3.97
+     }
     ],
-    "sheets_per_mail": [
-     2,
-     2,
-     2,
-     2,
-     2,
-     1
-    ]
+    "by_size_of_our_move": [
+     {
+      "band": "we did not move",
+      "replies": 28,
+      "its_step_pct_of_its_quote": 0.0,
+      "it_moved": 0.32,
+      "answered_with_its_final_offer": 0.54
+     },
+     {
+      "band": "under 0.3 %",
+      "replies": 61,
+      "its_step_pct_of_its_quote": 0.57,
+      "it_moved": 0.95,
+      "answered_with_its_final_offer": 0.79
+     },
+     {
+      "band": "0.3 to 1 %",
+      "replies": 108,
+      "its_step_pct_of_its_quote": 1.13,
+      "it_moved": 0.97,
+      "answered_with_its_final_offer": 0.11
+     },
+     {
+      "band": "1 to 3 %",
+      "replies": 70,
+      "its_step_pct_of_its_quote": 5.1,
+      "it_moved": 1.0,
+      "answered_with_its_final_offer": 0.07
+     },
+     {
+      "band": "over 3 %",
+      "replies": 9,
+      "its_step_pct_of_its_quote": 3.97,
+      "it_moved": 1.0,
+      "answered_with_its_final_offer": 0.11
+     }
+    ],
+    "when_we_did_not_move": {
+     "replies": 29,
+     "it_moved": 0.31
+    }
    },
-   {
-    "score": 0.794,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     23.9,
-     19.8,
-     17.2,
-     15.3,
-     13.4,
-     12.6
+   "games_by_depth_of_our_asks": [
+    {
+     "our_asks_averaged_below_its_quote": "5 to 10 %",
+     "games": 7,
+     "its_deepest_offer_pct_below_its_quote": 9.02
+    },
+    {
+     "our_asks_averaged_below_its_quote": "10 to 15 %",
+     "games": 5,
+     "its_deepest_offer_pct_below_its_quote": 10.15
+    },
+    {
+     "our_asks_averaged_below_its_quote": "15 to 20 %",
+     "games": 15,
+     "its_deepest_offer_pct_below_its_quote": 15.5
+    },
+    {
+     "our_asks_averaged_below_its_quote": "20 to 25 %",
+     "games": 59,
+     "its_deepest_offer_pct_below_its_quote": 18.91
+    },
+    {
+     "our_asks_averaged_below_its_quote": "25 to 30 %",
+     "games": 4,
+     "its_deepest_offer_pct_below_its_quote": 16.94
+    }
+   ],
+   "status_by_reply": {
+    "1": {
+     "open": 100
+    },
+    "2": {
+     "open": 96,
+     "agreed": 4
+    },
+    "3": {
+     "open": 65,
+     "walked_away": 6,
+     "final_offer": 23,
+     "agreed": 3
+    },
+    "4": {
+     "open": 50,
+     "walked_away": 3,
+     "final_offer": 23
+    },
+    "5": {
+     "final_offer": 56,
+     "walked_away": 3
+    },
+    "6": {
+     "final_offer": 15,
+     "walked_away": 1
+    },
+    "7": {
+     "final_offer": 5,
+     "walked_away": 1
+    },
+    "8": {
+     "final_offer": 3
+    }
+   },
+   "final_offer_came_at_reply": {
+    "3": 23,
+    "4": 15,
+    "5": 50
+   },
+   "after_its_final_offer": {
+    "we let the 60 seconds pass": {
+     "walked_away": 8,
+     "final_offer": 3
+    },
+    "we asked below its offer without moving": {
+     "final_offer": 4
+    },
+    "a note without a term sheet": {
+     "final_offer": 28
+    },
+    "we came up to its offer": {
+     "final_offer": 1
+    },
+    "we asked below its offer and had moved": {
+     "final_offer": 1
+    }
+   },
+   "it_left": {
+    "games": 14,
+    "at_reply": {
+     "3": 6,
+     "4": 3,
+     "5": 3,
+     "6": 1,
+     "7": 1
+    },
+    "after": {
+     "its status was open; we let the 60 seconds pass": 6,
+     "its status was final_offer; we let the 60 seconds pass": 8
+    }
+   },
+   "it_agreed_to_our_ask": {
+    "replies": 7,
+    "at_pct_below_its_quote": [
+     13.6,
+     13.6,
+     13.6
     ],
-    "its_offers_pct_below_its_quote": [
-     5.3,
-     6.3,
-     7.3,
-     7.3,
-     8.3,
-     9.2
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "open",
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3,
-     3,
-     3,
-     3
-    ]
+    "note": "it took our number as it stood: that ask was within what it accepts"
+   },
+   "deepest_offer_below_its_quote_pct": 21.2,
+   "arguments": {
+    "delivery record": {
+     "took it into account": 1
+    },
+    "rival quote": {
+     "took it into account": 86,
+     "true, but it changed nothing": 13,
+     "not about this part or company": 1,
+     "already counted": 1
+    },
+    "should cost": {
+     "took it into account": 2
+    },
+    "volume change": {
+     "took it into account": 1
+    }
+   },
+   "inside_notes": {
+    "cost breakdown attached": 91,
+    "The buyer shows a much lower rival quote. I give half the step now and check the rest.": 86,
+    "Checked: give the rest of the step.": 86
+   },
+   "best_games": [
+    {
+     "score": 0.788,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      32.5,
+      30.1,
+      28.3
+     ],
+     "its_offers_pct_below_its_quote": [
+      13.3,
+      20.1,
+      21.2
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      1,
+      2
+     ]
+    },
+    {
+     "score": 0.723,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      23.2,
+      20.7,
+      20.1,
+      19.8,
+      19.7
+     ],
+     "its_offers_pct_below_its_quote": [
+      11.5,
+      16.6,
+      18.3,
+      18.9,
+      19.5
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "score": 0.723,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      23.2,
+      20.7,
+      20.1,
+      19.8,
+      19.7,
+      null
+     ],
+     "its_offers_pct_below_its_quote": [
+      11.5,
+      16.6,
+      18.3,
+      18.9,
+      19.5,
+      19.5
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "open",
+      "open",
+      "final_offer",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      0
+     ]
+    }
+   ],
+   "our_scores": {
+    "games": 75,
+    "median": 0.702,
+    "best": 0.788
+   },
+   "writes": {
+    "Claudia Aigner": 1.0,
+    "Back to the machines now.": 0.33,
+    "we can move a bit:": 0.33,
+    "got your mail, thanks.": 0.33,
+    "Straight answer:": 0.33,
+    "Here is how it is:": 0.33,
+    "Which volume can you commit to?": 0.11,
+    "thanks for the mail.": 0.33,
+    "With overtime we can deliver in # days, at a premium.": 0.33,
+    "Our Lieferzeit is # days.": 0.33,
+    "Just write if something is unclear.": 0.33,
+    "We have free capacity for your parts.": 0.33,
+    "here is our price.": 1.0,
+    "A binding higher volume would help us and can improve the price.": 0.17,
+    "Please find our cost breakdown attached.": 1.0,
+    "We checked the rival quote data you cited; it holds and we took it into account.": 0.5,
+    "We have clarified this internally and can move further on the price.": 1.0,
+    "Faster payment is welcome; we can reflect it in the price.": 0.5,
+    "We need to clarify this internally - we will come back to you on price.": 1.0
    }
-  ],
-  "our_scores": {
-   "games": 28,
-   "median": 0.71,
-   "best": 0.84
   },
-  "writes": {
-   "Kind regards": 0.5,
-   "we can move a bit:": 0.33,
-   "We are ready when you are!": 0.5,
-   "Faster payment would help us more than anything.": 1.0,
-   "To be fully transparent with you:": 0.33,
-   "many thanks, good to have your reply!": 0.5,
-   "thank you for your mail, we are very happy to hear from you!": 0.5,
-   "Please let me explain.": 0.33,
-   "We really want this business - let's make it happen!": 0.5,
-   "Faster payment is welcome; we can reflect it in the price.": 0.5,
-   "Our standard Zahlungsziel is # days net.": 1.0,
-   "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
-   "Material accounts for about # % of our cost; more detail we do not share.": 0.12,
-   "This offer stays valid for # days.": 0.33
-  }
- },
- {
-  "supplier": "70740",
-  "case": "P18",
-  "who_signs": "Inside Sales",
-  "company": "Blankstahl Werdenfels GmbH",
-  "case_type": "raw_material",
-  "category_goal": "leverage",
-  "bidders": 1,
-  "negotiable": [
-   "unit_price",
-   "index_clause",
-   "payment_days",
-   "contract_months"
-  ],
-  "games": 150,
-  "replies": 443,
-  "best_deal_possible_below_cheapest_quote_pct": 24.6,
-  "first_reply": {
-   "replies": 150,
-   "it_moved": 1.0,
-   "share_of_gap": [
-    0.38,
-    0.38,
-    0.44
+  {
+   "supplier": "70110",
+   "case": "P01",
+   "who_signs": "Owner",
+   "company": "Gießerei Brandlhuber GmbH & Co. KG",
+   "case_type": "price_increase",
+   "category_goal": "stabilise",
+   "bidders": 1,
+   "negotiable": [
+    "unit_price",
+    "effective_date",
+    "payment_days"
    ],
-   "step_pct_of_its_quote": [
-    8.96,
-    8.96,
-    9.86
-   ],
-   "law": "a fixed step",
-   "our_asks_were_pct_below_its_quote": [
-    22.1,
-    23.4,
-    23.4
-   ]
-  },
-  "later_replies": {
-   "replies": 190,
-   "it_moved": 0.93,
-   "share_of_gap": [
-    0.12,
-    0.13,
-    0.29
-   ],
-   "step_pct_of_its_quote": [
-    1.63,
-    1.63,
-    1.63
-   ],
-   "law": "a fixed step",
-   "when_we_did_not_move": {
+   "games": 23,
+   "replies": 91,
+   "best_deal_possible_below_cheapest_quote_pct": 4.9,
+   "first_reply": {
     "replies": 22,
-    "it_moved": 0.0
-   }
-  },
-  "status_by_reply": {
-   "1": {
-    "open": 150
+    "it_moved": 1.0,
+    "share_of_gap": [
+     0.24,
+     0.26,
+     0.33
+    ],
+    "step_pct_of_its_quote": [
+     2.6,
+     2.91,
+     2.97
+    ],
+    "law": "a fixed step",
+    "our_asks_were_pct_below_its_quote": [
+     8.9,
+     11.0,
+     11.0
+    ],
+    "by_how_far_below_its_quote_we_asked": [
+     {
+      "band": "5 to 10 %",
+      "replies": 8,
+      "its_step_pct_of_its_quote": 3.02
+     },
+     {
+      "band": "10 to 15 %",
+      "replies": 14,
+      "its_step_pct_of_its_quote": 2.91
+     }
+    ]
    },
-   "2": {
-    "open": 61,
-    "final_offer": 89
+   "later_replies": {
+    "replies": 60,
+    "it_moved": 0.93,
+    "share_of_gap": [
+     0.2,
+     0.21,
+     0.36
+    ],
+    "step_pct_of_its_quote": [
+     0.51,
+     0.84,
+     1.15
+    ],
+    "law": "a share of the gap",
+    "by_gap_between_its_offer_and_our_ask": [
+     {
+      "band": "0.5 to 2 %",
+      "replies": 14,
+      "its_step_pct_of_its_quote": 0.35
+     },
+     {
+      "band": "2 to 4 %",
+      "replies": 25,
+      "its_step_pct_of_its_quote": 0.72
+     },
+     {
+      "band": "4 to 6 %",
+      "replies": 16,
+      "its_step_pct_of_its_quote": 1.15
+     },
+     {
+      "band": "6 to 8 %",
+      "replies": 4,
+      "its_step_pct_of_its_quote": 1.45
+     }
+    ],
+    "by_size_of_our_move": [
+     {
+      "band": "we did not move",
+      "replies": 6,
+      "its_step_pct_of_its_quote": 0.0,
+      "it_moved": 0.17,
+      "answered_with_its_final_offer": 0.33
+     },
+     {
+      "band": "under 0.3 %",
+      "replies": 5,
+      "its_step_pct_of_its_quote": 0.41,
+      "it_moved": 0.8,
+      "answered_with_its_final_offer": 0.2
+     },
+     {
+      "band": "0.3 to 1 %",
+      "replies": 30,
+      "its_step_pct_of_its_quote": 0.72,
+      "it_moved": 0.93,
+      "answered_with_its_final_offer": 0.43
+     },
+     {
+      "band": "1 to 3 %",
+      "replies": 22,
+      "its_step_pct_of_its_quote": 1.15,
+      "it_moved": 0.95,
+      "answered_with_its_final_offer": 0.05
+     }
+    ],
+    "when_we_did_not_move": {
+     "replies": 6,
+     "it_moved": 0.17
+    }
    },
-   "3": {
-    "final_offer": 53,
-    "walked_away": 51,
-    "agreed": 9,
-    "open": 2
+   "status_by_reply": {
+    "1": {
+     "open": 23
+    },
+    "2": {
+     "open": 23
+    },
+    "3": {
+     "open": 21
+    },
+    "4": {
+     "open": 6,
+     "final_offer": 14,
+     "agreed": 1
+    },
+    "5": {
+     "final_offer": 3
+    }
    },
-   "4": {
-    "agreed": 11,
-    "walked_away": 14,
-    "final_offer": 2
+   "final_offer_came_at_reply": {
+    "4": 14,
+    "5": 3
    },
-   "5": {
-    "agreed": 1
-   }
-  },
-  "final_offer_came_at_reply": {
-   "2": 89,
-   "3": 53,
-   "4": 2
-  },
-  "after_its_final_offer": {
-   "we asked below its offer and had moved": {
-    "walked_away": 51,
-    "agreed": 14
+   "after_its_final_offer": {},
+   "it_agreed_to_our_ask": {
+    "replies": 1,
+    "at_pct_below_its_quote": [
+     5.0,
+     5.0,
+     5.0
+    ],
+    "note": "it took our number as it stood: that ask was within what it accepts"
    },
-   "we asked below its offer without moving": {
-    "walked_away": 11
+   "deepest_offer_below_its_quote_pct": 5.7,
+   "arguments": {
+    "delivery record": {
+     "took it into account": 17
+    },
+    "forecast": {
+     "took it into account": 1
+    },
+    "index change": {
+     "took it into account": 17
+    },
+    "notice period": {
+     "took it into account": 19,
+     "already counted": 1
+    },
+    "price history": {
+     "true, but it changed nothing": 3
+    },
+    "rival quote": {
+     "not about this part or company": 1
+    },
+    "should cost": {
+     "took it into account": 3
+    },
+    "volume change": {
+     "already counted": 11,
+     "took it into account": 17
+    }
    },
-   "a note without a term sheet": {
-    "walked_away": 3
-   }
-  },
-  "it_left": {
-   "games": 65,
-   "at_reply": {
-    "3": 51,
-    "4": 14
-   },
-   "after": {
-    "its status was final_offer; we asked below its offer and had moved": 51,
-    "its status was final_offer; we asked below its offer without moving": 11,
-    "its status was final_offer; a note without a term sheet": 3
-   }
-  },
-  "it_agreed_to_our_ask": {
-   "replies": 21,
-   "at_pct_below_its_quote": [
-    12.0,
-    12.5,
-    13.6
+   "inside_notes": {},
+   "best_games": [
+    {
+     "score": 0.998,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      10.7,
+      9.1,
+      8.5,
+      8.0
+     ],
+     "its_offers_pct_below_its_quote": [
+      3.5,
+      5.2,
+      5.5,
+      5.7
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "score": 0.998,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      11.0,
+      8.5,
+      7.7,
+      7.0
+     ],
+     "its_offers_pct_below_its_quote": [
+      2.9,
+      4.1,
+      4.8,
+      5.6
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "score": 0.995,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      12.3,
+      10.3,
+      9.4,
+      8.6
+     ],
+     "its_offers_pct_below_its_quote": [
+      3.0,
+      4.8,
+      5.2,
+      5.5
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3,
+      3
+     ]
+    }
    ],
-   "note": "it took our number as it stood: that ask was within what it accepts"
-  },
-  "deepest_offer_below_its_quote_pct": 15.5,
-  "arguments": {
-   "delivery record": {
-    "true, but it changed nothing": 22
+   "our_scores": {
+    "games": 23,
+    "median": 0.975,
+    "best": 0.998
    },
-   "price history": {
-    "took it into account": 120,
-    "true, but it changed nothing": 5
-   },
-   "rival quote": {
-    "not about this part or company": 2
-   },
-   "volume change": {
-    "took it into account": 26,
-    "already counted": 6
+   "writes": {
+    "Thomas Brandlhuber": 1.0,
+    "Viele Grüße aus der Gießerei": 0.5,
+    "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
+    "We have worked together for many years, and I am confident that we will find a fair way forward, as we always have between our two houses.": 0.5,
+    "A few words from the foundry on this.": 0.5,
+    "PPI-C# rose # % in twelve months and is # % of our cost.": 0.33,
+    "LCI-C rose # % in twelve months and is # % of our cost.": 0.33,
+    "Let me tell you how we see it from our side.": 0.5,
+    "Please give my regards to your colleagues - a good relationship has always mattered more to us than a single order, and I hope it stays that way.": 0.5,
+    "We did not know that - a fair point.": 1.0,
+    "Many thanks for your message; I have read it carefully together with my people here at the foundry, and we have given it the attention it deserves.": 0.5,
+    "Thank you for your letter - it is always good to hear from you, and I answer it myself, as I do for all the customers we have known for a long time.": 0.5,
+    "Thank you for your enquiry.": 0.1,
+    "Please find our Angebot below.": 0.1,
+    "Which volume can you commit to?": 0.11,
+    "A binding higher volume would help us and can improve the price.": 0.17,
+    "We checked the notice period data you cited; it holds and we took it into account.": 1.0,
+    "That remains.": 1.0,
+    "Our costs move with LCI-C, PPI-C#, PPI-D#; the figures stay with us.": 1.0
    }
   },
-  "inside_notes": {
-   "The buyer asks something for Logistics; please answer.": 1
+  {
+   "supplier": "70510",
+   "case": "P02",
+   "who_signs": "Key Account Manager",
+   "company": "Antriebstechnik Nordmark AG",
+   "case_type": "price_increase",
+   "category_goal": "stabilise",
+   "bidders": 1,
+   "negotiable": [
+    "unit_price",
+    "payment_days",
+    "index_clause"
+   ],
+   "games": 32,
+   "replies": 102,
+   "best_deal_possible_below_cheapest_quote_pct": 2.1,
+   "first_reply": {
+    "replies": 32,
+    "it_moved": 1.0,
+    "share_of_gap": [
+     0.11,
+     0.8,
+     1.0
+    ],
+    "step_pct_of_its_quote": [
+     0.75,
+     3.14,
+     5.36
+    ],
+    "law": "a share of the gap",
+    "our_asks_were_pct_below_its_quote": [
+     3.7,
+     5.4,
+     6.8
+    ],
+    "by_how_far_below_its_quote_we_asked": [
+     {
+      "band": "0 to 5 %",
+      "replies": 12,
+      "its_step_pct_of_its_quote": 3.14
+     },
+     {
+      "band": "5 to 10 %",
+      "replies": 15,
+      "its_step_pct_of_its_quote": 5.34
+     },
+     {
+      "band": "10 to 15 %",
+      "replies": 5,
+      "its_step_pct_of_its_quote": 0.55
+     }
+    ]
+   },
+   "later_replies": {
+    "replies": 38,
+    "it_moved": 0.82,
+    "share_of_gap": [
+     0.02,
+     0.03,
+     0.12
+    ],
+    "step_pct_of_its_quote": [
+     0.08,
+     0.14,
+     0.28
+    ],
+    "law": "a share of the gap",
+    "by_gap_between_its_offer_and_our_ask": [
+     {
+      "band": "0.5 to 2 %",
+      "replies": 12,
+      "its_step_pct_of_its_quote": 0.07
+     },
+     {
+      "band": "2 to 4 %",
+      "replies": 6,
+      "its_step_pct_of_its_quote": 1.13
+     },
+     {
+      "band": "4 to 6 %",
+      "replies": 15,
+      "its_step_pct_of_its_quote": 0.14
+     }
+    ],
+    "by_size_of_our_move": [
+     {
+      "band": "we did not move",
+      "replies": 4,
+      "its_step_pct_of_its_quote": 0.0,
+      "it_moved": 0.25,
+      "answered_with_its_final_offer": 0.0
+     },
+     {
+      "band": "under 0.3 %",
+      "replies": 7,
+      "its_step_pct_of_its_quote": 0.08,
+      "it_moved": 0.86,
+      "answered_with_its_final_offer": 0.43
+     },
+     {
+      "band": "0.3 to 1 %",
+      "replies": 12,
+      "its_step_pct_of_its_quote": 0.15,
+      "it_moved": 0.75,
+      "answered_with_its_final_offer": 0.08
+     },
+     {
+      "band": "1 to 3 %",
+      "replies": 19,
+      "its_step_pct_of_its_quote": 0.14,
+      "it_moved": 0.84,
+      "answered_with_its_final_offer": 0.16
+     }
+    ],
+    "when_we_did_not_move": {
+     "replies": 4,
+     "it_moved": 0.25
+    }
+   },
+   "games_by_depth_of_our_asks": [
+    {
+     "our_asks_averaged_below_its_quote": "0 to 5 %",
+     "games": 21,
+     "its_deepest_offer_pct_below_its_quote": 3.14
+    },
+    {
+     "our_asks_averaged_below_its_quote": "5 to 10 %",
+     "games": 10,
+     "its_deepest_offer_pct_below_its_quote": 2.1
+    }
+   ],
+   "status_by_reply": {
+    "1": {
+     "open": 17,
+     "agreed": 15
+    },
+    "2": {
+     "open": 18,
+     "agreed": 10
+    },
+    "3": {
+     "open": 11,
+     "agreed": 10
+    },
+    "4": {
+     "walked_away": 1,
+     "agreed": 6,
+     "final_offer": 6,
+     "open": 2
+    },
+    "5": {
+     "final_offer": 2,
+     "agreed": 1,
+     "walked_away": 1
+    },
+    "6": {
+     "walked_away": 2
+    }
+   },
+   "final_offer_came_at_reply": {
+    "4": 6,
+    "5": 2
+   },
+   "after_its_final_offer": {
+    "a note without a term sheet": {
+     "walked_away": 1
+    },
+    "we asked below its offer and had moved": {
+     "walked_away": 1
+    }
+   },
+   "it_left": {
+    "games": 4,
+    "at_reply": {
+     "4": 1,
+     "5": 1,
+     "6": 2
+    },
+    "after": {
+     "its status was open; we let the 60 seconds pass": 1,
+     "its status was final_offer; a note without a term sheet": 1,
+     "its status was agreed; we let the 60 seconds pass": 1,
+     "its status was final_offer; we asked below its offer and had moved": 1
+    }
+   },
+   "it_agreed_to_our_ask": {
+    "replies": 42,
+    "at_pct_below_its_quote": [
+     3.1,
+     3.1,
+     3.1
+    ],
+    "note": "it took our number as it stood: that ask was within what it accepts"
+   },
+   "deepest_offer_below_its_quote_pct": 6.4,
+   "arguments": {
+    "delivery record": {
+     "true, but it changed nothing": 5
+    },
+    "notice period": {
+     "true, but it changed nothing": 1
+    },
+    "price history": {
+     "true, but it changed nothing": 5
+    },
+    "quality record": {
+     "already counted": 2
+    },
+    "rival quote": {
+     "not about this part or company": 2
+    },
+    "volume change": {
+     "took it into account": 15,
+     "already counted": 2
+    }
+   },
+   "inside_notes": {
+    "The buyer asks something for Credit Control; please answer.": 29,
+    "The buyer asks something for Legal Department; please answer.": 8,
+    "The buyer asks something for Logistics; please answer.": 4,
+    "The buyer asks something for Application Engineering; please answer.": 2
+   },
+   "best_games": [
+    {
+     "score": 0.735,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      6.8,
+      5.4,
+      4.5,
+      1.6
+     ],
+     "its_offers_pct_below_its_quote": [
+      0.7,
+      0.8,
+      3.1,
+      3.1
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "agreed",
+      "agreed"
+     ],
+     "sheets_per_mail": [
+      1,
+      1,
+      2,
+      1
+     ]
+    },
+    {
+     "score": 0.735,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      6.8,
+      5.9,
+      5.1,
+      1.6
+     ],
+     "its_offers_pct_below_its_quote": [
+      0.7,
+      0.9,
+      3.1,
+      3.1
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "agreed",
+      "agreed"
+     ],
+     "sheets_per_mail": [
+      1,
+      1,
+      2,
+      1
+     ]
+    },
+    {
+     "score": 0.735,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      6.8,
+      5.4,
+      5.1,
+      1.6
+     ],
+     "its_offers_pct_below_its_quote": [
+      0.7,
+      0.8,
+      3.1,
+      3.1
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "agreed",
+      "agreed"
+     ],
+     "sheets_per_mail": [
+      1,
+      1,
+      2,
+      1
+     ]
+    }
+   ],
+   "our_scores": {
+    "games": 32,
+    "median": 0.709,
+    "best": 0.735
+   },
+   "writes": {
+    "Mit freundlichen Grüßen": 0.14,
+    "Petra Lechner": 1.0,
+    "Dear Sir or Madam,": 0.33,
+    "Please note:": 0.5,
+    "This offer is subject to our general terms of sale.": 0.5,
+    "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
+    "We can accept your terms and await your order.": 1.0,
+    "LCI-C rose # % in twelve months and is # % of our cost.": 0.33,
+    "PPI-C# rose # % in twelve months and is # % of our cost.": 0.33,
+    "Thank you for your enquiry.": 0.1,
+    "Please find our Angebot below.": 0.1,
+    "Thank you for your message.": 0.5,
+    "Thank you for your e-mail, which we have reviewed internally.": 0.5,
+    "Which volume can you commit to?": 0.11,
+    "A binding higher volume would help us and can improve the price.": 0.17,
+    "Our price reflects our costs; our calculation stays internal.": 1.0,
+    "Our calculation is our property; we do not share a breakdown.": 0.5,
+    "For your information:": 0.5
+   }
   },
-  "best_games": [
-   {
-    "score": 0.63,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     21.5,
+  {
+   "supplier": "70530",
+   "case": "P03",
+   "who_signs": "Key Account Manager",
+   "company": "Selvbrunn Drive Systems GmbH",
+   "case_type": "renewal",
+   "category_goal": "stabilise",
+   "bidders": 1,
+   "negotiable": [
+    "unit_price",
+    "payment_days",
+    "contract_months",
+    "volume_per_year"
+   ],
+   "games": 24,
+   "replies": 69,
+   "best_deal_possible_below_cheapest_quote_pct": 7.9,
+   "first_reply": {
+    "replies": 23,
+    "it_moved": 1.0,
+    "share_of_gap": [
+     0.4,
+     0.4,
+     0.58
+    ],
+    "step_pct_of_its_quote": [
+     7.38,
+     7.49,
+     7.49
+    ],
+    "law": "a fixed step",
+    "our_asks_were_pct_below_its_quote": [
+     12.8,
+     18.5,
+     18.5
+    ],
+    "by_how_far_below_its_quote_we_asked": [
+     {
+      "band": "10 to 15 %",
+      "replies": 6,
+      "its_step_pct_of_its_quote": 7.29
+     },
+     {
+      "band": "15 to 20 %",
+      "replies": 14,
+      "its_step_pct_of_its_quote": 7.49
+     }
+    ]
+   },
+   "later_replies": {
+    "replies": 38,
+    "it_moved": 0.05,
+    "share_of_gap": [
+     0.04,
+     0.89,
+     0.89
+    ],
+    "step_pct_of_its_quote": [
+     0.31,
+     6.17,
+     6.17
+    ],
+    "law": "it holds its price",
+    "by_gap_between_its_offer_and_our_ask": [
+     {
+      "band": "0.5 to 2 %",
+      "replies": 8,
+      "its_step_pct_of_its_quote": 0.0
+     },
+     {
+      "band": "2 to 4 %",
+      "replies": 5,
+      "its_step_pct_of_its_quote": 0.0
+     },
+     {
+      "band": "4 to 6 %",
+      "replies": 4,
+      "its_step_pct_of_its_quote": 0.0
+     },
+     {
+      "band": "6 to 8 %",
+      "replies": 16,
+      "its_step_pct_of_its_quote": 0.0
+     },
+     {
+      "band": "10 to 15 %",
+      "replies": 4,
+      "its_step_pct_of_its_quote": 0.0
+     }
+    ],
+    "by_size_of_our_move": [
+     {
+      "band": "0.3 to 1 %",
+      "replies": 6,
+      "its_step_pct_of_its_quote": 0.0,
+      "it_moved": 0.17,
+      "answered_with_its_final_offer": 0.0
+     },
+     {
+      "band": "1 to 3 %",
+      "replies": 12,
+      "its_step_pct_of_its_quote": 0.0,
+      "it_moved": 0.0,
+      "answered_with_its_final_offer": 0.25
+     },
+     {
+      "band": "over 3 %",
+      "replies": 16,
+      "its_step_pct_of_its_quote": 0.0,
+      "it_moved": 0.0,
+      "answered_with_its_final_offer": 0.0
+     }
+    ],
+    "when_we_did_not_move": {
+     "replies": 3,
+     "it_moved": 0.0
+    }
+   },
+   "games_by_depth_of_our_asks": [
+    {
+     "our_asks_averaged_below_its_quote": "5 to 10 %",
+     "games": 4,
+     "its_deepest_offer_pct_below_its_quote": 7.01
+    },
+    {
+     "our_asks_averaged_below_its_quote": "10 to 15 %",
+     "games": 6,
+     "its_deepest_offer_pct_below_its_quote": 7.49
+    },
+    {
+     "our_asks_averaged_below_its_quote": "15 to 20 %",
+     "games": 12,
+     "its_deepest_offer_pct_below_its_quote": 7.49
+    }
+   ],
+   "status_by_reply": {
+    "1": {
+     "open": 24
+    },
+    "2": {
+     "open": 23,
+     "agreed": 1
+    },
+    "3": {
+     "open": 11,
+     "final_offer": 2
+    },
+    "4": {
+     "final_offer": 1,
+     "agreed": 1,
+     "open": 2
+    },
+    "5": {
+     "agreed": 1,
+     "open": 1,
+     "final_offer": 1
+    },
+    "6": {
+     "agreed": 1
+    }
+   },
+   "final_offer_came_at_reply": {
+    "3": 2,
+    "4": 1,
+    "5": 1
+   },
+   "after_its_final_offer": {},
+   "it_agreed_to_our_ask": {
+    "replies": 4,
+    "at_pct_below_its_quote": [
+     6.2,
+     6.2,
+     6.2
+    ],
+    "note": "it took our number as it stood: that ask was within what it accepts"
+   },
+   "deepest_offer_below_its_quote_pct": 7.6,
+   "arguments": {
+    "delivery record": {
+     "true, but it changed nothing": 5,
+     "already counted": 1
+    },
+    "price history": {
+     "took it into account": 15,
+     "true, but it changed nothing": 3
+    },
+    "rival quote": {
+     "not about this part or company": 4
+    },
+    "should cost": {
+     "took it into account": 8
+    },
+    "volume change": {
+     "took it into account": 19,
+     "already counted": 4
+    }
+   },
+   "inside_notes": {
+    "The buyer asks something for Logistics; please answer.": 9,
+    "The buyer asks something for Legal Department; please answer.": 8,
+    "The buyer asks something for Credit Control; please answer.": 7
+   },
+   "best_games": [
+    {
+     "score": 0.952,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      18.5,
+      13.9
+     ],
+     "its_offers_pct_below_its_quote": [
+      7.6,
+      7.6
+     ],
+     "its_status": [
+      "open",
+      "open"
+     ],
+     "sheets_per_mail": [
+      3,
+      3
+     ]
+    },
+    {
+     "score": 0.935,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      12.8,
+      11.7,
+      10.1
+     ],
+     "its_offers_pct_below_its_quote": [
+      7.5,
+      7.5,
+      7.5
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "open"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "score": 0.935,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      18.5,
+      14.2
+     ],
+     "its_offers_pct_below_its_quote": [
+      7.5,
+      7.5
+     ],
+     "its_status": [
+      "open",
+      "open"
+     ],
+     "sheets_per_mail": [
+      3,
+      3
+     ]
+    }
+   ],
+   "our_scores": {
+    "games": 24,
+    "median": 0.935,
+    "best": 0.952
+   },
+   "writes": {
+    "Mit freundlichen Grüßen": 0.14,
+    "Birgit Mayrhofer": 1.0,
+    "Dear Sir or Madam,": 0.33,
+    "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
+    "For your information:": 0.5,
+    "We can talk about the terms instead - payment, volume or contract length.": 1.0,
+    "Material accounts for about # % of our cost; more detail we do not share.": 0.12,
+    "Thank you for your enquiry.": 0.1,
+    "Please find our Angebot below.": 0.1,
+    "Our management has frozen all price reductions until December #.": 1.0,
+    "Please note:": 0.5,
+    "LCI-C rose # % in twelve months and is # % of our cost.": 0.33,
+    "PPI-C# rose # % in twelve months and is # % of our cost.": 0.33,
+    "CU-NOTATION rose # % in twelve months and is # % of our cost.": 1.0,
+    "Thank you for your e-mail, which we have reviewed internally.": 0.5,
+    "Please send us the data.": 0.5,
+    "Which figures is that based on?": 0.5,
+    "We checked the volume change data you cited; it holds and we took it into account.": 1.0,
+    "We checked the price history data you cited; it holds and we took it into account.": 0.25,
+    "This offer stays valid for # days.": 0.33,
+    "Thank you for your message.": 0.5,
+    "This offer is subject to our general terms of sale.": 0.5
+   }
+  },
+  {
+   "supplier": "70620",
+   "case": "P04",
+   "who_signs": "Inside Sales",
+   "company": "Wälzlager-Zentrum Süd GmbH",
+   "case_type": "renewal",
+   "category_goal": "routine",
+   "bidders": 1,
+   "negotiable": [
+    "unit_price",
+    "payment_days",
+    "contract_months"
+   ],
+   "games": 30,
+   "replies": 88,
+   "best_deal_possible_below_cheapest_quote_pct": 1.2,
+   "first_reply": {
+    "replies": 29,
+    "it_moved": 1.0,
+    "share_of_gap": [
+     0.06,
+     0.06,
+     0.06
+    ],
+    "step_pct_of_its_quote": [
+     1.15,
+     1.15,
+     1.15
+    ],
+    "law": "a fixed step",
+    "our_asks_were_pct_below_its_quote": [
+     20.6,
+     20.6,
+     20.6
+    ]
+   },
+   "later_replies": {
+    "replies": 43,
+    "it_moved": 0.0,
+    "law": "it holds its price",
+    "by_gap_between_its_offer_and_our_ask": [
+     {
+      "band": "10 to 15 %",
+      "replies": 10,
+      "its_step_pct_of_its_quote": 0.0
+     },
+     {
+      "band": "15 to 20 %",
+      "replies": 27,
+      "its_step_pct_of_its_quote": 0.0
+     }
+    ],
+    "by_size_of_our_move": [
+     {
+      "band": "1 to 3 %",
+      "replies": 23,
+      "its_step_pct_of_its_quote": 0.0,
+      "it_moved": 0.0,
+      "answered_with_its_final_offer": 0.26
+     },
+     {
+      "band": "over 3 %",
+      "replies": 18,
+      "its_step_pct_of_its_quote": 0.0,
+      "it_moved": 0.0,
+      "answered_with_its_final_offer": 0.5
+     }
+    ]
+   },
+   "games_by_depth_of_our_asks": [
+    {
+     "our_asks_averaged_below_its_quote": "10 to 15 %",
+     "games": 14,
+     "its_deepest_offer_pct_below_its_quote": 1.15
+    },
+    {
+     "our_asks_averaged_below_its_quote": "15 to 20 %",
+     "games": 13,
+     "its_deepest_offer_pct_below_its_quote": 1.15
+    }
+   ],
+   "status_by_reply": {
+    "1": {
+     "open": 30
+    },
+    "2": {
+     "open": 26,
+     "final_offer": 4
+    },
+    "3": {
+     "final_offer": 26,
+     "walked_away": 1
+    },
+    "4": {
+     "walked_away": 1
+    }
+   },
+   "final_offer_came_at_reply": {
+    "2": 4,
+    "3": 26
+   },
+   "after_its_final_offer": {
+    "we let the 60 seconds pass": {
+     "walked_away": 1
+    },
+    "a note without a term sheet": {
+     "walked_away": 1
+    }
+   },
+   "it_left": {
+    "games": 2,
+    "at_reply": {
+     "3": 1,
+     "4": 1
+    },
+    "after": {
+     "its status was final_offer; we let the 60 seconds pass": 1,
+     "its status was final_offer; a note without a term sheet": 1
+    }
+   },
+   "deepest_offer_below_its_quote_pct": 1.1,
+   "arguments": {
+    "delivery record": {
+     "true, but it changed nothing": 12
+    },
+    "price history": {
+     "true, but it changed nothing": 25
+    },
+    "quality record": {
+     "true, but it changed nothing": 1
+    },
+    "rival quote": {
+     "not about this part or company": 1
+    },
+    "volume change": {
+     "true, but it changed nothing": 25,
+     "already counted": 6
+    }
+   },
+   "inside_notes": {},
+   "best_games": [
+    {
+     "score": 0.86,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      20.6,
+      16.4,
+      13.4
+     ],
+     "its_offers_pct_below_its_quote": [
+      1.1,
+      1.1,
+      1.1
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "score": 0.86,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      20.6,
+      18.8,
+      17.0
+     ],
+     "its_offers_pct_below_its_quote": [
+      1.1,
+      1.1,
+      1.1
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "score": 0.86,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      20.6,
+      18.8,
+      1.3
+     ],
+     "its_offers_pct_below_its_quote": [
+      1.1,
+      1.1,
+      1.1
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      1
+     ]
+    }
+   ],
+   "our_scores": {
+    "games": 30,
+    "median": 0.86,
+    "best": 0.86
+   },
+   "writes": {
+    "Florian Gruber": 1.0,
+    "Dear customer,": 0.25,
+    "Mit freundlichen Grüßen": 0.14,
+    "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
+    "That does not change our position.": 1.0,
+    "A few words on this from our side.": 0.33,
+    "Thank you for your enquiry.": 0.1,
+    "Please find our Angebot below.": 0.1,
+    "Material accounts for about # % of our cost; more detail we do not share.": 0.12,
+    "We look forward to doing good business together, and our team is always there for you.": 1.0,
+    "Please decide.": 0.11,
+    "We checked the price history data you cited; it holds, but it does not change our calculation.": 1.0,
+    "Which volume can you commit to?": 0.11,
+    "This offer stays valid for # days.": 0.33,
+    "This is our final offer (letztes Angebot).": 0.11,
+    "We checked the volume change data you cited; it holds, but it does not change our calculation.": 1.0,
+    "And while we are at it: our whole range is at your disposal, so if there is anything else on your list, just send it over - we are happy to quote.": 0.25,
+    "Thank you very much for your message - it is always a pleasure to hear from you, and we are glad to help wherever we can.": 1.0
+   }
+  },
+  {
+   "supplier": "70210",
+   "case": "P05",
+   "who_signs": "Owner",
+   "company": "Zerspanung Dralveck GmbH",
+   "case_type": "rfq",
+   "category_goal": "leverage",
+   "bidders": 3,
+   "negotiable": [
+    "unit_price",
+    "payment_days",
+    "lead_time_days"
+   ],
+   "games": 33,
+   "replies": 210,
+   "best_deal_possible_below_cheapest_quote_pct": 26.9,
+   "first_reply": {
+    "replies": 31,
+    "it_moved": 1.0,
+    "share_of_gap": [
+     0.7,
+     0.72,
+     0.72
+    ],
+    "step_pct_of_its_quote": [
+     14.41,
+     14.71,
+     14.71
+    ],
+    "law": "a fixed step",
+    "our_asks_were_pct_below_its_quote": [
+     20.6,
+     20.6,
+     20.6
+    ]
+   },
+   "later_replies": {
+    "replies": 32,
+    "it_moved": 0.91,
+    "share_of_gap": [
+     1.0,
+     1.0,
+     1.53
+    ],
+    "step_pct_of_its_quote": [
+     4.55,
+     5.22,
+     6.99
+    ],
+    "law": "it meets our ask",
+    "by_size_of_our_move": [
+     {
+      "band": "0.3 to 1 %",
+      "replies": 7,
+      "its_step_pct_of_its_quote": 5.22,
+      "it_moved": 1.0,
+      "answered_with_its_final_offer": 0.0
+     },
+     {
+      "band": "1 to 3 %",
+      "replies": 24,
+      "its_step_pct_of_its_quote": 4.8,
+      "it_moved": 0.88,
+      "answered_with_its_final_offer": 0.0
+     }
+    ]
+   },
+   "games_by_depth_of_our_asks": [
+    {
+     "our_asks_averaged_below_its_quote": "15 to 20 %",
+     "games": 7,
+     "its_deepest_offer_pct_below_its_quote": 19.21
+    },
+    {
+     "our_asks_averaged_below_its_quote": "20 to 25 %",
+     "games": 24,
+     "its_deepest_offer_pct_below_its_quote": 21.7
+    }
+   ],
+   "status_by_reply": {
+    "1": {
+     "open": 32,
+     "agreed": 1
+    },
+    "2": {
+     "agreed": 16,
+     "open": 17
+    },
+    "3": {
+     "agreed": 10,
+     "walked_away": 1,
+     "final_offer": 15,
+     "open": 7
+    },
+    "4": {
+     "open": 13,
+     "final_offer": 14,
+     "walked_away": 3,
+     "agreed": 1
+    },
+    "5": {
+     "agreed": 4,
+     "final_offer": 21
+    },
+    "6": {
+     "final_offer": 16,
+     "agreed": 2
+    },
+    "7": {
+     "final_offer": 15,
+     "agreed": 1
+    },
+    "8": {
+     "final_offer": 21
+    }
+   },
+   "final_offer_came_at_reply": {
+    "3": 15,
+    "4": 2,
+    "5": 10,
+    "6": 1
+   },
+   "after_its_final_offer": {
+    "a note without a term sheet": {
+     "final_offer": 71
+    },
+    "we let the 60 seconds pass": {
+     "agreed": 2,
+     "final_offer": 1,
+     "walked_away": 3
+    }
+   },
+   "it_left": {
+    "games": 4,
+    "at_reply": {
+     "3": 1,
+     "4": 3
+    },
+    "after": {
+     "its status was open; we let the 60 seconds pass": 1,
+     "its status was final_offer; we let the 60 seconds pass": 3
+    }
+   },
+   "it_agreed_to_our_ask": {
+    "replies": 35,
+    "at_pct_below_its_quote": [
      19.2,
-     16.8
+     19.3,
+     19.3
     ],
-    "its_offers_pct_below_its_quote": [
-     12.2,
-     13.8,
-     15.5
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3
-    ]
+    "note": "it took our number as it stood: that ask was within what it accepts"
    },
-   {
-    "score": 0.575,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     22.3,
-     19.8,
-     18.9,
-     14.1
-    ],
-    "its_offers_pct_below_its_quote": [
-     10.3,
-     13.1,
-     13.1,
-     14.1
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "final_offer",
-     "agreed"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3,
-     1
-    ]
+   "deepest_offer_below_its_quote_pct": 21.7,
+   "arguments": {
+    "delivery record": {
+     "took it into account": 5
+    },
+    "index change": {
+     "took it into account": 29
+    },
+    "quality record": {
+     "took it into account": 26
+    },
+    "rival quote": {
+     "took it into account": 29,
+     "true, but it changed nothing": 3
+    },
+    "volume change": {
+     "wrong figure: it cost trust": 11
+    }
    },
-   {
-    "score": 0.563,
-    "ended": "accepted",
-    "our_asks_pct_below_its_quote": [
-     22.1,
-     20.3,
-     19.2
-    ],
-    "its_offers_pct_below_its_quote": [
-     9.0,
-     12.2,
-     13.8
-    ],
-    "its_status": [
-     "open",
-     "open",
-     "final_offer"
-    ],
-    "sheets_per_mail": [
-     3,
-     3,
-     3
-    ]
+   "inside_notes": {
+    "The buyer shows a much lower rival quote. I give half the step now and check the rest.": 32,
+    "Checked: give the rest of the step.": 31,
+    "eight d attached": 1
+   },
+   "best_games": [
+    {
+     "score": 0.824,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      20.6,
+      19.3,
+      21.9,
+      null,
+      null,
+      null,
+      null,
+      null
+     ],
+     "its_offers_pct_below_its_quote": [
+      14.7,
+      21.7,
+      21.7,
+      21.7,
+      21.7,
+      21.7,
+      21.7,
+      21.7
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "final_offer",
+      "final_offer",
+      "final_offer",
+      "final_offer",
+      "final_offer",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "score": 0.824,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      20.6,
+      19.3,
+      21.9,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+     ],
+     "its_offers_pct_below_its_quote": [
+      14.7,
+      21.7,
+      21.7,
+      21.7,
+      21.7,
+      21.7,
+      21.7,
+      21.7,
+      21.7
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "final_offer",
+      "final_offer",
+      "final_offer",
+      "final_offer",
+      "final_offer",
+      "final_offer",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "score": 0.824,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      20.6,
+      19.3,
+      21.9,
+      null,
+      null,
+      null
+     ],
+     "its_offers_pct_below_its_quote": [
+      14.7,
+      21.7,
+      21.7,
+      21.7,
+      21.7,
+      21.7
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "final_offer",
+      "final_offer",
+      "final_offer",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      1,
+      0,
+      0,
+      0
+     ]
+    }
+   ],
+   "our_scores": {
+    "games": 28,
+    "median": 0.747,
+    "best": 0.824
+   },
+   "writes": {
+    "Andreas Dralveck": 1.0,
+    "Just write if something is unclear.": 0.33,
+    "Our Lieferzeit is # days.": 0.33,
+    "With overtime we can deliver in # days, at a premium.": 0.33,
+    "We have free capacity for your parts.": 0.33,
+    "Please decide.": 0.11,
+    "Here is how it is:": 0.33,
+    "thanks for the mail.": 0.33,
+    "this is our last price, take it or leave it.": 1.0,
+    "got your mail, thanks.": 0.33,
+    "This is our final offer (letztes Angebot).": 0.11,
+    "Straight answer:": 0.33,
+    "Back to the machines now.": 0.33,
+    "A binding higher volume would help us and can improve the price.": 0.17,
+    "Which volume can you commit to?": 0.11
    }
-  ],
-  "our_scores": {
-   "games": 150,
-   "median": 0.075,
-   "best": 0.63
   },
-  "writes": {
-   "Dear customer,": 0.25,
-   "Mit freundlichen Grüßen": 0.14,
-   "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
-   "Which volume can you commit to?": 0.11,
-   "And while we are at it: our whole range is at your disposal, so if there is anything else on your list, just send it over - we are happy to quote.": 0.25,
-   "Our price follows our main cost drivers: AS-#, PPI-C#, LCI-C.": 1.0,
-   "A binding higher volume would help us and can improve the price.": 0.17,
-   "Thank you for your enquiry.": 0.1,
-   "Please find our Angebot below.": 0.1,
-   "Please decide.": 0.11,
-   "A few words on this from our side.": 0.33,
-   "This is our final offer (letztes Angebot).": 0.11,
-   "We checked the price history data you cited; it holds and we took it into account.": 0.25,
-   "We can offer a Preisgleitklausel on AS-#, AS-#, AS-#.": 1.0,
-   "Please note that this offer remains valid for # days.": 0.2,
-   "Here is the background.": 0.33,
-   "Many thanks for your e-mail, and great to hear from you; I went through it right away with our team.": 0.5
+  {
+   "supplier": "70240",
+   "case": "P05",
+   "who_signs": "Export Manager",
+   "company": "Strojírna Hrvelec s.r.o.",
+   "case_type": "rfq",
+   "category_goal": "leverage",
+   "bidders": 3,
+   "negotiable": [
+    "unit_price",
+    "payment_days",
+    "lead_time_days"
+   ],
+   "games": 33,
+   "replies": 159,
+   "best_deal_possible_below_cheapest_quote_pct": 26.9,
+   "first_reply": {
+    "replies": 32,
+    "it_moved": 0.03,
+    "step_pct_of_its_quote": [
+     -7.66,
+     -7.66,
+     -3.96
+    ],
+    "law": "its sheet came back dearer for us than its previous one: it priced the terms we asked",
+    "our_asks_were_pct_below_its_quote": [
+     21.5,
+     21.6,
+     21.6
+    ]
+   },
+   "later_replies": {
+    "replies": 90,
+    "it_moved": 0.74,
+    "share_of_gap": [
+     0.09,
+     0.12,
+     0.15
+    ],
+    "step_pct_of_its_quote": [
+     1.57,
+     1.58,
+     2.47
+    ],
+    "law": "a share of the gap",
+    "by_gap_between_its_offer_and_our_ask": [
+     {
+      "band": "10 to 15 %",
+      "replies": 27,
+      "its_step_pct_of_its_quote": 1.57
+     },
+     {
+      "band": "15 to 20 %",
+      "replies": 35,
+      "its_step_pct_of_its_quote": 1.58
+     },
+     {
+      "band": "over 20 %",
+      "replies": 25,
+      "its_step_pct_of_its_quote": 1.58
+     }
+    ],
+    "by_size_of_our_move": [
+     {
+      "band": "1 to 3 %",
+      "replies": 28,
+      "its_step_pct_of_its_quote": 1.56,
+      "it_moved": 0.71,
+      "answered_with_its_final_offer": 0.68
+     },
+     {
+      "band": "over 3 %",
+      "replies": 60,
+      "its_step_pct_of_its_quote": 1.58,
+      "it_moved": 0.78,
+      "answered_with_its_final_offer": 0.13
+     }
+    ],
+    "when_we_did_not_move": {
+     "replies": 1,
+     "it_moved": 0.0
+    }
+   },
+   "games_by_depth_of_our_asks": [
+    {
+     "our_asks_averaged_below_its_quote": "10 to 15 %",
+     "games": 17,
+     "its_deepest_offer_pct_below_its_quote": -0.82
+    },
+    {
+     "our_asks_averaged_below_its_quote": "15 to 20 %",
+     "games": 13,
+     "its_deepest_offer_pct_below_its_quote": -0.82
+    }
+   ],
+   "status_by_reply": {
+    "1": {
+     "open": 33
+    },
+    "2": {
+     "open": 33
+    },
+    "3": {
+     "open": 31
+    },
+    "4": {
+     "final_offer": 31
+    },
+    "5": {
+     "walked_away": 2,
+     "final_offer": 12
+    },
+    "6": {
+     "final_offer": 7
+    },
+    "7": {
+     "final_offer": 6
+    },
+    "8": {
+     "final_offer": 3,
+     "walked_away": 1
+    }
+   },
+   "final_offer_came_at_reply": {
+    "4": 31
+   },
+   "after_its_final_offer": {
+    "we let the 60 seconds pass": {
+     "walked_away": 1
+    },
+    "a note without a term sheet": {
+     "final_offer": 28,
+     "walked_away": 1
+    },
+    "we asked below its offer and had moved": {
+     "walked_away": 1
+    }
+   },
+   "it_left": {
+    "games": 3,
+    "at_reply": {
+     "5": 2,
+     "8": 1
+    },
+    "after": {
+     "its status was final_offer; we let the 60 seconds pass": 1,
+     "its status was final_offer; we asked below its offer and had moved": 1,
+     "its status was final_offer; a note without a term sheet": 1
+    }
+   },
+   "deepest_offer_below_its_quote_pct": 2.3,
+   "arguments": {
+    "competing offer": {
+     "took it into account": 1
+    },
+    "delivery record": {
+     "took it into account": 32
+    },
+    "rival quote": {
+     "not about this part or company": 2,
+     "true, but it changed nothing": 21,
+     "took it into account": 19
+    },
+    "volume change": {
+     "wrong figure: it cost trust": 7
+    }
+   },
+   "inside_notes": {
+    "The buyer asks something for Freight Forwarder; please answer.": 17,
+    "The buyer asks something for Quality; please answer.": 1,
+    "eight d attached": 1
+   },
+   "best_games": [],
+   "writes": {
+    "Kind regards": 0.5,
+    "Jana Procházková": 1.0,
+    "We are ready when you are!": 0.5,
+    "we can move a bit:": 0.33,
+    "To be fully transparent with you:": 0.33,
+    "Our price follows our main cost drivers: LCI-C, PPI-C#, AS-#, PPI-D#.": 0.5,
+    "many thanks, good to have your reply!": 0.5,
+    "thank you for your mail, we are very happy to hear from you!": 0.5,
+    "We really want this business - let's make it happen!": 0.5,
+    "We are a competitive and flexible partner.": 0.5,
+    "Please decide.": 0.11,
+    "Material accounts for about # % of our cost; more detail we do not share.": 0.12,
+    "We checked the delivery record data you cited; it holds and we took it into account.": 1.0,
+    "Please let me explain.": 0.33,
+    "This is our final offer (letztes Angebot).": 0.11
+   }
+  },
+  {
+   "supplier": "70250",
+   "case": "P05",
+   "who_signs": "Owner",
+   "company": "Drehteile Fuchsreiter GmbH",
+   "case_type": "rfq",
+   "category_goal": "leverage",
+   "bidders": 3,
+   "negotiable": [
+    "unit_price",
+    "payment_days",
+    "lead_time_days"
+   ],
+   "games": 33,
+   "replies": 194,
+   "best_deal_possible_below_cheapest_quote_pct": 26.9,
+   "first_reply": {
+    "replies": 31,
+    "it_moved": 1.0,
+    "share_of_gap": [
+     0.92,
+     0.92,
+     0.97
+    ],
+    "step_pct_of_its_quote": [
+     18.94,
+     18.94,
+     19.97
+    ],
+    "law": "it meets our ask",
+    "our_asks_were_pct_below_its_quote": [
+     20.5,
+     20.5,
+     20.5
+    ]
+   },
+   "later_replies": {
+    "replies": 20,
+    "it_moved": 0.9,
+    "share_of_gap": [
+     2.03,
+     3.04,
+     3.04
+    ],
+    "step_pct_of_its_quote": [
+     2.61,
+     3.92,
+     3.92
+    ],
+    "law": "it meets our ask",
+    "by_size_of_our_move": [
+     {
+      "band": "we did not move",
+      "replies": 14,
+      "its_step_pct_of_its_quote": 0.45,
+      "it_moved": 0.93,
+      "answered_with_its_final_offer": 0.07
+     },
+     {
+      "band": "0.3 to 1 %",
+      "replies": 17,
+      "its_step_pct_of_its_quote": 3.92,
+      "it_moved": 1.0,
+      "answered_with_its_final_offer": 0.0
+     }
+    ],
+    "when_we_did_not_move": {
+     "replies": 14,
+     "it_moved": 0.93
+    }
+   },
+   "status_by_reply": {
+    "1": {
+     "open": 33
+    },
+    "2": {
+     "agreed": 13,
+     "open": 20
+    },
+    "3": {
+     "agreed": 14,
+     "walked_away": 1,
+     "open": 12,
+     "final_offer": 4
+    },
+    "4": {
+     "open": 6,
+     "agreed": 10,
+     "final_offer": 11
+    },
+    "5": {
+     "agreed": 2,
+     "final_offer": 20
+    },
+    "6": {
+     "final_offer": 18
+    },
+    "7": {
+     "final_offer": 13
+    },
+    "8": {
+     "final_offer": 17
+    }
+   },
+   "final_offer_came_at_reply": {
+    "3": 4,
+    "4": 9,
+    "5": 10,
+    "6": 1
+   },
+   "after_its_final_offer": {
+    "a note without a term sheet": {
+     "final_offer": 58
+    },
+    "we let the 60 seconds pass": {
+     "final_offer": 1
+    }
+   },
+   "it_left": {
+    "games": 1,
+    "at_reply": {
+     "3": 1
+    },
+    "after": {
+     "its status was open; we let the 60 seconds pass": 1
+    }
+   },
+   "it_agreed_to_our_ask": {
+    "replies": 39,
+    "at_pct_below_its_quote": [
+     20.1,
+     20.4,
+     21.7
+    ],
+    "note": "it took our number as it stood: that ask was within what it accepts"
+   },
+   "deepest_offer_below_its_quote_pct": 24.3,
+   "arguments": {
+    "delivery record": {
+     "true, but it changed nothing": 7
+    },
+    "news": {
+     "took it into account": 28
+    },
+    "rival quote": {
+     "took it into account": 47,
+     "true, but it changed nothing": 28
+    },
+    "should cost": {
+     "true, but it changed nothing": 12
+    },
+    "volume change": {
+     "wrong figure: it cost trust": 8
+    }
+   },
+   "inside_notes": {
+    "The buyer shows a much lower rival quote. I give half the step now and check the rest.": 32,
+    "Checked: give the rest of the step.": 32
+   },
+   "best_games": [
+    {
+     "score": 0.631,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      20.5,
+      20.2,
+      21.7,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+     ],
+     "its_offers_pct_below_its_quote": [
+      18.9,
+      21.6,
+      21.7,
+      21.7,
+      21.7,
+      21.7,
+      21.7,
+      21.7,
+      21.7
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "agreed",
+      "final_offer",
+      "final_offer",
+      "final_offer",
+      "final_offer",
+      "final_offer",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "score": 0.58,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      20.5,
+      21.3,
+      31.1,
+      null,
+      null,
+      null
+     ],
+     "its_offers_pct_below_its_quote": [
+      20.0,
+      20.4,
+      20.4,
+      20.4,
+      20.4,
+      20.4
+     ],
+     "its_status": [
+      "open",
+      "agreed",
+      "agreed",
+      "agreed",
+      "final_offer",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3,
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "score": 0.367,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      9.9,
+      11.0
+     ],
+     "its_offers_pct_below_its_quote": [
+      9.5,
+      15.0
+     ],
+     "its_status": [
+      "open",
+      "open"
+     ],
+     "sheets_per_mail": [
+      2,
+      1
+     ]
+    }
+   ],
+   "our_scores": {
+    "games": 4,
+    "median": 0.605,
+    "best": 0.631
+   },
+   "writes": {
+    "Claudia Fuchsreiter": 1.0,
+    "Just write if something is unclear.": 0.33,
+    "With overtime we can deliver in # days, at a premium.": 0.33,
+    "Our Lieferzeit is # days.": 0.33,
+    "We have free capacity for your parts.": 0.33,
+    "Back to the machines now.": 0.33,
+    "got your mail, thanks.": 0.33,
+    "Here is how it is:": 0.33,
+    "Please decide.": 0.11,
+    "We checked the rival quote data you cited; it holds and we took it into account.": 0.5,
+    "Straight answer:": 0.33,
+    "thanks for the mail.": 0.33,
+    "Without movement from your side we cannot move either.": 1.0,
+    "Material accounts for about # % of our cost; more detail we do not share.": 0.12,
+    "Our final offer stands.": 1.0,
+    "Our price follows our main cost drivers: LCI-C, PPI-C#, AS-#, PPI-D#.": 0.5,
+    "This is our final offer (letztes Angebot).": 0.11
+   }
+  },
+  {
+   "supplier": "70610",
+   "case": "P07",
+   "who_signs": "Inside Sales",
+   "company": "Schraubenhandel Leitner & Sohn GmbH",
+   "case_type": "bundling",
+   "category_goal": "routine",
+   "bidders": 1,
+   "negotiable": [
+    "unit_price",
+    "payment_days",
+    "contract_months"
+   ],
+   "games": 39,
+   "replies": 108,
+   "best_deal_possible_below_cheapest_quote_pct": 23.5,
+   "first_reply": {
+    "replies": 39,
+    "it_moved": 1.0,
+    "share_of_gap": [
+     0.49,
+     0.49,
+     0.49
+    ],
+    "step_pct_of_its_quote": [
+     14.79,
+     14.79,
+     14.79
+    ],
+    "law": "a fixed step",
+    "our_asks_were_pct_below_its_quote": [
+     30.1,
+     30.1,
+     30.2
+    ]
+   },
+   "later_replies": {
+    "replies": 50,
+    "it_moved": 1.0,
+    "share_of_gap": [
+     0.08,
+     0.09,
+     0.39
+    ],
+    "step_pct_of_its_quote": [
+     0.76,
+     1.07,
+     1.07
+    ],
+    "law": "a share of the gap",
+    "by_gap_between_its_offer_and_our_ask": [
+     {
+      "band": "0.5 to 2 %",
+      "replies": 9,
+      "its_step_pct_of_its_quote": 0.46
+     },
+     {
+      "band": "2 to 4 %",
+      "replies": 11,
+      "its_step_pct_of_its_quote": 1.22
+     },
+     {
+      "band": "10 to 15 %",
+      "replies": 27,
+      "its_step_pct_of_its_quote": 1.07
+     }
+    ],
+    "by_size_of_our_move": [
+     {
+      "band": "0.3 to 1 %",
+      "replies": 10,
+      "its_step_pct_of_its_quote": 0.46,
+      "it_moved": 1.0,
+      "answered_with_its_final_offer": 1.0
+     },
+     {
+      "band": "1 to 3 %",
+      "replies": 16,
+      "its_step_pct_of_its_quote": 0.76,
+      "it_moved": 1.0,
+      "answered_with_its_final_offer": 0.88
+     },
+     {
+      "band": "over 3 %",
+      "replies": 24,
+      "its_step_pct_of_its_quote": 1.07,
+      "it_moved": 1.0,
+      "answered_with_its_final_offer": 0.54
+     }
+    ],
+    "when_we_did_not_move": {
+     "replies": 2,
+     "it_moved": 1.0
+    }
+   },
+   "games_by_depth_of_our_asks": [
+    {
+     "our_asks_averaged_below_its_quote": "20 to 25 %",
+     "games": 15,
+     "its_deepest_offer_pct_below_its_quote": 16.62
+    },
+    {
+     "our_asks_averaged_below_its_quote": "25 to 30 %",
+     "games": 23,
+     "its_deepest_offer_pct_below_its_quote": 15.86
+    }
+   ],
+   "status_by_reply": {
+    "1": {
+     "open": 39
+    },
+    "2": {
+     "open": 12,
+     "final_offer": 26,
+     "agreed": 1
+    },
+    "3": {
+     "final_offer": 11,
+     "open": 2,
+     "agreed": 5
+    },
+    "4": {
+     "walked_away": 1,
+     "agreed": 7,
+     "final_offer": 1
+    },
+    "5": {
+     "agreed": 2
+    },
+    "6": {
+     "walked_away": 1
+    }
+   },
+   "final_offer_came_at_reply": {
+    "2": 26,
+    "3": 11,
+    "4": 1
+   },
+   "after_its_final_offer": {
+    "a note without a term sheet": {
+     "walked_away": 1
+    },
+    "we asked below its offer and had moved": {
+     "agreed": 9
+    }
+   },
+   "it_left": {
+    "games": 2,
+    "at_reply": {
+     "4": 1,
+     "6": 1
+    },
+    "after": {
+     "its status was final_offer; a note without a term sheet": 1,
+     "its status was agreed; we let the 60 seconds pass": 1
+    }
+   },
+   "it_agreed_to_our_ask": {
+    "replies": 15,
+    "at_pct_below_its_quote": [
+     15.6,
+     15.8,
+     16.4
+    ],
+    "note": "it took our number as it stood: that ask was within what it accepts"
+   },
+   "deepest_offer_below_its_quote_pct": 16.8,
+   "arguments": {
+    "delivery record": {
+     "true, but it changed nothing": 3
+    },
+    "price history": {
+     "true, but it changed nothing": 4
+    },
+    "rival quote": {
+     "not about this part or company": 3
+    },
+    "volume change": {
+     "already counted": 43,
+     "took it into account": 22
+    }
+   },
+   "inside_notes": {
+    "The buyer asks something for Logistics; please answer.": 15
+   },
+   "best_games": [
+    {
+     "score": 0.715,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      23.1,
+      21.3,
+      20.2,
+      19.6
+     ],
+     "its_offers_pct_below_its_quote": [
+      14.8,
+      15.4,
+      16.2,
+      16.8
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "score": 0.715,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      30.1,
+      17.8,
+      16.9
+     ],
+     "its_offers_pct_below_its_quote": [
+      14.8,
+      16.5,
+      16.8
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      2,
+      2
+     ]
+    },
+    {
+     "score": 0.71,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      30.2,
+      17.9,
+      17.0,
+      16.7
+     ],
+     "its_offers_pct_below_its_quote": [
+      14.8,
+      16.5,
+      16.6,
+      16.7
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "final_offer",
+      "agreed"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3,
+      1
+     ]
+    }
+   ],
+   "our_scores": {
+    "games": 39,
+    "median": 0.676,
+    "best": 0.715
+   },
+   "writes": {
+    "Franz Stadler": 1.0,
+    "Dear customer,": 0.25,
+    "Mit freundlichen Grüßen": 0.14,
+    "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
+    "And while we are at it: our whole range is at your disposal, so if there is anything else on your list, just send it over - we are happy to quote.": 0.25,
+    "Thank you for your enquiry.": 0.1,
+    "Please find our Angebot below.": 0.1,
+    "Please decide.": 0.11,
+    "Please note that this offer remains valid for # days.": 0.2,
+    "We have already taken that volume change data into account.": 1.0,
+    "Material accounts for about # % of our cost; more detail we do not share.": 0.12,
+    "This is our final offer (letztes Angebot).": 0.11,
+    "We received a lot of material; we looked at what bears on this part.": 1.0,
+    "Here is the background.": 0.33
+   }
+  },
+  {
+   "supplier": "70710",
+   "case": "P08",
+   "who_signs": "Inside Sales",
+   "company": "Edelstahl-Service Donautal GmbH",
+   "case_type": "raw_material",
+   "category_goal": "leverage",
+   "bidders": 1,
+   "negotiable": [
+    "unit_price",
+    "index_clause",
+    "payment_days",
+    "contract_months"
+   ],
+   "games": 33,
+   "replies": 117,
+   "best_deal_possible_below_cheapest_quote_pct": 15.5,
+   "first_reply": {
+    "replies": 33,
+    "it_moved": 1.0,
+    "share_of_gap": [
+     0.36,
+     0.37,
+     0.37
+    ],
+    "step_pct_of_its_quote": [
+     6.77,
+     7.27,
+     7.31
+    ],
+    "law": "a share of the gap",
+    "our_asks_were_pct_below_its_quote": [
+     19.9,
+     19.9,
+     19.9
+    ]
+   },
+   "later_replies": {
+    "replies": 66,
+    "it_moved": 0.92,
+    "share_of_gap": [
+     0.14,
+     0.2,
+     0.24
+    ],
+    "step_pct_of_its_quote": [
+     0.67,
+     1.03,
+     2.17
+    ],
+    "law": "a share of the gap",
+    "by_gap_between_its_offer_and_our_ask": [
+     {
+      "band": "2 to 4 %",
+      "replies": 16,
+      "its_step_pct_of_its_quote": 0.84
+     },
+     {
+      "band": "4 to 6 %",
+      "replies": 9,
+      "its_step_pct_of_its_quote": 0.28
+     },
+     {
+      "band": "6 to 8 %",
+      "replies": 9,
+      "its_step_pct_of_its_quote": 0.67
+     },
+     {
+      "band": "8 to 10 %",
+      "replies": 9,
+      "its_step_pct_of_its_quote": 2.17
+     },
+     {
+      "band": "10 to 15 %",
+      "replies": 21,
+      "its_step_pct_of_its_quote": 2.17
+     }
+    ],
+    "by_size_of_our_move": [
+     {
+      "band": "0.3 to 1 %",
+      "replies": 9,
+      "its_step_pct_of_its_quote": 0.0,
+      "it_moved": 0.44,
+      "answered_with_its_final_offer": 0.78
+     },
+     {
+      "band": "1 to 3 %",
+      "replies": 35,
+      "its_step_pct_of_its_quote": 1.67,
+      "it_moved": 1.0,
+      "answered_with_its_final_offer": 0.31
+     },
+     {
+      "band": "over 3 %",
+      "replies": 21,
+      "its_step_pct_of_its_quote": 0.84,
+      "it_moved": 1.0,
+      "answered_with_its_final_offer": 0.57
+     }
+    ],
+    "when_we_did_not_move": {
+     "replies": 2,
+     "it_moved": 0.5
+    }
+   },
+   "games_by_depth_of_our_asks": [
+    {
+     "our_asks_averaged_below_its_quote": "10 to 15 %",
+     "games": 7,
+     "its_deepest_offer_pct_below_its_quote": 9.56
+    },
+    {
+     "our_asks_averaged_below_its_quote": "15 to 20 %",
+     "games": 24,
+     "its_deepest_offer_pct_below_its_quote": 10.19
+    }
+   ],
+   "status_by_reply": {
+    "1": {
+     "open": 33
+    },
+    "2": {
+     "open": 32,
+     "final_offer": 1
+    },
+    "3": {
+     "final_offer": 30,
+     "open": 2
+    },
+    "4": {
+     "agreed": 16,
+     "open": 1,
+     "final_offer": 1
+    },
+    "5": {
+     "final_offer": 1
+    }
+   },
+   "final_offer_came_at_reply": {
+    "2": 1,
+    "3": 30,
+    "4": 1,
+    "5": 1
+   },
+   "after_its_final_offer": {
+    "we asked below its offer and had moved": {
+     "agreed": 16
+    }
+   },
+   "it_agreed_to_our_ask": {
+    "replies": 16,
+    "at_pct_below_its_quote": [
+     10.1,
+     10.4,
+     11.2
+    ],
+    "note": "it took our number as it stood: that ask was within what it accepts"
+   },
+   "deepest_offer_below_its_quote_pct": 11.8,
+   "arguments": {
+    "delivery record": {
+     "true, but it changed nothing": 6
+    },
+    "price history": {
+     "took it into account": 25,
+     "true, but it changed nothing": 3
+    },
+    "rival quote": {
+     "not about this part or company": 4,
+     "true, but it changed nothing": 1
+    },
+    "volume change": {
+     "already counted": 4,
+     "took it into account": 12
+    }
+   },
+   "inside_notes": {
+    "The buyer asks something for Logistics; please answer.": 15
+   },
+   "best_games": [
+    {
+     "score": 0.765,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      19.9,
+      17.3,
+      16.5
+     ],
+     "its_offers_pct_below_its_quote": [
+      7.3,
+      10.9,
+      11.8
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "score": 0.748,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      19.9,
+      17.3,
+      14.2,
+      11.6
+     ],
+     "its_offers_pct_below_its_quote": [
+      7.3,
+      10.9,
+      11.3,
+      11.6
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "final_offer",
+      "agreed"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3,
+      1
+     ]
+    },
+    {
+     "score": 0.726,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      19.9,
+      17.3,
+      16.5,
+      11.2
+     ],
+     "its_offers_pct_below_its_quote": [
+      7.3,
+      10.9,
+      11.2,
+      11.2
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "final_offer",
+      "agreed"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3,
+      1
+     ]
+    }
+   ],
+   "our_scores": {
+    "games": 33,
+    "median": 0.657,
+    "best": 0.765
+   },
+   "writes": {
+    "Dear customer,": 0.25,
+    "Mit freundlichen Grüßen": 0.14,
+    "Georg Aigner": 1.0,
+    "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
+    "And while we are at it: our whole range is at your disposal, so if there is anything else on your list, just send it over - we are happy to quote.": 0.25,
+    "Here is the background.": 0.33,
+    "Many thanks for your e-mail, and great to hear from you; I went through it right away with our team.": 0.5,
+    "Please find our Angebot below.": 0.1,
+    "Thank you for your enquiry.": 0.1,
+    "Material accounts for about # % of our cost; more detail we do not share.": 0.12,
+    "Which volume can you commit to?": 0.11,
+    "Please note that this offer remains valid for # days.": 0.2,
+    "Please decide.": 0.11,
+    "Please send us the data.": 0.5,
+    "Which figures is that based on?": 0.5,
+    "This is our final offer (letztes Angebot).": 0.11,
+    "A few words on this from our side.": 0.33,
+    "We checked the price history data you cited; it holds and we took it into account.": 0.25,
+    "A binding higher volume would help us and can improve the price.": 0.17
+   }
+  },
+  {
+   "supplier": "70410",
+   "case": "P10",
+   "who_signs": "Segment Manager",
+   "company": "Dichtungswerk Ravensteiner GmbH",
+   "case_type": "capacity",
+   "category_goal": "secure_supply",
+   "bidders": 1,
+   "negotiable": [
+    "unit_price",
+    "volume_per_year",
+    "contract_months",
+    "lead_time_days"
+   ],
+   "games": 40,
+   "replies": 83,
+   "best_deal_possible_below_cheapest_quote_pct": 31.2,
+   "first_reply": {
+    "replies": 40,
+    "it_moved": 1.0,
+    "share_of_gap": [
+     0.7,
+     0.8,
+     0.82
+    ],
+    "step_pct_of_its_quote": [
+     18.48,
+     20.89,
+     21.38
+    ],
+    "law": "a fixed step",
+    "our_asks_were_pct_below_its_quote": [
+     26.1,
+     26.1,
+     26.1
+    ],
+    "by_how_far_below_its_quote_we_asked": [
+     {
+      "band": "20 to 25 %",
+      "replies": 7,
+      "its_step_pct_of_its_quote": 21.65
+     },
+     {
+      "band": "25 to 30 %",
+      "replies": 27,
+      "its_step_pct_of_its_quote": 20.89
+     },
+     {
+      "band": "30 to 40 %",
+      "replies": 6,
+      "its_step_pct_of_its_quote": 17.5
+     }
+    ]
+   },
+   "later_replies": {
+    "replies": 30,
+    "it_moved": 0.97,
+    "share_of_gap": [
+     0.12,
+     0.2,
+     0.2
+    ],
+    "step_pct_of_its_quote": [
+     0.49,
+     0.73,
+     0.73
+    ],
+    "law": "a share of the gap",
+    "by_gap_between_its_offer_and_our_ask": [
+     {
+      "band": "0.5 to 2 %",
+      "replies": 5,
+      "its_step_pct_of_its_quote": 0.24
+     },
+     {
+      "band": "2 to 4 %",
+      "replies": 12,
+      "its_step_pct_of_its_quote": 0.73
+     },
+     {
+      "band": "4 to 6 %",
+      "replies": 8,
+      "its_step_pct_of_its_quote": 0.49
+     },
+     {
+      "band": "6 to 8 %",
+      "replies": 5,
+      "its_step_pct_of_its_quote": 3.38
+     }
+    ],
+    "by_size_of_our_move": [
+     {
+      "band": "0.3 to 1 %",
+      "replies": 7,
+      "its_step_pct_of_its_quote": 0.24,
+      "it_moved": 1.0,
+      "answered_with_its_final_offer": 1.0
+     },
+     {
+      "band": "1 to 3 %",
+      "replies": 22,
+      "its_step_pct_of_its_quote": 0.73,
+      "it_moved": 0.95,
+      "answered_with_its_final_offer": 1.0
+     }
+    ]
+   },
+   "games_by_depth_of_our_asks": [
+    {
+     "our_asks_averaged_below_its_quote": "20 to 25 %",
+     "games": 13,
+     "its_deepest_offer_pct_below_its_quote": 21.62
+    },
+    {
+     "our_asks_averaged_below_its_quote": "25 to 30 %",
+     "games": 22,
+     "its_deepest_offer_pct_below_its_quote": 21.62
+    },
+    {
+     "our_asks_averaged_below_its_quote": "30 to 40 %",
+     "games": 5,
+     "its_deepest_offer_pct_below_its_quote": 17.5
+    }
+   ],
+   "status_by_reply": {
+    "1": {
+     "final_offer": 7,
+     "open": 33
+    },
+    "2": {
+     "final_offer": 32,
+     "walked_away": 3,
+     "agreed": 1
+    },
+    "3": {
+     "walked_away": 2,
+     "agreed": 5
+    }
+   },
+   "final_offer_came_at_reply": {
+    "1": 7,
+    "2": 32
+   },
+   "after_its_final_offer": {
+    "we let the 60 seconds pass": {
+     "walked_away": 2
+    },
+    "a note without a term sheet": {
+     "walked_away": 1
+    },
+    "we asked below its offer and had moved": {
+     "agreed": 3,
+     "walked_away": 1
+    },
+    "we came up to its offer": {
+     "agreed": 2
+    }
+   },
+   "it_left": {
+    "games": 5,
+    "at_reply": {
+     "2": 3,
+     "3": 2
+    },
+    "after": {
+     "its status was final_offer; we let the 60 seconds pass": 2,
+     "its status was final_offer; a note without a term sheet": 1,
+     "its status was open; we let the 60 seconds pass": 1,
+     "its status was final_offer; we asked below its offer and had moved": 1
+    }
+   },
+   "it_agreed_to_our_ask": {
+    "replies": 6,
+    "at_pct_below_its_quote": [
+     20.4,
+     21.6,
+     21.6
+    ],
+    "note": "it took our number as it stood: that ask was within what it accepts"
+   },
+   "deepest_offer_below_its_quote_pct": 22.4,
+   "arguments": {
+    "delivery": {
+     "true, but it changed nothing": 1
+    },
+    "delivery record": {
+     "true, but it changed nothing": 8,
+     "already counted": 1
+    },
+    "price history": {
+     "took it into account": 26,
+     "true, but it changed nothing": 5
+    },
+    "should cost": {
+     "took it into account": 39
+    },
+    "volume change": {
+     "true, but it changed nothing": 17,
+     "already counted": 1
+    }
+   },
+   "inside_notes": {
+    "The buyer asks something for Legal Department; please answer.": 17
+   },
+   "best_games": [
+    {
+     "score": 0.71,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      26.1,
+      24.2
+     ],
+     "its_offers_pct_below_its_quote": [
+      21.4,
+      22.4
+     ],
+     "its_status": [
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      2,
+      2
+     ]
+    },
+    {
+     "score": 0.702,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      26.1,
+      25.1
+     ],
+     "its_offers_pct_below_its_quote": [
+      21.4,
+      22.1
+     ],
+     "its_status": [
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      2,
+      2
+     ]
+    },
+    {
+     "score": 0.695,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      24.2,
+      23.3
+     ],
+     "its_offers_pct_below_its_quote": [
+      21.7,
+      21.9
+     ],
+     "its_status": [
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3
+     ]
+    }
+   ],
+   "our_scores": {
+    "games": 40,
+    "median": 0.682,
+    "best": 0.71
+   },
+   "writes": {
+    "Monika Zellner": 1.0,
+    "Dear Sir or Madam,": 0.33,
+    "Mit freundlichen Grüßen": 0.14,
+    "Our calculation is our property; we do not share a breakdown.": 0.5,
+    "Please find our Angebot below.": 0.1,
+    "Thank you for your enquiry.": 0.1,
+    "Please decide.": 0.11,
+    "We checked the should cost data you cited; it holds and we took it into account.": 1.0,
+    "This is our final offer (letztes Angebot).": 0.11,
+    "We will process your next message according to our standard procedure.": 1.0,
+    "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
+    "We checked the price history data you cited; it holds and we took it into account.": 0.25,
+    "Please note that this offer remains valid for # days.": 0.2,
+    "We look forward to proceeding according to our standard commercial procedure upon receipt of your confirmation.": 1.0,
+    "The requested contract term is # months, and our Lieferzeit is # days.": 1.0,
+    "We offer a volume of # pcs per year at a price of €# per unit.": 1.0
+   }
+  },
+  {
+   "supplier": "70140",
+   "case": "P11",
+   "who_signs": "Export Manager",
+   "company": "Odlewnia Kalwisz Sp. z o.o.",
+   "case_type": "quality",
+   "category_goal": "quality_first",
+   "bidders": 1,
+   "negotiable": [
+    "ppm_commitment",
+    "chargeback_eur_per_complaint",
+    "unit_price"
+   ],
+   "games": 28,
+   "replies": 149,
+   "best_deal_possible_below_cheapest_quote_pct": 11.6,
+   "first_reply": {
+    "replies": 28,
+    "it_moved": 0.96,
+    "share_of_gap": [
+     0.22,
+     0.22,
+     0.26
+    ],
+    "step_pct_of_its_quote": [
+     5.34,
+     5.34,
+     6.31
+    ],
+    "law": "a share of the gap",
+    "our_asks_were_pct_below_its_quote": [
+     23.9,
+     23.9,
+     23.9
+    ]
+   },
+   "later_replies": {
+    "replies": 102,
+    "it_moved": 0.66,
+    "share_of_gap": [
+     0.07,
+     0.08,
+     0.11
+    ],
+    "step_pct_of_its_quote": [
+     0.97,
+     0.97,
+     0.97
+    ],
+    "law": "a fixed step",
+    "by_gap_between_its_offer_and_our_ask": [
+     {
+      "band": "2 to 4 %",
+      "replies": 8,
+      "its_step_pct_of_its_quote": 0.97
+     },
+     {
+      "band": "4 to 6 %",
+      "replies": 11,
+      "its_step_pct_of_its_quote": 0.0
+     },
+     {
+      "band": "6 to 8 %",
+      "replies": 10,
+      "its_step_pct_of_its_quote": 0.0
+     },
+     {
+      "band": "8 to 10 %",
+      "replies": 9,
+      "its_step_pct_of_its_quote": 0.97
+     },
+     {
+      "band": "10 to 15 %",
+      "replies": 45,
+      "its_step_pct_of_its_quote": 0.97
+     },
+     {
+      "band": "15 to 20 %",
+      "replies": 18,
+      "its_step_pct_of_its_quote": 0.97
+     }
+    ],
+    "by_size_of_our_move": [
+     {
+      "band": "1 to 3 %",
+      "replies": 81,
+      "its_step_pct_of_its_quote": 0.97,
+      "it_moved": 0.6,
+      "answered_with_its_final_offer": 0.14
+     },
+     {
+      "band": "over 3 %",
+      "replies": 19,
+      "its_step_pct_of_its_quote": 0.97,
+      "it_moved": 0.89,
+      "answered_with_its_final_offer": 0.26
+     }
+    ]
+   },
+   "games_by_depth_of_our_asks": [
+    {
+     "our_asks_averaged_below_its_quote": "15 to 20 %",
+     "games": 23,
+     "its_deepest_offer_pct_below_its_quote": 8.26
+    },
+    {
+     "our_asks_averaged_below_its_quote": "20 to 25 %",
+     "games": 4,
+     "its_deepest_offer_pct_below_its_quote": 7.77
+    }
+   ],
+   "status_by_reply": {
+    "1": {
+     "open": 28
+    },
+    "2": {
+     "open": 28
+    },
+    "3": {
+     "open": 27,
+     "agreed": 1
+    },
+    "4": {
+     "open": 22,
+     "final_offer": 4,
+     "agreed": 1,
+     "walked_away": 1
+    },
+    "5": {
+     "open": 9,
+     "final_offer": 13,
+     "agreed": 1
+    },
+    "6": {
+     "final_offer": 6,
+     "agreed": 7
+    },
+    "7": {
+     "walked_away": 1
+    }
+   },
+   "final_offer_came_at_reply": {
+    "4": 4,
+    "5": 13,
+    "6": 5
+   },
+   "after_its_final_offer": {
+    "we asked below its offer and had moved": {
+     "agreed": 8
+    },
+    "we let the 60 seconds pass": {
+     "final_offer": 1,
+     "walked_away": 1
+    }
+   },
+   "it_left": {
+    "games": 2,
+    "at_reply": {
+     "4": 1,
+     "7": 1
+    },
+    "after": {
+     "its status was final_offer; we let the 60 seconds pass": 1,
+     "its status was open; we let the 60 seconds pass": 1
+    }
+   },
+   "it_agreed_to_our_ask": {
+    "replies": 10,
+    "at_pct_below_its_quote": [
+     8.8,
+     9.8,
+     9.8
+    ],
+    "note": "it took our number as it stood: that ask was within what it accepts"
+   },
+   "deepest_offer_below_its_quote_pct": 9.8,
+   "arguments": {
+    "delivery record": {
+     "already counted": 2
+    },
+    "forecast": {
+     "took it into account": 4
+    },
+    "index change": {
+     "took it into account": 26,
+     "already counted": 1
+    },
+    "price history": {
+     "true, but it changed nothing": 5
+    },
+    "quality record": {
+     "took it into account": 28,
+     "already counted": 3
+    },
+    "rival quote": {
+     "not about this part or company": 5
+    },
+    "volume change": {
+     "took it into account": 14,
+     "already counted": 10
+    }
+   },
+   "inside_notes": {
+    "The buyer asks something for Freight Forwarder; please answer.": 3
+   },
+   "best_games": [
+    {
+     "score": 0.84,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      23.9,
+      22.3,
+      20.6,
+      19.0,
+      11.9,
+      9.8
+     ],
+     "its_offers_pct_below_its_quote": [
+      6.3,
+      6.3,
+      7.3,
+      8.3,
+      9.2,
+      9.8
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "open",
+      "open",
+      "final_offer",
+      "agreed"
+     ],
+     "sheets_per_mail": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      1
+     ]
+    },
+    {
+     "score": 0.84,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      23.9,
+      22.3,
+      20.6,
+      19.0,
+      17.2,
+      9.8
+     ],
+     "its_offers_pct_below_its_quote": [
+      6.3,
+      6.3,
+      7.3,
+      8.3,
+      9.2,
+      9.8
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "open",
+      "open",
+      "final_offer",
+      "agreed"
+     ],
+     "sheets_per_mail": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      1
+     ]
+    },
+    {
+     "score": 0.794,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      23.9,
+      19.8,
+      17.2,
+      15.3,
+      13.4,
+      12.6
+     ],
+     "its_offers_pct_below_its_quote": [
+      5.3,
+      6.3,
+      7.3,
+      7.3,
+      8.3,
+      9.2
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "open",
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+     ]
+    }
+   ],
+   "our_scores": {
+    "games": 28,
+    "median": 0.71,
+    "best": 0.84
+   },
+   "writes": {
+    "Kind regards": 0.5,
+    "we can move a bit:": 0.33,
+    "We are ready when you are!": 0.5,
+    "Faster payment would help us more than anything.": 1.0,
+    "To be fully transparent with you:": 0.33,
+    "many thanks, good to have your reply!": 0.5,
+    "thank you for your mail, we are very happy to hear from you!": 0.5,
+    "Please let me explain.": 0.33,
+    "We really want this business - let's make it happen!": 0.5,
+    "Faster payment is welcome; we can reflect it in the price.": 0.5,
+    "Our standard Zahlungsziel is # days net.": 1.0,
+    "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
+    "Material accounts for about # % of our cost; more detail we do not share.": 0.12,
+    "This offer stays valid for # days.": 0.33
+   }
+  },
+  {
+   "supplier": "70740",
+   "case": "P18",
+   "who_signs": "Inside Sales",
+   "company": "Blankstahl Werdenfels GmbH",
+   "case_type": "raw_material",
+   "category_goal": "leverage",
+   "bidders": 1,
+   "negotiable": [
+    "unit_price",
+    "index_clause",
+    "payment_days",
+    "contract_months"
+   ],
+   "games": 150,
+   "replies": 443,
+   "best_deal_possible_below_cheapest_quote_pct": 24.6,
+   "first_reply": {
+    "replies": 150,
+    "it_moved": 1.0,
+    "share_of_gap": [
+     0.38,
+     0.38,
+     0.44
+    ],
+    "step_pct_of_its_quote": [
+     8.96,
+     8.96,
+     9.86
+    ],
+    "law": "a fixed step",
+    "our_asks_were_pct_below_its_quote": [
+     22.1,
+     23.4,
+     23.4
+    ],
+    "by_how_far_below_its_quote_we_asked": [
+     {
+      "band": "10 to 15 %",
+      "replies": 11,
+      "its_step_pct_of_its_quote": 1.45
+     },
+     {
+      "band": "20 to 25 %",
+      "replies": 138,
+      "its_step_pct_of_its_quote": 8.96
+     }
+    ]
+   },
+   "later_replies": {
+    "replies": 190,
+    "it_moved": 0.93,
+    "share_of_gap": [
+     0.12,
+     0.13,
+     0.29
+    ],
+    "step_pct_of_its_quote": [
+     1.63,
+     1.63,
+     1.63
+    ],
+    "law": "a fixed step",
+    "by_gap_between_its_offer_and_our_ask": [
+     {
+      "band": "0.5 to 2 %",
+      "replies": 5,
+      "its_step_pct_of_its_quote": 0.97
+     },
+     {
+      "band": "2 to 4 %",
+      "replies": 22,
+      "its_step_pct_of_its_quote": 1.63
+     },
+     {
+      "band": "4 to 6 %",
+      "replies": 16,
+      "its_step_pct_of_its_quote": 1.63
+     },
+     {
+      "band": "6 to 8 %",
+      "replies": 21,
+      "its_step_pct_of_its_quote": 1.63
+     },
+     {
+      "band": "8 to 10 %",
+      "replies": 22,
+      "its_step_pct_of_its_quote": 1.64
+     },
+     {
+      "band": "10 to 15 %",
+      "replies": 94,
+      "its_step_pct_of_its_quote": 1.63
+     },
+     {
+      "band": "over 20 %",
+      "replies": 10,
+      "its_step_pct_of_its_quote": 0.8
+     }
+    ],
+    "by_size_of_our_move": [
+     {
+      "band": "we did not move",
+      "replies": 22,
+      "its_step_pct_of_its_quote": 0.0,
+      "it_moved": 0.0,
+      "answered_with_its_final_offer": 0.55
+     },
+     {
+      "band": "0.3 to 1 %",
+      "replies": 11,
+      "its_step_pct_of_its_quote": 0.0,
+      "it_moved": 0.36,
+      "answered_with_its_final_offer": 0.82
+     },
+     {
+      "band": "1 to 3 %",
+      "replies": 158,
+      "its_step_pct_of_its_quote": 1.63,
+      "it_moved": 0.96,
+      "answered_with_its_final_offer": 0.72
+     },
+     {
+      "band": "over 3 %",
+      "replies": 21,
+      "its_step_pct_of_its_quote": 1.63,
+      "it_moved": 1.0,
+      "answered_with_its_final_offer": 0.38
+     }
+    ],
+    "when_we_did_not_move": {
+     "replies": 22,
+     "it_moved": 0.0
+    }
+   },
+   "games_by_depth_of_our_asks": [
+    {
+     "our_asks_averaged_below_its_quote": "10 to 15 %",
+     "games": 11,
+     "its_deepest_offer_pct_below_its_quote": 1.45
+    },
+    {
+     "our_asks_averaged_below_its_quote": "15 to 20 %",
+     "games": 87,
+     "its_deepest_offer_pct_below_its_quote": 10.59
+    },
+    {
+     "our_asks_averaged_below_its_quote": "20 to 25 %",
+     "games": 50,
+     "its_deepest_offer_pct_below_its_quote": 10.59
+    }
+   ],
+   "status_by_reply": {
+    "1": {
+     "open": 150
+    },
+    "2": {
+     "open": 61,
+     "final_offer": 89
+    },
+    "3": {
+     "final_offer": 53,
+     "walked_away": 51,
+     "agreed": 9,
+     "open": 2
+    },
+    "4": {
+     "agreed": 11,
+     "walked_away": 14,
+     "final_offer": 2
+    },
+    "5": {
+     "agreed": 1
+    }
+   },
+   "final_offer_came_at_reply": {
+    "2": 89,
+    "3": 53,
+    "4": 2
+   },
+   "after_its_final_offer": {
+    "we asked below its offer and had moved": {
+     "walked_away": 51,
+     "agreed": 14
+    },
+    "we asked below its offer without moving": {
+     "walked_away": 11
+    },
+    "we let the 60 seconds pass": {
+     "walked_away": 2
+    },
+    "a note without a term sheet": {
+     "walked_away": 1
+    }
+   },
+   "it_left": {
+    "games": 65,
+    "at_reply": {
+     "3": 51,
+     "4": 14
+    },
+    "after": {
+     "its status was final_offer; we asked below its offer and had moved": 51,
+     "its status was final_offer; we asked below its offer without moving": 11,
+     "its status was final_offer; we let the 60 seconds pass": 2,
+     "its status was final_offer; a note without a term sheet": 1
+    }
+   },
+   "it_agreed_to_our_ask": {
+    "replies": 21,
+    "at_pct_below_its_quote": [
+     12.0,
+     12.5,
+     13.6
+    ],
+    "note": "it took our number as it stood: that ask was within what it accepts"
+   },
+   "deepest_offer_below_its_quote_pct": 15.5,
+   "arguments": {
+    "delivery record": {
+     "true, but it changed nothing": 22
+    },
+    "price history": {
+     "took it into account": 120,
+     "true, but it changed nothing": 5
+    },
+    "rival quote": {
+     "not about this part or company": 2
+    },
+    "volume change": {
+     "took it into account": 26,
+     "already counted": 6
+    }
+   },
+   "inside_notes": {
+    "The buyer asks something for Logistics; please answer.": 1
+   },
+   "best_games": [
+    {
+     "score": 0.63,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      21.5,
+      19.2,
+      16.8
+     ],
+     "its_offers_pct_below_its_quote": [
+      12.2,
+      13.8,
+      15.5
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "score": 0.575,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      22.3,
+      19.8,
+      18.9,
+      14.1
+     ],
+     "its_offers_pct_below_its_quote": [
+      10.3,
+      13.1,
+      13.1,
+      14.1
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "final_offer",
+      "agreed"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3,
+      1
+     ]
+    },
+    {
+     "score": 0.563,
+     "ended": "accepted",
+     "our_asks_pct_below_its_quote": [
+      22.1,
+      20.3,
+      19.2
+     ],
+     "its_offers_pct_below_its_quote": [
+      9.0,
+      12.2,
+      13.8
+     ],
+     "its_status": [
+      "open",
+      "open",
+      "final_offer"
+     ],
+     "sheets_per_mail": [
+      3,
+      3,
+      3
+     ]
+    }
+   ],
+   "our_scores": {
+    "games": 150,
+    "median": 0.075,
+    "best": 0.63
+   },
+   "writes": {
+    "Dear customer,": 0.25,
+    "Mit freundlichen Grüßen": 0.14,
+    "We have reviewed your offer and can adjust our Angebot as follows.": 0.09,
+    "Which volume can you commit to?": 0.11,
+    "And while we are at it: our whole range is at your disposal, so if there is anything else on your list, just send it over - we are happy to quote.": 0.25,
+    "Our price follows our main cost drivers: AS-#, PPI-C#, LCI-C.": 1.0,
+    "A binding higher volume would help us and can improve the price.": 0.17,
+    "Thank you for your enquiry.": 0.1,
+    "Please find our Angebot below.": 0.1,
+    "Please decide.": 0.11,
+    "A few words on this from our side.": 0.33,
+    "This is our final offer (letztes Angebot).": 0.11,
+    "We checked the price history data you cited; it holds and we took it into account.": 0.25,
+    "We can offer a Preisgleitklausel on AS-#, AS-#, AS-#.": 1.0,
+    "Please note that this offer remains valid for # days.": 0.2,
+    "Here is the background.": 0.33,
+    "Many thanks for your e-mail, and great to hear from you; I went through it right away with our team.": 0.5
+   }
+  }
+ ],
+ "across_all_suppliers": {
+  "threads": 908,
+  "suppliers": 15,
+  "e_mails_with_a_term_sheet_sent_while_its_status_was_open": 2724,
+  "of_which_it_answered_by_leaving": 0,
+  "turns_we_let_time_out": 176,
+  "when_suppliers_left": {
+   "its status was final_offer; we asked below its offer and had moved": 54,
+   "its status was final_offer; we let the 60 seconds pass": 29,
+   "its status was open; we let the 60 seconds pass": 24,
+   "its status was final_offer; we asked below its offer without moving": 17,
+   "its status was agreed; we let the 60 seconds pass": 6,
+   "its status was final_offer; a note without a term sheet": 6
   }
  }
-]
+}

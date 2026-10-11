@@ -124,3 +124,58 @@ def test_costing_candidate_sheets_also_foretells_the_reply():
         told["if_it_moves_its_sheet_would_cost_us_eur"]["expected"],
     )
     assert mid <= low < state.snapshot()["threads"][0]["supplier_sheets"][0]["commercial_eur"]
+
+
+def test_a_turn_we_let_time_out_is_not_an_email_and_is_named_as_such():
+    steps = thread((80.0, 96.0, "final_offer"))
+    steps += [
+        {"who": "B", "cost": None, "sheets": 0, "kind": "timeout"},
+        {"who": "S", "cost": None, "status": "walked_away"},
+    ]
+    row = recognition.replies(steps)[1]
+    assert row["timeout"] and recognition.how_we_answered(row) == "we let the 60 seconds pass"
+
+
+def test_the_records_say_when_suppliers_left_and_that_none_left_an_open_thread_over_a_term_sheet():
+    held = recognition.across_all()
+    assert held["threads"] > 900 and held["e_mails_with_a_term_sheet_sent_while_its_status_was_open"] > 2000
+    assert held["of_which_it_answered_by_leaving"] == 0
+    assert all("open; we asked" not in k and "open; we came" not in k for k in held["when_suppliers_left"])
+    assert d01().snapshot()["what_held_across_all_suppliers_we_played"] == held
+
+
+def test_a_record_cuts_its_replies_by_gap_by_depth_of_ask_and_by_size_of_our_move():
+    rec = next(r for r in recognition.records() if r["case"] == "D01")
+    gaps = rec["later_replies"]["by_gap_between_its_offer_and_our_ask"]
+    assert [g["its_step_pct_of_its_quote"] for g in gaps] == sorted(g["its_step_pct_of_its_quote"] for g in gaps)
+    moves = {m["band"]: m for m in rec["later_replies"]["by_size_of_our_move"]}
+    assert moves["we did not move"]["it_moved"] < 0.1 < 0.9 < moves["1 to 3 %"]["it_moved"]
+    assert len(rec["first_reply"]["by_how_far_below_its_quote_we_asked"]) > 1
+    deep = rec["games_by_depth_of_our_asks"]
+    assert deep[0]["its_deepest_offer_pct_below_its_quote"] < deep[-1]["its_deepest_offer_pct_below_its_quote"]
+    assert not any("60 seconds" in k for k in rec["after_its_final_offer"] if k == "a note without a term sheet")
+
+
+def test_holding_the_ask_projects_a_lower_end_than_coming_up_when_the_step_is_a_share_of_the_gap():
+    share = {
+        "case": "X",
+        "supplier": "a",
+        "final_offer_came_at_reply": {"4": 10},
+        "later_replies": {"law": "a share of the gap", "share_of_gap": [0.1, 0.2, 0.3]},
+    }
+    fixed = {**share, "later_replies": {"law": "a fixed step", "step_pct_of_its_quote": [1.0, 1.0, 1.0]}}
+    steps = thread((80.0, 96.0, "open"))
+    over = recognition.forecast(recognition.recognise({}, steps, pool=[share]), 96.0, 76.0, 100.0)[
+        "over_the_replies_it_has_left"
+    ]
+    assert over["replies_before_its_final_offer_by_the_closest_records"] == 3
+    assert over["if_you_hold_your_ask_near_this_sheet"] == pytest.approx(96 - 20 * (1 - 0.8**3))
+    assert over["if_you_hold_your_ask_near_this_sheet"] < over["if_you_come_up_half_the_gap_each_time"]
+    over = recognition.forecast(recognition.recognise({}, steps, pool=[fixed]), 96.0, 76.0, 100.0)[
+        "over_the_replies_it_has_left"
+    ]
+    assert (
+        over["if_you_hold_your_ask_near_this_sheet"]
+        == over["if_you_come_up_half_the_gap_each_time"]
+        == pytest.approx(93.0)
+    )

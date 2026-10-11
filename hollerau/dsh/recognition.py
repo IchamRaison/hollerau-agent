@@ -10,7 +10,8 @@ instruction.
 Everything is in units a game shows: our cost of a sheet as a share of the supplier's opening
 quote. A thread is a list of steps, ours and its:
 
-    {"who": "B", "cost": cheapest sheet we sent (EUR, None without a sheet), "sheets": n}
+    {"who": "B", "cost": cheapest sheet we sent (EUR, None without a sheet), "sheets": n,
+     "kind": "message" or "timeout" (we let the 60 seconds pass)}
     {"who": "S", "cost": its standing sheet (EUR, None when it left), "status": ..., "text": ...}
 """
 
@@ -74,6 +75,8 @@ def replies(steps):
         k += 1
         ask, offer, before = pending.get("cost"), s.get("cost"), prev.get("cost")
         row = {"k": k, "status": s.get("status"), "prev_status": prev.get("status"), "sheets": pending.get("sheets", 0)}
+        if pending.get("kind") == "timeout":
+            row["timeout"] = True
         if opening and before is not None:
             if ask is not None:
                 row["gap"] = (before - ask) / opening
@@ -94,6 +97,8 @@ def replies(steps):
 
 def how_we_answered(row):
     """What our e-mail did, as the supplier may read it."""
+    if row.get("timeout"):
+        return "we let the 60 seconds pass"
     if "gap" not in row:
         return "a note without a term sheet"
     if row["gap"] <= 1e-6:
@@ -106,11 +111,20 @@ def how_we_answered(row):
 
 
 @lru_cache(maxsize=1)
-def records():
+def _file():
     try:
         return json.loads(RECORDS.read_text(encoding="utf-8"))
     except (OSError, ValueError):
-        return []
+        return {}
+
+
+def records():
+    return _file().get("suppliers", [])
+
+
+def across_all():
+    """What held over every supplier we played, whoever it was."""
+    return _file().get("across_all_suppliers")
 
 
 def _near(value, band, tolerance):
@@ -223,16 +237,11 @@ def outlook(found):
     return out
 
 
-def forecast(found, standing, ask, opening):
-    """Its next standing sheet, in our cost, if our cheapest sheet costs `ask`: the share of the
-    gap it closed so far in this thread when it has shown one, mixed with what the closest records
-    closed at this reply. Records that give a fixed step whatever the gap answer with that step."""
-    if standing is None or ask is None or not opening:
-        return None
-    gap = (standing - ask) / opening
-    if gap <= MIN_GAP:
-        return {"note": "this sheet does not ask below its standing offer: it can only agree or hold"}
-    k = found["replies_so_far"] + 1
+def _step(found, k, gap):
+    """(low, expected, high) step at reply `k` for a gap, as shares of its quote, and what it rests
+    on: the share of the gap it closed so far in this thread when it has shown one, mixed with what
+    the closest records closed at such a reply. A record that gave a fixed step whatever the gap
+    answers with that step."""
     seen = [r["share"] for r in found["rows"] if r["k"] >= 2 and "share" in r and r.get("our_move", 1) > 1e-6]
     lows, mids, highs = [], [], []
     for w, rec in found.get("all") or []:
@@ -257,7 +266,36 @@ def forecast(found, standing, ask, opening):
         mid = (len(seen) * own + mid) / (len(seen) + 1)
         low, high = min(low, own, mid), max(high, own, mid)
         basis = f"the share of the gap it closed in this thread ({len(seen)} replies), mixed with the closest records"
-    return {
+    return low, mid, high, basis
+
+
+def replies_left(found):
+    """How many more replies before its final offer, by the closest records: the weighted median
+    of the reply at which theirs came, less the replies it has already given. At least 1."""
+    k, came = found["replies_so_far"], []
+    for w, rec in found.get("all") or []:
+        by = {int(a): c for a, c in (rec.get("final_offer_came_at_reply") or {}).items() if int(a) > k}
+        n = sum(by.values())
+        came += [(w * c / n, a) for a, c in by.items()]
+    at = _mix(came)
+    return max(1, at - k) if at else 1
+
+
+def forecast(found, standing, ask, opening):
+    """Its next standing sheet, in our cost, if our cheapest sheet costs `ask` - and where its sheet
+    may stand at its final offer for two ways of using the replies it has left: holding our ask
+    about where this sheet puts it, or coming up half of the gap at every e-mail."""
+    if standing is None or ask is None or not opening:
+        return None
+    gap = (standing - ask) / opening
+    if gap <= MIN_GAP:
+        return {"note": "this sheet does not ask below its standing offer: it can only agree or hold"}
+    k = found["replies_so_far"] + 1
+    told = _step(found, k, gap)
+    if not told:
+        return None
+    low, mid, high, basis = told
+    out = {
         "if_it_moves_its_sheet_would_cost_us_eur": {
             "low_step": round(standing - low * opening, 2),
             "expected": round(standing - mid * opening, 2),
@@ -266,10 +304,35 @@ def forecast(found, standing, ask, opening):
         "expected_step_pct_of_its_quote": round(100 * mid, 2),
         "from": basis,
     }
+    left = replies_left(found)
+    ends = {}
+    for name, come_up in (
+        ("if_you_hold_your_ask_near_this_sheet", 0.0),
+        ("if_you_come_up_half_the_gap_each_time", 0.5),
+    ):
+        offer, ours = standing, ask
+        for i in range(left):
+            step = _step(found, k + i, (offer - ours) / opening)
+            if not step or offer - ours <= 0:
+                break
+            offer -= step[1] * opening
+            ours += come_up * (offer - ours)
+        ends[name] = round(offer, 2)
+    out["over_the_replies_it_has_left"] = {
+        "replies_before_its_final_offer_by_the_closest_records": left,
+        **ends,
+        "note": "a projection of the same rule, reply after reply; its floor is not in it - it stops there, "
+        "wherever that is - and any ask deeper than the records ever saw is outside what they show",
+    }
+    return out
 
 
-def brief(rec):
-    """A record as the model reads it: no bookkeeping, only what the supplier did."""
+SECOND = ("arguments", "inside_notes", "it_left", "it_agreed_to_our_ask", "best_games", "company")
+
+
+def brief(rec, full=True):
+    """A record as the model reads it: no bookkeeping, only what the supplier did. The closest
+    record is shown whole; the next ones without what matters less for a mere resemblance."""
     keep = (
         "who_signs",
         "company",
@@ -284,13 +347,15 @@ def brief(rec):
         "it_left",
         "it_agreed_to_our_ask",
         "deepest_offer_below_its_quote_pct",
+        "best_deal_possible_below_cheapest_quote_pct",
+        "games_by_depth_of_our_asks",
         "arguments",
         "inside_notes",
         "best_games",
     )
     return {
         "supplier": f"{rec['case']}/{rec['supplier']}",
-        **{k: rec[k] for k in keep if rec.get(k) not in (None, {}, [])},
+        **{k: rec[k] for k in keep if rec.get(k) not in (None, {}, []) and (full or k not in SECOND)},
     }
 
 
@@ -310,13 +375,7 @@ def view(context, steps, said=(), hide_case=None):
         "note": "suppliers we have played that this one resembles, with weights; what they did is "
         "evidence, a new supplier may do otherwise",
         "suppliers_it_resembles": [
-            {"weight": m["weight"], "why": m["why"], **brief(m["record"])}
-            if i == 0
-            else {
-                "weight": m["weight"],
-                "why": m["why"],
-                **{k: v for k, v in brief(m["record"]).items() if k != "best_games"},
-            }
+            {"weight": m["weight"], "why": m["why"], **brief(m["record"], full=i == 0)}
             for i, m in enumerate(found["resembles"])
         ],
         "in_this_thread": live,

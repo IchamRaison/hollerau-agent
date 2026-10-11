@@ -181,7 +181,7 @@ class CaseState:
         for m in self.threads[sid]:
             c = economics._asked(self.case, m, std, None)
             if m.get("from") == "buyer":
-                steps.append({"who": "B", "cost": c, "sheets": len(m.get("term_sheets") or [])})
+                steps.append({"who": "B", "cost": c, "sheets": len(m.get("term_sheets") or []), "kind": "message"})
             else:
                 steps.append({"who": "S", "cost": c, "status": m.get("status"), "text": m.get("body") or ""})
         return steps
@@ -328,6 +328,7 @@ class CaseState:
                 "cheapest_sheet_you_could_accept_now": (
                     {"cost_eur": best[0], "supplier_id": best[1], "term_sheet_id": best[2]} if best else None
                 ),
+                "what_held_across_all_suppliers_we_played": recognition.across_all(),
                 "threads": [self._thread_view(s) for s in self.threads],
                 "your_notes": self.hypotheses,
             }
