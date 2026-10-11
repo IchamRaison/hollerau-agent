@@ -56,7 +56,7 @@ def main(argv=None):
         ids = [c if c.startswith("case:") else f"case:{c}" for c in a.cases]
         if not ids:
             ids = [c["case_id"] for c in hosted(client.cases(a.set))]
-        results = play_cases(client, ids, new_agent, parallel=a.parallel)
+        results = play_cases(client, ids, new_agent, parallel=a.parallel, set_=a.set)
     scores = []
     for cid, r in sorted(results.items()):
         if isinstance(r, Exception):
