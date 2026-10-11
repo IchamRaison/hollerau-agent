@@ -1,0 +1,27 @@
+{
+  "cli_version": "0.11.4",
+  "checkpoint_id": "01M4MSE422NGS0C9D7X4QN6V9A",
+  "strategy": "manual-commit",
+  "branch": "nevil/intel-release",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "intel/dossier.py",
+    "tests/test_intel_release.py"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0/metadata.json",
+      "transcript": "/0/full.jsonl",
+      "compact_transcript": "/0/transcript.jsonl",
+      "content_hash": "/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 86,
+    "cache_creation_tokens": 59605,
+    "cache_read_tokens": 9448640,
+    "output_tokens": 29700,
+    "api_call_count": 42
+  }
+}
