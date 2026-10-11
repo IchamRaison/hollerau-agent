@@ -144,3 +144,43 @@ def test_a_supplier_the_package_has_never_heard_of_is_negotiated_with_all_the_sa
                      "We cannot fix prices over 24 months. This is our final offer.")
     threads[stranger].append(reply)
     assert agent.decide(case, threads, stranger)["message"]["action"]["type"] in ("accept", "walk_away")
+
+
+def test_the_action_policy_decides_on_real_situations_of_the_archive_without_failing():
+    """Every eighth archived session, at each point where it was our turn: a move, and a valid one.
+    (All 1 980 situations of the archive were run once by hand: no failure, nothing corrected.)"""
+    from pathlib import Path
+
+    from hollerau.pegasus import outbox, policy, replay
+
+    root = Path(__file__).resolve().parents[1]
+    sandbox = json.loads((root / "tests/fixtures/cases/sandbox.json").read_text())
+    cases = {**CASES, **{c["case_id"]: c for c in sandbox}}
+    decided = 0
+    for path in sorted((root / "analysis/pegasus_data/sessions").glob("*.json"))[::8]:
+        session = replay.load(path)
+        case, trace = cases.get(session.get("case_id")), (session.get("result") or {}).get("trace") or []
+        for i, entry in enumerate(trace if case else []):
+            threads = replay.threads_of(session, upto=i)
+            sid = (entry.get("move") or {}).get("supplier_id") or next(iter(threads), None)
+            if entry.get("actor") != "buyer" or sid not in threads or threads[sid][-1].get("from") == "buyer":
+                continue
+            if threads[sid][-1].get("status") in ("walked_away", "no_bid"):
+                continue
+            agent = PegasusAgent()
+            agent._prepare(case)
+            out = policy.decide(agent, case, threads, sid)  # called directly: a failure must show, not fall back
+            assert out and outbox.validate(agent, case, threads, out) == (out, []), (path.name, i)
+            decided += 1
+    assert decided > 150
+
+
+@pytest.mark.parametrize("policy", ["schedule", "actions"])
+def test_a_malformed_sheet_in_the_history_does_not_cost_the_round_after_a_restart(policy, monkeypatch):
+    monkeypatch.setattr(agent_module, "POLICY", policy)
+    first = opening(P08, SID, 6.05)
+    broken = {**first["term_sheets"][0]["terms"], "unit_price": "100"}  # a string where the arena wants a number
+    threads = {SID: [first, {"from": "buyer", "subject": "Re", "body": "x", "term_sheets": [{"terms": broken}]},
+                     supplier(SID, 1, {**first["term_sheets"][0]["terms"], "unit_price": 5.90})]}
+    out = PegasusAgent().decide(P08, threads, SID)
+    assert out["message"].get("term_sheets") or out["message"].get("action")

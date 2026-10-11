@@ -238,7 +238,10 @@ class PegasusAgent:
                 log.info("%s %s: supplier full cost estimate %.2f", case["case_id"], sid, sup["full_cost"])
             st["anchor"] = self._anchor(case, sid, st)
             if any(m.get("from") == "buyer" for m in events):
-                self._resume(case, sid, st, events)
+                try:
+                    self._resume(case, sid, st, events)
+                except Exception:  # a restart must never cost the round: at worst the schedule starts again
+                    log.exception("%s %s: resume failed, the schedule starts again", case["case_id"], sid)
         return st
 
     def _resume(self, case, sid, st, events):
