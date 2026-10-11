@@ -2,6 +2,7 @@
 remembers. The model gets `snapshot()`; tools and the coordinator read and write under `lock`.
 """
 
+import os
 import threading
 import time
 
@@ -9,7 +10,7 @@ from arena_kit.play import ENDED, MOVE_LIMIT_S, latest
 
 from ..pegasus import economics as eco
 from ..pegasus.agent import direct_cost, supplier_reference
-from . import economics, evidence, patterns
+from . import economics, evidence, recognition
 
 BODY_CHARS = 3000  # of a supplier e-mail shown in the snapshot; `read_thread` gives all of it
 
@@ -173,6 +174,45 @@ class CaseState:
             out.append(item)
         return out
 
+    def _steps(self, sid):
+        """The thread as `recognition` reads it: each side's cheapest sheet in our commercial cost -
+        the unit of our records, so without the relationship charge."""
+        steps, std = [], self.std.get(sid)
+        for m in self.threads[sid]:
+            c = economics._asked(self.case, m, std, None)
+            if m.get("from") == "buyer":
+                steps.append({"who": "B", "cost": c, "sheets": len(m.get("term_sheets") or [])})
+            else:
+                steps.append({"who": "S", "cost": c, "status": m.get("status"), "text": m.get("body") or ""})
+        return steps
+
+    def recognise(self, sid):
+        """(what the state shows about the suppliers this one resembles, the full comparison).
+        PEGASUS_DSH_HIDE_CASE_RECORDS=1 leaves out the records of the case being played: a known
+        case is then read as a new one, the way the final's cases are."""
+        steps = self._steps(sid)
+        mails = [s["text"] for s in steps if s["who"] == "S"]
+        context = {
+            "supplier": sid.split(":")[-1],
+            "who_signs": recognition.signature(mails[0] if mails else "")[0],
+            "case_type": self.case.get("type"),
+            "category_goal": self.case["buyer"].get("category_goal"),
+            "bidders": len(self.threads),
+            "negotiable": self.case["negotiable"],
+        }
+        said = {x for text in mails for x in recognition.sentences(text)}
+        hide = self.case["case_id"].split(":")[-1] if os.environ.get("PEGASUS_DSH_HIDE_CASE_RECORDS") else None
+        return recognition.view(context, steps, said, hide)
+
+    def foretell(self, sid, ask_eur):
+        """Its next standing sheet if our cheapest sheet costs `ask_eur` (commercial cost)."""
+        steps = self._steps(sid)
+        theirs = [s["cost"] for s in steps if s["who"] == "S" and s.get("cost") is not None]
+        if not theirs or ask_eur is None:
+            return None
+        _, found = self.recognise(sid)
+        return recognition.forecast(found, theirs[-1], ask_eur, theirs[0])
+
     def _thread_view(self, sid):
         events = self.threads[sid]
         last = latest(events)
@@ -221,9 +261,9 @@ class CaseState:
         signals = self.records.signals(sid)
         if signals:
             view["what_our_records_say_about_this_supplier"] = signals
-        said = patterns.signals(events, skip_case=self.case["case_id"])
-        if said:
-            view["signals_it_gave"] = said
+        like, _ = self.recognise(sid)
+        if like:
+            view["suppliers_like_this_one"] = like
         arithmetic = evidence.stated_drivers(events, self.case["buyer"].get("current_unit_price"))
         if arithmetic:
             view["its_own_cost_arithmetic"] = arithmetic
@@ -288,7 +328,6 @@ class CaseState:
                 "cheapest_sheet_you_could_accept_now": (
                     {"cost_eur": best[0], "supplier_id": best[1], "term_sheet_id": best[2]} if best else None
                 ),
-                "what_other_cases_of_this_kind_showed": evidence.similar_cases(case),
                 "threads": [self._thread_view(s) for s in self.threads],
                 "your_notes": self.hypotheses,
             }

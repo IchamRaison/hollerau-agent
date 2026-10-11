@@ -120,12 +120,17 @@ class Desk:
             return {"error": "UNKNOWN_SUPPLIER", "suppliers": list(d.state.threads)}
         out = [d.state.evaluate(supplier_id, dict(ts.get("terms", ts))) for ts in term_sheets or []]
         totals = [e["total_eur"] for e in out if e["total_eur"] is not None]
-        return {
+        commercial = [e["commercial_eur"] for e in out if e.get("commercial_eur") is not None]
+        result = {
             "supplier_id": supplier_id,
             "evaluations": out,
             "cheapest_for_us_eur": min(totals) if totals else None,
             "alternative_without_a_deal_eur": economics.alternative(d.state.case),
         }
+        foretold = d.state.foretell(supplier_id, min(commercial)) if commercial else None
+        if foretold:
+            result["its_next_reply_if_you_send_these"] = foretold
+        return result
 
     def search_structures(self, decision_id, supplier_id, target_cost_eur, restrict=None, limit=12):
         d, err = self._get(decision_id, "search_structures")
