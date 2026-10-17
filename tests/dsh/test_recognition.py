@@ -126,6 +126,47 @@ def test_costing_candidate_sheets_also_foretells_the_reply():
     assert mid <= low < state.snapshot()["threads"][0]["supplier_sheets"][0]["commercial_eur"]
 
 
+def test_each_candidate_has_its_own_reply_and_signed_cost_including_relationship():
+    state = d01(with_reply=True)
+    state.set_estimate("sup:DEMO-F1", 49.0, source="uncertain cost estimate")
+    desk = Desk()
+    decision = desk.open(state, 60)
+    base = {"payment_days": 60, "contract_months": 24, "effective_date": "2026-12-01"}
+    out = desk.evaluate_offers(decision.id, "sup:DEMO-F1", [{**base, "unit_price": p} for p in (45.0, 50.0)])
+    a, b = [e["supplier_response_if_sent_alone"] for e in out["evaluations"]]
+    assert a["expected_step_pct_of_its_quote"] > b["expected_step_pct_of_its_quote"]
+    projected = a["possible_signed_deals_on_its_current_structure"]
+    next_deal = projected["next_reply"]
+    assert next_deal["relationship_eur"] > 0
+    assert next_deal["total_eur"] > next_deal["commercial_eur"]
+    terms = {**projected["non_price_terms"], "unit_price": next_deal["unit_price"]}
+    assert state.cost("sup:DEMO-F1", terms) == next_deal["total_eur"]
+
+
+def test_live_supplier_ledger_uses_standing_offer_not_a_cheaper_non_signable_alternative():
+    state = d01(with_reply=True)
+    sid = "sup:DEMO-F1"
+    sheet = state.threads[sid][-1]["term_sheets"][0]
+    state.threads[sid][-1]["term_sheets"].append({"terms": {**sheet["terms"], "unit_price": 40.0}})
+    assert state._steps(sid)[-1]["cost"] == state.evaluate(sid, sheet["terms"])["commercial_eur"]
+
+
+def test_no_open_offer_concessions_are_extrapolated_after_final_or_for_invalid_candidates():
+    state = d01(with_reply=True)
+    sid = "sup:DEMO-F1"
+    desk = Desk()
+    decision = desk.open(state, 60)
+    base = state.standing(sid)[1]
+    out = desk.evaluate_offers(decision.id, sid, [{**base, "unit_price": -1}])
+    assert "supplier_response_if_sent_alone" not in out["evaluations"][0]
+    assert "its_next_reply_if_you_send_these" not in out
+    state.threads[sid][-1]["status"] = "final_offer"
+    out = desk.evaluate_offers(decision.id, sid, [{**base, "unit_price": 45.0}])
+    assert "if_it_moves_its_sheet_would_cost_us_eur" not in out["evaluations"][0]["supplier_response_if_sent_alone"]
+    state.threads[sid][-1].update(status="open", term_sheets=[])
+    assert "possible_signed_deals_on_its_current_structure" not in state.foretell(sid, 100000.0)
+
+
 def test_a_turn_we_let_time_out_is_not_an_email_and_is_named_as_such():
     steps = thread((80.0, 96.0, "final_offer"))
     steps += [
